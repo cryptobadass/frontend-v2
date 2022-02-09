@@ -23,6 +23,10 @@ export const TOKENS = {
     '42161': {
       WETH: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
       BAL: '0x040d1EdC9569d4Bab2D15287Dc5A4F10F56a56B8'
+    },
+    '43113': {
+      WETH: '0xbAD9016aa18Cf22d08aefd3B86c0D36E8C222B83',
+      BAL: '0xE00Bf4d40670FCC1DcB3A757ebccBe579f372fbc'
     }
   },
   Prices: {
@@ -58,6 +62,31 @@ export const TOKENS = {
         // AAVE USDT
         '0x13512979ade267ab5100878e2e0f485b568328a4':
           '0xdac17f958d2ee523a2206206994597c13d831ec7' // USDT
+      },
+      // Avalanche Fuji
+      '43113': {
+        '0xbad9016aa18cf22d08aefd3b86c0d36e8c222b83':
+          '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WAVAX -> WETH
+        '0x009aea38962dcbcc1d9b48919d7ec030959520a4':
+          '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599', // WBTC
+        '0xe00bf4d40670fcc1dcb3a757ebccbe579f372fbc':
+          '0xba100000625a3754423978a60c9317c58a424e3d', // BAL
+        '0xfad1257bd61131b6bb60bee08289167099014ac6':
+          '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48', // USDC
+        '0x0ea185018f0ca3f8c545424d27be300b22ee31d4':
+          '0x6b175474e89094c44da98b954eedeac495271d0f', // DAI
+        '0x08d707c1ddea1a46d568926d168ee7be7ea8c06b':
+          '0xdac17f958d2ee523a2206206994597c13d831ec7', // USDT
+        '0xed7f146612c8d2e8e101b8b5b8c58b8e70e99149':
+          '0x476c5e26a75bd202a9683ffd34359c0cc15be0ff', // aMock -> SRM
+        '0xd421434752e64468488b0e252f90cc08759e542d':
+          '0x7fc66500c84a76ad7e9c93437bfc5ac33e2ddae9', // bMock -> AAVE
+        '0x64fb55d037bf2fe3d7fc314f78e6124de8c0c7f3':
+          '0xc00e94cb662c3520282e6f5717214004a7f26888', // cMock -> COMP
+        '0x286ea60cb66ba7647c8143c5d467594b92a3734c':
+          '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984', // UNI.e -> UNI
+        '0xea6a8f1ae564070f7f3fa6180678ea6744a1e01a':
+          '0x514910771af9ca656af840dff83e8264ecf986ca' // ChainLink
       }
     },
     // TODO - remove once coingecko supports wstETH

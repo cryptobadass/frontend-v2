@@ -59,6 +59,7 @@ export default function useWeb3() {
   const isPolygon = computed(
     () => appNetworkConfig.chainId === Network.POLYGON
   );
+  const isFuji = computed(() => appNetworkConfig.chainId === Network.FUJI);
   const isArbitrum = computed(
     () => appNetworkConfig.chainId === Network.ARBITRUM
   );
@@ -136,6 +137,7 @@ export default function useWeb3() {
     isMainnet,
     isKovan,
     isPolygon,
+    isFuji,
     isArbitrum,
     isEIP1559SupportedNetwork,
 

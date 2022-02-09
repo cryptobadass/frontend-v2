@@ -14,6 +14,7 @@ const networkMap = {
   [Network.MAINNET]: 'mainnet',
   [Network.KOVAN]: 'kovan',
   [Network.POLYGON]: 'polygon',
+  [Network.FUJI]: 'fuji',
   [Network.ARBITRUM]: 'arbitrum-one'
 };
 const environment = `${ENV}-${networkMap[networkId.value]}`;

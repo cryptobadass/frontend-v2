@@ -219,7 +219,7 @@ export default defineComponent({
     const { fNum2 } = useNumbers();
     const { isWalletReady } = useWeb3();
     const { prices } = useTokens();
-    const { blockNumber, isKovan, isMainnet, isPolygon } = useWeb3();
+    const { blockNumber, isKovan, isMainnet, isPolygon, isFuji } = useWeb3();
     const { addAlert, removeAlert } = useAlerts();
     const { balancerTokenListTokens } = useTokens();
 
@@ -344,7 +344,7 @@ export default defineComponent({
     });
 
     const isCopperNetworkSupported = computed(
-      () => isMainnet.value || isPolygon.value || isKovan.value
+      () => isMainnet.value || isPolygon.value || isKovan.value || isFuji.value
     );
 
     // Temporary solution to hide Copper card on Fei pool page.
