@@ -60,5 +60,12 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
         'https://raw.githubusercontent.com/balancer-labs/assets/refactor-for-multichain/generated/arbitrum.vetted.tokenlist.json'
     },
     External: ['https://tracer.finance/tokens']
+  },
+  '43113': {
+    Balancer: {
+      Default: 'https://file.dikameng.cn/fuji-tokenlist.json',
+      Vetted: 'https://file.dikameng.cn/fuji-tokenlist.json'
+    },
+    External: ['https://file.dikameng.cn/fuji-tokenlist.json']
   }
 };
