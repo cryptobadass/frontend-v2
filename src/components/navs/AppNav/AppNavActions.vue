@@ -60,7 +60,11 @@ export default defineComponent({
     // COMPUTED
     const liquidityMiningSupported = computed(
       () =>
-        isMainnet.value || isPolygon.value || isArbitrum.value || isKovan.value || isFuji.value
+        isMainnet.value ||
+        isPolygon.value ||
+        isArbitrum.value ||
+        isKovan.value ||
+        isFuji.value
     );
 
     // METHODS
