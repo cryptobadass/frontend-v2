@@ -262,6 +262,9 @@ export default defineComponent({
           case Network.FUJI:
             color = 'purple';
             break;
+          case Network.AVALANCHE:
+            color = 'green';
+            break;
         }
       }
 

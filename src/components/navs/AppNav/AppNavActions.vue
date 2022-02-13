@@ -54,6 +54,7 @@ export default defineComponent({
       isKovan,
       isPolygon,
       isFuji,
+      isAvalanche,
       isArbitrum
     } = useWeb3();
 
@@ -64,7 +65,8 @@ export default defineComponent({
         isPolygon.value ||
         isArbitrum.value ||
         isKovan.value ||
-        isFuji.value
+        isFuji.value ||
+        isAvalanche.value
     );
 
     // METHODS

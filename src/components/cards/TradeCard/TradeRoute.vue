@@ -438,7 +438,8 @@ export default defineComponent({
         [Network.KOVAN]: 'kovan.',
         [Network.POLYGON]: 'polygon.',
         [Network.ARBITRUM]: 'arbitrum.',
-        [Network.FUJI]: 'fuji.'
+        [Network.FUJI]: 'fuji.',
+        [Network.AVALANCHE]: 'avalanche.'
       };
       const prefix = prefixMap[chainId] || '';
       if (props.sorReturn.isV1swap && chainId === 1) {

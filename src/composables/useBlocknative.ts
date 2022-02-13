@@ -12,7 +12,8 @@ const SUPPORTED_NETWORKS = [
   Network.ROPSTEN,
   Network.GÖRLI,
   Network.POLYGON,
-  Network.FUJI
+  Network.FUJI,
+  Network.AVALANCHE
 ];
 
 export default function useBlocknative() {
