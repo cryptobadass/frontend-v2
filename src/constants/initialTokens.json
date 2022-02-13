@@ -18,5 +18,9 @@
   "43113": {
     "input": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
     "output": "0xbAD9016aa18Cf22d08aefd3B86c0D36E8C222B83"
+  },
+  "43114": {
+    "input": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "output": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7"
   }
 }

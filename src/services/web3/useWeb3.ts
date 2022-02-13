@@ -60,6 +60,9 @@ export default function useWeb3() {
     () => appNetworkConfig.chainId === Network.POLYGON
   );
   const isFuji = computed(() => appNetworkConfig.chainId === Network.FUJI);
+  const isAvalanche = computed(
+    () => appNetworkConfig.chainId === Network.AVALANCHE
+  );
   const isArbitrum = computed(
     () => appNetworkConfig.chainId === Network.ARBITRUM
   );
@@ -138,6 +141,7 @@ export default function useWeb3() {
     isKovan,
     isPolygon,
     isFuji,
+    isAvalanche,
     isArbitrum,
     isEIP1559SupportedNetwork,
 

@@ -63,9 +63,24 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
   },
   '43113': {
     Balancer: {
-      Default: 'https://file.dikameng.cn/fuji-tokenlist.json',
-      Vetted: 'https://file.dikameng.cn/fuji-tokenlist.json'
+      Default:
+        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json',
+      Vetted:
+        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json'
     },
-    External: ['https://file.dikameng.cn/fuji-tokenlist.json']
+    External: [
+      'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json'
+    ]
+  },
+  '43114': {
+    Balancer: {
+      Default:
+        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json',
+      Vetted:
+        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
+    },
+    External: [
+      'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
+    ]
   }
 };

@@ -3,6 +3,7 @@ import kovan from './kovan.json';
 import rinkeby from './rinkeby.json';
 import polygon from './polygon.json';
 import fuji from './fuji.json';
+import avalanche from './avalanche.json';
 import arbitrum from './arbitrum.json';
 import docker from './docker.json';
 import test from './test.json';
@@ -74,6 +75,7 @@ const config: Record<Config['chainId'], Config> = {
   [Network.RINKEBY]: rinkeby,
   [Network.POLYGON]: polygon,
   [Network.FUJI]: fuji,
+  [Network.AVALANCHE]: avalanche,
   [Network.ARBITRUM]: arbitrum,
   12345: test,
   // @ts-ignore

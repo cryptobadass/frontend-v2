@@ -31,6 +31,8 @@ export default class AaveSubgraphService {
         return 1;
       case Network.FUJI:
         return 1;
+      case Network.AVALANCHE:
+        return 13;
       default:
         return 13;
     }
