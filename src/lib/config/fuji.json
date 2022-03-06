@@ -1,76 +1,75 @@
 {
-    "key": "43113",
-    "chainId": 43113,
-    "chainName": "Avalanche FUJI C-Chain",
-    "name": "Avalanche Fuji",
-    "shortName": "Fuji",
-    "network": "fuji",
-    "portisNetwork": "",
-    "unknown": false,
-    "rpc": "https://api.avax-test.network/ext/bc/C/rpc",
-    "ws": "wss://api.avax-test.network/ext/bc/C/ws",
-    "loggingRpc": "",
-    "explorer": "https://testnet.snowtrace.io",
-    "explorerName": "Snowtrace",
-    "subgraph": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-fuji-v2",
-    "poolsUrlV1": "",
-    "poolsUrlV2": "",
-    "subgraphs": {
-      "aave": ""
+  "key": "43113",
+  "chainId": 43113,
+  "chainName": "Avalanche FUJI C-Chain",
+  "name": "Avalanche Fuji",
+  "shortName": "Fuji",
+  "network": "fuji",
+  "portisNetwork": "",
+  "unknown": false,
+  "rpc": "https://api.avax-test.network/ext/bc/C/rpc",
+  "ws": "wss://api.avax-test.network/ext/bc/C/ws",
+  "loggingRpc": "",
+  "explorer": "https://testnet.snowtrace.io",
+  "explorerName": "Snowtrace",
+  "subgraph": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-fuji-v2",
+  "poolsUrlV1": "",
+  "poolsUrlV2": "",
+  "subgraphs": {
+    "aave": ""
+  },
+  "etherscan": {
+    "apiKey": "",
+    "apiUrl": "https://api-testnet.snowtrace.io/api"
+  },
+  "supportsEIP1559": true,
+  "nativeAsset": {
+    "name": "Avalanche",
+    "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "symbol": "AVAX",
+    "decimals": 18,
+    "deeplinkId": "avax",
+    "logoURI": "https://cdn.discordapp.com/emojis/902638084779278356.png",
+    "minTransactionBuffer": "0.5"
+  },
+  "addresses": {
+    "bFactory": "",
+    "bActions": "",
+    "dsProxyRegistry": "",
+    "exchangeProxy": "",
+    "merkleRedeem": "",
+    "merkleOrchard": "0x00256EBa77ac239CAcD1E98890FF06bb2af4585E",
+    "multicall": "0xC471AFa18cD037a9bb032bE72651Fe3Eaa466eBA",
+    "authorizer": "0x9eb8055703115C0416Df33C382797907c50187cE",
+    "vault": "0xF20D313685665bf745B720FE81b927fAFcfB18A2",
+    "weightedPoolFactory": "0x7700D6F43892ed726c47E899f4cbbB8239D4347E",
+    "stablePoolFactory": "0x24f9aa126aC08D0B6e682F9E2139F6112D6191F5",
+    "tokenFactory": "0x01382FB56950655e42C17B73766c80e46b94fD53",
+    "weth": "0xbAD9016aa18Cf22d08aefd3B86c0D36E8C222B83",
+    "stETH": "",
+    "wstETH": "",
+    "lidoRelayer": "",
+    "MockFlashLoanReceiver": "",
+    "balancerHelpers": "0xB1ff50B7EFdF16A09626887189f4A2A93ED32570",
+    "batchRelayer": ""
+  },
+  "keys": {
+    "infura": "",
+    "alchemy": ""
+  },
+  "strategies": {
+    "0": {
+      "type": "0",
+      "name": "stablePool"
     },
-    "etherscan": {
-      "apiKey": "",
-      "apiUrl": "https://api-testnet.snowtrace.io/api"
+    "1": {
+      "type": "1",
+      "name": "weightedPool"
     },
-    "supportsEIP1559": true,
-    "nativeAsset": {
-      "name": "Avalanche",
-      "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-      "symbol": "AVAX",
-      "decimals": 18,
-      "deeplinkId": "avax",
-      "logoURI": "https://cdn.discordapp.com/emojis/902638084779278356.png",
-      "minTransactionBuffer": "0.5"
-    },
-    "addresses": {
-      "bFactory": "",
-      "bActions": "",
-      "dsProxyRegistry": "",
-      "exchangeProxy": "",
-      "merkleRedeem": "",
-      "merkleOrchard": "",
-      "multicall": "0xC471AFa18cD037a9bb032bE72651Fe3Eaa466eBA",
-      "authorizer": "0x9eb8055703115C0416Df33C382797907c50187cE",
-      "vault": "0xF20D313685665bf745B720FE81b927fAFcfB18A2",
-      "weightedPoolFactory": "0x7700D6F43892ed726c47E899f4cbbB8239D4347E",
-      "stablePoolFactory": "0x24f9aa126aC08D0B6e682F9E2139F6112D6191F5",
-      "tokenFactory": "0x01382FB56950655e42C17B73766c80e46b94fD53",
-      "weth": "0xbAD9016aa18Cf22d08aefd3B86c0D36E8C222B83",
-      "stETH": "",
-      "wstETH": "",
-      "lidoRelayer": "",
-      "MockFlashLoanReceiver": "",
-      "balancerHelpers": "0xB1ff50B7EFdF16A09626887189f4A2A93ED32570",
-      "batchRelayer": ""
-    },
-    "keys": {
-      "infura": "",
-      "alchemy": ""
-    },
-    "strategies": {
-      "0": {
-        "type": "0",
-        "name": "stablePool"
-      },
-      "1": {
-        "type": "1",
-        "name": "weightedPool"
-      },
-      "2": {
-        "type": "2",
-        "name": "weightedPool"
-      }
-    },
-    "supportsElementPools": true
-  }
-  
+    "2": {
+      "type": "2",
+      "name": "weightedPool"
+    }
+  },
+  "supportsElementPools": true
+}

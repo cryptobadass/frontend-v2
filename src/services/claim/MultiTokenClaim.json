@@ -37,20 +37,20 @@
         }
     ],
     "42": [
-      {
-          "label": "BAL",
-          "distributor": "0x95FaE1C936B4Cd6c5099d7A705D792ee6aC9FEc3",
-          "token": "0x41286Bb1D3E870f3F750eB7E1C25d7E48c8A1Ac7",
-          "manifest": "https://raw.githubusercontent.com/balancer-labs/bal-mining-scripts/sample-tree/reports-kovan/_current.json",
-          "weekStart": 52
-      },
-      {
-        "label": "DAI",
-        "distributor": "0x95FaE1C936B4Cd6c5099d7A705D792ee6aC9FEc3",
-        "token": "0x04DF6e4121c27713ED22341E7c7Df330F56f289B",
-        "manifest": "https://raw.githubusercontent.com/balancer-labs/bal-mining-scripts/sample-tree/reports-kovan/_current-dai.json",
-        "weekStart": 1
-    }
+        {
+            "label": "BAL",
+            "distributor": "0x95FaE1C936B4Cd6c5099d7A705D792ee6aC9FEc3",
+            "token": "0x41286Bb1D3E870f3F750eB7E1C25d7E48c8A1Ac7",
+            "manifest": "https://raw.githubusercontent.com/balancer-labs/bal-mining-scripts/sample-tree/reports-kovan/_current.json",
+            "weekStart": 52
+        },
+        {
+            "label": "DAI",
+            "distributor": "0x95FaE1C936B4Cd6c5099d7A705D792ee6aC9FEc3",
+            "token": "0x04DF6e4121c27713ED22341E7c7Df330F56f289B",
+            "manifest": "https://raw.githubusercontent.com/balancer-labs/bal-mining-scripts/sample-tree/reports-kovan/_current-dai.json",
+            "weekStart": 1
+        }
     ],
     "137": [
         {
@@ -102,7 +102,7 @@
             "manifest": "https://raw.githubusercontent.com/balancer-labs/bal-mining-scripts/master/reports/_current-qi-polygon.json",
             "weekStart": 1
         }
-      ],
+    ],
     "42161": [
         {
             "label": "BAL",
@@ -132,5 +132,28 @@
             "manifest": "https://raw.githubusercontent.com/balancer-labs/bal-mining-scripts/master/reports/_current-pickle-arbitrum.json",
             "weekStart": 18
         }
+    ],
+    "43113": [
+        {
+            "label": "UNI",
+            "distributor": "0xfF85a5Ff1e5f2D6Cc736B2F1c2fAcd54386E284A",
+            "token": "0x286ea60cb66ba7647c8143c5d467594b92a3734c",
+            "manifest": "http://localhost:8080/reports/_current-fuji-uni.json",
+            "weekStart": 91
+        },
+        {
+            "label": "USD",
+            "distributor": "0xfF85a5Ff1e5f2D6Cc736B2F1c2fAcd54386E284A",
+            "token": "0xfad1257bd61131b6bb60bee08289167099014ac6",
+            "manifest": "http://localhost:8080/reports/_current-fuji-usd.json",
+            "weekStart": 91
+        },
+        {
+            "label": "BMOCK",
+            "distributor": "0xfF85a5Ff1e5f2D6Cc736B2F1c2fAcd54386E284A",
+            "token": "0xd421434752e64468488b0e252f90cc08759e542d",
+            "manifest": "http://localhost:8080/reports/_current-fuji-bmock.json",
+            "weekStart": 91
+        }
     ]
-  }
+}
