@@ -38,7 +38,7 @@
     "dsProxyRegistry": "",
     "exchangeProxy": "",
     "merkleRedeem": "",
-    "merkleOrchard": "0x00256EBa77ac239CAcD1E98890FF06bb2af4585E",
+    "merkleOrchard": "0x25B8caE016f9e5d7806e707a7DA7Cf208608d0DC",
     "multicall": "0xC471AFa18cD037a9bb032bE72651Fe3Eaa466eBA",
     "authorizer": "0x9eb8055703115C0416Df33C382797907c50187cE",
     "vault": "0xF20D313685665bf745B720FE81b927fAFcfB18A2",

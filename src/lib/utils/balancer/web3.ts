@@ -33,10 +33,10 @@ export async function sendTransaction(
   overrides: Record<string, any> = {},
   forceEthereumLegacyTxType = false
 ): Promise<TransactionResponse> {
-  console.log('Sending transaction');
-  console.log('Contract', contractAddress);
-  console.log('Action', `"${action}"`);
-  console.log('Params', params);
+  console.log('[sendTransaction] Sending transaction');
+  console.log('[sendTransaction] Contract', contractAddress);
+  console.log('[sendTransaction] Action', `"${action}"`);
+  console.log('[sendTransaction] Params', params);
   const signer = web3.getSigner();
   const contract = new Contract(contractAddress, abi, web3);
   const contractWithSigner = contract.connect(signer);

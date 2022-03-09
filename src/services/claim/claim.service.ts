@@ -104,10 +104,12 @@ export class ClaimService {
     timestamp: string | null;
   }> {
     try {
+      const userRewardApi =
+        process.env.VUE_APP_USER_REWARD_API || 'https://api.balancer.finance';
       const response = await axios.get<
         MultiTokenCurrentRewardsEstimateResponse
       >(
-        `https://api.balancer.finance/liquidity-mining/v1/liquidity-provider-multitoken/${account}`
+        `${userRewardApi}/liquidity-mining/v1/liquidity-provider-multitoken/${account}`
       );
       if (response.data.success) {
         const multiTokenLiquidityProviders = response.data.result[
