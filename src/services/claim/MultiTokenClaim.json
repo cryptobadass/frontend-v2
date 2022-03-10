@@ -138,21 +138,14 @@
             "label": "UNI",
             "distributor": "0xfF85a5Ff1e5f2D6Cc736B2F1c2fAcd54386E284A",
             "token": "0x286ea60cb66ba7647c8143c5d467594b92a3734c",
-            "manifest": "http://localhost:8080/reports/_current-fuji-uni.json",
-            "weekStart": 1
-        },
-        {
-            "label": "USD",
-            "distributor": "0xfF85a5Ff1e5f2D6Cc736B2F1c2fAcd54386E284A",
-            "token": "0xfad1257bd61131b6bb60bee08289167099014ac6",
-            "manifest": "http://localhost:8080/reports/_current-fuji-usdc.json",
+            "manifest": "https://raw.githubusercontent.com/cryptobadass/bal-mining-scripts/master/reports/_current-fuji-uni.json",
             "weekStart": 1
         },
         {
             "label": "BMOCK",
             "distributor": "0xfF85a5Ff1e5f2D6Cc736B2F1c2fAcd54386E284A",
             "token": "0xd421434752e64468488b0e252f90cc08759e542d",
-            "manifest": "http://localhost:8080/reports/_current-fuji-bmock.json",
+            "manifest": "https://raw.githubusercontent.com/cryptobadass/bal-mining-scripts/master/reports/_current-fuji-bmock.json",
             "weekStart": 1
         }
     ]
