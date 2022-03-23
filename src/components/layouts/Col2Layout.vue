@@ -64,7 +64,6 @@ const rightClasses = computed(() => ({
   max-width: 1720px;
 }
 
-
 .right-col {
   @apply grid grid-cols-5  w-full mx-auto lg:mx-0 col-span-9 bg-dark;
 }
@@ -79,8 +78,7 @@ const rightClasses = computed(() => ({
   @apply col-span-3;
 }
 
-
-.box-line{
-  @apply rounded border border-gunmetal
+.box-line {
+  @apply rounded border border-gunmetal;
 }
 </style>

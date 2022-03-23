@@ -79,7 +79,7 @@ onMounted(() => {
         :sections="[
           { title: 'My wallet', id: 'my-wallet' },
           { title: 'Trending pairs', id: 'trending-pairs' },
-          { title: 'Price chart', id: 'price-chart' },
+          { title: 'Price chart', id: 'price-chart' }
         ]"
       >
         <template v-slot:my-wallet>
