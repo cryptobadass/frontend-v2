@@ -14,7 +14,7 @@ import TrendingPairs from '@/components/cards/TrendingPairs/TrendingPairs.vue';
 import PairPriceGraph from '@/components/cards/PairPriceGraph/PairPriceGraph.vue';
 import TradeCard from '@/components/cards/TradeCard/TradeCard.vue';
 import TradeCardGP from '@/components/cards/TradeCardGP/TradeCardGP.vue';
-import Col3Layout from '@/components/layouts/Col3Layout.vue';
+import Col2Layout from '@/components/layouts/Col2Layout.vue';
 
 /**
  * STATE
@@ -56,7 +56,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Col3Layout offsetGutters mobileHideGutters class="mt-8">
+  <Col2Layout offsetGutters mobileHideGutters class="mt-8">
     <template #gutterLeft>
       <MyWallet />
       <TrendingPairs class="mt-4" />
@@ -79,7 +79,7 @@ onMounted(() => {
         :sections="[
           { title: 'My wallet', id: 'my-wallet' },
           { title: 'Trending pairs', id: 'trending-pairs' },
-          { title: 'Price chart', id: 'price-chart' }
+          { title: 'Price chart', id: 'price-chart' },
         ]"
       >
         <template v-slot:my-wallet>
@@ -97,7 +97,7 @@ onMounted(() => {
     <template #gutterRight>
       <PairPriceGraph :toggleModal="togglePairPriceGraphModal" />
     </template>
-  </Col3Layout>
+  </Col2Layout>
 
   <teleport to="#modal">
     <BalModal :show="showPriceGraphModal" @close="onPriceGraphModalClose">

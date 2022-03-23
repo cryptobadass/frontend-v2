@@ -66,7 +66,11 @@ module.exports = {
           DEFAULT: '#00ffff'
         },
         dark: {
-          DEFAULT: '#222531'
+          DEFAULT: '#222531',
+          2: '#33384d'
+        },
+        gunmetal: {
+          DEFAULT: '#424658'
         },
         gray: {
           50: '#F8FAFC',

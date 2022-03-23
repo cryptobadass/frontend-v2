@@ -38,16 +38,18 @@ const tokensWithBalance = computed(() => {
   <BalCard
     :square="upToLargeBreakpoint"
     noPad
-    :noBorder="upToLargeBreakpoint"
+    :noBorder="true"
     growContent
     :hFull="upToLargeBreakpoint"
     shadow="none"
   >
-    <div class="flex flex-col w-full h-full bg-transparent">
+    <div class="flex flex-col w-full h-full">
       <div
-        class="flex lg:justify-between p-3 pb-0 lg:pb-3 lg:border-b dark:border-gray-700"
+        class="flex lg:justify-between pt-3 pb-0 lg:pb-3 lg:border-b dark:border-gray-700"
       >
-        <h6 v-if="!upToLargeBreakpoint">{{ $t('myWallet2') }}</h6>
+        <h6 v-if="!upToLargeBreakpoint">
+          <WalletIconCyan class="inline-block mr-2" />{{ $t('myWallet2') }}
+        </h6>
         <div
           class="font-semibold lg:font-normal ml-1 lg:ml-0"
           v-if="!isLoadingBalances"

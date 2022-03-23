@@ -59,7 +59,7 @@ export default defineComponent({
       return {
         'rounded-lg': !props.square,
         'overflow-hidden': !props.exposeOverflow,
-        [`bg-white dark:bg-gray-${props.darkBgColor}`]: true,
+        [`bg-white dark:bg-dark`]: true,
         [`shadow${props.shadow ? '-' : ''}${props.shadow}`]: true,
         [borderClasses.value]: !props.noBorder,
         'h-full': props.hFull
@@ -68,7 +68,7 @@ export default defineComponent({
 
     const headerClasses = computed(() => {
       return {
-        'p-4 pb-0': !props.noPad
+        'p-6 pb-0': !props.noPad
       };
     });
 
