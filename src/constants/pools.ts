@@ -152,7 +152,9 @@ export const POOLS: Pools = {
     '0xdae7e32adc5d490a43ccba1f0c736033f2b4efca': 'boostedPool', // arbitrum stablephantom
     '0xc128a9954e6c874ea3d62ce62b468ba073093f25': 'boostedPool', // polygon stablephantom
     '0x6c7f4d97269ece163fd08d5c2584a21e4a33934c': 'boostedPool', // kovan stablephantom
-    '0x7700d6f43892ed726c47e899f4cbbb8239d4347e': 'weightedPool' // Fuji Weighted
+    '0x7700d6f43892ed726c47e899f4cbbb8239d4347e': 'weightedPool', // Fuji Weighted
+    '0x0f42b787f7d392e9f6b038b6f49dd7ce8900be38': 'liquidityBootstrappingPool', // FUji LBP
+    '0x40e8fa5a3aecf6dd96288a3b1708dd66ed50ef28': 'liquidityBootstrappingPool' // Fuji LBP (zero protocol fee)
     // todo add Avalanche Weighted here
   }
 };
