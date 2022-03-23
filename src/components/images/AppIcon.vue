@@ -26,8 +26,8 @@ export default defineComponent({
     const { darkMode } = useDarkMode();
 
     return {
-      darkMode,
+      darkMode
     };
-  },
+  }
 });
 </script>

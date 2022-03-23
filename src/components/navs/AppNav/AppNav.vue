@@ -1,6 +1,10 @@
 <template>
   <AppNavAlert v-if="currentAlert" :alert="currentAlert" />
-  <nav id="app-nav" ref="appNav" class="h-20 px-4 lg:px-0 lg:container lg:mx-auto sticky top-0">
+  <nav
+    id="app-nav"
+    ref="appNav"
+    class="h-20 px-4 lg:px-0 lg:container lg:mx-auto sticky top-0"
+  >
     <div class="h-full flex items-center justify-between">
       <div class="w-2/3 lg:w-1/3 flex items-center">
         <router-link
@@ -48,7 +52,7 @@ export default defineComponent({
     AppIcon,
     AppNavAlert,
     AppNavToggle,
-    AppNavBack,
+    AppNavBack
     // AppNavNetworkSelect,
     // DarkModeToggle
   },

@@ -100,7 +100,7 @@ export default defineComponent({
   border-top: 1px solid #424658;
   background-color: #222531;
 }
-.btns{
+.btns {
   padding-left: 20px;
 }
 </style>

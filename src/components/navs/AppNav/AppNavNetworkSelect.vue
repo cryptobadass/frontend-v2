@@ -1,11 +1,10 @@
-<template >
-  <BalPopover align="left" no-pad >
+<template>
+  <BalPopover align="left" no-pad>
     <template v-slot:activator>
       <BalBtn
         color="white"
         class="net-work-select"
         :size="upToLargeBreakpoint ? 'md' : 'sm'"
-        
       >
         <img
           :src="iconSrc(activeNetwork)"
@@ -128,7 +127,7 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.net-work-select{
+.net-work-select {
   width: 250px;
   height: 56px;
   /* margin: 47px 30px 47px 20px;
@@ -137,8 +136,8 @@ export default defineComponent({
   border: solid 1px #424658;
   background-color: #1b1d24;
 }
-.net-work-name{
-  width: 200px ;
+.net-work-name {
+  width: 200px;
   display: inline-block;
   margin: 0 15px;
 }

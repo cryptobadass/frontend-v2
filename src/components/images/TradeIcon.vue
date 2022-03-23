@@ -26,8 +26,8 @@ export default defineComponent({
     active: {
       type: Boolean,
       required: true,
-      default: false,
-    },
+      default: false
+    }
   },
   setup() {
     // const { darkMode } = useDarkMode();
@@ -35,6 +35,6 @@ export default defineComponent({
     return {
       // darkMode
     };
-  },
+  }
 });
 </script>
