@@ -62,6 +62,12 @@ module.exports = {
         '112': '28rem'
       },
       colors: {
+        cyan: {
+          DEFAULT: '#00ffff'
+        },
+        dark: {
+          DEFAULT: '#222531'
+        },
         gray: {
           50: '#F8FAFC',
           100: '#EAF0F6',
@@ -109,7 +115,8 @@ module.exports = {
           600: '#2e40f5',
           700: '#2436eb',
           800: '#1a2ce1',
-          900: '#1022d7'
+          900: '#1022d7',
+          lightish: '#3961fb'
         },
         pink: {
           50: '#ff4dff',

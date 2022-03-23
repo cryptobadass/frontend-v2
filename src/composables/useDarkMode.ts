@@ -3,8 +3,8 @@ import { lsGet, lsSet } from '@/lib/utils';
 import LS_KEYS from '@/constants/local-storage.keys';
 
 const osDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-const lsDarkMode =
-  lsGet(LS_KEYS.App.DarkMode, osDarkMode.toString()) === 'true';
+const lsDarkMode = true;
+  // lsGet(LS_KEYS.App.DarkMode, osDarkMode.toString()) === 'true';
 
 // STATE
 const darkMode = ref<boolean>(lsDarkMode);

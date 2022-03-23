@@ -1,6 +1,6 @@
 <template>
-  <div :class="['app-hero', classes]">
-    <div class="w-full max-w-2xl mx-auto">
+  <div :class="['app-hero', 'h-40']">
+    <div class="w-full max-w-3xl mx-auto flex items-center justify-center">
       <template v-if="isWalletReady">
         <h1
           v-text="$t('myInvestments')"
@@ -21,30 +21,10 @@
         </span>
       </template>
       <template v-else>
-        <h1
-          v-text="$t('ammPlatform')"
-          class="text-white text-center text-4xl md:text-5xl pb-2"
-        />
-        <div class="flex justify-center mt-4">
-          <BalBtn
-            :color="darkMode ? 'gray' : 'white'"
-            class="mr-3"
-            @click="onClickConnect"
-          >
-            {{ $t('connectWallet') }}
-          </BalBtn>
-          <BalBtn
-            tag="a"
-            :href="EXTERNAL_LINKS.Balancer.Home"
-            target="_blank"
-            rel="noreferrer"
-            color="white"
-            outline
-            @click="trackGoal(Goals.ClickHeroLearnMore)"
-          >
-            {{ $t('learnMore') }}
-            <BalIcon name="arrow-up-right" size="sm" class="ml-1" />
-          </BalBtn>
+        <div v-text="$t('selectBlockchain')" class="text-white text-center" />
+        <div class="flex justify-center items-center btns">
+          <AppNavNetworkSelect class="mr-8" />
+          <AppNavActions />
         </div>
       </template>
     </div>
@@ -61,9 +41,15 @@ import { EXTERNAL_LINKS } from '@/constants/links';
 import useFathom from '@/composables/useFathom';
 import useWeb3 from '@/services/web3/useWeb3';
 import useDarkMode from '@/composables/useDarkMode';
+import AppNavNetworkSelect from '@/components/navs/AppNav/AppNavNetworkSelect.vue';
+import AppNavActions from '@/components/navs/AppNav/AppNavActions.vue';
 
 export default defineComponent({
   name: 'AppHero',
+  components: {
+    AppNavNetworkSelect,
+    AppNavActions
+  },
 
   setup() {
     // COMPOSABLES
@@ -108,8 +94,13 @@ export default defineComponent({
 
 <style>
 .app-hero {
-  @apply bg-cover bg-center flex items-center justify-center text-center px-4;
+  @apply bg-cover bg-center flex justify-center  text-center px-4;
   transition: all 0.3s ease-in-out;
-  background-image: url('/images/backgrounds/bg-header.svg');
+  /* background-image: url('/images/backgrounds/bg-header.svg'); */
+  border-top: 1px solid #424658;
+  background-color: #222531;
+}
+.btns{
+  padding-left: 20px;
 }
 </style>

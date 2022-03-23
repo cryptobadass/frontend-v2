@@ -1,23 +1,24 @@
-<template>
-  <BalPopover align="left" no-pad>
+<template >
+  <BalPopover align="left" no-pad >
     <template v-slot:activator>
       <BalBtn
         color="white"
+        class="net-work-select"
         :size="upToLargeBreakpoint ? 'md' : 'sm'"
-        class="ml-4"
+        
       >
         <img
           :src="iconSrc(activeNetwork)"
           :alt="activeNetwork.name"
-          class="w-5 h-5 rounded-full shadow-sm"
+          class="w-7 h-7 rounded-full shadow-sm"
         />
-        <span class="ml-2">
+        <div class="net-work-name text-left">
           {{ activeNetwork.name }}
-        </span>
+        </div>
         <BalIcon name="chevron-down" size="sm" class="ml-2" />
       </BalBtn>
     </template>
-    <div class="flex flex-col w-44 rounded-lg overflow-hidden">
+    <div class="flex flex-col w-60 rounded-lg overflow-hidden">
       <div
         class="p-3 border-b dark:border-gray-900 whitespace-nowrap text-gray-500 font-medium"
       >
@@ -33,7 +34,7 @@
           <img
             :src="iconSrc(network)"
             :alt="network.name"
-            class="w-5 h-5 rounded-full mr-2"
+            class="w-7 h-7 rounded-full mr-2"
           />
           <span class="ml-1 font-medium">
             {{ network.name }}
@@ -126,3 +127,19 @@ export default defineComponent({
   }
 });
 </script>
+<style scoped>
+.net-work-select{
+  width: 250px;
+  height: 56px;
+  /* margin: 47px 30px 47px 20px;
+  padding: 13px 15px 13px 20px; */
+  border-radius: 5px;
+  border: solid 1px #424658;
+  background-color: #1b1d24;
+}
+.net-work-name{
+  width: 200px ;
+  display: inline-block;
+  margin: 0 15px;
+}
+</style>

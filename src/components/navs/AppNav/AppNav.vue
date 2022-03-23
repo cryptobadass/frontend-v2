@@ -1,6 +1,6 @@
 <template>
   <AppNavAlert v-if="currentAlert" :alert="currentAlert" />
-  <nav id="app-nav" ref="appNav" class="h-20 px-4 lg:px-6 sticky top-0">
+  <nav id="app-nav" ref="appNav" class="h-20 px-4 lg:px-0 lg:container lg:mx-auto sticky top-0">
     <div class="h-full flex items-center justify-between">
       <div class="w-2/3 lg:w-1/3 flex items-center">
         <router-link
@@ -10,8 +10,8 @@
           <AppIcon v-if="['xs', 'sm', 'md'].includes(bp)" />
           <AppLogo v-else />
         </router-link>
-        <AppNavNetworkSelect v-if="!hideNetworkSelect" />
-        <DarkModeToggle v-if="!upToLargeBreakpoint" class="ml-2" />
+        <!-- <AppNavNetworkSelect v-if="!hideNetworkSelect" /> -->
+        <!-- <DarkModeToggle v-if="!upToLargeBreakpoint" class="ml-2" /> -->
       </div>
 
       <div
@@ -22,7 +22,7 @@
       </div>
 
       <div class="w-1/3 flex justify-end">
-        <AppNavActions />
+        <AppNavBack />
       </div>
     </div>
   </nav>
@@ -35,11 +35,11 @@ import AppLogo from '@/components/images/AppLogo.vue';
 import AppIcon from '@/components/images/AppIcon.vue';
 import AppNavAlert from './AppNavAlert.vue';
 import AppNavToggle from './AppNavToggle.vue';
-import AppNavActions from './AppNavActions.vue';
-import AppNavNetworkSelect from './AppNavNetworkSelect.vue';
+import AppNavBack from './AppNavBack.vue';
+// import AppNavNetworkSelect from './AppNavNetworkSelect.vue';
 import useFathom from '@/composables/useFathom';
 import useWeb3 from '@/services/web3/useWeb3';
-import DarkModeToggle from '@/components/btns/DarkModeToggle.vue';
+// import DarkModeToggle from '@/components/btns/DarkModeToggle.vue';
 import useAlerts from '@/composables/useAlerts';
 
 export default defineComponent({
@@ -48,9 +48,9 @@ export default defineComponent({
     AppIcon,
     AppNavAlert,
     AppNavToggle,
-    AppNavActions,
-    AppNavNetworkSelect,
-    DarkModeToggle
+    AppNavBack,
+    // AppNavNetworkSelect,
+    // DarkModeToggle
   },
 
   setup() {

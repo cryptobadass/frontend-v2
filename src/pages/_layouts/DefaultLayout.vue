@@ -21,7 +21,8 @@ const isHomePage = computed(() => route.path === '/');
 <template>
   <div>
     <AppNav />
-    <AppHero v-if="isHomePage" />
+    <!-- <AppHero v-if="isHomePage" /> -->
+    <AppHero />
     <div class="pb-16">
       <router-view :key="$route.path" />
     </div>

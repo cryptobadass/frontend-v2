@@ -771,5 +771,7 @@
     "yourBalanceInPool": "Your balance in this pool",
     "trendingPairs": "Trending pairs",
     "chooseAPair": "Please select a valid pair",
-    "youCanInvest": "You can invest"
+    "youCanInvest": "You can invest",
+    "backToYoteiSite":"Back to Yotei site",
+    "selectBlockchain":"Please select a blockchain:"
 }
