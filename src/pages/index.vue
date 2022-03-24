@@ -214,7 +214,7 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-.fix-h{
+.fix-h {
   height: 40px;
 }
 </style>
