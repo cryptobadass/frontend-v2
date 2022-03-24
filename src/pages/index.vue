@@ -104,7 +104,7 @@ import { bnum } from '@/lib/utils';
 export default defineComponent({
   components: {
     TokenSearchInput,
-    PoolsTable,
+    PoolsTable
     // FeaturedPools
   },
 

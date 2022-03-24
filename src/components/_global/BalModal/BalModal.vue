@@ -21,7 +21,7 @@
         @on-exit="$emit('close')"
         class="flex justify-center w-full"
       >
-        <div class="content" @click.stop>
+        <div :style="contentStyle" class="content" @click.stop>
           <BalCard
             :title="title"
             shadow="lg"
@@ -48,7 +48,7 @@
 <script lang="ts">
 import BalCard from '../BalCard/BalCard.vue';
 import AnimatePresence from '../../animate/AnimatePresence.vue';
-import { defineComponent, ref, toRefs, watch } from 'vue';
+import { defineComponent, ref, toRefs, watch, computed } from 'vue';
 
 export default defineComponent({
   name: 'BalModal',
@@ -63,12 +63,21 @@ export default defineComponent({
     title: { type: String, default: '' },
     noPad: { type: Boolean, default: false },
     noContentPad: { type: Boolean, default: false },
-    fireworks: { type: Boolean, default: false }
+    fireworks: { type: Boolean, default: false },
+    maxWidth: { type: Number, default: 600 },
+    maxHeight: { type: Number, default: 390 }
   },
 
   setup(props) {
     const { show } = toRefs(props);
     const showContent = ref(show.value);
+
+    const contentStyle = computed(() => {
+      return {
+        maxWidth: props.maxWidth + 'px',
+        maxHeight: props.maxHeight + 'px'
+      };
+    });
 
     // Watchers
     watch(show, newVal => {
@@ -82,7 +91,8 @@ export default defineComponent({
 
     return {
       showContent,
-      hide
+      hide,
+      contentStyle
     };
   }
 });
@@ -99,8 +109,6 @@ export default defineComponent({
 
 .content {
   @apply relative w-full h-3/4 sm:h-auto max-h-screen overflow-hidden;
-  max-width: 600px;
-  max-height: 390px;
 }
 
 .modal-bg {

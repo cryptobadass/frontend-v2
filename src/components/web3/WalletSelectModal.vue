@@ -1,5 +1,5 @@
 <template>
-  <BalModal :show="isVisible" @close="$emit('close')" title="" noPad>
+  <BalModal :show="isVisible" @close="$emit('close')" title="" noPad no-content-pad>
     <template v-slot:header>
       <div class="flex items-start justify-between h-24 w-full">
         <h6 class="pl-7 mt-10 flex items-center">

@@ -1,6 +1,28 @@
 <template>
-  <BalModal show @close="$emit('close')" no-content-pad>
+  <BalModal
+    show
+    @close="$emit('close')"
+    noPad
+    no-content-pad
+    :maxWidth="830"
+    :maxHeight="510"
+  >
     <template v-slot:header>
+      <div class="flex items-start justify-between h-24 w-full">
+        <h6 class="pl-7 mt-10 flex items-center">
+          <SearchIconCyan class="inline-block mr-4" />{{ $t('searchTokenUp') }}
+        </h6>
+        <BalCircle
+          v-if="true || withdrawalConfirmed"
+          size="6"
+          color="dark"
+          class="text-white mr-3 mt-3 cursor-pointer"
+        >
+          <BalIcon class="text-white" @click="$emit('close')" name="x" />
+        </BalCircle>
+      </div>
+    </template>
+    <!-- <template v-slot:header>
       <div class="w-full flex justify-between items-center">
         <div class="flex items-center">
           <BalBtn
@@ -39,12 +61,12 @@
           </div>
         </div>
       </div>
-    </template>
+    </template> -->
     <template v-if="selectTokenList">
       <Search
         v-model="query"
         :placeholder="$t('searchByName')"
-        class="px-4 py-3 flex-auto border-b dark:border-gray-700"
+        class="mx-7 mb-5 px-4 py-3 flex-auto border-gunmetal dark:border-gunmetal"
       />
       <div>
         <div
@@ -68,16 +90,16 @@
       </div>
     </template>
     <template v-else>
-      <div class="border-b dark:border-gray-700 flex">
+      <div class="flex">
         <Search
           v-model="query"
           :placeholder="$t('searchBy')"
-          class="px-4 py-3 flex-auto"
+          class="mx-7 mb-5 h-14 px-4 py-3 bg-dark-3 flex-auto border rounded-md border-gunmetal dark:border-gunmetal"
         />
       </div>
-      <div class="overflow-hidden rounded-lg">
+      <div class="overflow-hidden  ml-7 mr-4">
         <RecycleScroller
-          class="h-96 overflow-y-scroll"
+          class="h-80 mb-2 overflow-y-scroll"
           v-if="tokens.length > 0"
           :items="tokens"
           :item-size="64"
@@ -85,7 +107,7 @@
           v-slot="{ item: token }"
           :buffer="100"
         >
-          <a @click="onSelectToken(token.address)">
+          <a class="" @click="onSelectToken(token.address)">
             <TokenListItem
               :token="token"
               :balanceLoading="dynamicDataLoading"

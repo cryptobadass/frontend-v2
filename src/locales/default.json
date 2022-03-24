@@ -503,7 +503,7 @@
     "returnToPool": "Return to pool page",
     "returnToPoolCreation": "Return to pool creation",
     "saveGas": " to save gas.",
-    "searchBy": "Name, symbol or address",
+    "searchBy": "Please enter the name, symbol or address",
     "searchByName": "Search by Name",
     "seeMore": "See more",
     "seeOnExplorer": "See on explorer",
@@ -775,5 +775,6 @@
     "youCanInvest": "You can invest",
     "backToYoteiSite":"Back to Yotei site",
     "selectBlockchain":"Please select a blockchain:",
-    "searchToken":"Search Token"
+    "searchToken":"Search Token",
+    "searchTokenUp":"SEARCH TOKEN"
 }
