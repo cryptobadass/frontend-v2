@@ -12,7 +12,7 @@ type Props = {
   label?: string;
   closeable?: boolean;
   size?: 'sm' | 'md' | 'lg';
-  color?: 'gray' | 'gradient' | 'white' | 'red';
+  color?: 'gray' | 'gradient' | 'white' | 'red' | 'cornflower';
   outline?: boolean;
   rounded?: boolean;
 };
@@ -43,7 +43,11 @@ const { classes: iconClasses, iconSize } = useCloseIconClasses(props);
       </span>
       <slot v-else />
       <div v-if="closeable" @click="emit('closed')">
-        <BalIcon name="x" :size="iconSize" :class="['close', iconClasses]" />
+        <BalIcon
+          name="x-circle"
+          :size="iconSize"
+          :class="['close', iconClasses]"
+        />
       </div>
     </div>
   </div>
@@ -57,6 +61,6 @@ const { classes: iconClasses, iconSize } = useCloseIconClasses(props);
   @apply flex items-center leading-none h-full;
 }
 .close {
-  @apply cursor-pointer ml-1 -mb-px text-gray-400;
+  @apply cursor-pointer ml-3 -mb-px text-white;
 }
 </style>

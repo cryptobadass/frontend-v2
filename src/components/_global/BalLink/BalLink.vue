@@ -54,3 +54,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style scoped>
+.link {
+  @apply text-cyan hover:text-cyan;
+}
+</style>

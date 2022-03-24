@@ -72,10 +72,11 @@ export default defineComponent({
     const radius = computed(() => props.size / 2);
 
     const spacer = computed(
-      () =>
-        (props.maxAssetsPerLine / props.addresses.length - 1) *
-        (radius.value * 2)
+      () => radius.value * 8
+      // (props.maxAssetsPerLine / props.addresses.length - 1) *
+      // (radius.value * 2)
     );
+    // const spacer = {value: 90};
 
     /**
      * METHODS

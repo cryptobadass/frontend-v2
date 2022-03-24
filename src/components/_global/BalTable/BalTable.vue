@@ -27,7 +27,7 @@
               isColumnStuck ? 'isSticky' : '',
               column.sortKey ? 'cursor-pointer' : '',
               currentSortColumn === column.id && currentSortDirection
-                ? 'text-blue-400'
+                ? ' text-gray-100'
                 : 'text-gray-800 dark:text-gray-100'
             ]"
             :ref="setHeaderRef(columnIndex)"
@@ -142,7 +142,7 @@
                   v-else
                   :class="
                     compact([
-                      'px-6 py-4',
+                      'px-6 py-4 text-blueGrey',
                       column.align === 'right' ? 'text-right' : 'text-left',
                       column.cellClassName
                     ])
@@ -165,7 +165,7 @@
                   v-else
                   :class="
                     compact([
-                      'px-6 py-4',
+                      'px-6 py-4 text-blueGrey',
                       column.align === 'right' ? 'text-right' : 'text-left',
                       column.cellClassName
                     ])

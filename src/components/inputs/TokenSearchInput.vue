@@ -1,22 +1,22 @@
 <template>
   <div>
     <div class="flex items-center flex-wrap">
-      <div class="flex items-center flex-wrap">
-        <BalBtn color="white" size="sm" @click="onClick" class="mr-4 mb-2">
-          <BalIcon name="search" size="sm" class="mr-2" />
-          {{ $t('filterByToken') }}
+      <div class="flex items-center flex-wrap ">
+        <BalBtn class="mr-4" color="cyan" size="md" @click="onClick">
+          <SearchIcon class="mr-2" />
+          <span class="text-dark font-bold"> {{ $t('searchToken') }}</span>
         </BalBtn>
         <BalChip
           v-for="token in modelValue"
-          class="mr-2"
+          class="mr-4 bg-cornflower h-9 px-3 py-2"
           :key="token"
-          color="white"
-          iconSize="sm"
+          color="cornflower"
+          iconSize="md"
           :closeable="true"
           @closed="$emit('remove', token)"
         >
-          <BalAsset :address="token" :size="20" class="flex-auto" />
-          <span class="ml-2">{{ tokens[token]?.symbol }}</span>
+          <BalAsset :address="token" :size="24" class="flex-auto" />
+          <span class="ml-3">{{ tokens[token]?.symbol }}</span>
         </BalChip>
       </div>
       <div
@@ -33,12 +33,12 @@
           {{ token?.symbol }}
         </span>
       </div>
-      <div v-else class="text-gray-400 flex flex-wrap py-3">
+      <div v-else class="text-white flex items-center flex-wrap py-3">
         <span class="mr-2">{{ $t('popularBases') }}</span>
         <span
           v-for="token in whiteListedTokens"
           :key="`popular-${token.symbol}`"
-          class="mr-3 md:mr-4 cursor-pointer hover:text-gray-700 dark:hover:text-white transition-colors"
+          class="mr-3 md:mr-4 p-2 bg-dark-2 text-white text-sm rounded-md cursor-pointer hover:text-gray-700 dark:hover:text-white transition-colors"
           @click="addToken(token.address)"
         >
           {{ token?.symbol }}

@@ -42,7 +42,7 @@ withDefaults(defineProps<Props>(), {
 .pill::before {
   @apply w-full h-full;
   @apply absolute;
-  @apply bg-gray-100 dark:bg-gray-700;
+  @apply bg-dark-2 dark:bg-dark-2;
   content: '';
   transform: skew(-12deg);
 }
@@ -61,7 +61,7 @@ withDefaults(defineProps<Props>(), {
 }
 
 .pill-selected::before {
-  @apply bg-blue-600 dark:bg-blue-600;
+  @apply bg-cornflower dark:bg-cornflower;
 }
 
 .pill-selected .pill-text {

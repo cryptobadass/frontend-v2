@@ -55,7 +55,8 @@ export default defineComponent({
           'gray',
           'red',
           'white',
-          'blue'
+          'blue',
+          'cyan'
         ].includes(val)
     },
     label: { type: String, default: '' },
@@ -162,6 +163,10 @@ export default defineComponent({
       if (props.color === 'white') {
         if (props.outline) return 'text-white';
         else return 'text-gray-800 dark:text-gray-100';
+      }
+      if (props.color === 'cyan') {
+        if (props.outline) return 'text-cyan';
+        return 'text-dark-3 font-bold';
       }
       if (props.outline || props.flat)
         return `text-${props.color}-500 dark:text-${props.color}-400`;

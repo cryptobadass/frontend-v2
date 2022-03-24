@@ -46,12 +46,14 @@
         />
         <BalBtn
           @click="navigateToCreatePool"
-          color="blue"
-          size="sm"
-          :class="{ 'mt-4': upToMediumBreakpoint }"
+          color="cyan"
+          size="md"
+          outline
+          :class="{ 'mt-4': upToMediumBreakpoint, 'fix-h': true }"
           :block="upToMediumBreakpoint"
         >
           {{ $t('createAPool.title') }}
+          <BalIcon name="chevron-right" size="24" class="ml-3" />
         </BalBtn>
       </div>
     </div>
@@ -211,3 +213,8 @@ export default defineComponent({
   }
 });
 </script>
+<style scoped>
+.fix-h{
+  height: 40px;
+}
+</style>

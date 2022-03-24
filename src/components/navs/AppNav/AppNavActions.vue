@@ -5,10 +5,10 @@
       <AppNavClaimBtn v-if="liquidityMiningSupported" />
       <AppNavAccountBtn />
     </div>
-    <button
+    <BalBtn
       v-else
-      color="white"
-      class="btn-cont bg-cyan flex justify-center items-center rounded-lg  "
+      color="cyan"
+      class="btn-cont flex justify-center items-center rounded-lg  "
       :size="upToLargeBreakpoint ? 'md' : 'sm'"
       @click="toggleWalletSelectModal"
     >
@@ -18,7 +18,7 @@
         v-text="$t('connectWallet')"
       />
       <span class="lg:hidden text-dark font-bold" v-text="$t('connect')" />
-    </button>
+    </BalBtn>
   </div>
 </template>
 

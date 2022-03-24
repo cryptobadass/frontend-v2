@@ -42,12 +42,12 @@ withDefaults(defineProps<Props>(), {
 }
 
 .pill-selected {
-  @apply bg-blue-600 dark:bg-blue-600;
+  @apply bg-cornflower-600 dark:bg-cornflower-600;
   @apply text-white;
 }
 
 .pill-weight {
-  @apply font-medium text-gray-400 text-xs;
+  @apply font-medium text-white text-xs;
   @apply mt-px ml-1;
 }
 

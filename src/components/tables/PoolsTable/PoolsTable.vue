@@ -70,13 +70,14 @@ const { upToLargeBreakpoint } = useBreakpoints();
  */
 const columns = ref<ColumnDefinition<DecoratedPoolWithShares>[]>([
   {
-    name: 'Icons',
+    // name: 'Icons',
+    name: t('tokens'),
     id: 'icons',
     accessor: 'uri',
-    Header: 'iconColumnHeader',
+    // Header: 'iconColumnHeader',
     Cell: 'iconColumnCell',
-    width: 125,
-    noGrow: true
+    width: 125
+    // noGrow: true
   },
   {
     name: t('composition'),
@@ -221,7 +222,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
         sortDirection: 'desc'
       }"
     >
-      <template v-slot:iconColumnHeader>
+      <!-- <template v-slot:iconColumnHeader>
         <div class="flex items-center">
           <img
             v-if="darkMode"
@@ -232,7 +233,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
             :src="require('@/assets/images/icons/tokens_black.svg')"
           />
         </div>
-      </template>
+      </template> -->
       <template v-slot:iconColumnCell="pool">
         <div v-if="!isLoading" class="px-6 py-4">
           <BalAssetSet
@@ -260,13 +261,15 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
         </div>
       </template>
       <template v-slot:aprCell="pool">
-        <div class="px-6 py-4 -mt-1 flex justify-end font-numeric">
+        <div
+          class="px-6 py-4 -mt-1 flex justify-end font-numeric text-blueGrey"
+        >
           {{
             Number(pool.dynamic.apr.pool) > 10000
               ? '-'
               : fNum2(pool.dynamic.apr.total, FNumFormats.percent)
           }}
-          <LiquidityAPRTooltip :pool="pool" />
+          <!-- <LiquidityAPRTooltip :pool="pool" /> -->
         </div>
       </template>
       <template v-slot:migrateCell="pool">
