@@ -68,7 +68,7 @@
       :selectedTokens="selectedTokens"
       class="mb-8"
     />
-    <div class="px-4 lg:px-0" v-if="!hideV1Links">
+    <!-- <div class="px-4 lg:px-0" v-if="!hideV1Links">
       <div class="text-black-600">
         {{ $t('tableShowsBalancerV2Pools') }}
       </div>
@@ -79,7 +79,7 @@
 
     <div v-if="isElementSupported" class="mt-16 p-4 lg:p-0">
       <FeaturedPools />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -91,7 +91,7 @@ import { useI18n } from 'vue-i18n';
 import { EXTERNAL_LINKS } from '@/constants/links';
 import TokenSearchInput from '@/components/inputs/TokenSearchInput.vue';
 import PoolsTable from '@/components/tables/PoolsTable/PoolsTable.vue';
-import FeaturedPools from '@/components/sections/FeaturedPools.vue';
+// import FeaturedPools from '@/components/sections/FeaturedPools.vue';
 import usePools from '@/composables/pools/usePools';
 import useWeb3 from '@/services/web3/useWeb3';
 import usePoolFilters from '@/composables/pools/usePoolFilters';
@@ -105,7 +105,7 @@ export default defineComponent({
   components: {
     TokenSearchInput,
     PoolsTable,
-    FeaturedPools
+    // FeaturedPools
   },
 
   setup() {
