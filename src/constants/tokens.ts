@@ -67,6 +67,8 @@ export const TOKENS = {
       '43113': {
         '0xbad9016aa18cf22d08aefd3b86c0d36e8c222b83':
           '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WAVAX -> WETH
+        '0xd00ae08403b9bbb9124bb305c09058e32c39a48c':
+          '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', // WAVAX -> WETH
         '0x009aea38962dcbcc1d9b48919d7ec030959520a4':
           '0x2260fac5e5542a773aa44fbcfedf7c193bc2c599', // WBTC
         '0xe00bf4d40670fcc1dcb3a757ebccbe579f372fbc':
