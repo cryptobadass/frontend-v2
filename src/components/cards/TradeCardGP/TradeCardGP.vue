@@ -5,7 +5,7 @@
         <h4 class="font-bold">{{ title }}</h4>
         <BalBtn
           circle
-          color="white"
+          color="dark"
           size="sm"
           class="mb-2 text-gray-500 icon-spin-anim"
           @click="handleSettingsButton"
@@ -190,7 +190,7 @@ export default defineComponent({
     // DATA
     const exactIn = ref(true);
     const modalTradePreviewIsOpen = ref(false);
-    const modalTradeSettingsIsOpen = ref(true);
+    const modalTradeSettingsIsOpen = ref(false);
     const dismissedErrors = ref({
       highPriceImpact: false
     });

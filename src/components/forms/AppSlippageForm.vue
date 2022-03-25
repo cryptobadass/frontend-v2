@@ -90,7 +90,9 @@ watch(
       v-model="state.fixedSlippage"
       @update:modelValue="onFixedInput"
     />
-    <div :class="['custom-input', 'h-14', 'bg-dark-3','ml-4', customInputClasses]">
+    <div
+      :class="['custom-input', 'h-14', 'bg-dark-3', 'ml-4', customInputClasses]"
+    >
       <input
         class="w-28 text-right bg-transparent text-white text-lg"
         v-model="state.customSlippage"
