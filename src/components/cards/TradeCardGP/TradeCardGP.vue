@@ -3,11 +3,15 @@
     <template v-slot:header>
       <div class="w-full flex items-center justify-between">
         <h4 class="font-bold">{{ title }}</h4>
-        <TradeSettingsModal />
-        <TradeSettingsPopover
-          :context="TradeSettingsContext.trade"
-          :isGasless="trading.tradeGasless.value"
-        />
+        <BalBtn
+          circle
+          color="white"
+          size="sm"
+          class="mb-2 text-gray-500 icon-spin-anim"
+          @click="handleSettingsButton"
+        >
+          <SettingsIconCyan />
+        </BalBtn>
       </div>
     </template>
     <div class="1234">
@@ -113,9 +117,12 @@
       @close="handlePreviewModalClose"
     />
   </teleport>
-  <template to="#modal">
-    <TradeSettingsModal />
-  </template>
+  <teleport to="#modal">
+    <TradeSettingsModal
+      v-if="modalTradeSettingsIsOpen"
+      @close="handleSettingsModalClose"
+    />
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -157,7 +164,7 @@ export default defineComponent({
   components: {
     TradePair,
     TradePreviewModalGP,
-    TradeSettingsPopover,
+    // TradeSettingsPopover,
     GasReimbursement,
     TradeSettingsModal
   },
@@ -183,6 +190,7 @@ export default defineComponent({
     // DATA
     const exactIn = ref(true);
     const modalTradePreviewIsOpen = ref(false);
+    const modalTradeSettingsIsOpen = ref(true);
     const dismissedErrors = ref({
       highPriceImpact: false
     });
@@ -322,6 +330,7 @@ export default defineComponent({
         tokenInAmount.value = '';
         tokenOutAmount.value = '';
         modalTradePreviewIsOpen.value = false;
+        modalTradeSettingsIsOpen.value = false;
       });
     }
 
@@ -361,11 +370,18 @@ export default defineComponent({
 
       modalTradePreviewIsOpen.value = true;
     }
+    function handleSettingsButton() {
+      // trading.resetSubmissionError();
+      modalTradeSettingsIsOpen.value = true;
+    }
 
     function handlePreviewModalClose() {
       trading.resetSubmissionError();
 
       modalTradePreviewIsOpen.value = false;
+    }
+    function handleSettingsModalClose() {
+      modalTradeSettingsIsOpen.value = false;
     }
 
     // INIT
@@ -384,6 +400,7 @@ export default defineComponent({
       tokenOutAddress,
       tokenOutAmount,
       modalTradePreviewIsOpen,
+      modalTradeSettingsIsOpen,
       exactIn,
       trading,
 
@@ -397,6 +414,8 @@ export default defineComponent({
       tradeCardShadow,
       handlePreviewButton,
       handlePreviewModalClose,
+      handleSettingsButton,
+      handleSettingsModalClose,
 
       // methods
       trade,

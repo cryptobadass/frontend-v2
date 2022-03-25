@@ -1,17 +1,10 @@
 <template>
-  <div>
-    <BalIcon name="sun" class="ml-1 text-gray-400 -mb-px" />
-    <BalModal
-      :show="isVisible"
-      @close="$emit('close')"
-      title=""
-      noPad
-      no-content-pad
-    >
+  <BalModal show @close="emit('close')" title="" noPad no-content-pad>
+    <BalCard noPad class="relative mb-8 overflow-auto">
       <template v-slot:header>
         <div class="flex items-start justify-between h-24 w-full">
           <h6 class="pl-7 mt-10 flex items-center">
-            <WalletIconCyan class="inline-block mr-4" />{{ $t('settingsUp') }}
+            <WalletIconCyan class="inline-block mr-4" />{{ $t('settings') }}
           </h6>
           <BalCircle
             v-if="true || withdrawalConfirmed"
@@ -26,42 +19,222 @@
 
       <div class="px-7">
         <div>
-          <h5>{{ $t('slippageTolerance') }}</h5>
+          <div class="flex items-baseline">
+            <span v-text="$t('slippageTolerance')" class="font-medium mb-2" />
+            <BalTooltip>
+              <template v-slot:activator>
+                <BalIcon
+                  name="info"
+                  size="xs"
+                  class="ml-1 text-gray-400 -mb-px"
+                />
+              </template>
+              <div v-html="$t('marketConditionsWarning')" />
+            </BalTooltip>
+          </div>
+          <AppSlippageForm class="mt-1 pb-8 border-b border-gunmetal" />
         </div>
-        <div>
-          <h5>{{ $t('transactionType') }}</h5>
+        <div v-if="!hideLiquidity" class="mt-6">
+          <div class="flex items-baseline">
+            <span v-text="$t('tradeLiquidity')" class="font-medium mb-2" />
+            <BalTooltip>
+              <template v-slot:activator>
+                <BalIcon
+                  name="info"
+                  size="xs"
+                  class="ml-1 text-gray-400 -mb-px"
+                />
+              </template>
+              <div v-text="$t('whichPools')" />
+            </BalTooltip>
+          </div>
+          <div class="flex mt-1">
+            <BalBtnGroup
+              :options="tradeLiquidityOptions"
+              v-model="appTradeLiquidity"
+              @update:modelValue="setTradeLiquidity"
+            />
+          </div>
+        </div>
+        <div v-if="isEIP1559SupportedNetwork" class="mt-6">
+          <div class="flex items-baseline">
+            <span v-text="$t('transactionType')" class="font-medium mb-2" />
+            <BalTooltip>
+              <template v-slot:activator>
+                <BalIcon
+                  name="info"
+                  size="xs"
+                  class="ml-1 text-gray-400 -mb-px"
+                />
+              </template>
+              <div v-text="$t('ethereumTxTypeTooltip')" />
+            </BalTooltip>
+          </div>
+          <div class="flex mt-1">
+            <BalBtnGroup
+              :options="ethereumTxTypeOptions"
+              v-model="ethereumTxType"
+              @update:modelValue="setEthereumTxType"
+            />
+          </div>
+        </div>
+        <div
+          class="mt-6"
+          v-if="isGassless && context === TradeSettingsContext.trade"
+        >
+          <div class="flex items-baseline">
+            <span v-text="$t('transactionDeadline')" class="font-medium mb-2" />
+            <BalTooltip>
+              <template v-slot:activator>
+                <BalIcon
+                  name="info"
+                  size="xs"
+                  class="ml-1 text-gray-400 -mb-px"
+                />
+              </template>
+              <div v-html="$t('transactionDeadlineTooltip')" />
+            </BalTooltip>
+          </div>
+          <div class="flex mt-1">
+            <div
+              class="flex items-center px-1 border rounded-lg shadow-inner dark:border-gray-700"
+            >
+              <input
+                class="w-8 text-right bg-transparent"
+                v-model="appTransactionDeadline"
+                placeholder="20"
+                type="number"
+                step="1"
+                min="0"
+                @update:modelValue="setTransactionDeadline"
+              />
+            </div>
+            <div class="px-2">
+              minutes
+            </div>
+          </div>
         </div>
       </div>
-    </BalModal>
-  </div>
+    </BalCard>
+  </BalModal>
 </template>
 
 <script lang="ts">
-import { SupportedWallets } from '@/services/web3/web3.plugin';
-import WalletButton from '@/components/web3/WalletButton.vue';
-import { EXTERNAL_LINKS } from '@/constants/links';
-import { defineComponent } from 'vue';
+import {
+  defineComponent,
+  reactive,
+  computed,
+  toRefs,
+  PropType,
+  Ref
+} from 'vue';
+import { useStore } from 'vuex';
+import useNumbers from '@/composables/useNumbers';
+import AppSlippageForm from '@/components/forms/AppSlippageForm.vue';
+import useFathom from '@/composables/useFathom';
+
+import {
+  tradeLiquidityOptions,
+  ethereumTxTypeOptions
+} from '@/constants/options';
+import useWeb3 from '@/services/web3/useWeb3';
+
+import useEthereumTxType from '@/composables/useEthereumTxType';
+
+export enum TradeSettingsContext {
+  trade,
+  invest
+}
+
 export default defineComponent({
-  emits: ['close'],
+  name: 'TradeSettingsPopover',
+
   components: {
-    // WalletButton
+    AppSlippageForm
   },
+
   props: {
-    isVisible: {
-      type: Boolean,
-      default: false
-    }
+    context: {
+      type: [String, Number] as PropType<TradeSettingsContext>,
+      required: true
+    },
+    isGassless: { type: Boolean, default: false }
   },
-  setup() {
+
+  setup(props) {
+    // DATA
+    const { context }: { context: Ref<TradeSettingsContext> } = toRefs(props);
+
+    // COMPOSABLES
+    const store = useStore();
+    const { fNum } = useNumbers();
+    const {
+      explorerLinks,
+      isV1Supported,
+      isEIP1559SupportedNetwork
+    } = useWeb3();
+    const { trackGoal, Goals } = useFathom();
+    const { ethereumTxType, setEthereumTxType } = useEthereumTxType();
+
+    // DATA
+    const data = reactive({
+      tradeLiquidityOptions
+    });
+
+    // COMPUTED
+    const appTradeLiquidity = computed(() => store.state.app.tradeLiquidity);
+    const appTransactionDeadline = computed<number>(
+      () => store.state.app.transactionDeadline
+    );
+    const hideLiquidity = computed(
+      () => !isV1Supported || context.value === TradeSettingsContext.invest
+    );
+
+    // METHODS
+    const setTradeLiquidity = tradeLiquidity =>
+      store.commit('app/setTradeLiquidity', tradeLiquidity);
+    const setTransactionDeadline = transactionDeadline =>
+      store.commit('app/setTransactionDeadline', transactionDeadline);
+
+    function onActivatorClick(): void {
+      if (context.value === TradeSettingsContext.trade) {
+        trackGoal(Goals.ClickTradeSettings);
+      } else if (context.value === TradeSettingsContext.invest) {
+        trackGoal(Goals.ClickInvestSettings);
+      }
+    }
+
     return {
-      wallets: SupportedWallets.filter(id => id !== 'gnosis'),
-      EXTERNAL_LINKS
+      // data
+      ...toRefs(data),
+      Goals,
+      // types,
+      TradeSettingsContext,
+      // computed
+      appTradeLiquidity,
+      appTransactionDeadline,
+      hideLiquidity,
+      isEIP1559SupportedNetwork,
+      // methods
+      setTradeLiquidity,
+      setTransactionDeadline,
+      fNum,
+      explorer: explorerLinks,
+      onActivatorClick,
+      ethereumTxType,
+      setEthereumTxType,
+      ethereumTxTypeOptions
     };
   }
 });
 </script>
-<style scoped>
-.link {
-  @apply text-cyan hover:text-cyan;
+
+<style>
+.trade-settings-option:hover {
+  @apply text-blue-500 border-blue-500;
+}
+
+.trade-settings-option.active {
+  @apply text-blue-500 border-blue-500;
 }
 </style>

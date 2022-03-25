@@ -4,11 +4,10 @@
       v-for="option in options"
       :key="option.value"
       @click="onSelect(option)"
-      outline
-      size="sm"
-      class="capitalize mr-2 w-18"
+      size="lgsm"
+      class="capitalize mr-2 w-20 h14 "
       v-bind="attrs_"
-      :color="modelValue === option.value ? 'blue' : 'gray'"
+      :color="modelValue === option.value ? 'white' : 'gray'"
     >
       {{ 'best' === option.label ? $t(option.label) : option.label }}
     </BalBtn>

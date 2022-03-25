@@ -79,6 +79,8 @@ export default defineComponent({
           return 'px-3 h-9 text-base';
         case 'lg':
           return 'px-5 h-18 text-lg md:text-2xl';
+        case 'lgsm':
+          return 'w-16 h-14 text-lg';
         default:
           return 'px-4 h-12 text-base';
       }
@@ -137,7 +139,7 @@ export default defineComponent({
       else if (props.outline) return 'bg-transparent';
       else if (props.flat) return bgFlatClasses.value;
       else if (props.color === 'white') {
-        return 'bg-gray-50 dark:bg-gray-800';
+        return 'bg-white dark:bg-white';
       } else {
         if (props.disabled) {
           return `bg-gray-300 dark:bg-gray-700 text-white dark:text-gray-500`;
@@ -162,7 +164,7 @@ export default defineComponent({
     const textColorClasses = computed(() => {
       if (props.color === 'white') {
         if (props.outline) return 'text-white';
-        else return 'text-gray-800 dark:text-gray-100';
+        else return 'text-dark dark:text-dark';
       }
       if (props.color === 'cyan') {
         if (props.outline) return 'text-cyan';

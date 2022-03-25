@@ -137,7 +137,7 @@ const inputAttrs = computed(() => omit(attrs, 'class'));
 
 <style scoped>
 .input-container {
-  @apply bg-white dark:bg-dark ;
+  @apply bg-white dark:bg-dark;
   /* border-color: #424658; */
 }
 
