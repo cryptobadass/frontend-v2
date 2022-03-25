@@ -62,7 +62,7 @@ onMounted(() => {
       <TrendingPairs class="mt-4" />
     </template>
 
-    <BalLoadingBlock v-if="appLoading || loadingTokenLists" class="h-96" />
+    <BalLoadingBlock v-if="appLoading || loadingTokenLists" class="h-96 p-6" />
     <template v-else>
       <template v-if="ENABLE_LEGACY_TRADE_INTERFACE">
         <TradeCard v-if="tradeInterface === TradeInterface.BALANCER" />
@@ -95,7 +95,7 @@ onMounted(() => {
     </div>
 
     <template #gutterRight>
-      <PairPriceGraph :toggleModal="togglePairPriceGraphModal" />
+      <PairPriceGraph isModal :toggleModal="togglePairPriceGraphModal" />
     </template>
   </Col2Layout>
 

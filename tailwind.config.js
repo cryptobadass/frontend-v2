@@ -95,7 +95,7 @@ module.exports = {
         gunmetal: {
           DEFAULT: '#424658'
         },
-        blueGrey: {
+        blueyGrey: {
           DEFAULT: '#a1a7bb'
         },
         cornflower: {

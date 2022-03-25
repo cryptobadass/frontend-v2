@@ -245,7 +245,7 @@ watchEffect(() => {
           :weight="weight"
           :fixed="fixedToken"
           :options="options"
-          class="mr-2 bg-dark-3 min-w-win max-w-xs "
+          class="mr-2 bg-dark min-w-win max-w-xs "
           @update:modelValue="emit('update:address', $event)"
           :excludedTokens="excludedTokens"
         />

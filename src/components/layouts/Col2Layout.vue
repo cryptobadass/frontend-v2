@@ -65,7 +65,7 @@ const rightClasses = computed(() => ({
 }
 
 .right-col {
-  @apply grid grid-cols-5  w-full mx-auto lg:mx-0 col-span-9 bg-dark;
+  @apply grid grid-cols-5  w-full mx-auto lg:mx-0 col-span-9 bg-dark divide-x divide-gunmetal p-7 gap-7;
 }
 
 .center-col-2 {
