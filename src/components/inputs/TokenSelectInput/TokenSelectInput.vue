@@ -70,13 +70,18 @@ function tokenFor(option: string): TokenInfo {
   <div>
     <div
       v-if="hasToken && options.length === 0"
-      :class="['token-select-input selected group', { selectable: !fixed }]"
+      :class="[
+        'token-select-input selected group flex items-center justify-between ',
+        { selectable: !fixed }
+      ]"
       @click="toggleModal"
     >
-      <div class="w-8">
-        <BalAsset :address="token?.address" class="shadow" />
+      <div class="w-8 flex-shrink-0">
+        <BalAsset size="30" :address="token?.address" class="shadow" />
       </div>
-      <span class="text-base font-medium">
+      <span
+        class="text-base font-medium inline-block flex-1 ml-4 mr-2 text-left flex-shrink truncate "
+      >
         {{ token?.symbol }}
       </span>
       <span v-if="Number(weight) > 0" class="text-gray-500 ml-2">
@@ -91,7 +96,7 @@ function tokenFor(option: string): TokenInfo {
         v-if="!fixed"
         name="chevron-down"
         size="sm"
-        class="text-blue-500 group-hover:text-pink-500 ml-2"
+        class="text-white group-hover:text-cyan ml-2 flex-shrink-0"
       />
     </div>
     <BalDropdown
@@ -167,7 +172,7 @@ function tokenFor(option: string): TokenInfo {
 
 <style scoped>
 .token-select-input {
-  @apply shadow rounded-lg flex items-center h-10 px-2 whitespace-nowrap;
+  @apply shadow rounded-lg flex items-center h-14 px-3 whitespace-nowrap;
   @apply text-sm;
   font-variation-settings: 'wght' 700;
 }

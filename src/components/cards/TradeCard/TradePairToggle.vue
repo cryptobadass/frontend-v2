@@ -1,13 +1,13 @@
 <template>
   <div
-    class="toggle-btn w-9 h-9 flex justify-center items-center cursor-pointer rounded-full bg-gray-50 dark:bg-gray-900 shadow group"
+    class="toggle-btn w-5 h-5 flex justify-center items-center cursor-pointer shadow group"
     @click="toggle"
   >
     <div
       class="ease-in-out duration-300"
       :class="{ 'transform rotate-180': isRotated }"
     >
-      <svg
+      <!-- <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 21 18"
         class="icon-trade-toggle w-5 h-3"
@@ -20,6 +20,37 @@
           d="M15.7625 17.2669C15.7987 17.2597 15.8328 17.2469 15.8672 17.235C15.8856 17.2284 15.905 17.2253 15.9231 17.2175C15.9612 17.2013 15.9966 17.1806 16.0322 17.1591C16.0447 17.1519 16.0584 17.1462 16.0706 17.1384C16.1172 17.1069 16.1609 17.0713 16.2006 17.0316L20.1037 13.1284C20.4394 12.7928 20.4394 12.2491 20.1037 11.9131C19.7684 11.5775 19.2244 11.5775 18.8884 11.9131L16.4516 14.3497V1.63281C16.4516 1.15813 16.0669 0.773438 15.5922 0.773438C15.1175 0.773438 14.7328 1.15813 14.7328 1.63281V14.3497L12.2956 11.9125C11.9603 11.5769 11.4163 11.5769 11.0803 11.9125C10.9125 12.0803 10.8284 12.3 10.8284 12.52C10.8284 12.74 10.9125 12.9597 11.0803 13.1275L14.9841 17.0316C15.0238 17.0713 15.0675 17.1069 15.1141 17.1384C15.1262 17.1462 15.14 17.1519 15.1525 17.1591C15.1878 17.1803 15.2234 17.2013 15.2616 17.2175C15.2797 17.225 15.2991 17.2284 15.3175 17.235C15.3519 17.2466 15.3859 17.2594 15.4222 17.2669C15.4778 17.2778 15.5344 17.2841 15.5922 17.2841C15.65 17.2841 15.7069 17.2778 15.7625 17.2669Z"
           class="dark:text-gray-700 fill-current"
         />
+      </svg> -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 18 18"
+      >
+        <g data-name="Group 402">
+          <path
+            data-name="Rectangle 123"
+            style="fill:none"
+            d="M0 0h18v18H0z"
+            transform="rotate(90 9 9)"
+          />
+        </g>
+        <g data-name="Group 404">
+          <g data-name="Group 403">
+            <path
+              data-name="Path 2156"
+              d="m14.25 10 3-3-3-3v2.25H3v1.5h11.25z"
+              transform="rotate(90 9.875 9.125)"
+              style="fill:#0ff"
+            />
+            <path
+              data-name="Path 2157"
+              d="m5 12-3 3 3 3v-2.25h11.25v-1.5H5z"
+              transform="rotate(90 10.75 10.25)"
+              style="fill:#0ff"
+            />
+          </g>
+        </g>
       </svg>
     </div>
   </div>

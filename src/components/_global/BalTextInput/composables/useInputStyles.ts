@@ -47,7 +47,7 @@ export default function useInputStyles(props, isInvalid: Ref<boolean>, attrs) {
       case 'sm':
         return 'h-8';
       case 'lg':
-        return 'h-12';
+        return 'h-14';
       default:
         return 'h-10';
     }

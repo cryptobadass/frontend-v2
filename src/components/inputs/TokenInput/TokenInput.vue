@@ -221,6 +221,7 @@ watchEffect(() => {
     v-model="_amount"
     :placeholder="hintAmount || '0.0'"
     type="number"
+    size="lg"
     :label="label"
     :decimalLimit="token?.decimals || 18"
     :rules="inputRules"
@@ -244,7 +245,7 @@ watchEffect(() => {
           :weight="weight"
           :fixed="fixedToken"
           :options="options"
-          class="mr-2"
+          class="mr-2 bg-dark-3 min-w-win max-w-xs "
           @update:modelValue="emit('update:address', $event)"
           :excludedTokens="excludedTokens"
         />

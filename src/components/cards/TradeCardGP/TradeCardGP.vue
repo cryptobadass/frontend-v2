@@ -3,13 +3,14 @@
     <template v-slot:header>
       <div class="w-full flex items-center justify-between">
         <h4 class="font-bold">{{ title }}</h4>
+        <TradeSettingsModal />
         <TradeSettingsPopover
           :context="TradeSettingsContext.trade"
           :isGasless="trading.tradeGasless.value"
         />
       </div>
     </template>
-    <div>
+    <div class="1234">
       <TradePair
         v-model:tokenInAmount="tokenInAmount"
         v-model:tokenInAddress="tokenInAddress"
@@ -63,7 +64,7 @@
         v-else
         :label="$t('preview')"
         :disabled="tradeDisabled"
-        color="gradient"
+        color="blue"
         block
         @click.prevent="handlePreviewButton"
       />
@@ -112,6 +113,9 @@
       @close="handlePreviewModalClose"
     />
   </teleport>
+  <template to="#modal">
+    <TradeSettingsModal />
+  </template>
 </template>
 
 <script lang="ts">
@@ -147,13 +151,15 @@ import GasReimbursement from '../TradeCard/GasReimbursement.vue';
 import TradePair from '../TradeCard/TradePair.vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { useTradeState } from '@/composables/trade/useTradeState';
+import TradeSettingsModal from '@/components/modals/TradeSettingsModal.vue';
 
 export default defineComponent({
   components: {
     TradePair,
     TradePreviewModalGP,
     TradeSettingsPopover,
-    GasReimbursement
+    GasReimbursement,
+    TradeSettingsModal
   },
 
   setup() {
