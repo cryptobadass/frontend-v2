@@ -98,6 +98,12 @@ module.exports = {
         blueyGrey: {
           DEFAULT: '#a1a7bb'
         },
+        poisonGreen: {
+          DEFAULT: '#46f705'
+        },
+        grapefruit: {
+          DEFAULT: '#ff4d4d'
+        },
         cornflower: {
           DEFAULT: '#6188ff',
           50: '#6188ff',

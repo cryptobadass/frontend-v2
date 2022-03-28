@@ -198,7 +198,7 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
       <template v-slot:actionCell="action">
         <div class="px-6 py-2">
           <div class="flex items-center">
-            <div class="flex center mr-3">
+            <!-- <div class="flex center mr-3">
               <BalIcon
                 v-if="action.type === 'Join'"
                 name="plus"
@@ -206,8 +206,14 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
                 class="text-green-500 dark:text-green-400"
               />
               <BalIcon v-else name="minus" size="sm" class="text-red-500" />
+            </div> -->
+            <div
+              :class="[
+                action.type === 'Join' ? 'text-poisonGreen' : 'text-grapefruit'
+              ]"
+            >
+              {{ action.label }}
             </div>
-            <div>{{ action.label }}</div>
           </div>
         </div>
       </template>
@@ -216,12 +222,13 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
         <div class="px-6 py-4 flex -mt-1 flex-wrap">
           <template v-for="(tokenAmount, i) in action.tokenAmounts" :key="i">
             <div
-              class="m-1 flex items-center p-1 px-2 bg-gray-50 dark:bg-gray-700 rounded-lg"
+              class="m-1 flex items-center p-2 px-4 bg-gray-50 dark:bg-dark-2 rounded-lg"
               v-if="tokenAmount.amount !== '0'"
             >
               <BalAsset
                 :address="tokenAmount.address"
                 class="mr-2 flex-shrink-0"
+                size="30"
               />
               <span class="font-numeric">{{ tokenAmount.amount }}</span>
             </div>
@@ -230,7 +237,7 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
       </template>
 
       <template v-slot:valueCell="action">
-        <div class="px-6 py-4 flex justify-end font-numeric">
+        <div class="px-6 py-4 flex justify-end font-numeric text-blueyGrey">
           {{ action.formattedValue }}
         </div>
       </template>
@@ -238,7 +245,7 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
       <template v-slot:timeCell="action">
         <div class="px-6 py-4">
           <div
-            class="flex items-center justify-end wrap whitespace-nowrap text-right"
+            class="flex items-center justify-end wrap whitespace-nowrap text-right text-blueyGrey underline"
           >
             {{ action.formattedDate }}
             <BalLink
@@ -246,11 +253,11 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
               external
               class="ml-2 flex items-center"
             >
-              <BalIcon
+              <!-- <BalIcon
                 name="arrow-up-right"
                 size="sm"
                 class="text-gray-500 hover:text-blue-500 transition-colors"
-              />
+              /> -->
             </BalLink>
           </div>
         </div>

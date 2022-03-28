@@ -142,10 +142,10 @@ function navigateToPoolMigration(pool: FullPool) {
 </script>
 
 <template>
-  <BalCard noPad>
+  <BalCard noPad noBorder :shadow="'none'">
     <template #header>
       <div class="card-header">
-        <h5>
+        <h5 class="text-lg">
           {{ $t('poolTransfer.myPoolBalancesCard.title') }}
         </h5>
         <h5>
@@ -153,16 +153,16 @@ function navigateToPoolMigration(pool: FullPool) {
         </h5>
       </div>
     </template>
-    <div class="px-4 py-2">
+    <div class="px-4 py-2 border-0">
       <div
         v-for="(address, index) in tokenAddresses"
         :key="address"
-        class="asset-row"
+        class="asset-row bg-dark-2  rounded h-16 mb-6 px-5"
       >
         <div class="flex items-center">
           <BalAsset
             :address="poolTokens[index].address"
-            :size="36"
+            :size="30"
             class="mr-4"
           />
           <div class="flex flex-col">
@@ -172,7 +172,7 @@ function navigateToPoolMigration(pool: FullPool) {
               </span>
               {{ poolTokens[index].symbol }}
             </span>
-            <span class="text-gray-500 text-sm">
+            <span class="text-blueyGrey text-sm">
               {{ poolTokens[index].name }}
             </span>
           </div>
@@ -184,7 +184,7 @@ function navigateToPoolMigration(pool: FullPool) {
               ? fNum2(propTokenAmounts[index], FNumFormats.token)
               : '-'
           }}
-          <span class="text-gray-500 text-sm">
+          <span class="text-blueyGrey text-sm">
             {{ isWalletReady ? fiatLabelFor(index, address) : '-' }}
           </span>
         </span>
@@ -204,8 +204,7 @@ function navigateToPoolMigration(pool: FullPool) {
 
 <style scoped>
 .card-header {
-  @apply p-4 w-full flex items-center justify-between;
-  @apply border-b dark:border-gray-700;
+  @apply mx-6 py-6 w-full flex items-center justify-between;
 }
 
 .asset-row {

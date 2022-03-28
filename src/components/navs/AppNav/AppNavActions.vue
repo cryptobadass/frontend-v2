@@ -14,10 +14,10 @@
     >
       <WalletIcon class="mr-2" />
       <span
-        class="hidden lg:inline-block text-dark font-bold"
+        class="lg:inline-block text-dark font-bold"
         v-text="$t('connectWallet')"
       />
-      <span class="lg:hidden text-dark font-bold" v-text="$t('connect')" />
+      <!-- <span class="lg:hidden text-dark font-bold" v-text="$t('connect')" /> -->
     </BalBtn>
   </div>
 </template>

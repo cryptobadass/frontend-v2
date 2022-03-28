@@ -2,7 +2,7 @@
     "aboutElementFinance": "Element is an open source protocol for fixed and variable yield markets. It is built on Balancer V2. View and manage your liquidity positions directly on Element.fi.",
     "accept": "Accept",
     "account": "Account",
-    "action": "Action",
+    "action": "ACTION",
     "actions": "Actions",
     "activity": "Activity",
     "addToken": "Add a token",
@@ -74,7 +74,7 @@
     },
     "available": "Available",
     "availableToClaim": "Available to claim:",
-    "balance": "Balance",
+    "balance": "BALANCE",
     "balancerGovernance": "Balancer governance",
     "balances": "Balances",
     "basedOnLast24h": "based on the last 24h",
@@ -215,7 +215,7 @@
     "day": "day",
     "delegateFeesTooltip": "Liquidity providers in this pool earn fixed swap fees on every trade utilizing the liquidity in this pool. Control has been delegated to the community, so fees could change in the future if this pool becomes actively managed.",
     "depositing": "depositing",
-    "details": "Details",
+    "details": "DETAILS",
     "dynamicSwapFeeLabel": "Dynamic swap fees: Currently <b>{0}</b>",
     "earnBAL": "Earn $BAL when swapping eligible tokens",
     "editoAbout": "Earn more on your Ethereum-based assets. Add tokens to pools and earn compounding fees when people trade on the exchange utilizing your liquidity.",
@@ -446,9 +446,9 @@
         "tabs": {
             "allTransactions": "Transactions",
             "myTransactions": "My transactions",
-            "allInvestments": "Investments",
-            "myInvestments": "My investments",
-            "swaps": "Swaps"
+            "allInvestments": "INVESTMENTS",
+            "myInvestments": "MY INVESTMENTS",
+            "swaps": "SWAPS"
         },
         "noResults": {
             "allTransactions": "No transactions in this pool.",
@@ -460,7 +460,7 @@
     },
     "poolTransfer": {
         "myPoolBalancesCard": {
-            "title": "My pool balance"
+            "title": "POOL BALANCE"
         },
         "myWalletTokensCard": {
             "title": "Pool tokens in my wallet",
@@ -543,9 +543,9 @@
         }
     },
     "threeMonths": "3M",
-    "time": "Time",
+    "time": "TIME",
     "timeAgo": "{0} ago",
-    "token": "Token",
+    "token": "TOKEN",
     "tokenAlreadySelected": "Token Already Selected",
     "tokenInjected": "This token is injected",
     "tokenLists": "Token lists",
@@ -715,7 +715,7 @@
     "usingLiquidity": "Using {0} liquidity",
     "v1": "V1",
     "v2": "V2",
-    "value": "Value",
+    "value": "VALUE",
     "vault": "Vault",
     "viewAllAssets": "View all assets ({0})",
     "viewAndManangeOnElement": "View and manage all pools on Element.fi",
@@ -731,7 +731,7 @@
     "warning": "Warning",
     "week": "Week",
     "weekAbbrev": "w",
-    "weight": "Weight",
+    "weight": "WEIGHT",
     "weightedPool": "Weighted pool",
     "whichPools": "Which liquidity pools should be used when you make a trade.",
     "withdraw": {
@@ -775,5 +775,6 @@
     "youCanInvest": "You can invest",
     "backToYoteiSite":"Back to Yotei site",
     "selectBlockchain":"Please select a blockchain:",
-    "searchToken":"SEARCH TOKEN"
+    "searchToken":"SEARCH TOKEN",
+    "investNow":"INVEST NOW"
 }

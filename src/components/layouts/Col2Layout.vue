@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
 const gutterClasses = computed(() => ({
   'order-1 lg:order-2': props.mobileGuttersFirst,
   'order-3 lg:order-2': props.mobileGuttersLast,
-  'hidden lg:block': props.mobileHideGutters
+  // 'hidden lg:block': props.mobileHideGutters
   // 'mt-6': props.offsetGutters
 }));
 
