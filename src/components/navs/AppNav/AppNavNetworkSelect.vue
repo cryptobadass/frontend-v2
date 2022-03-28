@@ -11,7 +11,7 @@
           :alt="activeNetwork.name"
           class="w-7 h-7 rounded-full shadow-sm"
         />
-        <div class="net-work-name text-left">
+        <div class="net-work-name text-left text-white">
           {{ activeNetwork.name }}
         </div>
         <BalIcon name="chevron-down" size="sm" class="ml-2" />
