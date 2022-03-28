@@ -1,5 +1,10 @@
 <template>
-  <BalCard class="relative card-container" :shadow="tradeCardShadow" no-border noPad>
+  <BalCard
+    class="relative card-container"
+    :shadow="tradeCardShadow"
+    no-border
+    noPad
+  >
     <template v-slot:header>
       <div class="w-full flex items-center justify-between">
         <h4 class="font-bold">{{ title }}</h4>

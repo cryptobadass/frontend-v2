@@ -9,7 +9,9 @@
     <template v-slot:header>
       <div class="flex items-start justify-between h-24 w-full">
         <h6 class="pl-7 mt-10 flex items-center">
-          <WalletIconCyan class="inline-block mr-4" />{{ $t('connectWallet') }}
+          <WalletIconCyan class="inline-block mr-4" />{{
+            $t('connectWalletUp')
+          }}
         </h6>
         <BalCircle
           v-if="true || withdrawalConfirmed"

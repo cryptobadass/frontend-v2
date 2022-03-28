@@ -108,7 +108,8 @@
     "confirmWrap": "Confirm {0} wrap",
     "connect": "Connect",
     "connecting": "Connecting...",
-    "connectWallet": "CONNECT WALLET",
+    "connectWallet": "Connect Wallet",
+    "connectWalletUp": "CONNECT WALLET",
     "copied": "Copied!",
     "copperLaunchPromo": {
         "buttonLabel": "View this auction on Copper",
