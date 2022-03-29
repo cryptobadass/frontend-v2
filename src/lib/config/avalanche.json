@@ -38,7 +38,7 @@
       "dsProxyRegistry": "",
       "exchangeProxy": "",
       "merkleRedeem": "",
-      "merkleOrchard": "",
+      "merkleOrchard": "todo merkleOrchard address here",
       "multicall": "todo multicall address here",
       "authorizer": "todo authorizer address here",
       "vault": "todo vault address here",
