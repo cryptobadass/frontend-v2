@@ -138,9 +138,9 @@ function handleNavigate(state: StepState, stepIndex: number) {
   bottom: -1rem;
   height: 1rem;
 }
-.spacing::after{
+.spacing::after {
   content: '';
-  width:10rem;
-  @apply border-b border-gunmetal mx-1
+  width: 10rem;
+  @apply border-b border-gunmetal mx-1;
 }
 </style>
