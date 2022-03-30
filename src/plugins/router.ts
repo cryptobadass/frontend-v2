@@ -6,6 +6,7 @@ import PoolWithdrawPage from '@/pages/pool/withdraw.vue';
 import LiquidityMiningPage from '@/pages/liquidity-mining.vue';
 import TradePage from '@/pages/trade.vue';
 import CreatePoolPage from '@/pages/pool/create.vue';
+import CreatePoolPageB from '@/pages/pool/createB.vue';
 import MigratePoolPage from '@/pages/pool/migrate.vue';
 import TermsOfUsePage from '@/pages/terms-of-use.vue';
 import PrivacyPolicyPage from '@/pages/privacy-policy.vue';
@@ -32,6 +33,12 @@ const routes: RouteRecordRaw[] = [
     path: '/pool/create',
     name: 'create-pool',
     component: CreatePoolPage,
+    meta: { layout: 'FocusedLayout' }
+  },
+  {
+    path: '/pool/createB',
+    name: 'create-pool-b',
+    component: CreatePoolPageB,
     meta: { layout: 'FocusedLayout' }
   },
   {

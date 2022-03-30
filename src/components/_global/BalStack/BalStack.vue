@@ -31,6 +31,7 @@ export default defineComponent({
       type: String as PropType<Spacing>,
       default: () => 'base'
     },
+    spacingClass: { type: String, default: () => '' },
     /**
      * Show a hairline border after each stack element
      */
@@ -73,7 +74,7 @@ export default defineComponent({
     const borderClass = this.withBorder ? `border-${borderType}` : '';
     const stackNodeClass = `dark:border-gray-600 ${spacingType}-${
       SpacingMap[this.spacing]
-    } ${borderClass} ${widthClass}`;
+    } ${borderClass} ${widthClass} ${this.spacingClass}`;
 
     // @ts-ignore
     const vNodes = this.$slots.default() || [];

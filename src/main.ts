@@ -56,7 +56,7 @@ const app = createApp(Root)
 
 registerDirectives(app);
 registerGlobalComponents(app);
-initSentry(app);
+// initSentry(app); stop sentry
 
 app.mount('#app');
 

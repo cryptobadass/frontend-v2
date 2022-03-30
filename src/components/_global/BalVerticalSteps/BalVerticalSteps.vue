@@ -30,8 +30,8 @@ const visibleSteps = computed(() => {
 const stepTextClasses = computed(() => {
   return visibleSteps.value.map(step => {
     return getActiveClassName(step.state, [
-      [StepState.Active, 'text-blue-400 font-semibold hover:text-blue-800'],
-      [StepState.Todo, 'text-gray-400 font-normal'],
+      [StepState.Active, 'text-white font-semibold hover:text-cyan'],
+      [StepState.Todo, 'text-blueyGrey font-normal'],
       [StepState.Success, 'text-green-500 font-semibold'],
       [StepState.Warning, 'text-red-500 font-semibold'],
       [StepState.Completed, 'text-gray-700 font-medium']
@@ -44,15 +44,15 @@ const stepCircleClasses = computed(() => {
     return getActiveClassName(step.state, [
       [
         StepState.Active,
-        'border-2 border-none bg-gradient-from-l bg-gradient-to-r from-blue-600 to-blue-50 text-white active'
+        'border-2 border-none bg-cyan from-blue-600 to-blue-50 text-dark active'
       ],
       [
         StepState.Todo,
-        'border-2 border-gray-300 dark:border-gray-600 text-gray-500'
+        'border border-gunmetal  dark:border-gunmetal bg-dark-3 text-white'
       ],
       [
         StepState.Success,
-        'border-2 border-none bg-gradient-to-tr from-green-500 to-green-200 text-white'
+        'border-1 border-none bg-gradient-to-tr from-green-500 to-green-200 text-white'
       ],
       [StepState.Warning, 'border-2 border-none bg-red-500 text-white active'],
       [StepState.Completed, 'border-2 border-gray-600 font-medium']
@@ -70,11 +70,17 @@ function handleNavigate(state: StepState, stepIndex: number) {
 </script>
 
 <template>
-  <BalCard noPad shadow="none">
-    <div class="p-4 border-b dark:border-gray-600">
+  <BalCard noPad noBorder shadow="none">
+    <!-- <div class="p-4 border-b dark:border-gray-600">
       <h6 class="dark:text-gray-300">{{ title }}</h6>
-    </div>
-    <BalStack vertical spacing="base" class="p-4" justify="center">
+    </div> -->
+    <BalStack
+      horizontal
+      spacing="none"
+      spacingClass="spacing"
+      class="p-4"
+      justify="between"
+    >
       <div
         v-for="(step, i) in visibleSteps"
         :key="`vertical-step-${step.tooltip}`"
@@ -88,8 +94,7 @@ function handleNavigate(state: StepState, stepIndex: number) {
             <div
               :class="[
                 'relative text-sm rounded-full w-7 h-7 flex justify-center items-center',
-                stepCircleClasses[i],
-                { 'circle-line': i !== visibleSteps.length - 1 }
+                stepCircleClasses[i]
               ]"
             >
               <div
@@ -104,11 +109,18 @@ function handleNavigate(state: StepState, stepIndex: number) {
                 <span class="font-bold" v-else>!</span>
               </div>
             </div>
-            <span :class="['text-sm', stepTextClasses[i]]">
+            <span
+              :class="[
+                'text-sm',
+                stepTextClasses[i],
+                { 'circle-line': i !== visibleSteps.length - 1 }
+              ]"
+            >
               {{ step.tooltip }}
             </span>
           </BalStack>
         </button>
+        <!-- <div class=" w-10 border-b"></div> -->
       </div>
     </BalStack>
   </BalCard>
@@ -125,5 +137,10 @@ function handleNavigate(state: StepState, stepIndex: number) {
 .circle-line.active::after {
   bottom: -1rem;
   height: 1rem;
+}
+.spacing::after{
+  content: '';
+  width:10rem;
+  @apply border-b border-gunmetal mx-1
 }
 </style>
