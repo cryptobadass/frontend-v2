@@ -318,7 +318,7 @@ const chartGrid = computed(() => {
                   'py-1 px-2 text-sm rounded-lg mr-2',
                   {
                     'text-white': activeTimespan.value === timespan.value,
-                    'text-blueyGrey': activeTimespan.value !== timespan.value
+                    'text-bluey-grey': activeTimespan.value !== timespan.value
                   },
                   'hover:text-white'
                 ]"
@@ -328,11 +328,11 @@ const chartGrid = computed(() => {
             </div>
             <div :class="{ 'mt-4': isModal }">
               <span class="text-sm text-shite ">Low: </span
-              ><span class="text-sm text-blueyGrey mr-4">{{
+              ><span class="text-sm text-bluey-grey mr-4">{{
                 dataMin.toPrecision(6)
               }}</span>
               <span class="text-sm text-white">High: </span>
-              <span class="text-sm text-blueyGrey">{{
+              <span class="text-sm text-bluey-grey">{{
                 dataMax.toPrecision(6)
               }}</span>
             </div>

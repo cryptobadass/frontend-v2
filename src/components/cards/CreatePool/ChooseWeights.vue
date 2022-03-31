@@ -66,9 +66,10 @@ const cardWrapperHeight = ref(0);
 /**
  * COMPUTED
  */
-const tokenWeightItemHeight = computed(() =>
-  upToLargeBreakpoint.value ? 56 : 64
-);
+const tokenWeightItemHeight = computed(() => {
+  return 76;
+  // return upToLargeBreakpoint.value ? 56 : 64; // todo
+});
 
 const zeroWeightToken = computed(() => {
   const validTokens = seedTokens.value.filter(t => t.tokenAddress !== '');
@@ -130,14 +131,14 @@ const progressBarColor = computed(() => {
   ) {
     return 'red';
   }
-  return 'green';
+  return 'poison-green';
 });
 
 const weightColor = computed(() => {
   if (Number(totalWeight.value) > 100 || Number(totalWeight.value) <= 0) {
     return 'text-red-500';
   }
-  return darkMode.value ? 'text-gray-300' : 'text-gray-800';
+  return darkMode.value ? 'text-poison-green' : 'text-gray-800';
 });
 
 /**
@@ -347,21 +348,26 @@ function onAlertMountChange() {
               </div>
 
               <div class="p-3" ref="addTokenRowElement">
-                <BalBtn
+                <!-- <BalBtn
                   :disabled="maxTokenAmountReached"
                   @click="addTokenToPool"
-                  outline
-                  :color="maxTokenAmountReached ? 'gray' : 'blue'"
+                  :color="'cyan'"
                   size="sm"
                   >{{ $t('addToken') }}
-                </BalBtn>
+                </BalBtn> -->
+                <BalLink
+                  :disabled="maxTokenAmountReached"
+                  @click="addTokenToPool"
+                  class="underline ml-2"
+                  >{{ $t('addToken') }}</BalLink
+                >
               </div>
               <div
                 ref="totalsRowElement"
-                class="bg-gray-50 dark:bg-gray-850 w-full p-2 px-4"
+                class="bg-gray-50 dark:bg-gray-850 w-full p-2 px-4 mt-2"
               >
                 <div class="w-full flex justify-between">
-                  <h6>{{ $t('totalAllocated') }}</h6>
+                  <h6 class="text-white">{{ $t('totalAllocated') }}</h6>
                   <BalStack horizontal spacing="xs" align="center">
                     <h6 :class="weightColor">{{ totalAllocatedWeight }}%</h6>
                     <BalIcon
@@ -378,6 +384,7 @@ function onAlertMountChange() {
                   :color="progressBarColor"
                   :width="totalAllocatedWeight"
                   :bufferWidth="0"
+                  size="2"
                   class="my-2"
                 />
               </div>
@@ -443,7 +450,7 @@ function onAlertMountChange() {
         </AnimatePresence>
         <BalBtn
           block
-          color="gradient"
+          color="blue"
           :disabled="isProceedDisabled"
           @click="handleProceed"
           >{{ walletLabel }}</BalBtn

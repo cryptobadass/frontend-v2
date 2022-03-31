@@ -49,8 +49,8 @@ const { userNetworkConfig } = useWeb3();
  * COMPUTED
  */
 const customInputClasses = computed(() => ({
-  'border border-blue-500 text-blue-500': isCustomFee.value,
-  'border dark:border-gray-900': !isCustomFee.value
+  'border border-gunmetal-500 ': isCustomFee.value,
+  'border dark:border-gunmetal': !isCustomFee.value
 }));
 
 const isProceedDisabled = computed(() => {
@@ -141,25 +141,25 @@ async function onChangeFeeController(val: string) {
     <BalCard shadow="xl" noBorder>
       <BalStack vertical>
         <BalStack vertical spacing="xs">
-          <span class="text-xs text-gray-700 dark:text-gray-500">{{
+          <!-- <span class="text-xs text-gray-700 dark:text-gray-500">{{
             userNetworkConfig?.name
-          }}</span>
+          }}</span> -->
           <BalStack horizontal align="center" spacing="xs">
             <button
               @click="goBack"
               class="text-blue-500 hover:text-blue-700 flex"
             >
-              <BalIcon class="flex" name="chevron-left" />
+              <ArrowLeftIcon />
             </button>
-            <h5 class="font-bold dark:text-gray-300">
+            <h5 class="font-bold dark:text-white">
               {{ $t('createAPool.setPoolFees') }}
             </h5>
           </BalStack>
         </BalStack>
         <BalStack vertical spacing="sm">
           <div>
-            <h6 class="mb-1">Initial swap fee</h6>
-            <p class="text-gray-600">{{ $t('createAPool.bestFeeOption') }}</p>
+            <h6 class="mb-1">Starting Swap Fee</h6>
+            <p class="text-bluey-grey">{{ $t('createAPool.bestFeeOption') }}</p>
           </div>
           <BalStack spacing="xs" horizontal>
             <BalBtnGroup
@@ -168,9 +168,18 @@ async function onChangeFeeController(val: string) {
               @update:modelValue="onFixedInput"
             />
             <div>
-              <div :class="['custom-input', customInputClasses]">
+              <div
+                :class="[
+                  'custom-input',
+                  customInputClasses,
+                  ' border',
+                  'border-gunmetal',
+                  'text-white',
+                  'w-24'
+                ]"
+              >
                 <input
-                  class="w-12 text-right bg-transparent h-full"
+                  class="w-12 text-right bg-dark h-full text-white "
                   v-model="fee"
                   placeholder="0.1"
                   type="number"
@@ -213,11 +222,11 @@ async function onChangeFeeController(val: string) {
             :label="$t('createAPool.governanceFees')"
             noMargin
           />
-          <BalTooltip
+          <!-- <BalTooltip
             :text="$t('createAPool.governanceFeesTooltip')"
             icon-size="sm"
             class="ml-2 mt-1"
-          />
+          /> -->
         </BalStack>
         <BalStack vertical spacing="sm" v-if="feeManagementType === 'self'">
           <h6 class="mb-1">{{ $t('createAPool.alternativeFeeManagement') }}</h6>
@@ -301,7 +310,7 @@ async function onChangeFeeController(val: string) {
           :disabled="isProceedDisabled || isLoadingSimilarPools"
           type="submit"
           block
-          color="gradient"
+          color="blue"
           @click="proceed"
           >{{ $t('next') }}</BalBtn
         >

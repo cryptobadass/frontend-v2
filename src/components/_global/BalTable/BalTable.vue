@@ -142,7 +142,7 @@
                   v-else
                   :class="
                     compact([
-                      'px-6 py-4 text-blueyGrey',
+                      'px-6 py-4 text-bluey-grey',
                       column.align === 'right' ? 'text-right' : 'text-left',
                       column.cellClassName
                     ])
@@ -165,7 +165,7 @@
                   v-else
                   :class="
                     compact([
-                      'px-6 py-4 text-blueyGrey',
+                      'px-6 py-4 text-bluey-grey',
                       column.align === 'right' ? 'text-right' : 'text-left',
                       column.cellClassName
                     ])

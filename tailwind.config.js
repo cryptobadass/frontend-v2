@@ -76,6 +76,10 @@ module.exports = {
           850: '#00ffff',
           900: '#00ffff'
         },
+        'poison-green': {
+          DEFAULT: '#46F705',
+          400: '#46F705'
+        },
         dark: {
           DEFAULT: '#222531',
           2: '#33384d',
@@ -95,7 +99,7 @@ module.exports = {
         gunmetal: {
           DEFAULT: '#424658'
         },
-        blueyGrey: {
+        'bluey-grey': {
           DEFAULT: '#a1a7bb'
         },
         poisonGreen: {

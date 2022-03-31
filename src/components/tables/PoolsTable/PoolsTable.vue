@@ -262,7 +262,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
       </template>
       <template v-slot:aprCell="pool">
         <div
-          class="px-6 py-4 -mt-1 flex justify-end font-numeric text-blueyGrey"
+          class="px-6 py-4 -mt-1 flex justify-end font-numeric text-bluey-grey"
         >
           {{
             Number(pool.dynamic.apr.pool) > 10000

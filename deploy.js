@@ -10,8 +10,10 @@ const ssh = new NodeSSH();
 const config_all = {
   qa: {
     host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
-    pathUrl: '/var/www/',
-    webName: 'yotei.qa',
+    pathUrl: '/usr/share/nginx',
+    webName: 'html',
+    // pathUrl: '/var/www/',
+    // webName: 'yotei.qa',
     useName: 'ec2-user'
   },
   prd: {

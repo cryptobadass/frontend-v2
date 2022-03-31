@@ -182,7 +182,7 @@ function tokenFor(option: string): TokenInfo {
 }
 
 .unselected {
-  @apply bg-blue-500 text-white;
+  @apply bg-dark text-white border border-gunmetal;
 }
 
 .selected {

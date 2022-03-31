@@ -31,7 +31,7 @@ const stepTextClasses = computed(() => {
   return visibleSteps.value.map(step => {
     return getActiveClassName(step.state, [
       [StepState.Active, 'text-white font-semibold hover:text-cyan'],
-      [StepState.Todo, 'text-blueyGrey font-normal'],
+      [StepState.Todo, 'text-bluey-grey font-normal'],
       [StepState.Success, 'text-green-500 font-semibold'],
       [StepState.Warning, 'text-red-500 font-semibold'],
       [StepState.Completed, 'text-gray-700 font-medium']

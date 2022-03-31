@@ -237,7 +237,7 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
       </template>
 
       <template v-slot:valueCell="action">
-        <div class="px-6 py-4 flex justify-end font-numeric text-blueyGrey">
+        <div class="px-6 py-4 flex justify-end font-numeric text-bluey-grey">
           {{ action.formattedValue }}
         </div>
       </template>
@@ -245,7 +245,7 @@ function getJoinExitDetails(amounts: PoolActivity['amounts']) {
       <template v-slot:timeCell="action">
         <div class="px-6 py-4">
           <div
-            class="flex items-center justify-end wrap whitespace-nowrap text-right text-blueyGrey underline"
+            class="flex items-center justify-end wrap whitespace-nowrap text-right text-bluey-grey underline"
           >
             {{ action.formattedDate }}
             <BalLink

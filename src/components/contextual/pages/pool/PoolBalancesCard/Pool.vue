@@ -39,17 +39,17 @@
         </div>
       </template>
       <template v-slot:tokenWeightCell="token">
-        <div class="px-6 py-4 text-right font-numeric text-blueyGrey">
+        <div class="px-6 py-4 text-right font-numeric text-bluey-grey">
           {{ weightFor(token.address) }}
         </div>
       </template>
       <template v-slot:tokenBalanceCell="token">
-        <div class="px-6 py-4 text-right font-numeric text-blueyGrey">
+        <div class="px-6 py-4 text-right font-numeric text-bluey-grey">
           {{ balanceFor(token.address) }}
         </div>
       </template>
       <template v-slot:tokenValueCell="token">
-        <div class="px-6 py-4 text-right font-numeric text-blueyGrey">
+        <div class="px-6 py-4 text-right font-numeric text-bluey-grey">
           {{ fiatValueFor(token.address) }}
         </div>
       </template>
