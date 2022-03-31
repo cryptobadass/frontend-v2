@@ -3,7 +3,7 @@ const path = require('path');
 const archiver = require('archiver');
 const { NodeSSH } = require('node-ssh');
 
-const distPath = path.resolve(__dirname, '../build');
+const distPath = path.resolve(__dirname, 'dist');
 
 const ssh = new NodeSSH();
 
@@ -25,7 +25,7 @@ const config_all = {
 const config = config_all[process.env.NODE_ENV === 'production' ? 'prd' : 'qa'];
 
 const zipDirector = () => {
-  const output = fs.createWriteStream(`${__dirname}/../build.zip`);
+  const output = fs.createWriteStream(`${__dirname}/dist.zip`);
   const archive = archiver('zip', {
     zlib: { level: 3 }
   }).on('error', err => {
@@ -62,8 +62,8 @@ function uploadFile() {
       // remoteServiceUpdate()
       ssh
         .putFile(
-          path.resolve(__dirname, '../build.zip'),
-          `${config.pathUrl}/build.zip`
+          path.resolve(__dirname, 'dist.zip'),
+          `${config.pathUrl}/dist.zip`
         )
         .then(() => {
           console.log('The zip file is upload successful');
@@ -82,7 +82,7 @@ function uploadFile() {
 
 const remoteServiceUpdate = () => {
   ssh
-    .execCommand(`unzip -o build.zip -d ./${config.webName} `, {
+    .execCommand(`unzip -o dist.zip -d ./${config.webName} `, {
       cwd: config.pathUrl
     })
     .then(result => {
