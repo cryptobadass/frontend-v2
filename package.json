@@ -15,7 +15,9 @@
     "lint:fix": "vue-cli-service lint",
     "prepare": "node ./prepare.js",
     "tailwind:build": "tailwind-config-viewer export ./tailwind-static",
-    "tailwind:view": "tailwind-config-viewer -o"
+    "tailwind:view": "tailwind-config-viewer -o",
+    "d:qa": "cross-env NODE_ENV=development node ./deploy.js",
+    "d:prd_K8g5": "npm run build & cross-env NODE_ENV=production node ./deploy.js"
   },
   "devDependencies": {
     "@aave/protocol-js": "^4.3.0",
@@ -118,5 +120,10 @@
     "worker-loader": "^3.0.8"
   },
   "license": "MIT",
-  "repository": "balancer-labs/frontend-v2"
+  "repository": "balancer-labs/frontend-v2",
+  "dependencies": {
+    "archiver": "^5.3.0",
+    "cross-env": "^7.0.3",
+    "node-ssh": "^12.0.4"
+  }
 }
