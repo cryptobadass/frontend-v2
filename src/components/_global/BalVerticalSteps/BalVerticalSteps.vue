@@ -34,7 +34,7 @@ const stepTextClasses = computed(() => {
       [StepState.Todo, 'text-bluey-grey font-normal'],
       [StepState.Success, 'text-green-500 font-semibold'],
       [StepState.Warning, 'text-red-500 font-semibold'],
-      [StepState.Completed, 'text-gray-700 font-medium']
+      [StepState.Completed, 'text-bluey-grey  font-medium']
     ]);
   });
 });

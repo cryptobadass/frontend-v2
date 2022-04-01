@@ -180,7 +180,7 @@ function getStepState(idx: number) {
 function setWrapperHeight(dimensions?: { width: number; height: number }) {
   // need to transform the accordion as everything is absolutely
   // positioned inside the AnimateHeight component
-  if (dimensions?.height) prevWrapperHeight.value = dimensions.height;
+  // if (dimensions?.height) prevWrapperHeight.value = dimensions.height;
   let mobileOffset = 20;
 
   anime({
@@ -275,7 +275,7 @@ watch(isLoadingTokens, () => {
         <div class="grid grid-cols-3 gap-6">
           <div>
             <div class="relative center-col-mh">
-              <!-- <AnimatePresence
+              <!-- <div
                 :isVisible="hasRestoredFromSavedState && !appLoading"
                 unmountInstantly
               >
@@ -292,9 +292,9 @@ watch(isLoadingTokens, () => {
                     {{ $t('clickHere') }}
                   </button>
                 </BalAlert>
-              </AnimatePresence> -->
-              <AnimatePresence
-                :isVisible="
+              </div> -->
+              <div
+                v-if="
                   !appLoading && activeStep === 0 && !hasRestoredFromSavedState
                 "
                 :initial="initialAnimateProps"
@@ -302,18 +302,18 @@ watch(isLoadingTokens, () => {
                 :exit="exitAnimateProps"
               >
                 <ChooseWeights @update:height="setWrapperHeight" />
-              </AnimatePresence>
-              <AnimatePresence
-                :isVisible="!appLoading && activeStep === 1"
+              </div>
+              <div
+                v-if="!appLoading && activeStep === 1"
                 :initial="initialAnimateProps"
                 :animate="entryAnimateProps"
                 :exit="exitAnimateProps"
                 @update-dimensions="setWrapperHeight"
               >
                 <PoolFees @update:height="setWrapperHeight" />
-              </AnimatePresence>
-              <AnimatePresence
-                :isVisible="
+              </div>
+              <div
+                v-if="
                   !appLoading && activeStep === 2 && similarPools.length > 0
                 "
                 :initial="initialAnimateProps"
@@ -322,27 +322,25 @@ watch(isLoadingTokens, () => {
                 @update-dimensions="setWrapperHeight"
               >
                 <SimilarPools />
-              </AnimatePresence>
-              <AnimatePresence
-                :isVisible="!appLoading && activeStep === 3"
+              </div>
+              <div
+                v-if="!appLoading && activeStep === 3"
                 :initial="initialAnimateProps"
                 :animate="entryAnimateProps"
                 :exit="exitAnimateProps"
                 @update-dimensions="setWrapperHeight"
               >
                 <InitialLiquidity @update:height="setWrapperHeight" />
-              </AnimatePresence>
-              <AnimatePresence
-                :isVisible="
-                  !appLoading && activeStep === 4 && !dynamicDataLoading
-                "
+              </div>
+              <div
+                v-if="!appLoading && activeStep === 4 && !dynamicDataLoading"
                 :initial="initialAnimateProps"
                 :animate="entryAnimateProps"
                 :exit="exitAnimateProps"
                 @update-dimensions="setWrapperHeight"
               >
                 <PreviewPool />
-              </AnimatePresence>
+              </div>
               <div
                 v-if="upToLargeBreakpoint"
                 ref="accordionWrapper"

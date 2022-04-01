@@ -69,13 +69,13 @@
     "approvingLidoRelayer": "Approving Lido relayer",
     "apr": "APR",
     "autoOptimiseLiquidityToggle": {
-        "label": "Auto optimize liquidity",
+        "label": "Auto Optimize Liquidity",
         "tooltip": "Optimise token values automatically to match the token weights you specified."
     },
     "available": "Available",
     "availableToClaim": "Available to claim:",
     "balance": "BALANCE",
-    "balancerGovernance": "Balancer governance",
+    "yoteiGovernance": "Yotei Governance",
     "balances": "Balances",
     "basedOnLast24h": "based on the last 24h",
     "basedOnTokensInWallet": "Based on pool tokens in your wallet",
@@ -153,7 +153,7 @@
         "setPoolFees": "SET THE POOL FEES",    
         "swapFeeSuggestion": "0.30% is best for most weighted pools with established tokens. Go higher for more exotic pairs.",
         "title": "Create A Pool",
-        "tokensAndSeedLiquidity": "Tokens and initial seed liquidity",
+        "tokensAndSeedLiquidity": "TOKENS & STARTING SEED LIQUIDITY",
         "totalWeightAlert": "The total weighting of all tokens must equal exactly 100% before you can proceed.",
         "totalWeightAlertTitle": "The total weight must be 100%",
         "unknownTokenPriceAlert": "We couldn't find prices for one or more tokens you have chosen ({0}).",
@@ -571,7 +571,7 @@
             "total": "The total value in {0} you’ll be withdrawing from this pool."
         }
     },
-    "total": "Total",
+    "total": "Total:",
     "totalAllocated": "Total Allocated",
     "totalAPR": "Total APR",
     "totalSupply": "Total supply",

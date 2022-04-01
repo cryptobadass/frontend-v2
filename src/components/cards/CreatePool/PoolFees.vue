@@ -137,7 +137,7 @@ async function onChangeFeeController(val: string) {
 </script>
 
 <template>
-  <div ref="cardWrapper">
+  <div ref="cardWrapper" class="border border-gunmetal rounded-lg bg:dark-3">
     <BalCard shadow="xl" noBorder>
       <BalStack vertical>
         <BalStack vertical spacing="xs">
@@ -156,6 +156,7 @@ async function onChangeFeeController(val: string) {
             </h5>
           </BalStack>
         </BalStack>
+        <div class="border-b border-gunmetal dark:border-gunmetal"></div>
         <BalStack vertical spacing="sm">
           <div>
             <h6 class="mb-1">Starting Swap Fee</h6>
@@ -218,10 +219,14 @@ async function onChangeFeeController(val: string) {
             @update:modelValue="onChangeFeeManagementType"
             v-model="checkboxState"
             name="areFeesGovernanceManaged"
-            size="sm"
-            :label="$t('createAPool.governanceFees')"
+            size="lg"
             noMargin
-          />
+            ><template v-slot:label
+              ><div class="text-bluey-grey text-sm mt-1">
+                {{ $t('createAPool.governanceFees') }}
+              </div></template
+            ></BalCheckbox
+          >
           <!-- <BalTooltip
             :text="$t('createAPool.governanceFeesTooltip')"
             icon-size="sm"

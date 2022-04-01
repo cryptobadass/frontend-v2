@@ -303,7 +303,10 @@ function onAlertMountChange() {
 </script>
 
 <template>
-  <div ref="cardWrapper" class="mb-16">
+  <div
+    ref="cardWrapper"
+    class="mb-16 border border-gunmetal rounded-lg bg:dark-3"
+  >
     <BalCard shadow="xl" noBorder>
       <BalStack vertical spacing="sm">
         <BalStack vertical spacing="xs">
@@ -315,7 +318,8 @@ function onAlertMountChange() {
             {{ $t('createAPool.selectTheTokensAndWeights') }}
           </h5>
         </BalStack>
-        <BalCard shadow="none" noPad>
+        <div class="border-b border-gunmetal dark:border-gunmetal"></div>
+        <BalCard shadow="none" noPad  noBorder>
           <div ref="tokenWeightListWrapper">
             <div class="flex flex-col">
               <div

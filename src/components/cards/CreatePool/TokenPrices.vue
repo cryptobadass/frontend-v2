@@ -44,7 +44,7 @@ const hasUnknownPrice = computed(() =>
     <div class="p-4 dark:border-gray-600 border-b" v-if="!upToLargeBreakpoint">
       <BalStack horizontal spacing="sm" align="center">
         <h6 class="dark:text-gray-300">
-          <CreateTokenIcon class="inline-block" />{{ $t('tokenPrices') }}
+          <CreateTokenIcon class="inline-block mb-1" />{{ $t('tokenPrices') }}
         </h6>
         <BalTooltip class="mt-1" :text="$t('correctTokenPricing')" />
       </BalStack>
