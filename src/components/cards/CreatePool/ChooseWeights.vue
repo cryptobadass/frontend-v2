@@ -319,7 +319,7 @@ function onAlertMountChange() {
           </h5>
         </BalStack>
         <div class="border-b border-gunmetal dark:border-gunmetal"></div>
-        <BalCard shadow="none" noPad  noBorder>
+        <BalCard shadow="none" noPad noBorder>
           <div ref="tokenWeightListWrapper">
             <div class="flex flex-col">
               <div

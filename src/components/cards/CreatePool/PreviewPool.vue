@@ -197,7 +197,8 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
                     </span>
                     <span
                       :class="[
-                        'text-sm','text-bluey-grey',
+                        'text-sm',
+                        'text-bluey-grey',
                         getInitialWeightHighlightClass(token.tokenAddress)
                       ]"
                     >

@@ -273,7 +273,6 @@ function saveAndProceed() {
               <div v-html="t('autoOptimiseLiquidityToggle.tooltip')" />
             </BalTooltip> -->
           </div>
-          
         </BalStack>
         <div class="p-3 border-0 ">
           <BalStack horizontal justify="between">

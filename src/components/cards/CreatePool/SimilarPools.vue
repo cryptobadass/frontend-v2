@@ -75,7 +75,7 @@ function cancel() {
           <h5 class="font-bold dark:text-gray-300">{{ title }}</h5>
         </BalStack>
       </BalStack>
-       <div class="border-b border-gunmetal dark:border-gunmetal"></div>
+      <div class="border-b border-gunmetal dark:border-gunmetal"></div>
       <p v-if="existingPool">{{ $t('createAPool.existingPoolInfo') }}</p>
       <div v-if="isLoadingSimilarPools"></div>
       <BalCard v-else-if="existingPool" shadow="none">
