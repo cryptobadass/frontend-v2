@@ -25,7 +25,7 @@ export default defineComponent({
 
   components: {
     AppNavToggle,
-    DarkModeToggle,
+    DarkModeToggle
     // IntercomToggle
   }
 });
