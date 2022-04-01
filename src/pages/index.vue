@@ -31,12 +31,12 @@
           }`
         "
       />
-      <div class="px-4 lg:px-0" v-if="!hideV1Links">
+      <!-- <div class="px-4 lg:px-0" v-if="!hideV1Links">
         <div class="text-black-600">{{ $t('seeV1BalancerInvestments') }}</div>
         <BalLink :href="EXTERNAL_LINKS.Balancer.PoolsV1Dashboard" external>{{
           $t('goToBalancerV1Site')
         }}</BalLink>
-      </div>
+      </div> -->
       <div class="mb-16" />
     </template>
 
