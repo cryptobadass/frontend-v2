@@ -53,5 +53,14 @@
             "manifest": "https://raw.githubusercontent.com/cryptobadass/bal-mining-scripts/master/reports/_current-fuji-bmock.json",
             "weekStart": 1
         }
+    ],
+    "43114": [
+        {
+            "label": "todo Offical token",
+            "distributor": "0xfF85a5Ff1e5f2D6Cc736B2F1c2fAcd54386E284A",
+            "token": "todo token address here",
+            "manifest": "https://raw.githubusercontent.com/cryptobadass/bal-mining-scripts/master/reports/_current-avalanche.json",
+            "weekStart": 1
+        }
     ]
 }
