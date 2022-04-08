@@ -49,7 +49,7 @@ function handleInternalClose() {
           tag="a"
           :href="mainnetURL"
           :label="$t('proceed')"
-          color="gradient"
+          color="blue"
         />
         <BalBtn :label="$t('cancel')" outline @click="handleInternalClose" />
       </div>

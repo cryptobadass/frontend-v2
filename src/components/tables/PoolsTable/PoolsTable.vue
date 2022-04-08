@@ -270,7 +270,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
         <div class="px-2 py-4 flex justify-center">
           <BalBtn
             v-if="isMigratablePool(pool)"
-            color="gradient"
+            color="blue"
             size="sm"
             @click.prevent="navigateToPoolMigration(pool)"
           >
@@ -282,7 +282,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
         <div class="px-2 py-4 flex justify-center">
           <BalBtn
             v-if="stakeablePoolIds.includes(pool.id)"
-            color="gradient"
+            color="blue"
             size="sm"
             @click.prevent="$emit('triggerStake', pool)"
           >

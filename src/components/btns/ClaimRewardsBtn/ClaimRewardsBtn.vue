@@ -46,7 +46,7 @@ function claimTx() {
 <template>
   <TxActionBtn
     :label="$t('claimAll')"
-    color="gradient"
+    color="blue"
     size="sm"
     :actionFn="claimTx"
     :onConfirmFn="gaugesQuery.refetch.value"

@@ -207,7 +207,7 @@ watch(blockNumber, async () => {
         v-if="lockablePoolId === pool.id"
         tag="router-link"
         :to="{ name: 'get-vebal' }"
-        color="gradient"
+        color="blue"
         block
         class="mt-2 flex"
       >
@@ -215,7 +215,7 @@ watch(blockNumber, async () => {
       </BalBtn>
       <BalBtn
         v-else-if="isPoolEligibleForStaking"
-        color="gradient"
+        color="blue"
         block
         class="mt-2 flex"
         @click="emit('showStakeModal')"

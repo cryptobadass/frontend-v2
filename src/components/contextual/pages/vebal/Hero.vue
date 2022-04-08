@@ -51,7 +51,7 @@ function navigateToGetVeBAL() {
         </div>
         <div class="flex mt-6">
           <BalBtn
-            color="gradient"
+            color="blue"
             @click="navigateToGetVeBAL"
             class="mr-3 hero-btn"
           >
@@ -70,7 +70,7 @@ function navigateToGetVeBAL() {
             <BalIcon
               name="arrow-up-right"
               size="sm"
-              class="ml-px group-hover:text-pink-500 transition-colors"
+              class="ml-px group-hover:text-cyan-500 transition-colors"
             />
           </BalBtn>
         </div>

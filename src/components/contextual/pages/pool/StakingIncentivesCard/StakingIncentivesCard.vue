@@ -186,7 +186,7 @@ async function handleActionSuccess() {
               </BalStack>
               <BalStack horizontal spacing="sm" class="mt-2">
                 <BalBtn
-                  color="gradient"
+                  color="blue"
                   size="sm"
                   @click="showStakePreview"
                   :disabled="fiatValueOfUnstakedShares === '0'"

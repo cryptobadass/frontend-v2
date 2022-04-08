@@ -160,13 +160,13 @@ function handleClosePreviewModal() {
       <BalBtn
         v-if="!isWalletReady"
         :label="$t('connectWallet')"
-        color="gradient"
+        color="blue"
         block
         @click="toggleWalletSelectModal"
       />
       <BalBtn
         v-else
-        color="gradient"
+        color="blue"
         block
         :disabled="submissionDisabled"
         @click="showPreviewModal = true"

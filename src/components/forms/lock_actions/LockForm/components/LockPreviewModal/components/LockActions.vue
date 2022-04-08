@@ -231,7 +231,7 @@ onBeforeMount(async () => {
           <BalIcon
             name="arrow-up-right"
             size="sm"
-            class="ml-px group-hover:text-pink-500 transition-colors"
+            class="ml-px group-hover:text-cyan-500 transition-colors"
           />
         </BalLink>
       </div>

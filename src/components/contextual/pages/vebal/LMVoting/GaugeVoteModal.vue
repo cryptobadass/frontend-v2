@@ -336,7 +336,7 @@ onMounted(() => {
         >
           <BalIcon
             name="arrow-up-right"
-            class="text-gray-500 group-hover:text-pink-500 transition-colors"
+            class="text-gray-500 group-hover:text-cyan-500 transition-colors"
           />
         </BalLink>
       </div>
@@ -392,7 +392,7 @@ onMounted(() => {
           </template>
           <BalBtn
             v-else
-            color="gradient"
+            color="blue"
             block
             :disabled="voteDisabled"
             :loading="transactionInProgress"

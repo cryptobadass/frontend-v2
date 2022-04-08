@@ -339,7 +339,7 @@
       </div>
       <BalBtn
         v-if="requiresGnosisRelayerApproval"
-        color="gradient"
+        color="blue"
         block
         @click.prevent="gnosisRelayerApproval.approve"
         :loading="
@@ -352,7 +352,7 @@
       </BalBtn>
       <BalBtn
         v-else-if="requiresLidoRelayerApproval"
-        color="gradient"
+        color="blue"
         block
         @click.prevent="lidoRelayerApproval.approve"
         :loading="
@@ -366,7 +366,7 @@
         v-else-if="requiresTokenApproval"
         :loading="tokenApproval.approving.value"
         :loading-label="`${$t('approving')} ${trading.tokenIn.value.symbol}...`"
-        color="gradient"
+        color="blue"
         block
         @click.prevent="approveToken"
       >
@@ -374,7 +374,7 @@
       </BalBtn>
       <BalBtn
         v-else
-        color="gradient"
+        color="blue"
         block
         @click.prevent="trade"
         :loading="trading.isConfirming.value"
