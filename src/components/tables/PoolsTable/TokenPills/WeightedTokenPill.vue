@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
-
 type Props = {
   hasBalance: boolean;
   symbol: string;
@@ -35,7 +33,7 @@ withDefaults(defineProps<Props>(), {
 
 <style scoped>
 .pill {
-  @apply flex items-center px-2 mr-2 my-1 py-1 rounded-lg bg-gray-100 dark:bg-gray-700 relative;
+  @apply flex text-white items-center px-2 mr-2 my-1 py-1 rounded-lg bg-dark-2 dark:bg-dark-2 relative;
 }
 .pill:last-child {
   @apply mr-0;

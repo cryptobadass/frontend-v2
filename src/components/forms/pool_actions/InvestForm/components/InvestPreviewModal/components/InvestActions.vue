@@ -2,6 +2,7 @@
 import { toRef, toRefs, computed, reactive, watch } from 'vue';
 import PoolExchange from '@/services/pool/exchange/exchange.service';
 import { usePool } from '@/composables/usePool';
+
 // Types
 import { FullPool } from '@/services/balancer/subgraph/types';
 import {
@@ -16,13 +17,16 @@ import useEthers from '@/composables/useEthers';
 import { useI18n } from 'vue-i18n';
 import { dateTimeLabelFor } from '@/composables/useTime';
 import { useRoute } from 'vue-router';
-import useConfig from '@/composables/useConfig';
 import { BigNumber } from 'ethers';
 import { formatUnits } from '@ethersproject/units';
 import useTokenApprovalActions from '@/composables/useTokenApprovalActions';
 import { TransactionActionInfo } from '@/types/transactions';
 import BalActionSteps from '@/components/_global/BalActionSteps/BalActionSteps.vue';
 import { boostedJoinBatchSwap } from '@/lib/utils/balancer/swapper';
+import ConfirmationIndicator from '@/components/web3/ConfirmationIndicator.vue';
+import useVeBal from '@/composables/useVeBAL';
+import useStaking from '@/composables/staking/useStaking';
+
 /**
  * TYPES
  */
@@ -47,6 +51,7 @@ const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'success', value: TransactionReceipt): void;
+  (e: 'showStakeModal'): void;
 }>();
 
 /**
@@ -64,10 +69,12 @@ const investmentState = reactive<InvestmentState>({
  */
 const route = useRoute();
 const { t } = useI18n();
-const { networkConfig } = useConfig();
-const { account, getProvider, explorerLinks, blockNumber } = useWeb3();
+const { account, getProvider, blockNumber } = useWeb3();
 const { addTransaction } = useTransactions();
 const { txListener, getTxConfirmedAt } = useEthers();
+const { lockablePoolId } = useVeBal();
+const { isPoolEligibleForStaking } = useStaking();
+
 const { poolWeightsLabel } = usePool(toRef(props, 'pool'));
 const {
   fullAmounts,
@@ -101,12 +108,6 @@ const actions = computed((): TransactionActionInfo[] => [
     stepTooltip: t('investmentTooltip')
   }
 ]);
-
-const explorerLink = computed((): string =>
-  investmentState.receipt
-    ? explorerLinks.txLink(investmentState.receipt.transactionHash)
-    : ''
-);
 
 const transactionInProgress = computed(
   (): boolean =>
@@ -198,32 +199,32 @@ watch(blockNumber, async () => {
 </script>
 
 <template>
-  <div>
-    <BalActionSteps :actions="actions" />
-    <template v-if="investmentState.confirmed">
-      <div
-        class="flex items-center justify-between text-gray-400 dark:text-gray-600 mt-4 text-sm"
+  <transition>
+    <BalActionSteps v-if="!investmentState.confirmed" :actions="actions" />
+    <div v-else>
+      <ConfirmationIndicator :txReceipt="investmentState.receipt" />
+      <BalBtn
+        v-if="lockablePoolId === pool.id"
+        tag="router-link"
+        :to="{ name: 'get-vebal' }"
+        color="gradient"
+        block
+        class="mt-2 flex"
       >
-        <div class="flex items-center">
-          <BalIcon name="clock" />
-          <span class="ml-2">
-            {{ investmentState.confirmedAt }}
-          </span>
-        </div>
-        <BalLink
-          :href="explorerLink"
-          external
-          noStyle
-          class="group flex items-center"
-        >
-          {{ networkConfig.explorerName }}
-          <BalIcon
-            name="arrow-up-right"
-            size="sm"
-            class="ml-px group-hover:text-pink-500 transition-colors"
-          />
-        </BalLink>
-      </div>
+        <StarsIcon class="h-5 text-yellow-300 mr-2" />{{ $t('lockToGetVeBAL') }}
+      </BalBtn>
+      <BalBtn
+        v-else-if="isPoolEligibleForStaking"
+        color="gradient"
+        block
+        class="mt-2 flex"
+        @click="emit('showStakeModal')"
+      >
+        <StarsIcon class="h-5 text-yellow-300 mr-2" />{{
+          $t('stakeToGetExtra')
+        }}
+      </BalBtn>
+
       <BalBtn
         tag="router-link"
         :to="{ name: 'pool', params: { id: route.params.id } }"
@@ -234,6 +235,6 @@ watch(blockNumber, async () => {
       >
         {{ $t('returnToPool') }}
       </BalBtn>
-    </template>
-  </div>
+    </div>
+  </transition>
 </template>

@@ -50,32 +50,24 @@ function cancel() {
 </script>
 
 <template>
-  <BalCard
-    shadow="xl"
-    noBorder
-    :class="[
-      'border border-gunmetal rounded-lg bg:dark-3',
-      { 'border-red-400': existingPool }
-    ]"
-  >
+  <BalCard shadow="xl" noBorder :class="{ 'border-red-400': existingPool }">
     <BalStack vertical>
       <BalStack vertical spacing="xs">
-        <!-- <span
+        <span
           v-if="isWalletReady"
           class="text-xs text-gray-700 dark:text-gray-500"
           >{{ userNetworkConfig?.name }}</span
-        > -->
+        >
         <BalStack align="center" horizontal spacing="xs">
           <button
             @click="goBack"
-            class="text-blue-500 hover:text-blue-700 flex"
+            class="text-cyan-500 hover:text-cyan-700 flex"
           >
-            <ArrowLeftIcon />
+            <BalIcon class="flex" name="arrow-left" />
           </button>
           <h5 class="font-bold dark:text-gray-300">{{ title }}</h5>
         </BalStack>
       </BalStack>
-      <div class="border-b border-gunmetal dark:border-gunmetal"></div>
       <p v-if="existingPool">{{ $t('createAPool.existingPoolInfo') }}</p>
       <div v-if="isLoadingSimilarPools"></div>
       <BalCard v-else-if="existingPool" shadow="none">
@@ -167,7 +159,9 @@ function cancel() {
         result in your new pool being less profitable.
       </BalAlert>
       <BalStack horizontal expandChildren>
-        <BalBtn @click="cancel" block outline>Cancel</BalBtn>
+        <BalBtn @click="cancel" block outline color="black">
+          {{ $t('cancel') }}
+        </BalBtn>
         <BalBtn @click="proceed" v-if="!existingPool" block color="blue"
           >Continue anyway</BalBtn
         >

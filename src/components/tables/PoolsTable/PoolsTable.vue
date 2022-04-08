@@ -1,14 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
-import {
-  DecoratedPoolWithShares,
-  PoolToken
-} from '@/services/balancer/subgraph/types';
-
-import { getAddress } from '@ethersproject/address';
+import { DecoratedPoolWithShares } from '@/services/balancer/subgraph/types';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import useFathom from '@/composables/useFathom';
@@ -16,8 +11,9 @@ import useDarkMode from '@/composables/useDarkMode';
 import useBreakpoints from '@/composables/useBreakpoints';
 import {
   isStableLike,
-  isStablePhantom,
-  isMigratablePool
+  isMigratablePool,
+  orderedTokenAddresses,
+  orderedPoolTokens
 } from '@/composables/usePool';
 
 import LiquidityAPRTooltip from '@/components/tooltips/LiquidityAPRTooltip.vue';
@@ -26,6 +22,7 @@ import { POOL_MIGRATIONS_MAP } from '@/components/forms/pool_actions/MigrateForm
 import { PoolMigrationType } from '@/components/forms/pool_actions/MigrateForm/types';
 
 import TokenPills from './TokenPills/TokenPills.vue';
+import { POOLS } from '@/constants/pools';
 
 /**
  * TYPES
@@ -38,7 +35,7 @@ type Props = {
   noPoolsLabel?: string;
   isPaginated?: boolean;
   selectedTokens?: string[];
-  showMigrationColumn?: boolean;
+  hiddenColumns?: string[];
 };
 
 /**
@@ -48,12 +45,12 @@ type Props = {
 const props = withDefaults(defineProps<Props>(), {
   isLoadingMore: false,
   showPoolShares: false,
-  showMigrationColumn: false,
   noPoolsLabel: 'No pools',
-  isPaginated: false
+  isPaginated: false,
+  hiddenColumns: () => []
 });
 
-const emit = defineEmits(['loadMore']);
+const emit = defineEmits(['loadMore', 'triggerStake']);
 
 /**
  * COMPOSABLES
@@ -63,28 +60,31 @@ const router = useRouter();
 const { t } = useI18n();
 const { trackGoal, Goals } = useFathom();
 const { darkMode } = useDarkMode();
-const { upToLargeBreakpoint } = useBreakpoints();
+const { upToLargeBreakpoint, upToMediumBreakpoint } = useBreakpoints();
+
+const wideCompositionWidth = computed(() =>
+  upToMediumBreakpoint.value ? 900 : undefined
+);
 
 /**
  * DATA
  */
-const columns = ref<ColumnDefinition<DecoratedPoolWithShares>[]>([
+const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
   {
-    // name: 'Icons',
-    name: t('tokens'),
+    name: 'Tokens',
     id: 'icons',
     accessor: 'uri',
     // Header: 'iconColumnHeader',
     Cell: 'iconColumnCell',
-    width: 125
-    // noGrow: true
+    width: 125,
+    noGrow: true
   },
   {
     name: t('composition'),
     id: 'poolName',
     accessor: 'id',
     Cell: 'poolNameCell',
-    width: 350
+    width: props.hiddenColumns.length >= 2 ? wideCompositionWidth.value : 350
   },
   {
     name: t('myBalance'),
@@ -136,7 +136,7 @@ const columns = ref<ColumnDefinition<DecoratedPoolWithShares>[]>([
     cellClassName: 'font-numeric'
   },
   {
-    name: t('apr'),
+    name: props.showPoolShares ? t('myApr') : t('apr'),
     Cell: 'aprCell',
     accessor: pool => pool.dynamic.apr.total,
     align: 'right',
@@ -152,31 +152,29 @@ const columns = ref<ColumnDefinition<DecoratedPoolWithShares>[]>([
     name: t('migrate'),
     Cell: 'migrateCell',
     accessor: 'migrate',
-    align: 'right',
+    align: 'center',
     id: 'migrate',
-    width: 150,
-    hidden: !props.showMigrationColumn
+    width: 150
+  },
+  {
+    name: t('stake'),
+    Cell: 'stakeCell',
+    accessor: 'stake',
+    align: 'center',
+    id: 'stake',
+    width: 150
   }
 ]);
+
+const visibleColumns = computed(() =>
+  columns.value.filter(column => !props.hiddenColumns.includes(column.id))
+);
+
+const stakeablePoolIds = computed((): string[] => POOLS.Stakeable.AllowList);
 
 /**
  * METHODS
  */
-function orderedTokenAddressesFor(pool: DecoratedPoolWithShares) {
-  const sortedTokens = orderedPoolTokens(pool);
-  return sortedTokens.map(token => getAddress(token.address));
-}
-
-function orderedPoolTokens(pool: DecoratedPoolWithShares): PoolToken[] {
-  if (isStablePhantom(pool.poolType))
-    return pool.tokens.filter(token => token.address !== pool.address);
-  if (isStableLike(pool.poolType)) return pool.tokens;
-
-  const sortedTokens = pool.tokens.slice();
-  sortedTokens.sort((a, b) => parseFloat(b.weight) - parseFloat(a.weight));
-  return sortedTokens;
-}
-
 function handleRowClick(pool: DecoratedPoolWithShares) {
   trackGoal(Goals.ClickPoolsTableRow);
   router.push({ name: 'pool', params: { id: pool.id } });
@@ -197,13 +195,12 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
 <template>
   <BalCard
     shadow="lg"
-    class="mt-4"
     :square="upToLargeBreakpoint"
     :noBorder="upToLargeBreakpoint"
     noPad
   >
     <BalTable
-      :columns="columns"
+      :columns="visibleColumns"
       :data="data"
       :is-loading="isLoading"
       :is-loading-more="isLoadingMore"
@@ -222,7 +219,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
         sortDirection: 'desc'
       }"
     >
-      <!-- <template v-slot:iconColumnHeader>
+      <template v-slot:iconColumnHeader>
         <div class="flex items-center">
           <img
             v-if="darkMode"
@@ -233,19 +230,18 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
             :src="require('@/assets/images/icons/tokens_black.svg')"
           />
         </div>
-      </template> -->
+      </template>
       <template v-slot:iconColumnCell="pool">
         <div v-if="!isLoading" class="px-6 py-4">
-          <BalAssetSet
-            :addresses="orderedTokenAddressesFor(pool)"
-            :width="100"
-          />
+          <BalAssetSet :addresses="orderedTokenAddresses(pool)" :width="100" />
         </div>
       </template>
       <template v-slot:poolNameCell="pool">
         <div v-if="!isLoading" class="px-6 py-4 flex items-center">
           <TokenPills
-            :tokens="orderedPoolTokens(pool)"
+            :tokens="
+              orderedPoolTokens(pool.poolType, pool.address, pool.tokens)
+            "
             :isStablePool="isStableLike(pool.poolType)"
             :selectedTokens="selectedTokens"
           />
@@ -261,19 +257,17 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
         </div>
       </template>
       <template v-slot:aprCell="pool">
-        <div
-          class="px-6 py-4 -mt-1 flex justify-end font-numeric text-bluey-grey"
-        >
+        <div class="px-6 py-4 -mt-1 flex justify-end font-numeric">
           {{
             Number(pool.dynamic.apr.pool) > 10000
               ? '-'
               : fNum2(pool.dynamic.apr.total, FNumFormats.percent)
           }}
-          <!-- <LiquidityAPRTooltip :pool="pool" /> -->
+          <LiquidityAPRTooltip :pool="pool" />
         </div>
       </template>
       <template v-slot:migrateCell="pool">
-        <div class="px-6 py-4 flex justify-end">
+        <div class="px-2 py-4 flex justify-center">
           <BalBtn
             v-if="isMigratablePool(pool)"
             color="gradient"
@@ -282,6 +276,19 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
           >
             {{ $t('migrate') }}
           </BalBtn>
+        </div>
+      </template>
+      <template v-slot:stakeCell="pool">
+        <div class="px-2 py-4 flex justify-center">
+          <BalBtn
+            v-if="stakeablePoolIds.includes(pool.id)"
+            color="gradient"
+            size="sm"
+            @click.prevent="$emit('triggerStake', pool)"
+          >
+            {{ $t('stake') }}
+          </BalBtn>
+          <div v-else>{{ $t('notAvailable') }}</div>
         </div>
       </template>
     </BalTable>

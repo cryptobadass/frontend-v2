@@ -4,66 +4,64 @@
       <div class="col-span-2">
         <BalLoadingBlock v-if="loadingPool" class="h-16" />
         <div v-else class="px-4 lg:px-0 flex flex-col">
-          <div class=" -mt-2">
+          <div class="flex flex-wrap items-center -mt-2">
             <h3 class="pool-title">
               {{ poolTypeLabel }}
             </h3>
-            <div class="flex flex-wrap items-center">
-              <div
-                v-for="([address, tokenMeta], i) in titleTokens"
-                :key="i"
-                class="mt-2 mr-5 flex items-center px-4 h-12 bg-gray-50 dark:bg-dark-2 rounded-lg"
+            <div
+              v-for="([address, tokenMeta], i) in titleTokens"
+              :key="i"
+              class="mt-2 mr-2 flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
+            >
+              <BalAsset :address="address" />
+              <span class="ml-2">
+                {{ tokenMeta.symbol }}
+              </span>
+              <span
+                v-if="!isStableLikePool"
+                class="font-medium text-gray-400 text-xs mt-px ml-1"
               >
-                <BalAsset :address="address" />
-                <span class="ml-2">
-                  {{ tokenMeta.symbol }}
-                </span>
-                <!-- <span
-                  v-if="!isStableLikePool"
-                  class="font-medium text-gray-400 text-xs mt-px ml-1"
-                >
-                  {{
-                    fNum2(tokenMeta.weight, {
-                      style: 'percent',
-                      maximumFractionDigits: 0
-                    })
-                  }}
-                </span> -->
-              </div>
-              <BalChip
-                v-if="pool.dynamic.isNewPool"
-                color="red"
-                size="sm"
-                class="uppercase mt-2 mr-2"
-                :outline="false"
-              >
-                {{ $t('new') }}
-              </BalChip>
-              <!-- <LiquidityAPRTooltip :pool="pool" class="-ml-1 mt-1" /> -->
-              <div class="flex items-center mt-2">
-                <div v-html="poolFeeLabel" class="text text-blueGrey" />
-                <!-- <BalTooltip>
-                  <template v-slot:activator>
-                    <BalLink
-                      v-if="feesManagedByGauntlet"
-                      :href="EXTERNAL_LINKS.Gauntlet.Home"
-                      external
-                    >
-                      <GauntletIcon class="ml-2" />
-                    </BalLink>
-                    <BalIcon
-                      v-else
-                      name="info"
-                      size="xs"
-                      class="text-gray-400 ml-2"
-                    />
-                  </template>
-                  <span>
-                    {{ swapFeeToolTip }}
-                  </span>
-                </BalTooltip> -->
-              </div>
+                {{
+                  fNum2(tokenMeta.weight, {
+                    style: 'percent',
+                    maximumFractionDigits: 0
+                  })
+                }}
+              </span>
             </div>
+            <BalChip
+              v-if="pool.dynamic.isNewPool"
+              color="red"
+              size="sm"
+              class="uppercase mt-2 mr-2"
+              :outline="false"
+            >
+              {{ $t('new') }}
+            </BalChip>
+            <LiquidityAPRTooltip :pool="pool" class="-ml-1 mt-1" />
+          </div>
+          <div class="flex items-center mt-2">
+            <div v-html="poolFeeLabel" class="text-sm text-gray-600" />
+            <BalTooltip>
+              <template v-slot:activator>
+                <BalLink
+                  v-if="feesManagedByGauntlet"
+                  :href="EXTERNAL_LINKS.Gauntlet.Home"
+                  external
+                >
+                  <GauntletIcon class="ml-2" />
+                </BalLink>
+                <BalIcon
+                  v-else
+                  name="info"
+                  size="xs"
+                  class="text-gray-400 ml-2"
+                />
+              </template>
+              <span>
+                {{ swapFeeToolTip }}
+              </span>
+            </BalTooltip>
           </div>
         </div>
 
@@ -93,18 +91,18 @@
 
       <div class="hidden lg:block" />
 
-      <div class="col-span-2 order-2 lg:order-2">
-        <div class="grid grid-cols-1 gap-y-10">
-          <div class="p-6 border border-gunmetal rounded-lg">
+      <div class="col-span-2 order-2 lg:order-1">
+        <div class="grid grid-cols-1 gap-y-8">
+          <div class="px-1 lg:px-0">
             <PoolChart
               :pool="pool"
               :historicalPrices="historicalPrices"
               :snapshots="snapshots"
               :loading="isLoadingSnapshots"
             />
-            <div class="mt-4 mb-4 px-1 lg:px-0">
-              <PoolStatCards :pool="pool" :loading="loadingPool" />
-            </div>
+          </div>
+          <div class="mb-4 px-1 lg:px-0">
+            <PoolStatCards :pool="pool" :loading="loadingPool" />
           </div>
 
           <div class="mb-4">
@@ -124,27 +122,37 @@
 
       <div
         v-if="!isLiquidityBootstrappingPool"
-        class="order-1 lg:order-1 col-start-1 px-1 lg:px-0"
+        class="order-1 lg:order-2 px-1 lg:px-0"
       >
-        <div class="bg-dark border border-gunmetal rounded-md">
-          <BalLoadingBlock
-            v-if="loadingPool"
-            class="pool-actions-card h-60 mb-4"
-          />
-          <MyPoolBalancesCard
-            v-else-if="!noInitLiquidity"
-            :pool="pool"
-            :missingPrices="missingPrices"
-            class="mb-4"
-          />
+        <StakingProvider :poolAddress="getAddressFromPoolId(id)">
+          <BalStack vertical>
+            <BalLoadingBlock
+              v-if="loadingPool"
+              class="pool-actions-card h-60 mb-4"
+            />
+            <MyPoolBalancesCard
+              v-else-if="!noInitLiquidity"
+              :pool="pool"
+              :missingPrices="missingPrices"
+              class="mb-4"
+            />
 
-          <BalLoadingBlock v-if="loadingPool" class="pool-actions-card h-40" />
-          <PoolActionsCard
-            v-else-if="!noInitLiquidity"
-            :pool="pool"
-            :missingPrices="missingPrices"
-          />
-        </div>
+            <BalLoadingBlock
+              v-if="loadingPool"
+              class="pool-actions-card h-40"
+            />
+            <StakingIncentivesCard
+              v-if="isStakeablePool && !loadingPool && !isL2"
+              :pool="pool"
+            />
+            <LMIncentivesCard v-if="isL2" :poolId="id" />
+            <!-- <PoolActionsCard
+          v-else-if="!noInitLiquidity"
+          :pool="pool"
+          :missingPrices="missingPrices"
+        /> -->
+          </BalStack>
+        </StakingProvider>
       </div>
       <!-- <div v-else class="order-1 lg:order-2 px-1 lg:px-0">
         <BalCard
@@ -187,8 +195,8 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed, watch } from 'vue';
 import * as PoolPageComponents from '@/components/contextual/pages/pool';
-// import GauntletIcon from '@/components/images/icons/GauntletIcon.vue';
-// import LiquidityAPRTooltip from '@/components/tooltips/LiquidityAPRTooltip.vue';
+import GauntletIcon from '@/components/images/icons/GauntletIcon.vue';
+import LiquidityAPRTooltip from '@/components/tooltips/LiquidityAPRTooltip.vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import useNumbers from '@/composables/useNumbers';
@@ -201,6 +209,11 @@ import useWeb3 from '@/services/web3/useWeb3';
 import useTokens from '@/composables/useTokens';
 import useApp from '@/composables/useApp';
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
+import StakingIncentivesCard from '@/components/contextual/pages/pool/StakingIncentivesCard/StakingIncentivesCard.vue';
+import LMIncentivesCard from '@/components/contextual/pages/pool/LMIncentivesCard/LMIncentivesCard.vue';
+import StakingProvider from '@/providers/local/staking.provider';
+import { getAddressFromPoolId } from '@/lib/utils';
+import { isL2 } from '@/composables/useNetwork';
 
 interface PoolPageData {
   id: string;
@@ -208,9 +221,12 @@ interface PoolPageData {
 
 export default defineComponent({
   components: {
-    ...PoolPageComponents
-    // GauntletIcon,
-    // LiquidityAPRTooltip
+    ...PoolPageComponents,
+    GauntletIcon,
+    LiquidityAPRTooltip,
+    StakingIncentivesCard,
+    StakingProvider,
+    LMIncentivesCard
   },
 
   setup() {
@@ -223,14 +239,7 @@ export default defineComponent({
     const { fNum2 } = useNumbers();
     const { isWalletReady } = useWeb3();
     const { prices } = useTokens();
-    const {
-      blockNumber,
-      isKovan,
-      isMainnet,
-      isPolygon,
-      isFuji,
-      isAvalanche
-    } = useWeb3();
+    const { blockNumber, isKovan, isMainnet, isPolygon } = useWeb3();
     const { addAlert, removeAlert } = useAlerts();
     const { balancerTokenListTokens } = useTokens();
 
@@ -355,12 +364,7 @@ export default defineComponent({
     });
 
     const isCopperNetworkSupported = computed(
-      () =>
-        isMainnet.value ||
-        isPolygon.value ||
-        isKovan.value ||
-        isFuji.value ||
-        isAvalanche.value
+      () => isMainnet.value || isPolygon.value || isKovan.value
     );
 
     // Temporary solution to hide Copper card on Fei pool page.
@@ -398,6 +402,10 @@ export default defineComponent({
         )
       );
     });
+
+    const isStakeablePool = computed((): boolean =>
+      POOLS.Stakeable.AllowList.includes(route.params.id as string)
+    );
 
     /**
      * METHODS
@@ -454,9 +462,12 @@ export default defineComponent({
       isStablePhantomPool,
       copperNetworkPrefix,
       hasCustomToken,
+      isL2,
+      isStakeablePool,
       // methods
       fNum2,
-      onNewTx
+      onNewTx,
+      getAddressFromPoolId
     };
   }
 });

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
-
 type Props = {
   hasBalance: boolean;
   symbol: string;
@@ -42,7 +40,7 @@ withDefaults(defineProps<Props>(), {
 .pill::before {
   @apply w-full h-full;
   @apply absolute;
-  @apply bg-dark-2 dark:bg-dark-2;
+  @apply bg-gray-100 dark:bg-gray-700;
   content: '';
   transform: skew(-12deg);
 }
@@ -61,7 +59,7 @@ withDefaults(defineProps<Props>(), {
 }
 
 .pill-selected::before {
-  @apply bg-cornflower dark:bg-cornflower;
+  @apply bg-cornflower-600 dark:bg-cornflower-600;
 }
 
 .pill-selected .pill-text {

@@ -195,26 +195,24 @@ function saveAndProceed() {
 </script>
 
 <template>
-  <div ref="cardWrapper" class="border border-gunmetal rounded-lg bg:dark-3">
+  <div ref="cardWrapper">
     <BalCard shadow="xl" noBorder>
       <BalStack vertical>
         <BalStack vertical spacing="xs">
-          <!-- <span class="text-xs text-gray-700 dark:text-gray-500">{{
+          <span class="text-xs text-gray-700 dark:text-gray-500">{{
             userNetworkConfig?.name
-          }}</span> -->
+          }}</span>
           <BalStack horizontal spacing="xs" align="center">
             <button
               @click="goBack"
-              class="text-blue-500 hover:text-blue-700 flex"
+              class="text-cyan-500 hover:text-cyan-700 flex"
             >
-              <ArrowLeftIcon />
+              <BalIcon class="flex" name="arrow-left" />
             </button>
 
-            <h5 class="font-bold dark:text-white">
-              SET THE STARTING LIQUIDITY
-            </h5>
+            <h5 class="font-bold dark:text-gray-300">Set initial liquidity</h5>
           </BalStack>
-          <!-- <AnimatePresence :isVisible="isOptimised" unmountInstantly>
+          <AnimatePresence :isVisible="isOptimised" unmountInstantly>
             <BalStack
               horizontal
               align="center"
@@ -227,14 +225,13 @@ function saveAndProceed() {
               </span>
               <button
                 @click="handleClearAll"
-                class="text-sm font-medium text-gray-400 hover:text-blue-500"
+                class="text-sm font-medium text-gray-400 hover:text-cyan-500"
               >
                 Clear all
               </button>
             </BalStack>
-          </AnimatePresence> -->
+          </AnimatePresence>
         </BalStack>
-        <div class="border-b border-gunmetal dark:border-gunmetal"></div>
         <BalStack vertical>
           <TokenInput
             v-for="(address, i) in tokenAddresses"
@@ -252,17 +249,10 @@ function saveAndProceed() {
         </BalStack>
         <BalStack horizontal spacing="sm" align="center">
           <div>
-            <BalToggle
-              name="autoOptimise"
-              :checked="autoOptimiseBalances"
-              @toggle="toggleAutoOptimise"
-            />
-          </div>
-          <div>
-            <span class="text-sm pl-2 text-blue-grey">{{
+            <span class="text-sm pl-2">{{
               t('autoOptimiseLiquidityToggle.label')
             }}</span>
-            <!-- <BalTooltip width="64">
+            <BalTooltip width="64">
               <template v-slot:activator>
                 <BalIcon
                   name="info"
@@ -271,15 +261,22 @@ function saveAndProceed() {
                 />
               </template>
               <div v-html="t('autoOptimiseLiquidityToggle.tooltip')" />
-            </BalTooltip> -->
+            </BalTooltip>
+          </div>
+          <div>
+            <BalToggle
+              name="autoOptimise"
+              :checked="autoOptimiseBalances"
+              @toggle="toggleAutoOptimise"
+            />
           </div>
         </BalStack>
-        <div class="p-3 border-0 ">
+        <div class="p-3 border rounded-lg">
           <BalStack horizontal justify="between">
             <BalStack vertical spacing="none">
-              <h6 class="mb-2">{{ t('total') }}</h6>
+              <h6>{{ t('total') }}</h6>
               <BalStack horizontal spacing="xs" class="font-medium">
-                <span class="text-sm text-bluey-grey">
+                <span class="text-sm">
                   {{ t('available') }}:
                   {{ fNum2(totalLiquidity.toString(), FNumFormats.fiat) }}
                 </span>
@@ -299,7 +296,7 @@ function saveAndProceed() {
               </BalStack>
             </BalStack>
             <BalStack vertical spacing="none">
-              <h6 class="text-lg">
+              <h6>
                 {{ fNum2(currentLiquidity.toString(), FNumFormats.fiat) }}
               </h6>
               <AnimatePresence
@@ -310,7 +307,7 @@ function saveAndProceed() {
               >
                 <button
                   @click="optimiseLiquidity(true)"
-                  class="bg-clip-text text-sm text-cyan font-medium "
+                  class="bg-clip-text text-sm text-transparent font-medium bg-gradient-to-tr from-cyan-500 to-cyan-500  hover:from-cyan-800 hover:to-cyan-800"
                 >
                   {{ t('optimize') }}
                 </button>

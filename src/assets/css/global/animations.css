@@ -1,13 +1,15 @@
 @import "../animations/fireworks.css";
 
-.icon-spin-anim .feather-settings {
+.icon-spin-anim .feather-sliders {
   @apply transition-all duration-200 ease-out;
+  transform: rotate(-90deg);
 }
 
-.icon-spin-anim:hover .feather-settings {
-  transform: scale(1.2) rotate(-45deg);
+.icon-spin-anim:hover .feather-sliders {
+  /* transform: scale(1.2) */
+  transform: scale(1.2) rotate(-90deg);
 }
 
 .icon-spin-anim:hover .bal-icon {
-  @apply text-blue-500;
+  @apply text-cyan-500;
 }

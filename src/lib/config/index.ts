@@ -2,8 +2,6 @@ import homestead from './homestead.json';
 import kovan from './kovan.json';
 import rinkeby from './rinkeby.json';
 import polygon from './polygon.json';
-import fuji from './fuji.json';
-import avalanche from './avalanche.json';
 import arbitrum from './arbitrum.json';
 import docker from './docker.json';
 import test from './test.json';
@@ -25,10 +23,10 @@ export interface Config {
   explorer: string;
   explorerName: string;
   subgraph: string;
-  poolsUrlV1: string;
   poolsUrlV2: string;
   subgraphs: {
     aave: string;
+    gauge: string;
   };
   supportsEIP1559: boolean;
   supportsElementPools: boolean;
@@ -42,7 +40,6 @@ export interface Config {
     minTransactionBuffer: string;
   };
   addresses: {
-    exchangeProxy: string;
     merkleRedeem: string;
     merkleOrchard: string;
     multicall: string;
@@ -55,6 +52,10 @@ export interface Config {
     lidoRelayer: string;
     balancerHelpers: string;
     batchRelayer: string;
+    veBAL: string;
+    gaugeController: string;
+    gaugeFactory: string;
+    balancerMinter: string;
   };
   keys: {
     infura: string;
@@ -69,13 +70,11 @@ export interface Config {
   >;
 }
 
-const config: Record<Config['chainId'], Config> = {
+const config: Record<Network | number, Config> = {
   [Network.MAINNET]: homestead,
   [Network.KOVAN]: kovan,
   [Network.RINKEBY]: rinkeby,
   [Network.POLYGON]: polygon,
-  [Network.FUJI]: fuji,
-  [Network.AVALANCHE]: avalanche,
   [Network.ARBITRUM]: arbitrum,
   12345: test,
   // @ts-ignore

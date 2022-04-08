@@ -1,4 +1,4 @@
-import { ref, reactive, toRefs, watch, computed } from 'vue';
+import { ref, reactive, toRefs, computed } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 import usePoolsQuery from '@/composables/queries/usePoolsQuery';
@@ -14,7 +14,7 @@ import { bnum, lsRemove, lsSet, scale } from '@/lib/utils';
 import { PoolType } from '@/services/balancer/subgraph/types';
 import { balancerService } from '@/services/balancer/balancer.service';
 import { configService } from '@/services/config/config.service';
-import { TransactionResponse } from '@ethersproject/providers';
+import { JsonRpcProvider, TransactionResponse } from '@ethersproject/providers';
 import { POOLS } from '@/constants/pools';
 
 export const POOL_CREATION_STATE_VERSION = '1.0';
@@ -38,7 +38,7 @@ type FeeType = 'fixed' | 'dynamic';
 type FeeController = 'self' | 'other';
 
 const emptyPoolCreationState = {
-  name: 'MyPool',
+  name: '',
   seedTokens: [] as PoolSeedToken[],
   activeStep: 0,
   initialFee: '0.003',
@@ -81,24 +81,6 @@ export default function usePoolCreation() {
   const { txListener } = useEthers();
   const { addTransaction } = useTransactions();
   const { t } = useI18n();
-
-  /**
-   * WATCHERS
-   */
-  watch(
-    () => poolCreationState.seedTokens,
-    () => {
-      poolCreationState.tokensList = poolCreationState.seedTokens.map(
-        w => w.tokenAddress
-      );
-
-      poolCreationState.name = poolCreationState.name || getPoolSymbol();
-      poolCreationState.symbol = poolCreationState.symbol || getPoolSymbol();
-    },
-    {
-      deep: true
-    }
-  );
 
   /**
    * COMPUTED
@@ -353,6 +335,10 @@ export default function usePoolCreation() {
     }
   }
 
+  function setTokensList(newList: string[]) {
+    poolCreationState.tokensList = newList;
+  }
+
   function getTokensScaledByBIP(
     bip: BigNumber
   ): Record<string, OptimisedLiquidity> {
@@ -416,6 +402,7 @@ export default function usePoolCreation() {
         poolOwner.value
       );
       poolCreationState.createPoolTxHash = tx.hash;
+      saveState();
 
       addTransaction({
         id: tx.hash,
@@ -426,17 +413,10 @@ export default function usePoolCreation() {
           name: poolCreationState.name
         }
       });
-
+      1;
       txListener(tx, {
         onTxConfirmed: async () => {
-          const poolDetails = await balancerService.pools.weighted.details(
-            provider,
-            tx
-          );
-          poolCreationState.poolId = poolDetails.id;
-          poolCreationState.poolAddress = poolDetails.address;
-          poolCreationState.needsSeeding = true;
-          saveState();
+          retrievePoolDetails(tx.hash);
         },
         onTxFailed: () => {
           console.log('Create failed');
@@ -527,6 +507,19 @@ export default function usePoolCreation() {
     hasRestoredFromSavedState.value = value;
   }
 
+  async function retrievePoolDetails(hash: string) {
+    const provider = new JsonRpcProvider(configService.network.publicRpc);
+
+    const poolDetails = await balancerService.pools.weighted.details(
+      provider,
+      hash
+    );
+    poolCreationState.poolId = poolDetails.id;
+    poolCreationState.poolAddress = poolDetails.address;
+    poolCreationState.needsSeeding = true;
+    saveState();
+  }
+
   return {
     ...toRefs(poolCreationState),
     updateTokenWeights,
@@ -553,6 +546,8 @@ export default function usePoolCreation() {
     resetState,
     importState,
     setRestoredState,
+    setTokensList,
+    retrievePoolDetails,
     currentLiquidity,
     optimisedLiquidity,
     scaledLiquidity,

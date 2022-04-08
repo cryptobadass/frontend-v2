@@ -20,14 +20,6 @@ export default {
       return url
         .replace('ipfs://', `https://${process.env.VUE_APP_IPFS_NODE}/ipfs/`)
         .replace('ipns://', `https://${process.env.VUE_APP_IPFS_NODE}/ipns/`);
-    },
-    _up(str: string) {
-      return str.toUpperCase();
-    },
-    _up1(str: string) {
-      const reg = /\b(\w)|\s(\w)/g;
-      str = str.toLowerCase();
-      return str.replace(reg, m => m.toUpperCase());
     }
   }
 };

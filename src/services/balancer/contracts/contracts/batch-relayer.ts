@@ -12,12 +12,8 @@ export default class BatchRelayer {
   constructor(service, public readonly abi = BatchRelayerAbi) {
     this.service = service;
 
-    // todo
-    // if (!this.service.config.addresses.batchRelayer)
-    //   throw new Error('BatchRelayer address not set');
-    if (!this.service.config.addresses.batchRelayer) {
-      console.log('BatchRelayer address not set');
-    }
+    if (!this.service.config.addresses.batchRelayer)
+      throw new Error('BatchRelayer address not set');
 
     this.instance = new Contract(
       this.service.config.addresses.batchRelayer,

@@ -157,10 +157,15 @@ export default defineComponent({
       return totalFiat;
     });
 
+    const weekNumbers = Object.keys(weeksJSON)
+      .map(key => parseInt(key.replace('week_', '')))
+      .sort(function(a, b) {
+        return a - b;
+      });
     // only concerned with past 3 weeks
-    const weeks = takeRight(Object.keys(weeksJSON), 3).map(week => ({
-      week: week,
-      distributions: weeksJSON[week]
+    const weeks = takeRight(weekNumbers, 3).map(weekNumber => ({
+      week: 'week_' + weekNumber,
+      distributions: weeksJSON['week_' + weekNumber]
         .filter(d => d.chainId === networkConfig.chainId)
         .map(d => d.pools)[0]
     }));
@@ -189,12 +194,6 @@ export default defineComponent({
       if (networkConfig.chainId === Network.ARBITRUM) {
         return 'Arbitrum';
       }
-      if (networkConfig.chainId === Network.FUJI) {
-        return 'Avalanche Fuji';
-      }
-      if (networkConfig.chainId === Network.AVALANCHE) {
-        return 'Avalanche';
-      }
       return 'Unknown Network';
     });
 
@@ -211,14 +210,6 @@ export default defineComponent({
         return `BAL distributions on Arbitrum can be claimed weekly by tapping the
         liquidity mining claim tool in the header.`;
       }
-      if (networkConfig.chainId === Network.FUJI) {
-        return `BAL distributions on Avalanche Fuji can be claimed weekly by tapping the
-        liquidity mining claim tool in the header.`;
-      }
-      if (networkConfig.chainId === Network.AVALANCHE) {
-        return `BAL distributions on Avalanche can be claimed weekly by tapping the
-        liquidity mining claim tool in the header.`;
-      }
       return '';
     });
 
@@ -227,8 +218,6 @@ export default defineComponent({
       if (networkConfig.chainId === Network.MAINNET) return 'Polygon';
       if (networkConfig.chainId === Network.POLYGON) return 'Ethereum';
       if (networkConfig.chainId === Network.ARBITRUM) return 'Ethereum';
-      if (networkConfig.chainId === Network.FUJI) return 'FUJI';
-      if (networkConfig.chainId === Network.AVALANCHE) return 'Avalanche';
       return 'Ethereum';
     });
 

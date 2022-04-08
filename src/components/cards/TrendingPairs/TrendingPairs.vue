@@ -57,29 +57,6 @@ const trendingPairs = computed(() => {
   ]);
 });
 
-const list = [
-  {
-    a: 'DAI',
-    b: 'ETH'
-  },
-  {
-    a: 'USDC',
-    b: 'USDT'
-  },
-  {
-    a: 'WBTC',
-    b: 'ETH'
-  },
-  {
-    a: 'DAI',
-    b: 'USDC'
-  },
-  {
-    a: 'DAI',
-    b: 'USDT'
-  }
-];
-
 const setTradePair = (pair: TrendingPair[]) => {
   setTokenInAddress(pair[0].address);
   setTokenOutAddress(pair[1].address);
@@ -91,29 +68,24 @@ const setTradePair = (pair: TrendingPair[]) => {
     :square="upToLargeBreakpoint"
     noPad
     growContent
-    :noBorder="true"
+    :noBorder="upToLargeBreakpoint"
     shadow="none"
   >
     <div class="trending-pairs">
-      <div v-if="!upToLargeBreakpoint" class="flex justify-between p-3 pl-0">
+      <div
+        v-if="!upToLargeBreakpoint"
+        class="flex justify-between p-3 lg:border-b dark:border-gray-700"
+      >
         <h6>{{ $t('trendingPairs') }}</h6>
       </div>
       <div class="px-1 lg:p-3 flex flex-wrap">
         <button
-          class="py-1 px-2 bg-transparent hover:bg-blue-500 hover:text-white text-sm rounded-lg lg:shadow my-2 mr-2 font-medium lg:font-normal"
+          class="py-1 px-2 bg-transparent hover:bg-cornflower-500 hover:text-white text-sm rounded-lg lg:shadow my-2 mr-2 font-medium lg:font-normal"
           v-for="(pair, i) in trendingPairs"
           :key="`trendingPair-${i}`"
           @click="setTradePair(pair)"
         >
           {{ pair[0].symbol }}/{{ pair[1].symbol }}
-        </button>
-        <button
-          class="py-2 px-3 bg-dark-2 hover:bg-white hover:text-dark text-sm rounded-lg lg:shadow my-2 mr-2 font-medium lg:font-normal"
-          v-for="(pair, i) in list"
-          :key="`trendingPair-${i}`"
-          @click="setTradePair(pair)"
-        >
-          {{ pair.a }}/{{ pair.b }}
         </button>
       </div>
     </div>

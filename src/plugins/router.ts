@@ -6,11 +6,23 @@ import PoolWithdrawPage from '@/pages/pool/withdraw.vue';
 import LiquidityMiningPage from '@/pages/liquidity-mining.vue';
 import TradePage from '@/pages/trade.vue';
 import CreatePoolPage from '@/pages/pool/create.vue';
-import CreatePoolPageB from '@/pages/pool/createB.vue';
-import MigratePoolPage from '@/pages/pool/migrate.vue';
 import TermsOfUsePage from '@/pages/terms-of-use.vue';
 import PrivacyPolicyPage from '@/pages/privacy-policy.vue';
 import CookiesPolicyPage from '@/pages/cookies-policy.vue';
+// import GetVeBalPage from '@/pages/get-vebal.vue';
+// import UnlockVeBalPage from '@/pages/unlock-vebal.vue';
+// import VeBalPage from '@/pages/vebal.vue';
+// import ClaimPage from '@/pages/claim.vue';
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    layout?: string;
+    bgColors?: {
+      dark: string;
+      light: string;
+    };
+  }
+}
 
 const routes: RouteRecordRaw[] = [
   {
@@ -36,12 +48,6 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: 'FocusedLayout' }
   },
   {
-    path: '/pool/createB',
-    name: 'create-pool-b',
-    component: CreatePoolPageB,
-    meta: { layout: 'FocusedLayout' }
-  },
-  {
     path: '/pool/:id',
     name: 'pool',
     component: PoolPage
@@ -59,49 +65,69 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: 'PoolTransferLayout' }
   },
   {
-    path: '/pool/migrate/:from/:to',
-    name: 'migrate-pool',
-    component: MigratePoolPage,
-    meta: { layout: 'FocusedLayout' }
-  },
-  {
     path: '/liquidity-mining',
     name: 'liquidity-mining',
-    component: LiquidityMiningPage
+    component: LiquidityMiningPage,
+    redirect: '/'
   },
   {
     path: '/terms-of-use',
     name: 'terms-of-use',
     component: TermsOfUsePage,
-    meta: { layout: 'ContentLayout' }
+    meta: { layout: 'ContentLayout' },
+    redirect: '/'
   },
   {
     path: '/privacy-policy',
     name: 'privacy-policy',
     component: PrivacyPolicyPage,
-    meta: { layout: 'ContentLayout' }
+    meta: { layout: 'ContentLayout' },
+    redirect: '/'
   },
   {
     path: '/cookies-policy',
     name: 'cookies-policy',
     component: CookiesPolicyPage,
-    meta: { layout: 'ContentLayout' }
+    meta: { layout: 'ContentLayout' },
+    redirect: '/'
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     redirect: '/'
   }
+  // {
+  //   path: '/vebal',
+  //   name: 'vebal',
+  //   component: VeBalPage
+  // },
+  // {
+  //   path: '/get-vebal',
+  //   name: 'get-vebal',
+  //   component: GetVeBalPage,
+  //   meta: { layout: 'FocusedLayout' }
+  // },
+  // {
+  //   path: '/unlock',
+  //   name: 'unlock',
+  //   component: UnlockVeBalPage,
+  //   meta: { layout: 'FocusedLayout' }
+  // },
+  // {
+  //   path: '/claim',
+  //   name: 'claim',
+  //   component: ClaimPage
+  // }
 ];
 
 /**
  * DEV/STAGING ONLY ROUTES
  */
-if (
-  ['development', 'staging'].includes(process.env.VUE_APP_ENV || 'development')
-) {
-  // routes.push();
-}
+// if (
+//   ['development', 'staging'].includes(process.env.VUE_APP_ENV || 'development')
+// ) {
+//   routes.push();
+// }
 
 const router = createRouter({
   history: createWebHashHistory(),

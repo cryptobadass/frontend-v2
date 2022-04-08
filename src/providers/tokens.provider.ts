@@ -136,7 +136,7 @@ export default {
       allowanceContracts: compact([
         networkConfig.addresses.vault,
         networkConfig.addresses.wstETH,
-        networkConfig.addresses.exchangeProxy
+        configService.network.addresses.veBAL
       ]),
       injectedPrices: {}
     });
@@ -361,7 +361,7 @@ export default {
       if (tokenAddress === nativeAsset.address) return false;
 
       const allowance = bnum(
-        allowances.value[contractAddress][getAddress(tokenAddress)]
+        (allowances.value[contractAddress] || {})[getAddress(tokenAddress)]
       );
       return allowance.lt(amount);
     }
@@ -444,7 +444,8 @@ export default {
       const tokensToInject = compact([
         ...currentLiquidityMiningRewardTokens,
         configService.network.addresses.stETH,
-        configService.network.addresses.wstETH
+        configService.network.addresses.wstETH,
+        configService.network.addresses.veBAL
       ]);
 
       await forChange(loadingTokenLists, false);

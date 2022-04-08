@@ -7,7 +7,7 @@
  * Useful if there are an arbitrary number of actions the user must take such as
  * "approve n tokens, then invest in a pool.""
  */
-import { ref, computed, reactive } from 'vue';
+import { ref, computed, watch } from 'vue';
 import {
   TransactionReceipt,
   TransactionResponse
@@ -21,14 +21,16 @@ import {
 import useEthers from '@/composables/useEthers';
 import { dateTimeLabelFor } from '@/composables/useTime';
 import useTransactionErrors from '@/composables/useTransactionErrors';
+import { configService } from '@/services/config/config.service';
+import { ChainId } from '@aave/protocol-js';
+import AnimatePresence from '@/components/animate/AnimatePresence.vue';
 
 /**
  * TYPES
  */
 type Props = {
   actions: TransactionActionInfo[];
-  disabled: boolean;
-  errorMessage: string;
+  disabled?: boolean;
   // override action state loading prop and show
   // loading for all steps
   isLoading?: boolean;
@@ -40,7 +42,11 @@ type Props = {
 /**
  * PROPS & EMITS
  */
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  disabled: false,
+  isLoading: false,
+  loadingLabel: ''
+});
 
 const emit = defineEmits<{
   (e: 'success', value: any): void;
@@ -57,12 +63,29 @@ const defaultActionState: TransactionActionState = {
  * STATE
  */
 const currentActionIndex = ref(0);
+const _actions = ref<TransactionActionInfo[]>(props.actions);
 
-const actionStates = props.actions.map(() => {
-  return reactive<TransactionActionState>({
+const actionStates = ref(
+  _actions.value.map(() => ({
     ...defaultActionState
-  });
-});
+  }))
+);
+
+/**
+ * WATCHERS
+ */
+watch(
+  () => [props.actions, props.isLoading],
+  () => {
+    _actions.value = props.actions;
+    actionStates.value = _actions.value.map(() => ({
+      ...defaultActionState
+    }));
+  },
+  {
+    deep: true
+  }
+);
 
 /**
  * COMPOSABLES
@@ -75,8 +98,8 @@ const { parseError } = useTransactionErrors();
  */
 
 const actions = computed((): TransactionAction[] => {
-  return props.actions.map((actionInfo, idx) => {
-    const actionState = actionStates[idx];
+  return _actions.value.map((actionInfo, idx) => {
+    const actionState = actionStates.value[idx];
     return {
       label: actionInfo.label,
       loadingLabel: actionState.init
@@ -97,11 +120,12 @@ const currentAction = computed(
 );
 
 const currentActionState = computed(
-  (): TransactionActionState => actionStates[currentActionIndex.value]
+  (): TransactionActionState => actionStates.value[currentActionIndex.value]
 );
 
 const lastActionState = computed(
-  (): TransactionActionState => actionStates[actionStates.length - 1]
+  (): TransactionActionState =>
+    actionStates.value[actionStates.value.length - 1]
 );
 
 const steps = computed((): Step[] => actions.value.map(action => action.step));
@@ -151,9 +175,15 @@ async function handleTransaction(
   tx: TransactionResponse,
   state: TransactionActionState
 ): Promise<void> {
-  state.confirmed = await txListener(tx, {
+  await txListener(tx, {
     onTxConfirmed: async (receipt: TransactionReceipt) => {
       state.receipt = receipt;
+
+      // need to explicity wait for a number of confirmations
+      // on polygon
+      if (Number(configService.network.chainId) === ChainId.polygon) {
+        await tx.wait(10);
+      }
 
       const confirmedAt = await getTxConfirmedAt(receipt);
       state.confirmedAt = dateTimeLabelFor(confirmedAt);
@@ -165,6 +195,7 @@ async function handleTransaction(
       }
 
       state.confirming = false;
+      state.confirmed = true;
     },
     onTxFailed: () => {
       state.confirming = false;
@@ -175,32 +206,38 @@ async function handleTransaction(
 
 <template>
   <div>
-    <BalAlert
-      v-if="currentActionState.error"
-      type="error"
-      :title="currentActionState.error.title"
-      :description="currentActionState.error.description"
-      block
-      class="mb-4"
-    />
-    <BalStack vertical>
-      <BalHorizSteps
-        v-if="actions.length > 1 && !lastActionState.confirmed"
-        :steps="steps"
-        :spacerWidth="spacerWidth"
-        class="flex justify-center"
-      />
-      <BalBtn
-        v-if="!lastActionState.confirmed"
-        :disabled="props.disabled"
-        color="blue"
-        :loading="currentAction.pending || isLoading"
-        :loading-label="isLoading ? loadingLabel : currentAction.loadingLabel"
+    <AnimatePresence isVisible>
+      <BalAlert
+        v-if="currentActionState?.error && !isLoading"
+        type="error"
+        :title="currentActionState?.error?.title"
+        :description="currentActionState?.error?.description"
         block
-        @click="currentAction.promise()"
-      >
-        {{ currentAction.label }}
-      </BalBtn>
-    </BalStack>
+        class="mb-4"
+      />
+      <BalStack vertical>
+        <BalHorizSteps
+          v-if="actions.length > 1 && !lastActionState?.confirmed"
+          :steps="steps"
+          :spacerWidth="spacerWidth"
+          class="flex justify-center"
+        />
+        <BalBtn
+          v-if="!lastActionState?.confirmed"
+          :disabled="props.disabled"
+          color="blue"
+          :loading="currentAction?.pending || isLoading"
+          :loading-label="
+            isLoading
+              ? loadingLabel || $t('loading')
+              : currentAction?.loadingLabel
+          "
+          block
+          @click="currentAction.promise()"
+        >
+          {{ currentAction?.label }}
+        </BalBtn>
+      </BalStack>
+    </AnimatePresence>
   </div>
 </template>

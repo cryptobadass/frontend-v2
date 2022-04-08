@@ -17,39 +17,37 @@
       }"
     >
       <template v-slot:tokenColumnCell="token">
-        <div class="flex">
-          <div class="px-4 py-2 flex flex-row  ml-6 bg-dark-2 rounded-md">
-            <BalLink
-              :href="explorer.addressLink(token.address)"
-              external
-              noStyle
-              class="flex items-center"
-            >
-              <BalAsset :address="token.address" :size="30" />
-              <span class="pl-4 font-medium eth-address">
-                {{ symbolFor(token.address) }}
-              </span>
-              <!-- <BalIcon
+        <div class="px-6 py-4 flex flex-row w-52">
+          <BalLink
+            :href="explorer.addressLink(token.address)"
+            external
+            noStyle
+            class="flex items-center"
+          >
+            <BalAsset :address="token.address" :size="36" />
+            <span class="pl-4 font-medium eth-address">
+              {{ symbolFor(token.address) }}
+            </span>
+            <BalIcon
               name="arrow-up-right"
               size="sm"
-              class="ml-2 text-gray-500 hover:text-blue-500 transition-colors"
-            /> -->
-            </BalLink>
-          </div>
+              class="ml-2 text-gray-500 hover:text-cyan-500 transition-colors"
+            />
+          </BalLink>
         </div>
       </template>
       <template v-slot:tokenWeightCell="token">
-        <div class="px-6 py-4 text-right font-numeric text-bluey-grey">
+        <div class="px-6 py-4 text-right font-numeric">
           {{ weightFor(token.address) }}
         </div>
       </template>
       <template v-slot:tokenBalanceCell="token">
-        <div class="px-6 py-4 text-right font-numeric text-bluey-grey">
+        <div class="px-6 py-4 text-right font-numeric">
           {{ balanceFor(token.address) }}
         </div>
       </template>
       <template v-slot:tokenValueCell="token">
-        <div class="px-6 py-4 text-right font-numeric text-bluey-grey">
+        <div class="px-6 py-4 text-right font-numeric">
           {{ fiatValueFor(token.address) }}
         </div>
       </template>
@@ -112,16 +110,16 @@ export default defineComponent({
         Cell: 'tokenColumnCell',
         width: 175
       },
-      // {
-      //   name: t('weight'),
-      //   id: 'weight',
-      //   accessor: 'index',
-      //   Cell: 'tokenWeightCell',
-      //   align: 'right',
-      //   sortKey: pool => weightFor(pool.address),
-      //   width: 125,
-      //   hidden: !props.loading && isStableLikePool.value
-      // },
+      {
+        name: t('weight'),
+        id: 'weight',
+        accessor: 'index',
+        Cell: 'tokenWeightCell',
+        align: 'right',
+        sortKey: pool => weightFor(pool.address),
+        width: 125,
+        hidden: !props.loading && isStableLikePool.value
+      },
       {
         name: t('balance'),
         id: 'balance',

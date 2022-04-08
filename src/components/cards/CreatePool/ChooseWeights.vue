@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, nextTick, onBeforeUpdate } from 'vue';
+import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
 
 import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
 
@@ -34,13 +34,14 @@ const emptyTokenWeight: PoolSeedToken = {
  * COMPOSABLES
  */
 const {
-  seedTokens,
   updateTokenWeights,
   proceed,
+  acceptCustomTokenDisclaimer,
+  setTokensList,
+  seedTokens,
   tokensList,
   totalLiquidity,
   hasInjectedToken,
-  acceptCustomTokenDisclaimer,
   acceptedCustomTokenDisclaimer
 } = usePoolCreation();
 const { upToLargeBreakpoint } = useBreakpoints();
@@ -66,10 +67,9 @@ const cardWrapperHeight = ref(0);
 /**
  * COMPUTED
  */
-const tokenWeightItemHeight = computed(() => {
-  return 76;
-  // return upToLargeBreakpoint.value ? 56 : 64; // todo
-});
+const tokenWeightItemHeight = computed(() =>
+  upToLargeBreakpoint.value ? 56 : 64
+);
 
 const zeroWeightToken = computed(() => {
   const validTokens = seedTokens.value.filter(t => t.tokenAddress !== '');
@@ -131,15 +131,28 @@ const progressBarColor = computed(() => {
   ) {
     return 'red';
   }
-  return 'poison-green';
+  return 'green';
 });
 
 const weightColor = computed(() => {
   if (Number(totalWeight.value) > 100 || Number(totalWeight.value) <= 0) {
     return 'text-red-500';
   }
-  return darkMode.value ? 'text-poison-green' : 'text-gray-800';
+  return darkMode.value ? 'text-gray-300' : 'text-gray-800';
 });
+
+/**
+ * WATCHERS
+ */
+watch(
+  () => seedTokens,
+  () => {
+    setTokensList(seedTokens.value.map(w => w.tokenAddress));
+  },
+  {
+    deep: true
+  }
+);
 
 /**
  * LIFECYCLE
@@ -303,23 +316,18 @@ function onAlertMountChange() {
 </script>
 
 <template>
-  <div
-    ref="cardWrapper"
-    class="mb-16 border border-gunmetal rounded-lg bg:dark-3"
-  >
+  <div ref="cardWrapper" class="mb-16">
     <BalCard shadow="xl" noBorder>
       <BalStack vertical spacing="sm">
         <BalStack vertical spacing="xs">
-          <!-- <span class="text-xs text-gray-700 dark:text-gray-500">{{
+          <span class="text-xs text-gray-700 dark:text-gray-500">{{
             networkName
-          }}</span> -->
+          }}</span>
           <h5 class="font-bold dark:text-gray-300">
-            <CreateSelectIcon class="inline-block" />
-            {{ $t('createAPool.selectTheTokensAndWeights') }}
+            {{ $t('createAPool.chooseTokenWeights') }}
           </h5>
         </BalStack>
-        <div class="border-b border-gunmetal dark:border-gunmetal"></div>
-        <BalCard shadow="none" noPad noBorder>
+        <BalCard shadow="none" noPad>
           <div ref="tokenWeightListWrapper">
             <div class="flex flex-col">
               <div
@@ -352,26 +360,21 @@ function onAlertMountChange() {
               </div>
 
               <div class="p-3" ref="addTokenRowElement">
-                <!-- <BalBtn
+                <BalBtn
                   :disabled="maxTokenAmountReached"
                   @click="addTokenToPool"
-                  :color="'cyan'"
+                  outline
+                  :color="maxTokenAmountReached ? 'gray' : 'cyan'"
                   size="sm"
                   >{{ $t('addToken') }}
-                </BalBtn> -->
-                <BalLink
-                  :disabled="maxTokenAmountReached"
-                  @click="addTokenToPool"
-                  class="underline ml-2"
-                  >{{ $t('addToken') }}</BalLink
-                >
+                </BalBtn>
               </div>
               <div
                 ref="totalsRowElement"
-                class="bg-gray-50 dark:bg-gray-850 w-full p-2 px-4 mt-2"
+                class="bg-gray-50 dark:bg-gray-850 w-full p-2 px-4"
               >
                 <div class="w-full flex justify-between">
-                  <h6 class="text-white">{{ $t('totalAllocated') }}</h6>
+                  <h6>{{ $t('totalAllocated') }}</h6>
                   <BalStack horizontal spacing="xs" align="center">
                     <h6 :class="weightColor">{{ totalAllocatedWeight }}%</h6>
                     <BalIcon
@@ -388,8 +391,8 @@ function onAlertMountChange() {
                   :color="progressBarColor"
                   :width="totalAllocatedWeight"
                   :bufferWidth="0"
-                  size="2"
                   class="my-2"
+                  size="2"
                 />
               </div>
             </div>

@@ -291,7 +291,7 @@ export default defineComponent({
           return k === 1 ? 1 : 1 - Math.pow(2, -10 * k);
         },
         lineStyle: {
-          width: 4
+          width: 2
         },
         // This is a retrofitted option to show the small pill with the
         // latest value of the series at the end of the line on the RHS

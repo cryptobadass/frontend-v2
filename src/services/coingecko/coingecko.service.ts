@@ -7,9 +7,7 @@ export const getNativeAssetId = (chainId: string): string => {
     '1': 'ethereum',
     '42': 'ethereum',
     '137': 'matic-network',
-    '42161': 'ethereum',
-    '43113': 'ethereum', // todo
-    '43114': 'avalanche' // todo
+    '42161': 'ethereum'
   };
 
   return mapping[chainId] || 'ethereum';
@@ -20,9 +18,7 @@ export const getPlatformId = (chainId: string): string => {
     '1': 'ethereum',
     '42': 'ethereum',
     '137': 'polygon-pos',
-    '42161': 'arbitrum-one',
-    '43113': 'ethereum', // todo
-    '43114': 'avalanche' // todo
+    '42161': 'arbitrum-one'
   };
 
   return mapping[chainId] || 'ethereum';

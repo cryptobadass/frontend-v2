@@ -1,22 +1,12 @@
 <template>
-  <BalCard
-    class="relative card-container"
-    :shadow="tradeCardShadow"
-    no-border
-    noPad
-  >
+  <BalCard class="relative card-container" :shadow="tradeCardShadow" no-border>
     <template v-slot:header>
       <div class="w-full flex items-center justify-between">
         <h4 class="font-bold">{{ title }}</h4>
-        <BalBtn
-          circle
-          color="dark"
-          size="sm"
-          class="mb-2 text-gray-500 icon-spin-anim"
-          @click="handleSettingsButton"
-        >
-          <SettingsIconCyan />
-        </BalBtn>
+        <TradeSettingsPopover
+          :context="TradeSettingsContext.trade"
+          :isGasless="trading.tradeGasless.value"
+        />
       </div>
     </template>
     <div>
@@ -31,7 +21,7 @@
         "
         :effectivePriceMessage="trading.effectivePriceMessage"
         @amountChange="trading.handleAmountChange"
-        class="mb-4 bg-dark"
+        class="mb-4"
       />
       <GasReimbursement
         v-if="!ENABLE_LEGACY_TRADE_INTERFACE && trading.isBalancerTrade.value"
@@ -73,7 +63,7 @@
         v-else
         :label="$t('preview')"
         :disabled="tradeDisabled"
-        color="blue"
+        color="gradient"
         block
         @click.prevent="handlePreviewButton"
       />
@@ -112,6 +102,16 @@
           <div v-html="$t('tradeGaslessToggle.tooltip')" />
         </BalTooltip>
       </div>
+      <TradeRoute
+        v-if="alwaysShowRoutes"
+        :address-in="trading.tokenIn.value.address"
+        :amount-in="trading.tokenInAmountInput.value"
+        :address-out="trading.tokenOut.value.address"
+        :amount-out="trading.tokenOutAmountInput.value"
+        :pools="trading.sor.pools.value"
+        :sor-return="trading.sor.sorReturn.value"
+        class="mt-4"
+      />
     </div>
   </BalCard>
   <teleport to="#modal">
@@ -122,16 +122,10 @@
       @close="handlePreviewModalClose"
     />
   </teleport>
-  <teleport to="#modal">
-    <TradeSettingsModal
-      v-if="modalTradeSettingsIsOpen"
-      @close="handleSettingsModalClose"
-    />
-  </teleport>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed } from 'vue';
+import { ref, defineComponent, computed, onBeforeMount } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
@@ -151,6 +145,7 @@ import { TOKENS } from '@/constants/tokens';
 
 import { isRequired } from '@/lib/utils/validations';
 import { WrapType } from '@/lib/utils/balancer/wrapper';
+import { lsGet } from '@/lib/utils';
 
 import TradePreviewModalGP from '@/components/modals/TradePreviewModalGP.vue';
 import TradeSettingsPopover, {
@@ -161,17 +156,17 @@ import { ApiErrorCodes } from '@/services/gnosis/errors/OperatorError';
 
 import GasReimbursement from '../TradeCard/GasReimbursement.vue';
 import TradePair from '../TradeCard/TradePair.vue';
+import TradeRoute from '../TradeCard/TradeRoute.vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { useTradeState } from '@/composables/trade/useTradeState';
-import TradeSettingsModal from '@/components/modals/TradeSettingsModal.vue';
 
 export default defineComponent({
   components: {
     TradePair,
     TradePreviewModalGP,
-    // TradeSettingsPopover,
-    GasReimbursement,
-    TradeSettingsModal
+    TradeRoute,
+    TradeSettingsPopover,
+    GasReimbursement
   },
 
   setup() {
@@ -189,16 +184,17 @@ export default defineComponent({
       tokenInAmount,
       tokenOutAmount,
       setTokenInAddress,
-      setTokenOutAddress
+      setTokenOutAddress,
+      setInitialized
     } = useTradeState();
 
     // DATA
     const exactIn = ref(true);
     const modalTradePreviewIsOpen = ref(false);
-    const modalTradeSettingsIsOpen = ref(false);
     const dismissedErrors = ref({
       highPriceImpact: false
     });
+    const alwaysShowRoutes = lsGet('alwaysShowRoutes', false);
 
     const tradeCardShadow = computed(() => {
       switch (bp.value) {
@@ -335,7 +331,6 @@ export default defineComponent({
         tokenInAmount.value = '';
         tokenOutAmount.value = '';
         modalTradePreviewIsOpen.value = false;
-        modalTradeSettingsIsOpen.value = false;
       });
     }
 
@@ -361,7 +356,6 @@ export default defineComponent({
       } else if (isAddress(assetOut)) {
         assetOut = getAddress(assetOut);
       }
-
       setTokenInAddress(assetIn || store.state.trade.inputAsset);
       setTokenOutAddress(assetOut || store.state.trade.outputAsset);
     }
@@ -375,22 +369,18 @@ export default defineComponent({
 
       modalTradePreviewIsOpen.value = true;
     }
-    function handleSettingsButton() {
-      // trading.resetSubmissionError();
-      modalTradeSettingsIsOpen.value = true;
-    }
 
     function handlePreviewModalClose() {
       trading.resetSubmissionError();
 
       modalTradePreviewIsOpen.value = false;
     }
-    function handleSettingsModalClose() {
-      modalTradeSettingsIsOpen.value = false;
-    }
 
     // INIT
-    populateInitialTokens();
+    onBeforeMount(() => {
+      populateInitialTokens();
+      setInitialized(true);
+    });
 
     return {
       // constants
@@ -405,7 +395,7 @@ export default defineComponent({
       tokenOutAddress,
       tokenOutAmount,
       modalTradePreviewIsOpen,
-      modalTradeSettingsIsOpen,
+      alwaysShowRoutes,
       exactIn,
       trading,
 
@@ -419,8 +409,6 @@ export default defineComponent({
       tradeCardShadow,
       handlePreviewButton,
       handlePreviewModalClose,
-      handleSettingsButton,
-      handleSettingsModalClose,
 
       // methods
       trade,

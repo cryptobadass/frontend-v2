@@ -45,7 +45,17 @@ export default defineComponent({
       type: String,
       default: '',
       validator: (val: string): boolean => {
-        return ['', 'none', 'sm', 'md', 'lg', 'xl'].includes(val);
+        return [
+          '',
+          'none',
+          'sm',
+          'md',
+          'lg',
+          'xl',
+          '2xl',
+          '3xl',
+          '4xl'
+        ].includes(val);
       }
     }
   },
@@ -59,7 +69,7 @@ export default defineComponent({
       return {
         'rounded-lg': !props.square,
         'overflow-hidden': !props.exposeOverflow,
-        [`bg-white dark:bg-dark`]: true,
+        [`bg-white dark:bg-gray-${props.darkBgColor}`]: true,
         [`shadow${props.shadow ? '-' : ''}${props.shadow}`]: true,
         [borderClasses.value]: !props.noBorder,
         'h-full': props.hFull
@@ -68,7 +78,7 @@ export default defineComponent({
 
     const headerClasses = computed(() => {
       return {
-        'p-6 pb-0': !props.noPad
+        'p-4 pb-0': !props.noPad
       };
     });
 

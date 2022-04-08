@@ -79,8 +79,7 @@ export default function useTokenPricesQuery(
       };
     }
 
-    // todo
-    // prices = injectWstEth(prices);
+    prices = injectWstEth(prices);
     console.log('Injecting price data', pricesToInject.value);
     prices = injectCustomTokens(prices, pricesToInject.value);
     return prices;

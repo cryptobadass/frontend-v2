@@ -60,27 +60,5 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
         'https://raw.githubusercontent.com/balancer-labs/assets/refactor-for-multichain/generated/arbitrum.vetted.tokenlist.json'
     },
     External: ['https://tracer.finance/tokens']
-  },
-  '43113': {
-    Balancer: {
-      Default:
-        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json',
-      Vetted:
-        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json'
-    },
-    External: [
-      'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json'
-    ]
-  },
-  '43114': {
-    Balancer: {
-      Default:
-        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json',
-      Vetted:
-        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
-    },
-    External: [
-      'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
-    ]
   }
 };

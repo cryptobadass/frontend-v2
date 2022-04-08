@@ -3,6 +3,7 @@ const path = require('path');
 const archiver = require('archiver');
 const { NodeSSH } = require('node-ssh');
 
+// process.argv
 const distPath = path.resolve(__dirname, 'dist');
 
 const ssh = new NodeSSH();
@@ -16,7 +17,7 @@ const config_all = {
     // webName: 'yotei.qa',
     useName: 'ec2-user'
   },
-  prd: {
+  production: {
     host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
     pathUrl: '/var/www/',
     webName: 'yotei.qa',
@@ -24,7 +25,8 @@ const config_all = {
   }
 };
 
-const config = config_all[process.env.NODE_ENV === 'production' ? 'prd' : 'qa'];
+const config = config_all[process.argv[2] || 'qa'];
+// console.log(config)
 
 const zipDirector = () => {
   const output = fs.createWriteStream(`${__dirname}/dist.zip`);

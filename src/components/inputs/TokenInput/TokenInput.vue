@@ -43,6 +43,7 @@ type Props = {
   disableNativeAssetBuffer?: boolean;
   hideFooter?: boolean;
   ignoreWalletBalance?: boolean;
+  tokenValue?: string;
 };
 
 /**
@@ -141,7 +142,7 @@ const token = computed((): TokenInfo | undefined => {
 });
 
 const tokenValue = computed(() => {
-  return toFiat(_amount.value, _address.value);
+  return props.tokenValue ?? toFiat(_amount.value, _address.value);
 });
 
 const inputRules = computed(() => {
@@ -221,7 +222,6 @@ watchEffect(() => {
     v-model="_amount"
     :placeholder="hintAmount || '0.0'"
     type="number"
-    size="lg"
     :label="label"
     :decimalLimit="token?.decimals || 18"
     :rules="inputRules"
@@ -245,7 +245,7 @@ watchEffect(() => {
           :weight="weight"
           :fixed="fixedToken"
           :options="options"
-          class="mr-2 bg-dark min-w-win max-w-xs border border-gunmetal rounded-lg"
+          class="mr-2"
           @update:modelValue="emit('update:address', $event)"
           :excludedTokens="excludedTokens"
         />

@@ -36,7 +36,7 @@ export default defineComponent({
 <style>
 .wallet-connect-btn {
   @apply transition-all;
-  @apply bg-dark-2 dark:bg-dark-2 hover:bg-dark-3 dark:hover:bg-dark-3;
+  @apply bg-white dark:bg-gray-850 hover:bg-gray-50 dark:hover:bg-gray-800;
   @apply border dark:border-gray-900;
   @apply p-4 flex justify-start items-center w-full h-14 rounded-md mb-3 shadow-lg;
 }

@@ -52,19 +52,19 @@ export default defineComponent({
 
 <style>
 .bal-toggle {
-  @apply relative inline-block w-12 align-middle select-none transition duration-200 ease-in;
+  @apply relative inline-block w-10 align-middle select-none transition duration-200 ease-in;
 }
 .bal-toggle-checkbox {
   @apply absolute block w-6 h-6 rounded-full bg-white border-4 border-gray-200 dark:border-gray-900 appearance-none cursor-pointer;
 }
 .bal-toggle-track {
-  @apply block overflow-hidden h-5 mt-0.5 rounded-full bg-gray-200 dark:bg-gray-900 bg-none cursor-pointer;
+  @apply block overflow-hidden h-4 mt-1 rounded-full bg-gray-200 dark:bg-gray-900 bg-none cursor-pointer;
 }
 .bal-toggle-checkbox:checked {
   @apply right-0 border-white;
 }
 .bal-toggle-checkbox:checked + .bal-toggle-track {
-  @apply bg-blue-lightish;
+  @apply bg-cyan-500;
 }
 .bal-toggle-checkbox[disabled] {
   @apply border-gray-300 dark:border-gray-700 cursor-not-allowed;

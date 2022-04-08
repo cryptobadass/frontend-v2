@@ -1,4 +1,4 @@
-# Balancer Components
+# Yotei Components
 A set of foundational components for use throughout the UI.
 
 ## Forms

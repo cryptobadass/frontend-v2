@@ -16,6 +16,8 @@ import { usePool } from '@/composables/usePool';
 
 import { POOL_MIGRATIONS_MAP } from '@/components/forms/pool_actions/MigrateForm/constants';
 import { PoolMigrationType } from '@/components/forms/pool_actions/MigrateForm/types';
+import PoolActionsCard from './PoolActionsCard.vue';
+import useStaking from '@/composables/staking/useStaking';
 
 /**
  * TYPES
@@ -39,6 +41,7 @@ const { isWalletReady } = useWeb3();
 const { isStableLikePool, isStablePhantomPool, isMigratablePool } = usePool(
   toRef(props, 'pool')
 );
+const { stakedSharesForProvidedPool } = useStaking();
 const router = useRouter();
 
 /**
@@ -63,7 +66,9 @@ const poolTokens = computed(() =>
 
 const propTokenAmounts = computed((): string[] => {
   const { receive } = poolCalculator.propAmountsGiven(
-    bptBalance.value,
+    bnum(bptBalance.value)
+      .plus(stakedSharesForProvidedPool.value)
+      .toString(),
     0,
     'send'
   );
@@ -142,10 +147,10 @@ function navigateToPoolMigration(pool: FullPool) {
 </script>
 
 <template>
-  <BalCard noPad noBorder :shadow="'none'">
+  <BalCard shadow="2xl" noPad class="rounded-xl">
     <template #header>
       <div class="card-header">
-        <h5 class="text-lg">
+        <h5>
           {{ $t('poolTransfer.myPoolBalancesCard.title') }}
         </h5>
         <h5>
@@ -153,16 +158,16 @@ function navigateToPoolMigration(pool: FullPool) {
         </h5>
       </div>
     </template>
-    <div class="px-4 py-2 border-0">
+    <div class="px-4 py-2">
       <div
         v-for="(address, index) in tokenAddresses"
         :key="address"
-        class="asset-row bg-dark-2  rounded h-16 mb-6 px-5"
+        class="asset-row"
       >
         <div class="flex items-center">
           <BalAsset
             :address="poolTokens[index].address"
-            :size="30"
+            :size="36"
             class="mr-4"
           />
           <div class="flex flex-col">
@@ -172,7 +177,7 @@ function navigateToPoolMigration(pool: FullPool) {
               </span>
               {{ poolTokens[index].symbol }}
             </span>
-            <span class="text-bluey-grey text-sm">
+            <span class="text-gray-500 text-sm">
               {{ poolTokens[index].name }}
             </span>
           </div>
@@ -184,7 +189,7 @@ function navigateToPoolMigration(pool: FullPool) {
               ? fNum2(propTokenAmounts[index], FNumFormats.token)
               : '-'
           }}
-          <span class="text-bluey-grey text-sm">
+          <span class="text-gray-500 text-sm">
             {{ isWalletReady ? fiatLabelFor(index, address) : '-' }}
           </span>
         </span>
@@ -199,12 +204,16 @@ function navigateToPoolMigration(pool: FullPool) {
         {{ $t('migratePool.migrateToBoostedPool') }}
       </BalBtn>
     </div>
+    <template #footer>
+      <PoolActionsCard :pool="pool" :missingPrices="missingPrices" />
+    </template>
   </BalCard>
 </template>
 
 <style scoped>
 .card-header {
-  @apply mx-6 py-6 w-full flex items-center justify-between;
+  @apply p-4 w-full flex items-center justify-between;
+  @apply border-b dark:border-gray-700;
 }
 
 .asset-row {

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 import { FullPool } from '@/services/balancer/subgraph/types';
 import useWeb3 from '@/services/web3/useWeb3';
 
@@ -105,7 +103,7 @@ function getTokenShare(address: string) {
             <BalIcon
               name="arrow-up-right"
               size="sm"
-              class="ml-2 text-gray-500 hover:text-blue-500 transition-colors"
+              class="ml-2 text-gray-500 hover:text-cyan-500 transition-colors"
             />
           </BalLink>
           <template #item="{ item: asset }">

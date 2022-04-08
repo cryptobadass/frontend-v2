@@ -14,7 +14,7 @@ import TrendingPairs from '@/components/cards/TrendingPairs/TrendingPairs.vue';
 import PairPriceGraph from '@/components/cards/PairPriceGraph/PairPriceGraph.vue';
 import TradeCard from '@/components/cards/TradeCard/TradeCard.vue';
 import TradeCardGP from '@/components/cards/TradeCardGP/TradeCardGP.vue';
-import Col2Layout from '@/components/layouts/Col2Layout.vue';
+import Col3Layout from '@/components/layouts/Col3Layout.vue';
 
 /**
  * STATE
@@ -56,13 +56,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <Col2Layout offsetGutters mobileHideGutters class="mt-8">
+  <Col3Layout offsetGutters mobileHideGutters class="mt-8">
     <template #gutterLeft>
       <MyWallet />
       <TrendingPairs class="mt-4" />
     </template>
 
-    <BalLoadingBlock v-if="appLoading || loadingTokenLists" class="h-96 p-6" />
+    <BalLoadingBlock v-if="appLoading || loadingTokenLists" class="h-96" />
     <template v-else>
       <template v-if="ENABLE_LEGACY_TRADE_INTERFACE">
         <TradeCard v-if="tradeInterface === TradeInterface.BALANCER" />
@@ -95,9 +95,9 @@ onMounted(() => {
     </div>
 
     <template #gutterRight>
-      <PairPriceGraph isModal :toggleModal="togglePairPriceGraphModal" />
+      <PairPriceGraph :toggleModal="togglePairPriceGraphModal" />
     </template>
-  </Col2Layout>
+  </Col3Layout>
 
   <teleport to="#modal">
     <BalModal :show="showPriceGraphModal" @close="onPriceGraphModalClose">

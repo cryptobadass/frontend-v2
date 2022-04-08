@@ -1,5 +1,5 @@
 <template>
-  <BalPopover no-pad>
+  <BalPopover no-pad align="center-right" detached>
     <template v-slot:activator>
       <BalBtn
         class="text-base"

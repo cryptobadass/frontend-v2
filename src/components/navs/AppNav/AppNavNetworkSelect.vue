@@ -1,45 +1,41 @@
 <template>
-  <BalPopover align="left" no-pad>
+  <BalPopover no-pad>
     <template v-slot:activator>
-      <BalBtn
-        color="white"
-        class="net-work-select"
-        :size="upToLargeBreakpoint ? 'md' : 'sm'"
-      >
+      <BalBtn color="white" :size="upToLargeBreakpoint ? 'md' : 'sm'">
         <img
           :src="iconSrc(activeNetwork)"
           :alt="activeNetwork.name"
-          class="w-7 h-7 rounded-full shadow-sm"
+          class="w-6 h-6 rounded-full"
         />
-        <div class="net-work-name text-left text-white">
+        <span class="ml-2">
           {{ activeNetwork.name }}
-        </div>
+        </span>
         <BalIcon name="chevron-down" size="sm" class="ml-2" />
       </BalBtn>
     </template>
-    <div class="flex flex-col w-60 rounded-lg overflow-hidden">
+    <div class="flex flex-col w-44 rounded-lg overflow-hidden">
       <div
         class="p-3 border-b dark:border-gray-900 whitespace-nowrap text-gray-500 font-medium"
       >
         Select a network
       </div>
+      <!-- :href="appUrl(network)" -->
       <a
         v-for="network in networks"
         :key="network.id"
-        :href="appUrl(network)"
         class="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-850"
       >
         <div class="flex items-center">
           <img
             :src="iconSrc(network)"
             :alt="network.name"
-            class="w-7 h-7 rounded-full mr-2"
+            class="w-6 h-6 rounded-full mr-2"
           />
           <span class="ml-1 font-medium">
             {{ network.name }}
           </span>
         </div>
-        <BalIcon v-if="isActive(network)" name="check" class="text-blue-500" />
+        <BalIcon v-if="isActive(network)" name="check" class="text-cyan" />
       </a>
     </div>
   </BalPopover>
@@ -50,11 +46,11 @@ import useBreakpoints from '@/composables/useBreakpoints';
 import ConfigService from '@/services/config/config.service';
 import { defineComponent } from 'vue';
 
-interface Network {
+export interface NetworkOption {
   id: string;
   name: string;
-  subdomain: string;
-  key: string;
+  subdomain?: string;
+  key?: string;
 }
 
 export default defineComponent({
@@ -76,17 +72,29 @@ export default defineComponent({
         key: '1'
       },
       {
-        id: 'polygon',
-        name: 'Polygon',
-        subdomain: 'polygon',
-        key: '137'
-      },
-      {
-        id: 'arbitrum',
-        name: 'Arbitrum',
-        subdomain: 'arbitrum',
-        key: '42161'
+        id: 'kovan',
+        name: 'Kovan test',
+        subdomain: 'kovan',
+        key: '42'
       }
+      // {
+      //   id: 'rinkeby',
+      //   name: 'Rinkeby test',
+      //   subdomain: 'rinkeby',
+      //   key: '4'
+      // }
+      // {
+      //   id: 'polygon',
+      //   name: 'Polygon',
+      //   subdomain: 'polygon',
+      //   key: '137'
+      // },
+      // {
+      //   id: 'arbitrum',
+      //   name: 'Arbitrum',
+      //   subdomain: 'arbitrum',
+      //   key: '42161'
+      // }
     ];
 
     const appNetworkSupported = networks
@@ -99,15 +107,15 @@ export default defineComponent({
     });
 
     // METHODS
-    function iconSrc(network: Network): string {
+    function iconSrc(network: NetworkOption): string {
       return require(`@/assets/images/icons/networks/${network.id}.svg`);
     }
 
-    function appUrl(network: Network): string {
+    function appUrl(network: NetworkOption): string {
       return `https://${network.subdomain}.balancer.fi`;
     }
 
-    function isActive(network: Network): boolean {
+    function isActive(network: NetworkOption): boolean {
       if (!appNetworkSupported && network.id === 'ethereum') return true;
       return configService.network.key === network.key;
     }
@@ -126,19 +134,3 @@ export default defineComponent({
   }
 });
 </script>
-<style scoped>
-.net-work-select {
-  width: 250px;
-  height: 56px;
-  /* margin: 47px 30px 47px 20px;
-  padding: 13px 15px 13px 20px; */
-  border-radius: 5px;
-  border: solid 1px #424658;
-  background-color: #1b1d24;
-}
-.net-work-name {
-  width: 200px;
-  display: inline-block;
-  margin: 0 15px;
-}
-</style>

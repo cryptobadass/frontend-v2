@@ -14,8 +14,6 @@ const networkMap = {
   [Network.MAINNET]: 'mainnet',
   [Network.KOVAN]: 'kovan',
   [Network.POLYGON]: 'polygon',
-  [Network.FUJI]: 'fuji',
-  [Network.AVALANCHE]: 'avalanche',
   [Network.ARBITRUM]: 'arbitrum-one'
 };
 const environment = `${ENV}-${networkMap[networkId.value]}`;
@@ -42,7 +40,11 @@ export default function initSentry(app: App) {
       integrations: [new Integrations.BrowserTracing()],
       tracesSampleRate: 1.0,
       environment,
-      release
+      release,
+      beforeSend: event => {
+        console.error(event);
+        return event;
+      }
     });
   }
 }

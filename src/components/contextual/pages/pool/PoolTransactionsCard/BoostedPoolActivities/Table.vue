@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, computed } from 'vue';
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { formatDistanceToNow } from 'date-fns';
 import { groupBy } from 'lodash';
@@ -339,7 +339,7 @@ function getMainTokenEquivalentAmount(address: string, amount: string) {
               <BalIcon
                 name="arrow-up-right"
                 size="sm"
-                class="text-gray-500 hover:text-blue-500 transition-colors"
+                class="text-gray-500 hover:text-cyan-500 transition-colors"
               />
             </BalLink>
           </div>

@@ -112,7 +112,7 @@ const props = defineProps<Props>();
 const { upToLargeBreakpoint } = useBreakpoints();
 const store = useStore();
 const { tokens, wrappedNativeAsset, nativeAsset } = useTokens();
-const { tokenInAddress, tokenOutAddress } = useTradeState();
+const { tokenInAddress, tokenOutAddress, initialized } = useTradeState();
 const tailwind = useTailwind();
 const { chainId: userNetworkId } = useWeb3();
 
@@ -162,6 +162,7 @@ const {
       true
     ),
   reactive({
+    enabled: initialized,
     retry: false,
     // when refetch on window focus in enabled, it causes a flash
     // in the loading state of the card which is jarring. disabling it
@@ -236,21 +237,21 @@ const chartGrid = computed(() => {
       :noBorder="upToLargeBreakpoint || isModal"
       v-else
     >
-      <div class="relative h-full bg-transparent px-6">
-        <!-- <button
+      <div class="relative h-full bg-transparent p-4">
+        <button
           v-if="!failedToLoadPriceData && !(isLoadingPriceData || appLoading)"
           @click="toggle"
           class="maximise m-4 p-2 flex justify-center items-center shadow-lg rounded-full"
         >
           <BalIcon v-if="!isModal" name="maximize-2" class="text-gray-500" />
           <BalIcon v-if="isModal" name="x" class="text-gray-500" />
-        </button> -->
+        </button>
         <div
           v-if="!failedToLoadPriceData && !(isLoadingPriceData || appLoading)"
           class="flex"
         >
           <h6 class="font-medium">{{ outputSym }}/{{ inputSym }}</h6>
-          <!-- <BalTooltip
+          <BalTooltip
             width="64"
             class="ml-2"
             :text="$t('coingeckoPricingTooltip')"
@@ -258,7 +259,7 @@ const chartGrid = computed(() => {
             <template v-slot:activator>
               <img class="h-5" src="@/assets/images/icons/coingecko.svg" />
             </template>
-          </BalTooltip> -->
+          </BalTooltip>
         </div>
         <div
           v-if="failedToLoadPriceData && tokenOutAddress"
@@ -318,23 +319,28 @@ const chartGrid = computed(() => {
                   'py-1 px-2 text-sm rounded-lg mr-2',
                   {
                     'text-white': activeTimespan.value === timespan.value,
-                    'text-bluey-grey': activeTimespan.value !== timespan.value
-                  },
-                  'hover:text-white'
+                    'text-gray-500': activeTimespan.value !== timespan.value,
+                    'bg-green-400':
+                      !isNegativeTrend &&
+                      activeTimespan.value === timespan.value,
+                    'bg-red-400':
+                      isNegativeTrend &&
+                      activeTimespan.value === timespan.value,
+                    'hover:bg-red-200': isNegativeTrend,
+                    'hover:bg-green-200': !isNegativeTrend
+                  }
                 ]"
               >
                 {{ timespan.option }}
               </button>
             </div>
             <div :class="{ 'mt-4': isModal }">
-              <span class="text-sm text-shite ">Low: </span
-              ><span class="text-sm text-bluey-grey mr-4">{{
-                dataMin.toPrecision(6)
-              }}</span>
-              <span class="text-sm text-white">High: </span>
-              <span class="text-sm text-bluey-grey">{{
-                dataMax.toPrecision(6)
-              }}</span>
+              <span class="text-sm text-gray-500 mr-4"
+                >Low: {{ dataMin.toPrecision(6) }}</span
+              >
+              <span class="text-sm text-gray-500"
+                >High: {{ dataMax.toPrecision(6) }}</span
+              >
             </div>
           </div>
           <div class="-mt-2 lg:mt-2" v-else>

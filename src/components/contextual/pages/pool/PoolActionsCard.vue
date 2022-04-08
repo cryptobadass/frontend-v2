@@ -60,43 +60,43 @@ const fiatTotal = computed(() => {
 </script>
 
 <template>
-  <BalCard noPad noBorder :shadow="'none'">
-    <div class="px-6 mb-7">
-      <!-- <div class="text-gray-500 text-sm">
+  <div
+    class="p-4 w-full bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-900"
+  >
+    <div class="text-gray-500 text-sm">
       {{ $t('basedOnTokensInWallet') }}
-    </div> -->
-      <div class="flex justify-between items-center mb-4">
-        <h5>
-          {{ $t('investNow') }}
-        </h5>
-        <h5>
-          {{ isWalletReady ? fiatTotal : '-' }}
-        </h5>
-      </div>
+    </div>
+    <div class="flex justify-between items-center mb-4">
+      <h5>
+        {{ $t('youCanInvest') }}
+      </h5>
+      <h5>
+        {{ isWalletReady ? fiatTotal : '-' }}
+      </h5>
+    </div>
 
+    <BalBtn
+      v-if="!isWalletReady"
+      :label="$t('connectWallet')"
+      color="blue"
+      block
+      @click="toggleWalletSelectModal"
+    />
+    <div v-else class="grid gap-2 grid-cols-2">
       <BalBtn
-        v-if="!isWalletReady"
-        :label="$t('connectWallet')"
+        tag="router-link"
+        :to="{ name: 'invest' }"
+        :label="$t('invest')"
         color="blue"
         block
-        @click="toggleWalletSelectModal"
       />
-      <div v-else class="grid gap-2 grid-cols-2">
-        <BalBtn
-          tag="router-link"
-          :to="{ name: 'invest' }"
-          :label="$t('invest')"
-          color="gradient"
-          block
-        />
-        <BalBtn
-          :tag="hasBpt ? 'router-link' : 'div'"
-          :to="{ name: 'withdraw' }"
-          :label="$t('withdraw.label')"
-          :disabled="!hasBpt"
-          block
-        />
-      </div>
+      <BalBtn
+        :tag="hasBpt ? 'router-link' : 'div'"
+        :to="{ name: 'withdraw' }"
+        :label="$t('withdraw.label')"
+        :disabled="!hasBpt"
+        block
+      />
     </div>
-  </BalCard>
+  </div>
 </template>

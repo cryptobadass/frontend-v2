@@ -1,21 +1,34 @@
-<template>
-  <div class="flex items-center">
-    <AppIcon />
-    <!-- <span class="mr-1 font-secondary text-xl font-semibold">
-      Balancer
-    </span> -->
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
 import AppIcon from './AppIcon.vue';
 
-export default defineComponent({
-  name: 'AppLogo',
+/**
+ * TYPES
+ */
+type Props = {
+  forceDark?: boolean;
+};
 
-  components: {
-    AppIcon
-  }
+/**
+ * PROPS & EMITS
+ */
+const props = withDefaults(defineProps<Props>(), {
+  forceDark: false
 });
+
+/**
+ * COMPUTED
+ */
+const textColor = computed(() =>
+  props.forceDark ? 'text-white' : 'text-black dark:text-white'
+);
 </script>
+
+<template>
+  <div class="flex items-center">
+    <AppIcon :forceDark="forceDark" />
+    <span :class="['mr-1 font-secondary text-xl font-semibold', textColor]">
+      Yotei
+    </span>
+  </div>
+</template>

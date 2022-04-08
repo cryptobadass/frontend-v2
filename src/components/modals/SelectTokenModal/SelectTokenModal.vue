@@ -1,28 +1,6 @@
 <template>
-  <BalModal
-    show
-    @close="$emit('close')"
-    noPad
-    no-content-pad
-    :maxWidth="830"
-    :maxHeight="510"
-  >
+  <BalModal show @close="$emit('close')" no-content-pad>
     <template v-slot:header>
-      <div class="flex items-start justify-between h-24 w-full">
-        <h6 class="pl-7 mt-10 flex items-center">
-          <SearchIconCyan class="inline-block mr-4" />{{ $t('searchToken') }}
-        </h6>
-        <BalCircle
-          v-if="true || withdrawalConfirmed"
-          size="6"
-          color="dark"
-          class="text-white mr-3 mt-3 cursor-pointer"
-        >
-          <BalIcon class="text-white" @click="$emit('close')" name="x" />
-        </BalCircle>
-      </div>
-    </template>
-    <!-- <template v-slot:header>
       <div class="w-full flex justify-between items-center">
         <div class="flex items-center">
           <BalBtn
@@ -34,7 +12,7 @@
             circle
             @click="onListExit"
           >
-            <BalIcon name="arrow-left" size="sm" />
+            <BalIcon name="arrow-left" class="text-cyan" size="sm" />
           </BalBtn>
           <h5>{{ title }}</h5>
         </div>
@@ -56,17 +34,17 @@
             <BalIcon
               name="chevron-down"
               size="sm"
-              class="ml-1 text-blue-500 group-hover:text-pink-500 group-focus:text-pink-500 transition-all duration-200 ease-out "
+              class="ml-1 text-white group-hover:text-cyan group-focus:text-cyan transition-all duration-200 ease-out "
             />
           </div>
         </div>
       </div>
-    </template> -->
+    </template>
     <template v-if="selectTokenList">
       <Search
         v-model="query"
         :placeholder="$t('searchByName')"
-        class="mx-7 mb-5 px-4 py-3 flex-auto border-gunmetal dark:border-gunmetal"
+        class="px-4 py-3 flex-auto border-b dark:border-gray-700"
       />
       <div>
         <div
@@ -90,16 +68,16 @@
       </div>
     </template>
     <template v-else>
-      <div class="flex">
+      <div class="border-b dark:border-gray-700 flex">
         <Search
           v-model="query"
           :placeholder="$t('searchBy')"
-          class="mx-7 mb-5 h-14 px-4 py-3 bg-dark-3 flex-auto border rounded-md border-gunmetal dark:border-gunmetal"
+          class="px-4 py-3 flex-auto"
         />
       </div>
-      <div class="overflow-hidden  ml-7 mr-4">
+      <div class="overflow-hidden rounded-lg">
         <RecycleScroller
-          class="h-80 mb-2 overflow-y-scroll"
+          class="h-96 overflow-y-scroll"
           v-if="tokens.length > 0"
           :items="tokens"
           :item-size="64"
@@ -107,7 +85,7 @@
           v-slot="{ item: token }"
           :buffer="100"
         >
-          <a class="" @click="onSelectToken(token.address)">
+          <a @click="onSelectToken(token.address)">
             <TokenListItem
               :token="token"
               :balanceLoading="dynamicDataLoading"

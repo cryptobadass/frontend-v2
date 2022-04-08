@@ -155,20 +155,14 @@ watchEffect(() => {
     />
 
     <div class="flex items-center my-2">
-      <div class="h-px  bg-gray-100 dark:bg-gray-700 flex-grow" />
+      <TradePairToggle @toggle="handleTokenSwitch" />
+      <div class="h-px mx-2 bg-gray-100 dark:bg-gray-700 flex-grow" />
       <div
-        class=" w-44 h-8 border border-gray-700 rounded flex justify-start items-center "
-      >
-        <TradePairToggle class="ml-4" @toggle="handleTokenSwitch" />
-        <div
-          v-if="rateLabel"
-          class="flex items-center text-xs text-gray-500 cursor-pointer"
-          @click="isInRate = !isInRate"
-          v-html="rateLabel"
-        />
-      </div>
-
-      <div class="h-px  bg-gray-100 dark:bg-gray-700 flex-grow" />
+        v-if="rateLabel"
+        class="flex items-center text-xs text-gray-500 cursor-pointer"
+        @click="isInRate = !isInRate"
+        v-html="rateLabel"
+      />
     </div>
 
     <TokenInput
@@ -181,6 +175,7 @@ watchEffect(() => {
       noRules
       noMax
       :disabled="tradeLoading"
+      disableNativeAssetBuffer
     />
   </div>
 </template>

@@ -42,10 +42,6 @@ export default class BalancerSubgraphService {
       case Network.KOVAN:
         // Should be ~4s but this causes subgraph to return with unindexed block error.
         return 1;
-      case Network.FUJI:
-        return 13;
-      case Network.AVALANCHE:
-        return 13;
       default:
         return 13;
     }

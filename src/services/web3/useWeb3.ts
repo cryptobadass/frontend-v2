@@ -4,7 +4,6 @@ import { Web3Plugin, Web3ProviderSymbol } from './web3.plugin';
 import { Web3Provider } from '@ethersproject/providers';
 import QUERY_KEYS from '@/constants/queryKeys';
 import { configService } from '../config/config.service';
-import { isAddress } from '@ethersproject/address';
 import { web3Service } from './web3.service';
 import { rpcProviderService } from '../rpc-provider/rpc-provider.service';
 import { switchToAppNetwork } from './utils/helpers';
@@ -35,9 +34,6 @@ export default function useWeb3() {
     connectWallet
   } = inject(Web3ProviderSymbol) as Web3Plugin;
   const appNetworkConfig = configService.network;
-  const isV1Supported = isAddress(
-    configService.network.addresses.exchangeProxy
-  );
 
   const { networkId } = useNetwork();
 
@@ -52,16 +48,13 @@ export default function useWeb3() {
     }
   });
   const isWalletReady = computed(() => walletState.value === 'connected');
+  const isWalletConnecting = computed(() => walletState.value === 'connecting');
   const isMainnet = computed(
     () => appNetworkConfig.chainId === Network.MAINNET
   );
   const isKovan = computed(() => appNetworkConfig.chainId === Network.KOVAN);
   const isPolygon = computed(
     () => appNetworkConfig.chainId === Network.POLYGON
-  );
-  const isFuji = computed(() => appNetworkConfig.chainId === Network.FUJI);
-  const isAvalanche = computed(
-    () => appNetworkConfig.chainId === Network.AVALANCHE
   );
   const isArbitrum = computed(
     () => appNetworkConfig.chainId === Network.ARBITRUM
@@ -136,14 +129,12 @@ export default function useWeb3() {
     explorerLinks,
     signer,
     blockNumber,
-    isV1Supported,
     isMainnet,
     isKovan,
     isPolygon,
-    isFuji,
-    isAvalanche,
     isArbitrum,
     isEIP1559SupportedNetwork,
+    isWalletConnecting,
 
     // methods
     connectWallet,

@@ -4,6 +4,7 @@ import { getAddress } from 'ethers/lib/utils';
 import {
   PoolType,
   AnyPool,
+  PoolToken,
   FullPool
 } from '@/services/balancer/subgraph/types';
 import { configService } from '@/services/config/config.service';
@@ -13,6 +14,8 @@ import { bnum } from '@/lib/utils';
 import { POOL_MIGRATIONS } from '@/components/forms/pool_actions/MigrateForm/constants';
 
 import useNumbers from './useNumbers';
+import { Network } from '@balancer-labs/sdk';
+import { urlFor } from './useNetwork';
 
 /**
  * METHODS
@@ -96,6 +99,43 @@ export function lpTokensFor(pool: AnyPool): string[] {
 }
 
 /**
+ * @summary Orders pool token addresses by weight if weighted pool
+ * @returns Array of checksum addresses
+ */
+export function orderedTokenAddresses(pool: AnyPool): string[] {
+  const sortedTokens = orderedPoolTokens(
+    pool.poolType,
+    pool.address,
+    pool.tokens
+  );
+  return sortedTokens.map(token => getAddress(token?.address || ''));
+}
+
+/**
+ * @summary Orders pool tokens by weight if weighted pool
+ */
+export function orderedPoolTokens(
+  poolType: PoolType,
+  poolAddress: string,
+  tokens: Pick<PoolToken, 'address' | 'weight'>[]
+): Partial<PoolToken>[] {
+  if (isStablePhantom(poolType))
+    return tokens.filter(token => token.address !== poolAddress);
+  if (isStableLike(poolType)) return tokens;
+
+  return tokens
+    .slice()
+    .sort((a, b) => parseFloat(b.weight) - parseFloat(a.weight));
+}
+
+/**
+ * @summary returns full URL for pool id, given network.
+ */
+export function poolURLFor(poolId: string, network: Network): string {
+  return `${urlFor(network)}/pool/${poolId}`;
+}
+
+/**
  * COMPOSABLE
  */
 export function usePool(pool: Ref<AnyPool> | Ref<undefined>) {
@@ -106,7 +146,7 @@ export function usePool(pool: Ref<AnyPool> | Ref<undefined>) {
    */
   function poolWeightsLabel(pool: FullPool): string {
     if (isStableLike(pool.poolType)) {
-      return Object.values(pool.onchain.tokens)
+      return Object.values(pool.tokens)
         .map(token => token.symbol)
         .join(', ');
     }
@@ -197,6 +237,8 @@ export function usePool(pool: Ref<AnyPool> | Ref<undefined>) {
     noInitLiquidity,
     lpTokensFor,
     isMigratablePool,
-    poolWeightsLabel
+    poolWeightsLabel,
+    orderedTokenAddresses,
+    orderedPoolTokens
   };
 }

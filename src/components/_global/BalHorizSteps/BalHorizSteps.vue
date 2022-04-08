@@ -46,15 +46,15 @@ const walletLogo = computed((): string =>
 function stateClasses(state: StepState): string {
   switch (state) {
     case StepState.Success:
-      return 'bg:lightish-blue';
+      return 'border-green-500 dark:border-green-500 text-green-500';
     case StepState.Pending:
-      return 'bg:lightish-blue';
+      return 'border-none dark:border-none text-yellow-500';
     case StepState.Active:
-      return 'border-gunmetal';
+      return 'border-purple-500 dark:border-blue-500 bg-blue text-white';
     case StepState.WalletOpen:
-      return 'border-gunmetal';
+      return 'border-purple-500 dark:border-blue-500 bg-blue text-white';
     default:
-      return 'border-gunmetal';
+      return 'dark:border-gray-700';
   }
 }
 </script>
@@ -66,9 +66,9 @@ function stateClasses(state: StepState): string {
         v-if="i !== 0"
         :class="['h-px bg-gray-100 dark:bg-gray-700', `w-${spacerWidth}`]"
       />
-      <BalTooltip :text="step.tooltip" width="44" textCenter>
+      <BalTooltip :text="step.tooltip" width="44" textAlign="center">
         <template v-slot:activator>
-          <div :class="['step', 'text-white', stateClasses(step.state)]">
+          <div :class="['step', stateClasses(step.state)]">
             <BalIcon v-if="step.state === stepState.Success" name="check" />
             <img
               v-else-if="step.state === stepState.WalletOpen"
