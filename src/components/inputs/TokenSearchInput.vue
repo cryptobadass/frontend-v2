@@ -2,8 +2,8 @@
   <div>
     <div class="flex items-center flex-wrap">
       <div class="flex items-center flex-wrap">
-        <BalBtn color="cyan" size="sm" @click="onClick" class="mr-4 ">
-          <BalIcon name="search" size="sm" class="mr-2 text-black" />
+        <BalBtn color="blue" size="sm" @click="onClick" class="mr-4 ">
+          <BalIcon name="search" size="sm" class="mr-2 text-white" />
           {{ $t('filterByToken') }}
         </BalBtn>
         <BalChip

@@ -73,8 +73,8 @@ function onClickConnect() {
 </script>
 
 <template>
-  <div :class="['app-hero', classes]">
-    <div class="w-full max-w-2xl mx-auto">
+  <div :class="['app-hero border-t border-b border-gunmetal bg-dark h-40']">
+    <div class="w-full max-w-6xl mx-auto">
       <template v-if="isWalletReady || isWalletConnecting">
         <h1
           v-text="$t('myBalancerInvestments')"
@@ -115,23 +115,31 @@ function onClickConnect() {
         </div>
       </template>
       <template v-else>
-        <h1
-          v-text="$t('ammPlatform')"
+        <div
+          v-text="$t('ammPlatformStart')"
           class="
-            text-white text-center text-4xl
-            md:text-5xl
+            text-white text-center text-2xl
+            md:text-3xl
             pb-2
-            font-display font-black
+            
+          "
+        />
+        <h1
+          v-text="$t('ammPlatformEnd')"
+          class="
+            text-cyan text-center text-2xl font-medium
+            md:text-3xl
+            pb-2
           "
         />
         <div class="flex justify-center mt-4">
-          <BalBtn
+          <!-- <BalBtn
             :color="darkMode ? 'cyan' : 'white'"
             class=""
             @click="onClickConnect"
           >
             {{ $t('connectWallet') }}
-          </BalBtn>
+          </BalBtn> -->
           <!-- <BalBtn
             tag="a"
             :href="EXTERNAL_LINKS.Balancer.Home"

@@ -34,7 +34,7 @@
             <BalIcon
               name="chevron-down"
               size="sm"
-              class="ml-1 text-white group-hover:text-cyan group-focus:text-cyan transition-all duration-200 ease-out "
+              class="ml-1 text-cyan group-hover:text-cyan group-focus:text-cyan transition-all duration-200 ease-out "
             />
           </div>
         </div>

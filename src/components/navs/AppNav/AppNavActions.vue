@@ -28,11 +28,11 @@ const hideNetworkSelect = computed(() => connector.value?.id === 'gnosis');
     <AppNavAccountBtn v-if="account" />
     <BalBtn
       v-else
-      color="white"
+      color="cyan"
       :size="isMobile ? 'md' : 'sm'"
       @click="toggleWalletSelectModal"
     >
-      <WalletIcon class="mr-2" />
+      <WalletIconBlack class="mr-2" />
       <span class="hidden lg:inline-block" v-text="$t('connectWallet')" />
       <span class="lg:hidden" v-text="$t('connect')" />
     </BalBtn>

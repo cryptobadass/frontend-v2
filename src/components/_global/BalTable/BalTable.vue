@@ -509,7 +509,7 @@ export default defineComponent({
 
 .bal-table-pagination-btn {
   @apply flex items-center justify-center h-16 transition-all;
-  @apply text-gray-500 font-medium hover:text-gray-800 dark:hover:text-gray-400;
+  @apply text-cyan-500 font-medium hover:text-cyan-800 dark:hover:text-cyan-400;
   @apply border-t dark:border-gray-900 rounded-b-lg;
   @apply hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer;
 }

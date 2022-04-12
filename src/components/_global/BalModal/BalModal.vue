@@ -62,7 +62,7 @@ defineExpose({ hide });
             shadow="lg"
             :no-pad="noPad"
             :no-content-pad="noContentPad"
-            class="modal-card"
+            class="modal-card "
             noBorder
             overflowYScroll
           >

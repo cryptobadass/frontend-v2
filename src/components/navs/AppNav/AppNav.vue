@@ -55,8 +55,9 @@ onUnmounted(() => {
           :to="{ name: 'home' }"
           @click="trackGoal(Goals.ClickNavLogo)"
         >
-          <AppIcon v-if="['xs', 'sm', 'md'].includes(bp)" />
-          <AppLogo v-else />
+          <AppIcon />
+          <!-- <AppIcon v-if="['xs', 'sm', 'md'].includes(bp)" />
+          <AppLogo v-else /> -->
         </router-link>
 
         <DesktopLinks v-if="isDesktop" class="ml-8" />

@@ -69,6 +69,9 @@ module.exports = {
         '2xl': '1.25rem'
       },
       colors: {
+        gunmetal: {
+          DEFAULT: '#424658'
+        },
         cyan: {
           DEFAULT: '#00ffff',
           50: '#00ffff',
@@ -100,6 +103,7 @@ module.exports = {
         dark: {
           DEFAULT: '#33384d',
           2: '#33384d',
+          3: '1b1d24',
           50: '#33384d',
           100: '#33384d',
           200: '#33384d',
@@ -159,7 +163,8 @@ module.exports = {
           600: '#2e40f5',
           700: '#2436eb',
           800: '#1a2ce1',
-          900: '#1022d7'
+          900: '#1022d7',
+          grey: '#a1a7bb'
         },
         pink: {
           50: '#ff4dff',
