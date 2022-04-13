@@ -241,7 +241,7 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
             </h6>
           </BalStack>
         </BalCard>
-        <BalCard shadow="none" >
+        <BalCard shadow="none">
           <div class=" p-2">
             <h6 class="text-sm">{{ $t('summary') }}</h6>
           </div>
@@ -256,7 +256,9 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
               />
             </BalStack>
             <BalStack horizontal justify="between">
-              <span class="text-sm text-bluey-grey">{{ $t('poolSymbol') }}:</span>
+              <span class="text-sm text-bluey-grey"
+                >{{ $t('poolSymbol') }}:</span
+              >
               <BalInlineInput
                 size="xs"
                 v-model="poolSymbol"
@@ -266,7 +268,9 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
             </BalStack>
             <BalStack horizontal justify="between">
               <span class="text-sm text-bluey-grey">{{ $t('poolType') }}:</span>
-              <span class="text-sm capitalize text-bluey-grey">{{ poolTypeString }}</span>
+              <span class="text-sm capitalize text-bluey-grey">{{
+                poolTypeString
+              }}</span>
             </BalStack>
             <BalStack horizontal justify="between" class="mt-1">
               <span class="text-sm text-bluey-grey">{{ $t('swapFee') }}:</span>
@@ -281,11 +285,15 @@ function getInitialWeightHighlightClass(tokenAddress: string) {
               </BalStack>
             </BalStack>
             <BalStack horizontal justify="between">
-              <span class="text-sm text-bluey-grey">{{ $t('swapFeeManager') }}:</span>
+              <span class="text-sm text-bluey-grey"
+                >{{ $t('swapFeeManager') }}:</span
+              >
               <BalStack horizontal spacing="sm">
-                <span class="text-sm text-bluey-grey">{{ getSwapFeeManager() }}</span>
+                <span class="text-sm text-bluey-grey">{{
+                  getSwapFeeManager()
+                }}</span>
                 <button class="hover:text-cyan-500" @click="navigateToPoolFee">
-                   <BalIcon name="edit" size="xs" />
+                  <BalIcon name="edit" size="xs" />
                   <!-- <GEditIcon /> -->
                 </button>
               </BalStack>

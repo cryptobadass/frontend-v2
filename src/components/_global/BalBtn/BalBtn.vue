@@ -67,7 +67,7 @@ export default defineComponent({
     rounded: { type: Boolean, default: false },
     loading: { type: Boolean, default: false },
     loadingLabel: { type: String, default: 'loading...' },
-    disabled: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false }
   },
 
   setup(props) {

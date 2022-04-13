@@ -21,7 +21,7 @@ export default {
         .replace('ipfs://', `https://${process.env.VUE_APP_IPFS_NODE}/ipfs/`)
         .replace('ipns://', `https://${process.env.VUE_APP_IPFS_NODE}/ipns/`);
     },
-    _up(str:string){
+    _up(str: string) {
       return str.toUpperCase();
     }
   }

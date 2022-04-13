@@ -142,7 +142,7 @@ function handleBlur(e: HtmlInputEvent) {
             @blur="handleBlur"
             @input="onInput"
             @keydown="onKeydown"
-            :class="['input','text-bluey-grey', inputClasses]"
+            :class="['input', 'text-bluey-grey', inputClasses]"
             ref="inputElement"
           />
           <BalStack horizontal spacing="none" align="center">

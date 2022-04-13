@@ -203,7 +203,9 @@ async function calculateColors() {
           {{ $t('createAPool.maxLiquidityTooltip') }}
         </BalTooltip>
       </BalStack>
-      <span class="text-white font-medium text-2xl">{{ fNum2(totalLiquidity.toString(), FNumFormats.fiat) }}</span>
+      <span class="text-white font-medium text-2xl">{{
+        fNum2(totalLiquidity.toString(), FNumFormats.fiat)
+      }}</span>
     </BalStack>
   </BalCard>
 </template>
