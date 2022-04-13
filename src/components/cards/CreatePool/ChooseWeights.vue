@@ -131,14 +131,14 @@ const progressBarColor = computed(() => {
   ) {
     return 'red';
   }
-  return 'green';
+  return 'poison';
 });
 
 const weightColor = computed(() => {
   if (Number(totalWeight.value) > 100 || Number(totalWeight.value) <= 0) {
     return 'text-red-500';
   }
-  return darkMode.value ? 'text-gray-300' : 'text-gray-800';
+  return darkMode.value ? 'text-poison' : 'text-gray-800';
 });
 
 /**
@@ -317,21 +317,21 @@ function onAlertMountChange() {
 
 <template>
   <div ref="cardWrapper" class="mb-16">
-    <BalCard shadow="xl" noBorder>
-      <BalStack vertical spacing="sm">
+    <BalCard shadow="none">
+      <BalStack vertical spacing="base">
         <BalStack vertical spacing="xs">
-          <span class="text-xs text-gray-700 dark:text-gray-500">{{
+          <span class="text-xs text-gray-700 dark:text-bluey-grey">{{
             networkName
           }}</span>
-          <h5 class="font-bold dark:text-gray-300">
+          <h5 class="font-bold dark:text-white border-b border-gunmetal pb-2">
             {{ $t('createAPool.chooseTokenWeights') }}
           </h5>
         </BalStack>
-        <BalCard shadow="none" noPad>
+        <BalCard shadow="none" noPad class="bg-dark-3">
           <div ref="tokenWeightListWrapper">
             <div class="flex flex-col">
               <div
-                class="bg-gray-50 dark:bg-gray-850 w-full flex justify-between p-2 px-4"
+                class="bg-gray-50 dark:bg-dark-3 w-full flex justify-between p-2 px-4 text-bluey-grey text-sm"
               >
                 <h6>{{ $t('token') }}</h6>
                 <h6>{{ $t('weight') }}</h6>
@@ -359,7 +359,7 @@ function onAlertMountChange() {
                 </div>
               </div>
 
-              <div class="p-3" ref="addTokenRowElement">
+              <div class="p-3 bg-dark-3" ref="addTokenRowElement">
                 <BalBtn
                   :disabled="maxTokenAmountReached"
                   @click="addTokenToPool"
@@ -371,7 +371,7 @@ function onAlertMountChange() {
               </div>
               <div
                 ref="totalsRowElement"
-                class="bg-gray-50 dark:bg-gray-850 w-full p-2 px-4"
+                class="bg-gray-50 dark:bg-dark-3 w-full p-2 px-4"
               >
                 <div class="w-full flex justify-between">
                   <h6>{{ $t('totalAllocated') }}</h6>

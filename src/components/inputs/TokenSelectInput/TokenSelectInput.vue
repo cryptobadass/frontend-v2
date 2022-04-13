@@ -167,7 +167,7 @@ function tokenFor(option: string): TokenInfo {
 
 <style scoped>
 .token-select-input {
-  @apply shadow rounded-lg flex items-center h-10 px-2 whitespace-nowrap;
+  @apply shadow rounded-lg flex items-center h-10 px-4 whitespace-nowrap;
   @apply text-sm;
   font-variation-settings: 'wght' 700;
 }
@@ -181,6 +181,6 @@ function tokenFor(option: string): TokenInfo {
 }
 
 .selected {
-  @apply bg-gray-50 dark:bg-gray-700 text-black dark:text-white;
+  @apply bg-gray-50 dark:bg-dark border-gunmetal border text-black dark:text-white;
 }
 </style>

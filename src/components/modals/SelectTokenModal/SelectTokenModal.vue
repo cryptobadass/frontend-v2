@@ -12,7 +12,7 @@
             circle
             @click="onListExit"
           >
-            <BalIcon name="arrow-left" class="text-cyan" size="sm" />
+            <BalIcon name="chevron-left" class="text-cyan" size="sm" />
           </BalBtn>
           <h5>{{ title }}</h5>
         </div>

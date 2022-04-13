@@ -27,6 +27,8 @@ const visibleSteps = computed(() => {
   );
 });
 
+console.log('a aa', visibleSteps);
+
 const stepTextClasses = computed(() => {
   return visibleSteps.value.map(step => {
     return getActiveClassName(step.state, [
@@ -34,7 +36,7 @@ const stepTextClasses = computed(() => {
       [StepState.Todo, 'text-gray-400 font-normal'],
       [StepState.Success, 'text-cyan-500 font-semibold'],
       [StepState.Warning, 'text-red-500 font-semibold'],
-      [StepState.Completed, 'text-gray-700 font-medium']
+      [StepState.Completed, 'text-cyan-700 font-medium']
     ]);
   });
 });
@@ -55,7 +57,10 @@ const stepCircleClasses = computed(() => {
         'border-2 border-none bg-gradient-to-tr from-green-500 to-green-200 text-white'
       ],
       [StepState.Warning, 'border-2 border-none bg-red-500 text-white active'],
-      [StepState.Completed, 'border-2 border-gray-600 font-medium']
+      [
+        StepState.Completed,
+        'border-2 border-cyan-600 dark:border-cyan-600 font-medium bg-cyan dark:bg-cyan'
+      ]
     ]);
   });
 });
@@ -70,9 +75,9 @@ function handleNavigate(state: StepState, stepIndex: number) {
 </script>
 
 <template>
-  <BalCard noPad shadow="none">
+  <BalCard shadow="none">
     <div class="p-4 border-b dark:border-gray-600">
-      <h6 class="dark:text-gray-300">{{ title }}</h6>
+      <h6 class="dark:text-white">{{ title }}</h6>
     </div>
     <BalStack vertical spacing="base" class="p-4" justify="center">
       <div
@@ -97,6 +102,14 @@ function handleNavigate(state: StepState, stepIndex: number) {
               >
                 <span
                   v-if="
+                    [StepState.Success, StepState.Completed].includes(
+                      step.state
+                    )
+                  "
+                  ><BalIcon name="check" class="text-black mt-2" />
+                </span>
+                <span
+                  v-else-if="
                     ![StepState.Warning, StepState.Error].includes(step.state)
                   "
                   >{{ step.label || i + 1 }}</span

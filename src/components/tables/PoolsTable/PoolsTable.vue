@@ -23,6 +23,7 @@ import { PoolMigrationType } from '@/components/forms/pool_actions/MigrateForm/t
 
 import TokenPills from './TokenPills/TokenPills.vue';
 import { POOLS } from '@/constants/pools';
+import { stringToUpperCase as _up } from '@/lib/utils/index';
 
 /**
  * TYPES
@@ -71,7 +72,7 @@ const wideCompositionWidth = computed(() =>
  */
 const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
   {
-    name: 'Tokens',
+    name: 'TOKENS',
     id: 'icons',
     accessor: 'uri',
     // Header: 'iconColumnHeader',
@@ -80,14 +81,14 @@ const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
     noGrow: true
   },
   {
-    name: t('composition'),
+    name: _up(t('composition')),
     id: 'poolName',
     accessor: 'id',
     Cell: 'poolNameCell',
     width: props.hiddenColumns.length >= 2 ? wideCompositionWidth.value : 350
   },
   {
-    name: t('myBalance'),
+    name: _up(t('myBalance')),
     accessor: pool =>
       fNum2(pool.shares, {
         style: 'currency',
@@ -98,11 +99,11 @@ const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
     id: 'myBalance',
     hidden: !props.showPoolShares,
     sortKey: pool => Number(pool.shares),
-    width: 150,
+    width: 200,
     cellClassName: 'font-numeric'
   },
   {
-    name: t('poolValue'),
+    name: _up(t('poolValue')),
     accessor: pool =>
       fNum2(pool.totalLiquidity, {
         style: 'currency',
@@ -115,11 +116,11 @@ const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
       if (apr === Infinity || isNaN(apr)) return 0;
       return apr;
     },
-    width: 150,
+    width: 200,
     cellClassName: 'font-numeric'
   },
   {
-    name: t('volume24h', [t('hourAbbrev')]),
+    name: _up(t('volume24h', [t('hourAbbrev')])),
     accessor: pool =>
       fNum2(pool.dynamic.volume, {
         style: 'currency',
@@ -132,11 +133,11 @@ const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
       if (apr === Infinity || isNaN(apr)) return 0;
       return apr;
     },
-    width: 175,
+    width: 200,
     cellClassName: 'font-numeric'
   },
   {
-    name: props.showPoolShares ? t('myApr') : t('apr'),
+    name: props.showPoolShares ? _up(t('myApr')) : _up(t('apr')),
     Cell: 'aprCell',
     accessor: pool => pool.dynamic.apr.total,
     align: 'right',
@@ -149,7 +150,7 @@ const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
     width: 150
   },
   {
-    name: t('migrate'),
+    name: _up(t('migrate')),
     Cell: 'migrateCell',
     accessor: 'migrate',
     align: 'center',
@@ -157,7 +158,7 @@ const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
     width: 150
   },
   {
-    name: t('stake'),
+    name: _up(t('stake')),
     Cell: 'stakeCell',
     accessor: 'stake',
     align: 'center',
@@ -193,12 +194,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
 </script>
 
 <template>
-  <BalCard
-    shadow="lg"
-    :square="upToLargeBreakpoint"
-    :noBorder="upToLargeBreakpoint"
-    noPad
-  >
+  <BalCard shadow="lg" :square="upToLargeBreakpoint" :noBorder="true" noPad>
     <BalTable
       :columns="visibleColumns"
       :data="data"
@@ -233,7 +229,11 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
       </template>
       <template v-slot:iconColumnCell="pool">
         <div v-if="!isLoading" class="px-6 py-4">
-          <BalAssetSet :addresses="orderedTokenAddresses(pool)" :width="100" />
+          <BalAssetSet
+            :addresses="orderedTokenAddresses(pool)"
+            :width="100"
+            :size="30"
+          />
         </div>
       </template>
       <template v-slot:poolNameCell="pool">

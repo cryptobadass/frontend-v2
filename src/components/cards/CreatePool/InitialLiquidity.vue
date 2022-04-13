@@ -207,10 +207,10 @@ function saveAndProceed() {
               @click="goBack"
               class="text-cyan-500 hover:text-cyan-700 flex"
             >
-              <BalIcon class="flex" name="arrow-left" />
+              <BalIcon class="flex" name="chevron-left" />
             </button>
 
-            <h5 class="font-bold dark:text-gray-300">Set initial liquidity</h5>
+            <h5 class="font-bold dark:text-white">Set initial liquidity</h5>
           </BalStack>
           <AnimatePresence :isVisible="isOptimised" unmountInstantly>
             <BalStack
@@ -232,6 +232,7 @@ function saveAndProceed() {
             </BalStack>
           </AnimatePresence>
         </BalStack>
+        <div class="h-px bg-gunmetal mb-2"></div>
         <BalStack vertical>
           <TokenInput
             v-for="(address, i) in tokenAddresses"
@@ -249,10 +250,10 @@ function saveAndProceed() {
         </BalStack>
         <BalStack horizontal spacing="sm" align="center">
           <div>
-            <span class="text-sm pl-2">{{
+            <span class="text-sm text-bluey-grey pl-2">{{
               t('autoOptimiseLiquidityToggle.label')
             }}</span>
-            <BalTooltip width="64">
+            <!-- <BalTooltip width="64">
               <template v-slot:activator>
                 <BalIcon
                   name="info"
@@ -261,7 +262,7 @@ function saveAndProceed() {
                 />
               </template>
               <div v-html="t('autoOptimiseLiquidityToggle.tooltip')" />
-            </BalTooltip>
+            </BalTooltip> -->
           </div>
           <div>
             <BalToggle

@@ -137,3 +137,7 @@ export function formatWordListAsSentence(
 export function getAddressFromPoolId(poolId: string) {
   return poolId.substring(0, 42);
 }
+
+export function stringToUpperCase(s: string) {
+  return s.toUpperCase();
+}

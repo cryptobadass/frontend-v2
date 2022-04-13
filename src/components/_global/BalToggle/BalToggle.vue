@@ -64,7 +64,7 @@ export default defineComponent({
   @apply right-0 border-white;
 }
 .bal-toggle-checkbox:checked + .bal-toggle-track {
-  @apply bg-cyan-500;
+  @apply bg-lightish-blue;
 }
 .bal-toggle-checkbox[disabled] {
   @apply border-gray-300 dark:border-gray-700 cursor-not-allowed;

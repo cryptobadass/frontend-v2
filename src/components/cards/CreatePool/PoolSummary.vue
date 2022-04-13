@@ -184,9 +184,9 @@ async function calculateColors() {
 </script>
 
 <template>
-  <BalCard noPad shadow="none">
+  <BalCard shadow="none">
     <div class="p-4 border-b dark:border-gray-600" v-if="!upToLargeBreakpoint">
-      <h6 class="dark:text-gray-300">{{ $t('createAPool.poolSummary') }}</h6>
+      <h6 class="dark:text-white">{{ $t('createAPool.poolSummary') }}</h6>
     </div>
     <div class="p-2">
       <ECharts
@@ -198,12 +198,12 @@ async function calculateColors() {
     </div>
     <BalStack class="mb-2" vertical spacing="none" align="center">
       <BalStack horizontal spacing="xs">
-        <h6>{{ $t('inYourWallet') }}</h6>
+        <h6 class="text-white">{{ $t('inYourWallet') }}</h6>
         <BalTooltip iconSize="sm" class="mt-1">
           {{ $t('createAPool.maxLiquidityTooltip') }}
         </BalTooltip>
       </BalStack>
-      <span>{{ fNum2(totalLiquidity.toString(), FNumFormats.fiat) }}</span>
+      <span class="text-white font-medium text-2xl">{{ fNum2(totalLiquidity.toString(), FNumFormats.fiat) }}</span>
     </BalStack>
   </BalCard>
 </template>

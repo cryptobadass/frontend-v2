@@ -50,7 +50,7 @@ function cancel() {
 </script>
 
 <template>
-  <BalCard shadow="xl" noBorder :class="{ 'border-red-400': existingPool }">
+  <BalCard shadow="xl" :class="{ 'border-red-400': existingPool }">
     <BalStack vertical>
       <BalStack vertical spacing="xs">
         <span
@@ -63,11 +63,12 @@ function cancel() {
             @click="goBack"
             class="text-cyan-500 hover:text-cyan-700 flex"
           >
-            <BalIcon class="flex" name="arrow-left" />
+            <BalIcon class="flex" name="chevron-left" />
           </button>
           <h5 class="font-bold dark:text-gray-300">{{ title }}</h5>
         </BalStack>
       </BalStack>
+      <div class="h-px bg-gunmetal mb-2"></div>
       <p v-if="existingPool">{{ $t('createAPool.existingPoolInfo') }}</p>
       <div v-if="isLoadingSimilarPools"></div>
       <BalCard v-else-if="existingPool" shadow="none">

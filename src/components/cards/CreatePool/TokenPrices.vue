@@ -40,10 +40,10 @@ const hasUnknownPrice = computed(() =>
 </script>
 
 <template>
-  <BalCard noPad shadow="none" :noBorder="upToLargeBreakpoint">
+  <BalCard shadow="none" :noBorder="upToLargeBreakpoint">
     <div class="p-4 dark:border-gray-600 border-b" v-if="!upToLargeBreakpoint">
       <BalStack horizontal spacing="sm" align="center">
-        <h6 class="dark:text-gray-300">
+        <h6 class="dark:text-white">
           {{ $t('tokenPrices') }}
         </h6>
         <BalTooltip class="mt-1" :text="$t('correctTokenPricing')" />
@@ -58,16 +58,16 @@ const hasUnknownPrice = computed(() =>
           align="center"
         >
           <span>{{ tokens[token]?.symbol }}</span>
-          <BalStack horizontal justify="center">
+          <BalStack horizontal justify="center" spacing="none">
             <div>
               <div class="-mr-1">
                 <span>{{ fNum2(priceFor(token), FNumFormats.fiat) }}</span>
               </div>
             </div>
-            <img
+            <!-- <img
               class="h-5"
               :src="require('@/assets/images/icons/coingecko.svg')"
-            />
+            /> -->
           </BalStack>
         </BalStack>
       </BalStack>

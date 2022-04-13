@@ -103,7 +103,7 @@ export default defineComponent({
 
     const spacer = computed(
       () =>
-        (props.maxAssetsPerLine / assetLength.value - 1) * (radius.value * 2)
+        (props.maxAssetsPerLine / assetLength.value - 1) * (radius.value * 2.7)
     );
 
     /**

@@ -138,24 +138,25 @@ async function onChangeFeeController(val: string) {
 
 <template>
   <div ref="cardWrapper">
-    <BalCard shadow="xl" noBorder>
+    <BalCard>
       <BalStack vertical>
         <BalStack vertical spacing="xs">
           <span class="text-xs text-gray-700 dark:text-gray-500">{{
             userNetworkConfig?.name
           }}</span>
-          <BalStack horizontal align="center" spacing="xs">
+          <BalStack horizontal align="center" spacing="xs" class="bg-red">
             <button
               @click="goBack"
               class="text-cyan-500 hover:text-cyan-700 flex"
             >
-              <BalIcon class="flex" name="arrow-left" />
+              <BalIcon class="flex" name="chevron-left" />
             </button>
-            <h5 class="font-bold dark:text-gray-300">
+            <h5 class="font-bold dark:text-white">
               {{ $t('createAPool.setPoolFees') }}
             </h5>
           </BalStack>
         </BalStack>
+        <div class="h-px bg-gunmetal mb-2"></div>
         <BalStack vertical spacing="sm">
           <div>
             <h6 class="mb-1">Initial swap fee</h6>

@@ -1,7 +1,7 @@
 <template>
   <BalModal :show="isVisible" @close="$emit('close')" title="CONNECT WALLET">
     <WalletButton v-for="wallet in wallets" :wallet="wallet" :key="wallet" />
-    <p class="pb-3 text-sm text-blue-grey">
+    <p class="pb-3 text-sm text-bluey-grey">
       {{ $t('byConnectingWallet') }}
       <router-link :to="{ name: 'terms-of-use' }" target="_blank">
         <span className="link">{{ $t('policies.termsOfUse') }}</span

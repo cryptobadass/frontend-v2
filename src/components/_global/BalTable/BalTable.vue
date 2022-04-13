@@ -217,7 +217,7 @@
   >
     <template v-if="isLoadingMore">{{ $t('loading') }}</template>
     <template v-else
-      >{{ $t('loadMore') }} <BalIcon name="chevron-down" size="sm" class="ml-2"
+      >{{ _up($t('loadMore')) }} <BalIcon name="chevron-down" size="sm" class="ml-2"
     /></template>
   </div>
 </template>

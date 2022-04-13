@@ -73,7 +73,7 @@ function onClickConnect() {
 </script>
 
 <template>
-  <div :class="['app-hero border-t border-b border-gunmetal bg-dark h-40']">
+  <div :class="['app-hero border-t border-b border-gunmetal bg-dark-222 h-40']">
     <div class="w-full max-w-6xl mx-auto">
       <template v-if="isWalletReady || isWalletConnecting">
         <h1
