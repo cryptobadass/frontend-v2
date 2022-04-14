@@ -369,7 +369,7 @@
         "title": "Token incentives"
     },
     "liquidityProviderCopy": "People who provide liquidity to eligible investment pools or trade on eligible token pairs receive weekly $BAL distributions as incentives. $BAL token holders own the Yotei Protocol and can help shape its future by voting on governance proposals.",
-    "loading": "Loading...",
+    "loading": "LOADING...",
     "loadingBestPrice": "Looking for the best price...",
     "loadMore": "load more",
     "logOut": "Log out",
