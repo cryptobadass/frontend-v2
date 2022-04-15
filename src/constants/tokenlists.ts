@@ -62,7 +62,7 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
     External: ['https://tracer.finance/tokens']
   },
   '43113': {
-    // todo 
+    // todo
     Balancer: {
       Default:
         'https://raw.githubusercontent.com/balancer-labs/assets/refactor-for-multichain/generated/arbitrum.listed.tokenlist.json',
