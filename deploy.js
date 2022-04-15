@@ -15,13 +15,24 @@ const config_all = {
     webName: 'html',
     // pathUrl: '/var/www/',
     // webName: 'yotei.qa',
-    useName: 'ec2-user'
+    useName: 'ec2-user',
+    zipName: 'yotei_dist_qa.zip'
+  },
+  qa2: {
+    host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
+    // pathUrl: '/usr/share/nginx',
+    // webName: 'html',
+    pathUrl: '/var/www/',
+    webName: 'yotei.qa',
+    useName: 'ec2-user',
+    zipName: 'yotei_dist_qa.zip'
   },
   production: {
     host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
     pathUrl: '/var/www/',
-    webName: 'yotei.qa',
-    useName: 'ec2-user'
+    webName: 'yotei.finance',
+    useName: 'ec2-user',
+    zipName: 'yotei_dist_finance.zip'
   }
 };
 
@@ -67,7 +78,7 @@ function uploadFile() {
       ssh
         .putFile(
           path.resolve(__dirname, 'dist.zip'),
-          `${config.pathUrl}/dist.zip`
+          `${config.pathUrl}/${config.zipName}`
         )
         .then(() => {
           console.log('The zip file is upload successful');
@@ -86,7 +97,7 @@ function uploadFile() {
 
 const remoteServiceUpdate = () => {
   ssh
-    .execCommand(`unzip -o dist.zip -d ./${config.webName} `, {
+    .execCommand(`unzip -o ${config.zipName} -d ./${config.webName} `, {
       cwd: config.pathUrl
     })
     .then(result => {

@@ -8,6 +8,7 @@ export type QueryBuilder = (
   attrs?: QueryAttrs
 ) => Record<string, any>;
 
+// https://docs.balancer.fi/products/balancer-pools
 export enum PoolType {
   Weighted = 'Weighted',
   Investment = 'Investment',
