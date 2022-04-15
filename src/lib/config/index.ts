@@ -5,6 +5,7 @@ import polygon from './polygon.json';
 import arbitrum from './arbitrum.json';
 import docker from './docker.json';
 import test from './test.json';
+import fuji from './fuji.json';
 import { Network } from '@balancer-labs/sdk';
 
 export interface Config {
@@ -78,7 +79,8 @@ const config: Record<Network | number, Config> = {
   [Network.ARBITRUM]: arbitrum,
   12345: test,
   // @ts-ignore
-  17: docker
+  17: docker,
+  43113: fuji
 };
 
 export default config;

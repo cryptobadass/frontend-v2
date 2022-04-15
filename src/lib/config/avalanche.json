@@ -1,0 +1,74 @@
+{
+  "key": "43113",
+  "chainId": 43113,
+  "chainName": "Avalanche Fuji",
+  "name": "Avalanche Fuji",
+  "shortName": "Avalanche Fuji ",
+  "network": "avax",
+  "portisNetwork": "Avalanche Fuji",
+  "unknown": false,
+  "rpc": "https://api.avax.network/ext/bc/C/rpc",
+  "ws": "wss://api.avax.network/ext/bc/C/rpc",
+  "loggingRpc": "https://eth-mainnet.alchemyapi.io/v2/{{ALCHEMY_KEY}}",
+  "explorer": "https://snowtrace.io/",
+  "explorerName": "snowtrace",
+  "subgraph": "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2",
+  "poolsUrlV2": "https://storageapi.fleek.co/johngrantuk-team-bucket/poolsV2.json",
+  "subgraphs": {
+    "aave": "https://api.thegraph.com/subgraphs/name/aave/protocol-v2",
+    "gauge": "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-gauges"
+  },
+  "supportsEIP1559": true,
+  "nativeAsset": {
+    "name": "Ether",
+    "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "symbol": "AVAX",
+    "decimals": 18,
+    "deeplinkId": "ether",
+    "logoURI": "https://assets.coingecko.com/coins/images/12559/large/coin-round-red.png?1604021818",
+    "minTransactionBuffer": "0.05"
+  },
+  "addresses": {
+    "bFactory": "0x9424B1412450D0f8Fc2255FAf6046b98213B76Bd",
+    "bActions": "0xde4A25A0b9589689945d842c5ba0CF4f0D4eB3ac",
+    "dsProxyRegistry": "0x4678f0a6958e4D2Bc4F1BAF7Bc52E8F3564f3fE4",
+    "merkleRedeem": "0x6d19b2bF3A36A61530909Ae65445a906D98A2Fa8",
+    "merkleOrchard": "0x7Db6b06e59Caf9510352f6363cc304935c0E0897 ",
+    "multicall": "0x0d961d4108E946177a532803485325A36F84ACb3",
+    "authorizer": "0x6ecfC8296DC4EfAe1206b3f13E36dE8b9CB1246C",
+    "vault": "0xE6203163FD8955137837DbD447CD9c2072fA467F",
+    "weightedPoolFactory": "0xfddaef3599EaD4eF6ea4235513d1FB84c26A1B67",
+    "stablePoolFactory": "0x680AD6aD23D8B90A3cDDa9b0298618289C05C467",
+    "tokenFactory": "",
+    "weth": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+    "stETH": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+    "wstETH": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
+    "lidoRelayer": "0xdcdbf71A870cc60C6F9B621E28a7D3Ffd6Dd4965",
+    "MockFlashLoanReceiver": "",
+    "balancerHelpers": "0x9CE3D74dB7EA7f43A38E300Ea93e79077486CCc2",
+    "batchRelayer": "0xAc9f49eF3ab0BbC929f7b1bb0A17E1Fca5786251",
+    "veBAL": "0xC128a9954e6c874eA3d62ce62B468bA073093F25",
+    "gaugeController": "0xC128468b7Ce63eA702C1f104D55A2566b13D3ABD",
+    "gaugeFactory": "0x4E7bBd911cf1EFa442BC1b2e9Ea01ffE785412EC",
+    "balancerMinter": "0x239e55F427D44C3cc793f49bFB507ebe76638a2b"
+  },
+  "keys": {
+    "infura": "1e629b40371341d1bfe9fcac27905d8c",
+    "alchemy": "cQGZUiTLRCFsQS7kbRxPJK4eH4fTTu88"
+  },
+  "strategies": {
+    "0": {
+      "type": "0",
+      "name": "stablePool"
+    },
+    "1": {
+      "type": "1",
+      "name": "weightedPool"
+    },
+    "2": {
+      "type": "2",
+      "name": "weightedPool"
+    }
+  },
+  "supportsElementPools": true
+}

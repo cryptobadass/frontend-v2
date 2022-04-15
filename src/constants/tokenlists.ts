@@ -60,5 +60,25 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
         'https://raw.githubusercontent.com/balancer-labs/assets/refactor-for-multichain/generated/arbitrum.vetted.tokenlist.json'
     },
     External: ['https://tracer.finance/tokens']
+  },
+  '43113': {
+    // todo 
+    Balancer: {
+      Default:
+        'https://raw.githubusercontent.com/balancer-labs/assets/refactor-for-multichain/generated/arbitrum.listed.tokenlist.json',
+      Vetted:
+        'https://raw.githubusercontent.com/balancer-labs/assets/refactor-for-multichain/generated/arbitrum.vetted.tokenlist.json'
+    },
+    External: ['https://tracer.finance/tokens']
+  },
+  '43114': {
+    // todo
+    Balancer: {
+      Default:
+        'https://raw.githubusercontent.com/balancer-labs/assets/refactor-for-multichain/generated/arbitrum.listed.tokenlist.json',
+      Vetted:
+        'https://raw.githubusercontent.com/balancer-labs/assets/refactor-for-multichain/generated/arbitrum.vetted.tokenlist.json'
+    },
+    External: ['https://tracer.finance/tokens']
   }
 };

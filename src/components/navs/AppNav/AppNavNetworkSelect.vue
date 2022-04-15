@@ -71,17 +71,29 @@ export default defineComponent({
     // DATA
     const networks = [
       {
-        id: 'ethereum',
-        name: 'Ethereum',
+        id: 'avalanche',
+        name: 'Avalanche',
         subdomain: 'app',
-        key: '1'
+        key: '43114'
       },
       {
-        id: 'kovan',
-        name: 'Kovan test',
-        subdomain: 'kovan',
-        key: '42'
+        id: 'fuji',
+        name: 'Avalanche Fuji ',
+        subdomain: 'fuji',
+        key: '43113'
       }
+      // {
+      //   id: 'ethereum',
+      //   name: 'Ethereum',
+      //   subdomain: 'app',
+      //   key: '1'
+      // },
+      // {
+      //   id: 'kovan',
+      //   name: 'Kovan test',
+      //   subdomain: 'kovan',
+      //   key: '42'
+      // }
       // {
       //   id: 'rinkeby',
       //   name: 'Rinkeby test',
