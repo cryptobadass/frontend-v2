@@ -8,11 +8,11 @@ export const getNativeAssetId = (chainId: string): string => {
     '42': 'ethereum',
     '137': 'matic-network',
     '42161': 'ethereum',
-    '43113': 'avalanche-2',
-    '43114': 'avalanche-2'
+    '43113': 'avalanche',
+    '43114': 'avalanche'
   };
 
-  return mapping[chainId] || 'ethereum';
+  return mapping[chainId] || 'avalanche';
 };
 
 export const getPlatformId = (chainId: string): string => {
@@ -21,11 +21,11 @@ export const getPlatformId = (chainId: string): string => {
     '42': 'ethereum',
     '137': 'polygon-pos',
     '42161': 'arbitrum-one',
-    '43113': 'avalanche-2',
-    '43114': 'avalanche-2'
+    '43113': 'avalanche',
+    '43114': 'avalanche'
   };
 
-  return mapping[chainId] || 'ethereum';
+  return mapping[chainId] || 'avalanche';
 };
 
 export class CoingeckoService {

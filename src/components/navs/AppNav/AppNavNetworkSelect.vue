@@ -81,19 +81,19 @@ export default defineComponent({
         name: 'Avalanche Fuji ',
         subdomain: 'fuji',
         key: '43113'
-      }
+      },
       // {
       //   id: 'ethereum',
       //   name: 'Ethereum',
       //   subdomain: 'app',
       //   key: '1'
       // },
-      // {
-      //   id: 'kovan',
-      //   name: 'Kovan test',
-      //   subdomain: 'kovan',
-      //   key: '42'
-      // }
+      {
+        id: 'kovan',
+        name: 'Kovan test',
+        subdomain: 'kovan',
+        key: '42'
+      },
       // {
       //   id: 'rinkeby',
       //   name: 'Rinkeby test',
@@ -119,7 +119,7 @@ export default defineComponent({
       .includes(configService.network.key);
 
     const activeNetwork = networks.find(network => {
-      if (!appNetworkSupported && network.id === 'ethereum') return true;
+      if (!appNetworkSupported && network.id === 'avalanche') return true;
       return isActive(network);
     });
 
@@ -133,7 +133,7 @@ export default defineComponent({
     }
 
     function isActive(network: NetworkOption): boolean {
-      if (!appNetworkSupported && network.id === 'ethereum') return true;
+      if (!appNetworkSupported && network.id === 'avalanche') return true;
       return configService.network.key === network.key;
     }
 

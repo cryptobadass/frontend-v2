@@ -133,7 +133,9 @@ export default function usePoolsQuery(
     if (filterOptions?.poolAddresses?.value.length) {
       queryArgs.where.address_in = filterOptions.poolAddresses.value;
     }
+    // console.log('aaaaaa', queryArgs)
     const pools = await balancerSubgraphService.pools.get(queryArgs);
+    // console.log('aaaaaa_2',pools)
 
     for (let i = 0; i < pools.length; i++) {
       const isStablePhantomPool = isStablePhantom(pools[i].poolType);
@@ -143,7 +145,7 @@ export default function usePoolsQuery(
         pools[i] = await getLinearPoolAttrs(pools[i]);
       }
     }
-
+    // [1, [2, [3, [4]], 5]] => [1, 2, [3, [4]], 5]
     const tokens = flatten(
       pools.map(pool => [
         ...pool.tokensList,
@@ -151,15 +153,16 @@ export default function usePoolsQuery(
         balancerSubgraphService.pools.addressFor(pool.id)
       ])
     );
+    // ['0x1c8e3bcb3378a443cc591f154c5ce0ebb4da9648', '0xdfcea9088c8a88a76ff74892c1457c17dfeef9c1', '0x647c1FD457b95b75D0972fF08FE01d7D7bda05dF']
     await injectTokens(tokens);
-    await forChange(dynamicDataLoading, false);
-
+    await forChange(dynamicDataLoading, false); // waiting dynamicDataLoading (prices, balances and allowances) changed to false
     const decoratedPools = await balancerSubgraphService.pools.decorate(
       pools,
       '24h',
       prices.value,
       currency.value
     );
+    // add dynamic :{} , hasLiquidityMiningRewards,
 
     // TODO - cleanup and extract elsewhere in refactor
     for (let i = 0; i < decoratedPools.length; i++) {
