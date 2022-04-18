@@ -26,11 +26,17 @@ import OldBigNumber from 'bignumber.js';
 import { TokenInfo } from '@/types/TokenList';
 import { balancer } from '@/lib/balancer.sdk';
 import {
-  SwapType,
-  TransactionData,
+  // SwapType,
+  // TransactionData,
   BalancerError,
   BalancerErrorCode
 } from '@balancer-labs/sdk';
+import {
+  SwapType,
+  TransactionData,
+  // BalancerError,
+  // BalancerErrorCode
+} from 'yotei-sdk';
 import { SwapKind } from '@balancer-labs/balancer-js';
 import usePromiseSequence from '@/composables/usePromiseSequence';
 import { setError, WithdrawalError } from './useWithdrawalState';

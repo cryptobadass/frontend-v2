@@ -14,7 +14,8 @@ import { bnum } from '@/lib/utils';
 import { POOL_MIGRATIONS } from '@/components/forms/pool_actions/MigrateForm/constants';
 
 import useNumbers from './useNumbers';
-import { Network } from '@balancer-labs/sdk';
+// import { Network } from '@balancer-labs/sdk';
+import { Network } from 'yotei-sdk';
 import { urlFor } from './useNetwork';
 
 /**

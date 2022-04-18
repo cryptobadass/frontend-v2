@@ -1,4 +1,5 @@
-import { Network } from '@balancer-labs/sdk';
+// import { Network } from '@balancer-labs/sdk';
+import { Network } from 'yotei-sdk';
 
 import { PoolType } from '@/services/balancer/subgraph/types';
 

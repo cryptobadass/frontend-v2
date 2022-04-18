@@ -1,7 +1,8 @@
 import { OrderKind } from '@gnosis.pm/gp-v2-contracts';
 import axios from 'axios';
 import { networkId } from '@/composables/useNetwork';
-import { Network } from '@balancer-labs/sdk';
+// import { Network } from '@balancer-labs/sdk';
+import { Network } from 'yotei-sdk';
 
 import { GP_SETTLEMENT_CONTRACT_ADDRESS } from './constants';
 

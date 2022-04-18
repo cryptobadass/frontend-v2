@@ -12,11 +12,11 @@
   "loggingRpc": "https://eth-mainnet.alchemyapi.io/v2/{{ALCHEMY_KEY}}",
   "explorer": "https://etherscan.io",
   "explorerName": "Etherscan",
-  "subgraph": "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-v2",
+  "subgraph": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-avalanche-v2",
   "poolsUrlV2": "https://storageapi.fleek.co/johngrantuk-team-bucket/poolsV2.json",
   "subgraphs": {
     "aave": "https://api.thegraph.com/subgraphs/name/aave/protocol-v2",
-    "gauge": "https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-gauges"
+    "gauge": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-gauges"
   },
   "supportsEIP1559": true,
   "nativeAsset": {

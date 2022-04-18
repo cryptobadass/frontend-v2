@@ -8,7 +8,8 @@ import { web3Service } from './web3.service';
 import { rpcProviderService } from '../rpc-provider/rpc-provider.service';
 import { switchToAppNetwork } from './utils/helpers';
 import useNetwork from '@/composables/useNetwork';
-import { Network } from '@balancer-labs/sdk';
+// import { Network } from '@balancer-labs/sdk';
+import { Network } from 'yotei-sdk';
 
 /** STATE */
 const blockNumber = ref(0);

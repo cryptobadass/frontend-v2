@@ -53,6 +53,7 @@ export default class BalancesConcern {
 
       // If native asset included in addresses, filter out for
       // multicall, but fetch indpendently and inject.
+      console.log('Fetching, ', addresses, this.nativeAssetAddress)
       if (addresses.includes(this.nativeAssetAddress)) {
         addresses = addresses.filter(
           address => address !== this.nativeAssetAddress
@@ -70,7 +71,7 @@ export default class BalancesConcern {
           addresses.map(address => [address, 'balanceOf', [account]])
         )
       ).map(result => BigNumber.from(result ?? '0')); // If we fail to read a token's balance, treat it as zero
-
+      console.log('Fetching', balances)
       return {
         ...this.associateBalances(balances, addresses, tokens),
         ...balanceMap

@@ -13,7 +13,8 @@ import { bnSum, bnum } from '@/lib/utils';
 
 import { balancer } from '@/lib/balancer.sdk';
 
-import { queryBatchSwapTokensIn } from '@balancer-labs/sdk';
+// import { queryBatchSwapTokensIn } from '@balancer-labs/sdk';
+import { queryBatchSwapTokensIn } from 'yotei-sdk';
 
 import { balancerContractsService } from '@/services/balancer/contracts/balancer-contracts.service';
 

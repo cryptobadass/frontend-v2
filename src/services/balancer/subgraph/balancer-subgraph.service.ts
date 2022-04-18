@@ -8,7 +8,8 @@ import PoolSnapshots from './entities/poolSnapshots';
 import TradePairSnapshots from './entities/tradePairs';
 
 import { networkId } from '@/composables/useNetwork';
-import { Network } from '@balancer-labs/sdk';
+// import { Network } from '@balancer-labs/sdk';
+import { Network } from 'yotei-sdk';
 
 export default class BalancerSubgraphService {
   pools: Pools;

@@ -11,7 +11,8 @@ import TokenPills from '@/components/tables/PoolsTable/TokenPills/TokenPills.vue
 import GaugeVoteInfo from './GaugeVoteInfo.vue';
 
 import { VotingGaugeWithVotes } from '@/services/balancer/gauges/gauge-controller.decorator';
-import { Network } from '@balancer-labs/sdk';
+// import { Network } from '@balancer-labs/sdk';
+import { Network } from 'yotei-sdk';
 import { networkNameFor } from '@/composables/useNetwork';
 import useWeb3 from '@/services/web3/useWeb3';
 import {

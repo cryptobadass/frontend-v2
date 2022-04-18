@@ -1,7 +1,8 @@
 import { differenceInWeeks } from 'date-fns';
 import { bnum } from '@/lib/utils';
 import { toUtcTime } from '@/composables/useTime';
-import { Network } from '@balancer-labs/sdk';
+// import { Network } from '@balancer-labs/sdk';
+import { Network } from 'yotei-sdk';
 import { configService } from '@/services/config/config.service';
 import MultiTokenLiquidityMining from './MultiTokenLiquidityMining.json';
 import { TokenPrices } from '@/services/coingecko/api/price.service';

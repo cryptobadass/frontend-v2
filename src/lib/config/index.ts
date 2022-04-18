@@ -6,7 +6,9 @@ import arbitrum from './arbitrum.json';
 import docker from './docker.json';
 import test from './test.json';
 import fuji from './fuji.json';
-import { Network } from '@balancer-labs/sdk';
+import avalanche from './avalanche.json';
+// import { Network } from '@balancer-labs/sdk';
+import { Network } from 'yotei-sdk';
 
 export interface Config {
   key: string;
@@ -77,10 +79,12 @@ const config: Record<Network | number, Config> = {
   [Network.RINKEBY]: rinkeby,
   [Network.POLYGON]: polygon,
   [Network.ARBITRUM]: arbitrum,
+  [Network.FUJI]: fuji,
+  [Network.AVALANCHE]: avalanche,
   12345: test,
   // @ts-ignore
-  17: docker,
-  43113: fuji
+  17: docker
+  // 43113: fuji
 };
 
 export default config;

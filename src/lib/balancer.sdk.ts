@@ -1,5 +1,6 @@
 import { configService } from '@/services/config/config.service';
-import { BalancerSDK, Network } from '@balancer-labs/sdk';
+// import { BalancerSDK, Network } from '@balancer-labs/sdk';
+import { YoteiSDK, Network } from 'yotei-sdk';
 
 const network = ((): Network => {
   switch (configService.network.key) {
@@ -11,12 +12,16 @@ const network = ((): Network => {
       return Network.POLYGON;
     case '42161':
       return Network.ARBITRUM;
+    case '43113':
+      return Network.FUJI;
+    case '43114':
+      return Network.AVALANCHE;
     default:
-      return Network.MAINNET;
+      return Network.AVALANCHE;
   }
 })();
 
-export const balancer = new BalancerSDK({
+export const balancer = new YoteiSDK({
   network,
   rpcUrl: configService.rpc
 });
