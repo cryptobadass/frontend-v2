@@ -93,7 +93,7 @@ export default defineComponent({
         name: 'Kovan test',
         subdomain: 'kovan',
         key: '42'
-      },
+      }
       // {
       //   id: 'rinkeby',
       //   name: 'Rinkeby test',

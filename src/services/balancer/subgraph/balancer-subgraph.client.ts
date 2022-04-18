@@ -16,10 +16,10 @@ export default class BalancerSubgraphClient {
       const {
         data: { data }
       } = await axios.post(this.url, payload);
-      console.log('ssss_s', data)
+      console.log('ssss_s', data);
       return data;
     } catch (error) {
-      console.log('ssss_er', error)
+      console.log('ssss_er', error);
       console.error(error);
     }
   }

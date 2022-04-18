@@ -33,7 +33,7 @@ import {
 } from '@balancer-labs/sdk';
 import {
   SwapType,
-  TransactionData,
+  TransactionData
   // BalancerError,
   // BalancerErrorCode
 } from 'yotei-sdk';
