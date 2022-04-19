@@ -195,6 +195,12 @@ export default defineComponent({
       if (networkConfig.chainId === Network.ARBITRUM) {
         return 'Arbitrum';
       }
+      if (networkConfig.chainId === Network.FUJI) {
+        return 'Avalanche Fuji';
+      }
+      if (networkConfig.chainId === Network.AVALANCHE) {
+        return 'Avalanche';
+      }
       return 'Unknown Network';
     });
 
@@ -211,6 +217,14 @@ export default defineComponent({
         return `BAL distributions on Arbitrum can be claimed weekly by tapping the
         liquidity mining claim tool in the header.`;
       }
+      if (networkConfig.chainId === Network.FUJI) {
+        return `BAL distributions on Avalanche Fuji can be claimed weekly by tapping the
+        liquidity mining claim tool in the header.`;
+      }
+      if (networkConfig.chainId === Network.AVALANCHE) {
+        return `BAL distributions on Avalanche can be claimed weekly by tapping the
+        liquidity mining claim tool in the header.`;
+      }
       return '';
     });
 
@@ -219,7 +233,9 @@ export default defineComponent({
       if (networkConfig.chainId === Network.MAINNET) return 'Polygon';
       if (networkConfig.chainId === Network.POLYGON) return 'Ethereum';
       if (networkConfig.chainId === Network.ARBITRUM) return 'Ethereum';
-      return 'Ethereum';
+      if (networkConfig.chainId === Network.FUJI) return 'FUJI';
+      if (networkConfig.chainId === Network.AVALANCHE) return 'Avalanche';
+      return 'Avalanche';
     });
 
     const otherNetworkLink = computed(() => {

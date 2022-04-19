@@ -18,6 +18,10 @@ export const isMainnet = computed(() => networkId.value === Network.MAINNET);
 export const isPolygon = computed(() => networkId.value === Network.POLYGON);
 export const isArbitrum = computed(() => networkId.value === Network.ARBITRUM);
 export const isKovan = computed(() => networkId.value === Network.KOVAN);
+export const isFuji = computed(() => networkId.value === Network.FUJI);
+export const isAvalanche = computed(
+  () => networkId.value === Network.AVALANCHE
+);
 
 export const isL2 = computed(() => isPolygon.value || isArbitrum.value);
 
@@ -38,6 +42,10 @@ export function networkFor(key: string | number): Network {
       return Network.POLYGON;
     case '42161':
       return Network.ARBITRUM;
+    case '43113':
+      return Network.FUJI;
+    case '43114':
+      return Network.AVALANCHE;
     default:
       throw new Error('Network not supported');
   }

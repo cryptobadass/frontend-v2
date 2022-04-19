@@ -15,7 +15,9 @@ const networkMap = {
   [Network.MAINNET]: 'mainnet',
   [Network.KOVAN]: 'kovan',
   [Network.POLYGON]: 'polygon',
-  [Network.ARBITRUM]: 'arbitrum-one'
+  [Network.ARBITRUM]: 'arbitrum-one',
+  [Network.FUJI]: 'fuji',
+  [Network.AVALANCHE]: 'avalanche'
 };
 const environment = `${ENV}-${networkMap[networkId.value]}`;
 const release = `frontend-v2@${version}`;

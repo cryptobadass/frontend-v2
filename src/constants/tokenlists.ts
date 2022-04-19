@@ -62,23 +62,25 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
     External: ['https://tracer.finance/tokens']
   },
   '43113': {
-    // todo
     Balancer: {
       Default:
-        'https://raw.githubusercontent.com/pangolindex/tokenlists/main/pangolin.tokenlist.json',
+        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json',
       Vetted:
-        'https://raw.githubusercontent.com/pangolindex/tokenlists/main/wgm.tokenlist.json'
+        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json'
     },
-    External: ['https://tracer.finance/tokens']
+    External: [
+      'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.fuji.json'
+    ]
   },
   '43114': {
-    // todo
     Balancer: {
       Default:
-        'https://raw.githubusercontent.com/pangolindex/tokenlists/main/pangolin.tokenlist.json',
+        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json',
       Vetted:
-        'https://raw.githubusercontent.com/pangolindex/tokenlists/main/wgm.tokenlist.json'
+        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
     },
-    External: ['https://tracer.finance/tokens']
+    External: [
+      'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
+    ]
   }
 };

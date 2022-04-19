@@ -241,6 +241,12 @@ export default defineComponent({
           case Network.GÖRLI:
             color = 'blue';
             break;
+          case Network.FUJI:
+            color = 'purple';
+            break;
+          case Network.AVALANCHE:
+            color = 'green';
+            break;
         }
       }
 

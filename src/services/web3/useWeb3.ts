@@ -60,6 +60,10 @@ export default function useWeb3() {
   const isArbitrum = computed(
     () => appNetworkConfig.chainId === Network.ARBITRUM
   );
+  const isFuji = computed(() => appNetworkConfig.chainId === Network.FUJI);
+  const isAvalanche = computed(
+    () => appNetworkConfig.chainId === Network.AVALANCHE
+  );
   const isEIP1559SupportedNetwork = computed(
     () => appNetworkConfig.supportsEIP1559
   );
@@ -136,6 +140,8 @@ export default function useWeb3() {
     isArbitrum,
     isEIP1559SupportedNetwork,
     isWalletConnecting,
+    isFuji,
+    isAvalanche,
 
     // methods
     connectWallet,

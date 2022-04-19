@@ -365,7 +365,10 @@ export default defineComponent({
         [Network.MAINNET]: 'app.',
         [Network.KOVAN]: 'kovan.',
         [Network.POLYGON]: 'polygon.',
-        [Network.ARBITRUM]: 'arbitrum.'
+        [Network.ARBITRUM]: 'arbitrum.',
+        [Network.FUJI]: 'fuji.',
+        [Network.AVALANCHE]: 'avalanche.'
+
       };
       const prefix = prefixMap[chainId] || '';
 

@@ -5,8 +5,8 @@ import polygon from './polygon.json';
 import arbitrum from './arbitrum.json';
 import docker from './docker.json';
 import test from './test.json';
-import fuji from './fuji.json';
-import avalanche from './avalanche.json';
+import fuji from './fuji';
+import avalanche from './avalanche';
 // import { Network } from '@balancer-labs/sdk';
 import { Network } from 'yotei-sdk';
 
@@ -43,16 +43,23 @@ export interface Config {
     minTransactionBuffer: string;
   };
   addresses: {
+    bFactory?: string;
+    bActions?: string;
+    dsProxyRegistry?: string;
+    exchangeProxy?: string;
     merkleRedeem: string;
     merkleOrchard: string;
     multicall: string;
+    authorizer?: string;
     vault: string;
     weightedPoolFactory: string;
     stablePoolFactory: string;
+    tokenFactory?: string;
     weth: string;
     stETH: string;
     wstETH: string;
     lidoRelayer: string;
+    MockFlashLoanReceiver?: string;
     balancerHelpers: string;
     batchRelayer: string;
     veBAL: string;
