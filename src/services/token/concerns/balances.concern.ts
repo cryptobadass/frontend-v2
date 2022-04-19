@@ -53,7 +53,6 @@ export default class BalancesConcern {
 
       // If native asset included in addresses, filter out for
       // multicall, but fetch indpendently and inject.
-      console.log('Fetching, ', addresses, this.nativeAssetAddress);
       if (addresses.includes(this.nativeAssetAddress)) {
         addresses = addresses.filter(
           address => address !== this.nativeAssetAddress
