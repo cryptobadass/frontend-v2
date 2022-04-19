@@ -338,7 +338,6 @@ const POOLS_GENERIC: Pools = {
     '0xc128a9954e6c874ea3d62ce62b468ba073093f25': 'boostedPool', // polygon stablephantom
     '0x6c7f4d97269ece163fd08d5c2584a21e4a33934c': 'boostedPool', // kovan stablephantom
     '0x7700d6f43892ed726c47e899f4cbbb8239d4347e': 'weightedPool' // Fuji Weighted
-
   },
   Stakeable: {
     AllowList: []

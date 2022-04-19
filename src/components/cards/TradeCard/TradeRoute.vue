@@ -368,7 +368,6 @@ export default defineComponent({
         [Network.ARBITRUM]: 'arbitrum.',
         [Network.FUJI]: 'fuji.',
         [Network.AVALANCHE]: 'avalanche.'
-
       };
       const prefix = prefixMap[chainId] || '';
 
