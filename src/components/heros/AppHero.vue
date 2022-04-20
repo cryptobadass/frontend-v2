@@ -17,8 +17,11 @@ import { isL2 } from '@/composables/useNetwork';
  */
 const router = useRouter();
 const { fNum2 } = useNumbers();
-const { isWalletReady, toggleWalletSelectModal, isWalletConnecting } =
-  useWeb3();
+const {
+  isWalletReady,
+  toggleWalletSelectModal,
+  isWalletConnecting
+} = useWeb3();
 const { trackGoal, Goals } = useFathom();
 const { totalInvestedAmount, isLoadingUserPools } = usePools();
 const { darkMode } = useDarkMode();
@@ -34,7 +37,7 @@ const { lockFiatValue, isLoadingLock } = useLock();
  */
 const classes = computed(() => ({
   ['h-72']: !isWalletReady.value && !isWalletConnecting.value,
-  ['h-40']: isWalletReady.value || isWalletConnecting.value,
+  ['h-40']: isWalletReady.value || isWalletConnecting.value
 }));
 // console.log('totalInvestedLabel',totalInvestedLabel.value)
 const totalInvestedLabel = computed((): string => {
@@ -98,7 +101,7 @@ function onClickConnect() {
             class="h-8 w-40 mx-auto"
             white
           /> -->
-          <!-- <div
+        <!-- <div
             v-else
             class="
               vebal-banner
