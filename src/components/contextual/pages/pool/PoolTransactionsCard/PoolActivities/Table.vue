@@ -17,6 +17,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { bnum } from '@/lib/utils';
 
 import { ColumnDefinition } from '@/components/_global/BalTable/BalTable.vue';
+import { stringToUpperCase as _up } from '@/lib/utils/index';
 
 /**
  * TYPES
@@ -74,7 +75,7 @@ const { upToLargeBreakpoint } = useBreakpoints();
  */
 const columns = computed<ColumnDefinition<ActivityRow>[]>(() => [
   {
-    name: t('action'),
+    name: _up(t('action')),
     id: 'action',
     accessor: 'tx',
     Cell: 'actionCell',
@@ -82,7 +83,7 @@ const columns = computed<ColumnDefinition<ActivityRow>[]>(() => [
     sortable: false
   },
   {
-    name: t('details'),
+    name: _up(t('details')),
     id: 'details',
     accessor: '',
     Cell: 'detailsCell',
@@ -90,7 +91,7 @@ const columns = computed<ColumnDefinition<ActivityRow>[]>(() => [
     sortable: false
   },
   {
-    name: t('value'),
+    name: _up(t('value')),
     id: 'value',
     accessor: 'value',
     Cell: 'valueCell',
@@ -100,7 +101,7 @@ const columns = computed<ColumnDefinition<ActivityRow>[]>(() => [
     width: 125
   },
   {
-    name: t('time'),
+    name: _up(t('time')),
     id: 'timeAgo',
     accessor: 'timestamp',
     Cell: 'timeCell',

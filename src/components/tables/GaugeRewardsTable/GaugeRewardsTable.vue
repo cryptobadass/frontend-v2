@@ -10,7 +10,7 @@ import { formatUnits } from 'ethers/lib/utils';
 import { bnum } from '@/lib/utils';
 import ClaimRewardsBtn from '@/components/btns/ClaimRewardsBtn/ClaimRewardsBtn.vue';
 import { useI18n } from 'vue-i18n';
-
+import { stringToUpperCase as _up } from '@/lib/utils/index';
 /**
  * TYPES
  */
@@ -43,7 +43,7 @@ const { getToken } = useTokens();
  */
 const columns = ref<ColumnDefinition<Reward>[]>([
   {
-    name: t('incentiveToken'),
+    name: _up(t('incentiveToken')),
     id: 'token',
     accessor: 'token',
     Cell: 'tokenColumnCell',
@@ -51,7 +51,7 @@ const columns = ref<ColumnDefinition<Reward>[]>([
     noGrow: true
   },
   {
-    name: t('amount'),
+    name: _up(t('amount')),
     id: 'amount',
     align: 'right',
     width: 150,
@@ -59,7 +59,7 @@ const columns = ref<ColumnDefinition<Reward>[]>([
       `${fNum2(amount, FNumFormats.token)} ${token.symbol}`
   },
   {
-    name: t('value'),
+    name: _up(t('value')),
     id: 'value',
     align: 'right',
     width: 150,

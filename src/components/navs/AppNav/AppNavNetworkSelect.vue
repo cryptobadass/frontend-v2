@@ -22,7 +22,7 @@
       <div
         class="p-3 border-b dark:border-gray-900 whitespace-nowrap text-gray-500 font-medium"
       >
-        Select a network
+        Select A Network
       </div>
       <!-- :href="appUrl(network)" -->
       <a

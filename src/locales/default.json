@@ -5,7 +5,7 @@
     "action": "Action",
     "actions": "Actions",
     "activity": "Activity",
-    "addToken": "Add a token",
+    "addToken": "Add A Token",
     "alerts": {
         "allowances-fetch-error": "Failed to fetch token allowances.",
         "balances-fetch-error": "Failed to fetch token balances.",
@@ -17,8 +17,8 @@
     },
     "allow": "Allow",
     "allowing": "Allowing...",
-    "allPools": "All pools",
-    "allTokens": "All tokens",
+    "allPools": "All Pools",
+    "allTokens": "All Tokens",
     "and": "and",
     "ammPlatform": "Automated portfolio manager and trading platform",
     "ammPlatformStart":"A Comprehensive",
@@ -65,13 +65,13 @@
     "approveBatchRelayer": "Approve Batch relayer",
     "approvingBatchRelayer": "Approving Batch relayer",
     "approveBatchRelayerTooltip": "Your permission is required to use the Batch relayer.",
-    "approveTokens": "Approve tokens",
+    "approveTokens": "Approve Tokens",
     "approving": "Approving",
     "approvingGnosisRelayer": "Approving Gnosis relayer",
     "approvingLidoRelayer": "Approving Lido relayer",
     "apr": "APR",
     "autoOptimiseLiquidityToggle": {
-        "label": "Auto optimize liquidity",
+        "label": "Auto Optimize Liquidity",
         "tooltip": "Optimise token values automatically to match the token weights you specified."
     },
     "available": "Available",
@@ -87,20 +87,20 @@
     "buy": "Buy",
     "build": "Build",
     "blog": "Blog",
-    "boostedPool": "Yotei Boosted pool",
+    "boostedPool": "Yotei Boosted Pool",
     "byConnectingWallet": " I agree to Yotei Labs’",
     "cancel": "Cancel",
     "cancelling": "Cancelling",
-    "checkWallet": "Confirm in wallet",
+    "checkWallet": "Confirm In Wallet",
     "changeTheme": "Change theme",
     "claim": "Claim",
-    "claimAll": "Claim all",
+    "claimAll": "Claim All",
     "claimBAL": "Claim $BAL for",
     "claiming": "Claiming...",
     "claimSuccess": "You successfully claimed $BAL!",
     "classic": "Classic",
-    "clearTransactions": "Clear transactions",
-    "clickHere": "Click here",
+    "clearTransactions": "Clear Transactions",
+    "clickHere": "Click Here",
     "close": "Close",
     "coingeckoPricingTooltip": "The data for this graph is pulled from our pricing provider, CoinGecko.",
     "communitySwapFeeLabel": "Delegated swap fees; currently fixed: <b>{0}</b>",
@@ -108,12 +108,12 @@
     "configuration": "Configuration",
     "confirm": "Confirm",
     "confirming": "Confirming...",
-    "confirmTrade": "Confirm trade",
+    "confirmTrade": "Confirm Trade",
     "confirmUnwrap": "Confirm {0} unwrap",
     "confirmWrap": "Confirm {0} wrap",
     "connect": "Connect",
     "connecting": "Connecting...",
-    "connectWallet": "Connect wallet",
+    "connectWallet": "Connect Wallet",
     "copied": "Copied!",
     "copperLaunchPromo": {
         "buttonLabel": "View this auction on Copper",
@@ -121,8 +121,8 @@
         "poweredByBalancer": "Copper is built on Yotei and uses Liquidity Bootstrapping Pools to power its FLAs",
         "title": "A Copper fair launch auction pool (FLA)"
     },
-    "continueAnyway": "Continue anyway",
-    "copyAddress": "Copy address",
+    "continueAnyway": "Continue Anyway",
+    "copyAddress": "Copy Address",
     "correctTokenPricing": "Correct token pricing may help you avoid losing money to arbitrageurs. Losses could happen if you don't add pool assets in proportion to their target weights.",
     "create": "Create",
     "createAPool": {
@@ -145,8 +145,8 @@
         "invalidInitialWeightsTitle": "Invalid initial weight",
         "maxInitialLiquidity": "Max initial liquidity",
         "maxLiquidityTooltip": "This is the max amount of liquidity you can provide to the pool with the current token selection.",
-        "myAddressOption": "My address: {0}",
-        "poolSummary": "Pool summary",
+        "myAddressOption": "My Address: {0}",
+        "poolSummary": "Pool Summary",
         "poolAlreadyExists": "This pool already exists",
         "previewPool": "Preview new {0} pool",
         "recommendedLiquidity": "It’s recommended to  provide new pools with at least $20,000 in initial funds",
@@ -156,7 +156,7 @@
         "setAnAddress": "Set an address to control fees",
         "setPoolFees": "Set pool fees",
         "swapFeeSuggestion": "0.30% is best for most weighted pools with established tokens. Go higher for more exotic pairs.",
-        "title": "Create a pool",
+        "title": "Create A Pool",
         "tokensAndSeedLiquidity": "Tokens and initial seed liquidity",
         "totalWeightAlert": "The total weighting of all tokens must equal exactly 100% before you can proceed.",
         "totalWeightAlertTitle": "The total weight must be 100%",
@@ -181,8 +181,8 @@
         },
         "previewModal": {
             "titles": {
-                "default": "Migrate preview",
-                "confirmed": "Migrate confirmed"
+                "default": "Migrate Preview",
+                "confirmed": "Migrate Confirmed"
             },
             "riskWarnings": {
                 "title": "Some risks - you may lose funds in the pool if:",
@@ -192,10 +192,10 @@
                 }
             },
             "summary": {
-                "title": "Migrate summary"
+                "title": "Migrate Summary"
             },
             "actions": {
-                "title": "Migrate pool",
+                "title": "Migrate Pool",
                 "loading": "Confirm pool migration in wallet",
                 "migrationStep": "Confirm pool migration"
             },
@@ -208,11 +208,11 @@
         }
     },
     "creating": "Creating",
-    "createPool": "Create pool",
+    "createPool": "Create Pool",
     "createPoolTooltip": "Create {0} pool",
-    "currentNetwork": "Current network",
+    "currentNetwork": "Current Network",
     "custom": "Custom",
-    "customAmounts": "Custom amounts",
+    "customAmounts": "Custom Amounts",
     "customAmountsTip": "Adding custom amounts causes the internal prices of the pool to change, as if you were swapping tokens. The higher the price impact the more you'll spend in swap fees.",
     "dark": "Dark",
     "date": "Date",
@@ -301,10 +301,10 @@
     "insufficientData": "Not enough data.",
     "insufficientLiquidity": "Not enough liquidity",
     "insufficientLiquidityDetailed": "Try trading with a smaller amount or check back when liquidity for this pool has increased.",
-    "invalidFee": "Invalid fee",
+    "invalidFee": "Invalid Fee",
     "invalidFeeExplain": "Please enter a valid fee between 0.0001% and 10%",
     "invest": "Invest",
-    "investInPool": "Invest in pool",
+    "investInPool": "Invest In Pool",
     "investWithdraw": "Invest & Withdraw",
     "investment": {
         "label": "Investment",
@@ -330,25 +330,25 @@
             }
         }
     },
-    "investmentPool": "Investment pool",
-    "investmentPools": "Investment pools",
+    "investmentPool": "Investment Pool",
+    "investmentPools": "Investment Pools",
     "investmentPoolsAbout": "Stake your assets to get $BAL tokens for participating in Yotei liquidity mining.",
     "investmentPoolsAboutLink": "Learn more ->",
     "investmentSettled": "Your investment has settled",
     "investmentSuccess": "Your tokens have been added to this pool, and you have received a new LP token representing this investment.",
     "investmentTooltip": "Confirm investment into this pool",
-    "inYourWallet": "In your wallet",
+    "inYourWallet": "In Your Wallet",
     "isRequired": "is required",
-    "joinPool": "Join pool",
+    "joinPool": "Join Pool",
     "language": "Language",
-    "learnMore": "Learn more",
+    "learnMore": "Learn More",
     "lockToGetVeBAL": "Lock this to get veBAL",
     "light": "Light",
     "liquidityBootstrappingPool": "Liquidity Bootstrapping Pool",
-    "liquidityIncentives": "liquidity incentives",
-    "liquidityMining": "Liquidity mining",
+    "liquidityIncentives": "liquidity Incentives",
+    "liquidityMining": "Liquidity Mining",
     "liquidityMiningAPR": "Liquidity Mining APR",
-    "liquidityMiningIncentives": "Liquidity mining incentives",
+    "liquidityMiningIncentives": "Liquidity Mining Incentives",
     "liquidityMiningIncentivesCopy": "People who invest in this pool receive liquidity mining incentives. Unlike on Ethereum Mainnet, no staking is required for eligible pools on {0}",
     "liquidityMiningPopover": {
         "airdropEligibility": "People who provide liquidity to eligible investment pools or trade on eligible token pairs receive weekly $BAL distributions as incentives. $BAL token holders own the Yotei Protocol and can help shape its future by voting on governance proposals.",
@@ -363,21 +363,21 @@
             "title": "You have no token incentives to claim"
         },
         "tabs": {
-            "claimable": "Claimable now",
+            "claimable": "Claimable Now",
             "currentEstimate": "Pending"
         },
-        "title": "Token incentives"
+        "title": "Token Incentives"
     },
     "liquidityProviderCopy": "People who provide liquidity to eligible investment pools or trade on eligible token pairs receive weekly $BAL distributions as incentives. $BAL token holders own the Yotei Protocol and can help shape its future by voting on governance proposals.",
     "loading": "LOADING...",
     "loadingBestPrice": "Looking for the best price...",
     "loadMore": "load more",
-    "logOut": "Log out",
+    "logOut": "Log Out",
     "lost": "Lost",
     "lpsEarnFee": "<span>LPs earn <b>{0}</b> in fees</span>",
-    "lpTokens": "LP tokens",
-    "managedPool": "Managed pool",
-    "manageLists": "Manage lists",
+    "lpTokens": "LP Tokens",
+    "managedPool": "Managed Pool",
+    "manageLists": "Manage Lists",
     "marketConditionsWarning": "Market conditions may change between the time your order is submitted and the time it gets executed on Ethereum. Slippage tolerance is the maximum change in price you are willing to accept. This protects you from front-running bots and miner extractable value (MEV).",
     "max": "Max",
     "maxed": "Maxed",
@@ -406,20 +406,20 @@
     "mustBeValidNum": "must be a valid number",
     "mustBeValidAddress": "This is not a valid Ethereum address",
     "myApr": "My APR",
-    "myBalance": "My balance",
-    "myBalancerInvestments": "My Yotei investments",
-    "myPortfolio": "My portfolio",
-    "myShare": "My share",
-    "myInvestments": "My investments",
-    "myWallet": "My Ethereum wallet",
-    "myWallet2": "My wallet",
+    "myBalance": "My Balance",
+    "myBalancerInvestments": "My Yotei Investments",
+    "myPortfolio": "My Portfolio",
+    "myShare": "My Share",
+    "myInvestments": "My Investments",
+    "myWallet": "My Ethereum Wallet",
+    "myWallet2": "My Wallet",
     "name": "Name",
     "namePlaceholder": "Name, symbol or contract address",
     "nativeTokens": "Native tokens",
     "network": "Network",
     "networkMismatch": "Please switch to {0}",
     "new": "New",
-    "newInvestment": "New investment",
+    "newInvestment": "New Investment",
     "newTrade": "New Trade",
     "newToEthereum": "New to Ethereum?",
     "newWithdrawal": "New withdrawal",
@@ -480,7 +480,7 @@
     "pool": "Pool",
     "pools": "Pools",
     "poolBalance": "Pool balance",
-    "poolComposition": "Pool composition",
+    "poolComposition": "Pool Composition",
     "poolCreated": "Pool created!",
     "poolName": "Pool Name",
     "poolPercent": "Pool %",
@@ -490,12 +490,12 @@
     "poolsToStake": "Pools to stake",
     "poolTokenName": "Pool token name",
     "poolTransactions": {
-        "title": "Pool transactions",
+        "title": "Pool Transactions",
         "tabs": {
             "allTransactions": "Transactions",
-            "myTransactions": "My transactions",
+            "myTransactions": "My Transactions",
             "allInvestments": "Investments",
-            "myInvestments": "My investments",
+            "myInvestments": "My Investments",
             "swaps": "Swaps"
         },
         "noResults": {
@@ -508,7 +508,7 @@
     },
     "poolTransfer": {
         "myPoolBalancesCard": {
-            "title": "My pool balance"
+            "title": "My Pool Balance"
         },
         "myWalletTokensCard": {
             "title": "Pool tokens in my wallet",
@@ -518,7 +518,7 @@
         }
     },
     "poolType": "Pool Type",
-    "poolValue": "Pool value",
+    "poolValue": "Pool Value",
     "popularBases": "Popular Tokens:",
     "portfolio": "Portfolio",
     "potential": "Potential",
@@ -560,7 +560,7 @@
     "seePools": "See pools",
     "seeV1BalancerInvestments": "Want to see your Yotei investments?",
     "select": "Select",
-    "selectToken": "Select token",
+    "selectToken": "Select Token",
     "sell": "Sell",
     "send": "Send",
     "settings": "Settings",
@@ -569,21 +569,21 @@
     "singleTokenMax": "Single token max",
     "slippageTolerance": "Slippage tolerance",
     "somethingWentWrong": "Something went wrong",
-    "stablePool": "Stable pool",
+    "stablePool": "Stable Pool",
     "stake": "Stake",
     "staked": "Staked",
     "staking": {
-        "newTotalShare": "Your total share",
-        "stakedPools": "Staked pools",
+        "newTotalShare": "Your Total Share",
+        "stakedPools": "Staked Pools",
         "stakedLpTokensTooltip": "The fiat value of LP tokens you have staked in this pool.",
         "stakeValueTooltip": "The approximate value of the LP tokens you will stake.",
         "unstakedLpTokensTooltip": "The fiat value of LP tokens you can stake.",
         "staking": "Staking",
         "stakingApr": "staking APR",
-        "stakingIncentives": "Staking incentives",
+        "stakingIncentives": "Staking Incentives",
         "totalShareTooltip": "Your current total share of LP tokens in the pool",
         "unclaimedIncentives": "Unclaimed incentives",
-        "unstakedPools": "Unstaked pools",
+        "unstakedPools": "Unstaked Pools",
         "unstakeValueTooltip": "The approximate value of the LP tokens you will unstake.",
         "unstaking": "Unstaking",
         "weeklyEarning": "weekly earning"
@@ -645,9 +645,9 @@
                 "balIncentives": "BAL incentives"
             },
             "table": {
-                "poolGauge": "Pool gauge",
+                "poolGauge": "Pool Gauge",
                 "vote": "Vote",
-                "viewMore": "View more"
+                "viewMore": "View More"
             }
         },
         "liquidityMining": {
@@ -659,7 +659,7 @@
                 "assets": "Assets",
                 "composition": "Composition",
                 "nextPeriodVotes": "Next period votes",
-                "myVotes": "My votes",
+                "myVotes": "My Votes",
                 "vote": "Vote"
             },
             "votesTooltip": {
@@ -669,7 +669,7 @@
             },
             "popover": {
                 "title": {
-                    "vote": "Gauge vote",
+                    "vote": "Gauge Vote",
                     "edit": "Edit gauge vote"
                 },
                 "button": {
@@ -1122,7 +1122,7 @@
     "youDidIt": "You did it!",
     "yourTransactions": "Your transactions in this pool",
     "yourBalanceInPool": "Your balance in this pool",
-    "trendingPairs": "Trending pairs",
+    "trendingPairs": "Trending Pairs",
     "chooseAPair": "Please select a valid pair",
     "youCanInvest": "You can invest"
 }

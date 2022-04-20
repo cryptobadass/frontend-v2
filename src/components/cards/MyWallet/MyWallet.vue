@@ -69,7 +69,7 @@ const tokensWithBalance = computed(() => {
         ></BalAssetSet>
         <div v-else class="w-full mt-4 lg:mt-0 flex justify-center">
           <BalLink @click="toggleWalletSelectModal"
-            >Connect your wallet</BalLink
+            >Connect Your Wallet</BalLink
           >
         </div>
       </div>

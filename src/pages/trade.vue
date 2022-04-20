@@ -77,9 +77,9 @@ onMounted(() => {
         class="w-full"
         v-if="upToLargeBreakpoint"
         :sections="[
-          { title: 'My wallet', id: 'my-wallet' },
-          { title: 'Trending pairs', id: 'trending-pairs' },
-          { title: 'Price chart', id: 'price-chart' }
+          { title: 'My Wallet', id: 'my-wallet' },
+          { title: 'Trending Pairs', id: 'trending-pairs' },
+          { title: 'Price Chart', id: 'price-chart' }
         ]"
       >
         <template v-slot:my-wallet>

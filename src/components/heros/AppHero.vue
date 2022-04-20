@@ -17,11 +17,8 @@ import { isL2 } from '@/composables/useNetwork';
  */
 const router = useRouter();
 const { fNum2 } = useNumbers();
-const {
-  isWalletReady,
-  toggleWalletSelectModal,
-  isWalletConnecting
-} = useWeb3();
+const { isWalletReady, toggleWalletSelectModal, isWalletConnecting } =
+  useWeb3();
 const { trackGoal, Goals } = useFathom();
 const { totalInvestedAmount, isLoadingUserPools } = usePools();
 const { darkMode } = useDarkMode();
@@ -37,7 +34,7 @@ const { lockFiatValue, isLoadingLock } = useLock();
  */
 const classes = computed(() => ({
   ['h-72']: !isWalletReady.value && !isWalletConnecting.value,
-  ['h-40']: isWalletReady.value || isWalletConnecting.value
+  ['h-40']: isWalletReady.value || isWalletConnecting.value,
 }));
 // console.log('totalInvestedLabel',totalInvestedLabel.value)
 const totalInvestedLabel = computed((): string => {
@@ -81,26 +78,26 @@ function onClickConnect() {
 
 <template>
   <div :class="['app-hero border-t border-b border-gunmetal bg-dark-222 h-40']">
-    <div class="w-full max-w-6xl mx-auto">
+    <div class="w-full max-w-6xl mx-auto flex flex-col ">
       <template v-if="isWalletReady || isWalletConnecting">
         <h1
           v-text="$t('myBalancerInvestments')"
-          class="text-base font-medium text-white opacity-90 font-body mb-2"
+          class="text-xl font-medium text-white opacity-90 font-body mb-2"
         />
         <BalLoadingBlock
           v-if="isLoadingTotalValue"
           class="h-10 w-40 mx-auto"
           white
         />
-        <div v-else class="text-3xl font-bold text-white mb-1">
+        <div v-else class="text-3xl font-bold text-white ">
           {{ totalInvestedLabel }}
         </div>
-        <div v-if="!isL2" class="relative mt-2 inline-block">
+        <!-- <div v-if="!isL2" class="relative mt-2 inline-block">
           <BalLoadingBlock
             v-if="isLoadingTotalValue"
             class="h-8 w-40 mx-auto"
             white
-          />
+          /> -->
           <!-- <div
             v-else
             class="
@@ -119,27 +116,18 @@ function onClickConnect() {
           >
             {{ $t('inclXInVeBal', [totalVeBalLabel]) }}
           </div> -->
-        </div>
+        <!-- </div> -->
       </template>
       <template v-else>
         <div
           v-text="$t('ammPlatformStart')"
-          class="
-            text-white text-center text-2xl
-            md:text-3xl
-            pb-2
-            
-          "
+          class="text-white text-center text-2xl md:text-3xl pb-2"
         />
         <h1
           v-text="$t('ammPlatformEnd')"
-          class="
-            text-cyan text-center text-2xl font-medium
-            md:text-3xl
-            pb-2
-          "
+          class="text-cyan text-center text-2xl font-medium md:text-3xl "
         />
-        <div class="flex justify-center mt-4">
+        <div class="flex justify-center">
           <!-- <BalBtn
             :color="darkMode ? 'cyan' : 'white'"
             class=""

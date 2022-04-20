@@ -66,6 +66,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import useBreakpoints from '@/composables/useBreakpoints';
 import useTokens from '@/composables/useTokens';
 import { usePool } from '@/composables/usePool';
+import { stringToUpperCase as _up } from '@/lib/utils/index';
 
 export default defineComponent({
   props: {
@@ -104,14 +105,14 @@ export default defineComponent({
 
     const columns = computed(() => [
       {
-        name: t('token'),
+        name: _up(t('token')),
         id: 'token',
         accessor: 'address',
         Cell: 'tokenColumnCell',
         width: 175
       },
       {
-        name: t('weight'),
+        name: _up(t('weight')),
         id: 'weight',
         accessor: 'index',
         Cell: 'tokenWeightCell',
@@ -121,7 +122,7 @@ export default defineComponent({
         hidden: !props.loading && isStableLikePool.value
       },
       {
-        name: t('balance'),
+        name: _up(t('balance')),
         id: 'balance',
         accessor: 'index',
         Cell: 'tokenBalanceCell',
@@ -130,7 +131,7 @@ export default defineComponent({
         width: 125
       },
       {
-        name: t('value'),
+        name: _up(t('value')),
         id: 'value',
         accessor: 'index',
         Cell: 'tokenValueCell',

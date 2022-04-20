@@ -14,6 +14,7 @@ import useBreakpoints from '@/composables/useBreakpoints';
 import { ColumnDefinition } from '@/components/_global/BalTable/BalTable.vue';
 
 import { bnum } from '@/lib/utils';
+import { stringToUpperCase as _up } from '@/lib/utils/index';
 
 /**
  * TYPES
@@ -73,7 +74,7 @@ const { explorerLinks } = useWeb3();
  */
 const columns = computed<ColumnDefinition<SwapRow>[]>(() => [
   {
-    name: t('action'),
+    name: _up(t('action')),
     id: 'action',
     accessor: 'tx',
     Cell: 'actionCell',
@@ -81,7 +82,7 @@ const columns = computed<ColumnDefinition<SwapRow>[]>(() => [
     sortable: false
   },
   {
-    name: t('details'),
+    name: _up(t('details')),
     id: 'details',
     accessor: '',
     Cell: 'detailsCell',
@@ -89,7 +90,7 @@ const columns = computed<ColumnDefinition<SwapRow>[]>(() => [
     sortable: false
   },
   {
-    name: t('value'),
+    name: _up(t('value')),
     id: 'value',
     accessor: 'value',
     Cell: 'valueCell',
@@ -99,7 +100,7 @@ const columns = computed<ColumnDefinition<SwapRow>[]>(() => [
     width: 125
   },
   {
-    name: t('time'),
+    name: _up(t('time')),
     id: 'timeAgo',
     accessor: 'timestamp',
     Cell: 'timeCell',
