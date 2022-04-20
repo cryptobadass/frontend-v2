@@ -108,7 +108,7 @@ function navigateToCreatePool() {
         <BalStack vertical spacing="xl">
           <StakingProvider>
             <UnstakedPoolsTable :userPools="userPools" />
-            <StakedPoolsTable v-if="!isL2" :userPools="userPools" />
+            <!-- <StakedPoolsTable v-if="!isL2" :userPools="userPools" /> -->
           </StakingProvider>
           <BalStack vertical spacing="sm" v-if="migratableUserPools.length > 0">
             <h5>{{ $t('poolsToMigrate') }}</h5>

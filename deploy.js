@@ -51,11 +51,11 @@ const zipDirector = () => {
       console.log('something error width the zip process:', err);
       return;
     }
-    uploadFile();
     console.log(`${archive.pointer()} total bytes`);
     console.log(
       'archiver has been finalized and the output file descriptor has closed.'
     );
+    uploadFile();
   });
   output.on('end', () => {
     console.log('Data has been drained');
@@ -66,6 +66,7 @@ const zipDirector = () => {
 };
 
 function uploadFile() {
+  console.log('start SSH')
   ssh
     .connect({
       host: config.host,
