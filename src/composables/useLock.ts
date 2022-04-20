@@ -20,6 +20,7 @@ export function useLock() {
    * QUERIES
    */
   const shouldFetchLockPool = computed((): boolean => !isL2.value);
+  // console.log('aaaaa-5',lockablePoolId.value)
   const lockPoolQuery = usePoolQuery(
     lockablePoolId.value as string,
     shouldFetchLockPool
@@ -40,6 +41,7 @@ export function useLock() {
   const isLoadingLock = computed(
     (): boolean => isLoadingLockPool.value || isLoadingLockInfo.value
   );
+  // console.log('aaaaaa-11', isLoadingLockPool.value, isLoadingLockInfo.value)
 
   const lockPool = computed<FullPool | undefined>(
     () => lockPoolQuery.data.value

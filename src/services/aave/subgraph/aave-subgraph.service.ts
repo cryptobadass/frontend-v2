@@ -27,13 +27,13 @@ export default class AaveSubgraphService {
         return 2;
       case Network.ARBITRUM:
         return 3;
-      case Network.FUJI:
+      case Network.KOVAN:
         // Should be ~4s but this causes subgraph to return with unindexed block error.
         return 1;
-      case Network.KOVAN:
-        return 1;
+      case Network.FUJI:
+        return 3;
       case Network.AVALANCHE:
-        return 13;
+        return 3;
       default:
         return 13;
     }

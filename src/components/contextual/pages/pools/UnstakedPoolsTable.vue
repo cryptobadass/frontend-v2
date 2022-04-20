@@ -100,8 +100,8 @@ const poolsToRender = computed(() => {
 });
 
 const hiddenColumns = computed((): string[] => {
-  const hiddenCols = ['poolVolume', 'poolValue', 'migrate'];
-  if (isL2.value) hiddenCols.push('stake');
+  const hiddenCols = ['poolVolume', 'poolValue', 'migrate', 'stake'];
+  // if (isL2.value) hiddenCols.push('stake');
   return hiddenCols;
 });
 

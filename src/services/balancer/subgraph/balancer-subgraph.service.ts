@@ -45,7 +45,7 @@ export default class BalancerSubgraphService {
         return 1;
       case Network.FUJI:
       case Network.AVALANCHE:
-        return 13;
+        return 3;
       default:
         return 13;
     }

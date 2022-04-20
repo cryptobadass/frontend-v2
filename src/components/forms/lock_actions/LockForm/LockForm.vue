@@ -29,6 +29,7 @@ const { isDesktop, isMobile } = useBreakpoints();
 /**
  * QUERIES
  */
+// console.log('aaaaa-1', lockablePoolId.value)
 const lockablePoolQuery = usePoolQuery(lockablePoolId.value as string);
 const veBalLockInfoQuery = useVeBalLockInfoQuery();
 

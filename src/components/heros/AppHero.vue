@@ -26,11 +26,11 @@ const { trackGoal, Goals } = useFathom();
 const { totalInvestedAmount, isLoadingUserPools } = usePools();
 const { darkMode } = useDarkMode();
 const { lockFiatValue, isLoadingLock } = useLock();
-const {
-  totalStakedFiatValue,
-  isLoading: isStakingLoading,
-  isStakingQueryEnabled
-} = useStaking();
+// const {
+//   totalStakedFiatValue,
+//   isLoading: isStakingLoading,
+//   isStakingQueryEnabled
+// } = useStaking();
 
 /**
  * COMPUTED
@@ -39,11 +39,11 @@ const classes = computed(() => ({
   ['h-72']: !isWalletReady.value && !isWalletConnecting.value,
   ['h-40']: isWalletReady.value || isWalletConnecting.value
 }));
-
+// console.log('totalInvestedLabel',totalInvestedLabel.value)
 const totalInvestedLabel = computed((): string => {
   const value = bnum(totalInvestedAmount.value || '0')
     .plus(lockFiatValue.value)
-    .plus(totalStakedFiatValue.value)
+    // .plus(totalStakedFiatValue.value)
     .toString();
   return fNum2(value, FNumFormats.fiat);
 });
@@ -53,15 +53,22 @@ const totalVeBalLabel = computed((): string =>
 );
 
 const isLoadingLockAndStaking = computed(
-  (): boolean =>
-    !isL2.value &&
-    (isLoadingLock.value ||
-      (isStakingQueryEnabled.value && isStakingLoading.value))
+  (): boolean => !isL2.value && isLoadingLock.value
+  // (isLoadingLock.value ||
+  // (isStakingQueryEnabled.value && isStakingLoading.value))
 );
 
 const isLoadingTotalValue = computed(
-  (): boolean => isLoadingUserPools.value || isLoadingLockAndStaking.value
+  (): boolean => isLoadingUserPools.value //|| isLoadingLockAndStaking.value
 );
+// console.log('aaaaa-9', isLoadingUserPools.value, isLoadingLockAndStaking.value);
+// console.log(
+//   'aaaaa-10',
+//   isL2.value,
+//   isLoadingLock.value,
+//   isStakingQueryEnabled.value,
+//   isStakingLoading.value
+// );
 
 /**
  * METHODS

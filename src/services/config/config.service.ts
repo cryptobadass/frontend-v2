@@ -58,14 +58,14 @@ export default class ConfigService {
   }
 
   public get ws(): string {
-    return template(this.network.ws, {
+    return template(this.network.rpc, {
       INFURA_KEY: this.env.INFURA_PROJECT_ID,
       ALCHEMY_KEY: this.env.ALCHEMY_KEY
     });
   }
 
   public get loggingRpc(): string {
-    return template(this.network.loggingRpc, {
+    return template(this.network.rpc, {
       INFURA_KEY: this.env.INFURA_PROJECT_ID,
       ALCHEMY_KEY: this.env.ALCHEMY_KEY
     });

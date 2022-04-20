@@ -35,6 +35,7 @@ export default class RpcProviderService {
       INFURA_KEY: this.config.env.INFURA_PROJECT_ID,
       ALCHEMY_KEY: this.config.env.ALCHEMY_KEY
     });
+    // console.log('aaaaaa', rpcUrl)
     return new JsonRpcProvider(rpcUrl);
   }
 }

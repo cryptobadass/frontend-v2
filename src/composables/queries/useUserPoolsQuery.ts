@@ -111,11 +111,13 @@ export default function useUserPoolsQuery(
   const queryKey = reactive(QUERY_KEYS.Pools.User(networkId, account));
 
   const queryFn = async () => {
+    // console.log('aaaaa',account.value)
     const poolShares = await balancerSubgraphService.poolShares.get({
       where: {
         userAddress: account.value.toLowerCase()
       }
     });
+    // console.log('aaaa', poolShares)
 
     const poolSharesIds = poolShares.map(poolShare => poolShare.poolId.id);
     const poolSharesMap = keyBy(poolShares, poolShare => poolShare.poolId.id);

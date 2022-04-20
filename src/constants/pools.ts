@@ -348,7 +348,9 @@ const POOLS_MAP = {
   [Network.KOVAN]: POOLS_KOVAN,
   [Network.MAINNET]: POOLS_MAINNET,
   [Network.POLYGON]: POOLS_POLYGON,
-  [Network.ARBITRUM]: POOLS_ARBITRUM
+  [Network.ARBITRUM]: POOLS_ARBITRUM,
+  [Network.FUJI]: POOLS_KOVAN, // todo
+  [Network.AVALANCHE]: POOLS_KOVAN // todo
 };
 export const POOLS: Pools = POOLS_MAP[networkId.value]
   ? POOLS_MAP[networkId.value]
