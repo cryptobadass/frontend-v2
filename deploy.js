@@ -66,7 +66,7 @@ const zipDirector = () => {
 };
 
 function uploadFile() {
-  console.log('start SSH')
+  console.log('start SSH');
   ssh
     .connect({
       host: config.host,

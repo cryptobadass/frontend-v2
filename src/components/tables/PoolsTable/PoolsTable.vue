@@ -89,13 +89,14 @@ const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
   },
   {
     name: _up(t('myBalance')),
-    accessor: pool =>{
-      console.log('aaaa----pool',pool, pool.shares)
+    accessor: pool => {
+      console.log('aaaa----pool', pool, pool.shares);
       return fNum2(pool.shares, {
         style: 'currency',
         maximumFractionDigits: 0,
         fixedFormat: true
-      })},
+      });
+    },
     align: 'right',
     id: 'myBalance',
     hidden: !props.showPoolShares,
