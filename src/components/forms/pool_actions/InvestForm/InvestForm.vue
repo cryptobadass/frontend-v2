@@ -279,22 +279,22 @@ watch(useNativeAsset, shouldUseNativeAsset => {
     </div>
 
     <!-- <StakingProvider :poolAddress="pool.address"> -->
-      <teleport to="#modal">
-        <InvestPreviewModal
-          v-if="showInvestPreview"
-          :pool="pool"
-          :math="investMath"
-          :tokenAddresses="tokenAddresses"
-          @close="showInvestPreview = false"
-          @showStakeModal="showStakeModal = true"
-        />
-        <!-- <StakePreviewModal
+    <teleport to="#modal">
+      <InvestPreviewModal
+        v-if="showInvestPreview"
+        :pool="pool"
+        :math="investMath"
+        :tokenAddresses="tokenAddresses"
+        @close="showInvestPreview = false"
+        @showStakeModal="showStakeModal = true"
+      />
+      <!-- <StakePreviewModal
           :pool="pool"
           :isVisible="showStakeModal"
           @close="showStakeModal = false"
           action="stake"
         /> -->
-      </teleport>
+    </teleport>
     <!-- </StakingProvider> -->
   </div>
 </template>

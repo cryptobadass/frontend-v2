@@ -23,7 +23,7 @@ const isHomePage = computed(() => route.path === '/');
     <AppNav />
     <template v-if="isHomePage">
       <!-- <StakingProvider> -->
-        <AppHero />
+      <AppHero />
       <!-- </StakingProvider> -->
     </template>
     <div class="pb-16">
