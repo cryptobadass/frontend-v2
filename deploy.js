@@ -30,9 +30,9 @@ const config_all = {
   app: {
     host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
     pathUrl: '/var/www/',
-    webName: 'yotei.finance',
+    webName: 'app.yotei.finance',
     useName: 'ec2-user',
-    zipName: 'yotei_finance_dist.zip'
+    zipName: 'yotei_finance_app_dist.zip'
   }
 };
 
