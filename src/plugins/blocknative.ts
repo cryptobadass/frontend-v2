@@ -11,7 +11,7 @@ export const defaultOptions: InitializationOptions = {
     console.log(`[Blocknative] encountered an error`, error);
   }
 };
-
+// https://www.npmjs.com/package/bnc-sdk
 export default {
   install: app => {
     const blocknative = new BlocknativeSdk(defaultOptions);

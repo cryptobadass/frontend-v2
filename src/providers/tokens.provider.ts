@@ -442,8 +442,8 @@ export default {
      */
     onBeforeMount(async () => {
       const tokensToInject = compact([
-        ...currentLiquidityMiningRewardTokens,
-        // todo 
+        ...currentLiquidityMiningRewardTokens
+        // todo
         // configService.network.addresses.stETH,
         // configService.network.addresses.wstETH,
         // configService.network.addresses.veBAL
