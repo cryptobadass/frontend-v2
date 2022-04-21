@@ -16,27 +16,28 @@ const config_all = {
     // pathUrl: '/var/www/',
     // webName: 'yotei.qa',
     useName: 'ec2-user',
-    zipName: 'yotei_dist_qa.zip'
+    zipName: 'yotei_dist.zip'
   },
-  qa2: {
+  fuji: {
     host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
     // pathUrl: '/usr/share/nginx',
     // webName: 'html',
     pathUrl: '/var/www/',
-    webName: 'yotei.qa',
+    webName: 'fuji.yotei.finance',
     useName: 'ec2-user',
-    zipName: 'yotei_dist_qa.zip'
+    zipName: 'yotei_finance_fuji_dist.zip'
   },
-  production: {
+  app: {
     host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
     pathUrl: '/var/www/',
     webName: 'yotei.finance',
     useName: 'ec2-user',
-    zipName: 'yotei_dist_finance.zip'
+    zipName: 'yotei_finance_dist.zip'
   }
 };
 
 const config = config_all[process.argv[2] || 'qa'];
+// nginx config :  /etc/nginx
 // console.log(config)
 
 const zipDirector = () => {
