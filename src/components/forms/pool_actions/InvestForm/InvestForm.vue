@@ -288,12 +288,12 @@ watch(useNativeAsset, shouldUseNativeAsset => {
           @close="showInvestPreview = false"
           @showStakeModal="showStakeModal = true"
         />
-        <StakePreviewModal
+        <!-- <StakePreviewModal
           :pool="pool"
           :isVisible="showStakeModal"
           @close="showStakeModal = false"
           action="stake"
-        />
+        /> -->
       </teleport>
     </StakingProvider>
   </div>

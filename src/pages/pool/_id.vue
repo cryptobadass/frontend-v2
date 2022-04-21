@@ -141,10 +141,10 @@
               v-if="loadingPool"
               class="pool-actions-card h-40"
             />
-            <StakingIncentivesCard
+            <!-- <StakingIncentivesCard
               v-if="isStakeablePool && !loadingPool && !isL2"
               :pool="pool"
-            />
+            /> -->
             <LMIncentivesCard v-if="isL2" :poolId="id" />
             <!-- <PoolActionsCard
           v-else-if="!noInitLiquidity"
@@ -209,7 +209,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import useTokens from '@/composables/useTokens';
 import useApp from '@/composables/useApp';
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
-import StakingIncentivesCard from '@/components/contextual/pages/pool/StakingIncentivesCard/StakingIncentivesCard.vue';
+// import StakingIncentivesCard from '@/components/contextual/pages/pool/StakingIncentivesCard/StakingIncentivesCard.vue';
 import LMIncentivesCard from '@/components/contextual/pages/pool/LMIncentivesCard/LMIncentivesCard.vue';
 import StakingProvider from '@/providers/local/staking.provider';
 import { getAddressFromPoolId } from '@/lib/utils';
@@ -224,7 +224,7 @@ export default defineComponent({
     ...PoolPageComponents,
     GauntletIcon,
     LiquidityAPRTooltip,
-    StakingIncentivesCard,
+    // StakingIncentivesCard,
     StakingProvider,
     LMIncentivesCard
   },
@@ -415,9 +415,9 @@ export default defineComponent({
       );
     });
 
-    const isStakeablePool = computed((): boolean =>
-      POOLS.Stakeable.AllowList.includes(route.params.id as string)
-    );
+    // const isStakeablePool = computed((): boolean =>
+    //   POOLS.Stakeable.AllowList.includes(route.params.id as string)
+    // );
 
     /**
      * METHODS
@@ -475,7 +475,7 @@ export default defineComponent({
       copperNetworkPrefix,
       hasCustomToken,
       isL2,
-      isStakeablePool,
+      // isStakeablePool,
       // methods
       fNum2,
       onNewTx,

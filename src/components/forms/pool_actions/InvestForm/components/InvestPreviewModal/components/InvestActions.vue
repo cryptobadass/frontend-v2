@@ -25,7 +25,7 @@ import BalActionSteps from '@/components/_global/BalActionSteps/BalActionSteps.v
 import { boostedJoinBatchSwap } from '@/lib/utils/balancer/swapper';
 import ConfirmationIndicator from '@/components/web3/ConfirmationIndicator.vue';
 import useVeBal from '@/composables/useVeBAL';
-import useStaking from '@/composables/staking/useStaking';
+// import useStaking from '@/composables/staking/useStaking';
 
 /**
  * TYPES
@@ -73,7 +73,7 @@ const { account, getProvider, blockNumber } = useWeb3();
 const { addTransaction } = useTransactions();
 const { txListener, getTxConfirmedAt } = useEthers();
 const { lockablePoolId } = useVeBal();
-const { isPoolEligibleForStaking } = useStaking();
+// const { isPoolEligibleForStaking } = useStaking();
 
 const { poolWeightsLabel } = usePool(toRef(props, 'pool'));
 const {
@@ -213,7 +213,7 @@ watch(blockNumber, async () => {
       >
         <StarsIcon class="h-5 text-yellow-300 mr-2" />{{ $t('lockToGetVeBAL') }}
       </BalBtn>
-      <BalBtn
+      <!-- <BalBtn
         v-else-if="isPoolEligibleForStaking"
         color="blue"
         block
@@ -223,7 +223,7 @@ watch(blockNumber, async () => {
         <StarsIcon class="h-5 text-yellow-300 mr-2" />{{
           $t('stakeToGetExtra')
         }}
-      </BalBtn>
+      </BalBtn> -->
 
       <BalBtn
         tag="router-link"

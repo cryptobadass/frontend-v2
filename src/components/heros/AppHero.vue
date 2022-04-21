@@ -9,7 +9,7 @@ import useDarkMode from '@/composables/useDarkMode';
 import { useLock } from '@/composables/useLock';
 import { bnum } from '@/lib/utils';
 import { useRouter } from 'vue-router';
-import useStaking from '@/composables/staking/useStaking';
+// import useStaking from '@/composables/staking/useStaking';
 import { isL2 } from '@/composables/useNetwork';
 
 /**

@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 
 import useUserPoolsQuery from '@/composables/queries/useUserPoolsQuery';
-import useStaking from '@/composables/staking/useStaking';
+// import useStaking from '@/composables/staking/useStaking';
 
 import {
   DecoratedPool,
@@ -23,24 +23,24 @@ const showStakeModal = ref(false);
 const stakePool = ref<FullPool | undefined>();
 
 /** COMPOSABLES */
-const {
-  userGaugeShares,
-  userLiquidityGauges,
-  stakedPools,
-  isLoadingStakingData,
-  setPoolAddress
-} = useStaking();
+// const {
+//   userGaugeShares,
+//   userLiquidityGauges,
+//   stakedPools,
+//   isLoadingStakingData,
+//   setPoolAddress
+// } = useStaking();
 
 /** COMPUTED */
 // a map of poolId-stakedBPT for the connected user
-const stakedBalanceMap = computed(() => {
-  const map: Record<string, string> = {};
-  if (!userGaugeShares.value) return map;
-  for (const gaugeShare of userGaugeShares.value) {
-    map[gaugeShare.gauge.poolId] = gaugeShare.balance;
-  }
-  return map;
-});
+// const stakedBalanceMap = computed(() => {
+//   const map: Record<string, string> = {};
+//   if (!userGaugeShares.value) return map;
+//   for (const gaugeShare of userGaugeShares.value) {
+//     map[gaugeShare.gauge.poolId] = gaugeShare.balance;
+//   }
+//   return map;
+// });
 
 // first retrieve all the pools the user has liquidity for
 const {
@@ -49,39 +49,39 @@ const {
   isIdle: isUserPoolsIdle
 } = useUserPoolsQuery();
 
-const partiallyStakedPools = computed(() => {
-  const stakedPoolIds = stakedPools.value?.map(pool => pool.id);
-  // The pools which are both staked, but also have BPT available for staking
-  // NOTE: we are iterating through user pools here so we can access the bpt var
-  return (userPools.value?.pools || [])
-    .filter(pool => {
-      return stakedPoolIds?.includes(pool.id);
-    })
-    .map(pool => {
-      // calculate the staked percentage by using the staked balance
-      // pulled from the gauge subgraph
-      const stakedBalance = stakedBalanceMap.value[pool.id];
-      const unstakedBalance = pool.bpt;
-      const stakedPct = bnum(stakedBalance).div(
-        bnum(stakedBalance).plus(unstakedBalance)
-      );
-      return {
-        ...pool,
-        stakedPct: stakedPct.toString(),
-        stakedShares: calculateFiatValueOfShares(pool, stakedBalance)
-      };
-    });
-});
+// const partiallyStakedPools = computed(() => {
+//   const stakedPoolIds = stakedPools.value?.map(pool => pool.id);
+//   // The pools which are both staked, but also have BPT available for staking
+//   // NOTE: we are iterating through user pools here so we can access the bpt var
+//   return (userPools.value?.pools || [])
+//     .filter(pool => {
+//       return stakedPoolIds?.includes(pool.id);
+//     })
+//     .map(pool => {
+//       // calculate the staked percentage by using the staked balance
+//       // pulled from the gauge subgraph
+//       const stakedBalance = stakedBalanceMap.value[pool.id];
+//       const unstakedBalance = pool.bpt;
+//       const stakedPct = bnum(stakedBalance).div(
+//         bnum(stakedBalance).plus(unstakedBalance)
+//       );
+//       return {
+//         ...pool,
+//         stakedPct: stakedPct.toString(),
+//         stakedShares: calculateFiatValueOfShares(pool, stakedBalance)
+//       };
+//     });
+// });
 
 // Pools where there is no staked BPT at all
 const unstakedPools = computed(() => {
-  const availableGaugePoolIds = (userLiquidityGauges.value || []).map(
-    gauge => gauge.poolId
-  );
+  // const availableGaugePoolIds = (userLiquidityGauges.value || []).map(
+  //   gauge => gauge.poolId
+  // );
   return (userPools.value?.pools || [])
-    .filter(pool => {
-      return availableGaugePoolIds?.includes(pool.id);
-    })
+    // .filter(pool => {
+    //   return availableGaugePoolIds?.includes(pool.id);
+    // })
     .map(pool => ({
       ...pool,
       stakedPct: '0',
@@ -90,7 +90,7 @@ const unstakedPools = computed(() => {
 });
 
 const poolsToRender = computed(() => {
-  const stakablePools = [...partiallyStakedPools.value, ...unstakedPools.value];
+  const stakablePools = [...unstakedPools.value]; //[...partiallyStakedPools.value, ...unstakedPools.value];
   const stakableUserPoolIds = stakablePools.map(pool => pool.id);
   const nonMigratableUserPools = (userPools.value?.pools || [])
     .filter(pool => !isMigratablePool(pool))
@@ -107,9 +107,9 @@ const hiddenColumns = computed((): string[] => {
 
 /** METHODS */
 function handleStake(pool: FullPool) {
-  setPoolAddress(pool.address);
-  showStakeModal.value = true;
-  stakePool.value = pool;
+  // setPoolAddress(pool.address);
+  // showStakeModal.value = true;
+  // stakePool.value = pool;
 }
 
 function calculateFiatValueOfShares(
@@ -129,7 +129,7 @@ function handleModalClose() {
 
 <template>
   <BalStack vertical spacing="sm">
-    <h5 v-if="!isL2">{{ $t('staking.unstakedPools') }}</h5>
+    <!-- <h5 v-if="!isL2">{{ $t('staking.unstakedPools') }}</h5> -->
     <PoolsTable
       :key="poolsToRender"
       :isLoading="isLoadingStakingData || isLoadingUserPools || isUserPoolsIdle"
@@ -140,10 +140,10 @@ function handleModalClose() {
       showPoolShares
     />
   </BalStack>
-  <StakePreviewModal
+  <!-- <StakePreviewModal
     :pool="stakePool"
     :isVisible="showStakeModal"
     @close="handleModalClose"
     action="stake"
-  />
+  /> -->
 </template>
