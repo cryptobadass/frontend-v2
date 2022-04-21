@@ -443,9 +443,10 @@ export default {
     onBeforeMount(async () => {
       const tokensToInject = compact([
         ...currentLiquidityMiningRewardTokens,
-        configService.network.addresses.stETH,
-        configService.network.addresses.wstETH,
-        configService.network.addresses.veBAL
+        // todo 
+        // configService.network.addresses.stETH,
+        // configService.network.addresses.wstETH,
+        // configService.network.addresses.veBAL
       ]);
 
       await forChange(loadingTokenLists, false);

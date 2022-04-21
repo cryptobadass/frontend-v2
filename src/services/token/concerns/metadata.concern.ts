@@ -82,7 +82,6 @@ export default class MetadataConcern {
         multi.call(`${address}.symbol`, address, 'symbol');
         multi.call(`${address}.decimals`, address, 'decimals');
       });
-
       return await multi.execute(metaDict);
     } catch (error) {
       console.error('Failed to fetch onchain meta', addresses, error);

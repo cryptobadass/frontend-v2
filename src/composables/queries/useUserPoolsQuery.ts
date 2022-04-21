@@ -117,12 +117,12 @@ export default function useUserPoolsQuery(
         userAddress: account.value.toLowerCase()
       }
     });
-    console.log('aaaa', poolShares);
+    // console.log('aaaa', poolShares);
 
     const poolSharesIds = poolShares.map(poolShare => poolShare.poolId.id);
     const poolSharesMap = keyBy(poolShares, poolShare => poolShare.poolId.id);
 
-    console.log('aaaa2', poolSharesIds, POOLS.ExcludedPoolTypes);
+    // console.log('aaaa2', poolSharesIds, POOLS.ExcludedPoolTypes);
 
     const pools = await balancerSubgraphService.pools.get({
       where: {
