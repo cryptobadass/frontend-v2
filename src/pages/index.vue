@@ -17,7 +17,7 @@ import { bnum } from '@/lib/utils';
 
 import StakedPoolsTable from '@/components/contextual/pages/pools/StakedPoolsTable.vue';
 import UnstakedPoolsTable from '@/components/contextual/pages/pools/UnstakedPoolsTable.vue';
-import StakingProvider from '@/providers/local/staking.provider';
+// import StakingProvider from '@/providers/local/staking.provider';
 import { isL2 } from '@/composables/useNetwork';
 
 // COMPOSABLES
@@ -106,10 +106,10 @@ function navigateToCreatePool() {
           </BalStack>
         </div>
         <BalStack vertical spacing="xl">
-          <StakingProvider>
+          <!-- <StakingProvider> -->
             <UnstakedPoolsTable :userPools="userPools" />
             <!-- <StakedPoolsTable v-if="!isL2" :userPools="userPools" /> -->
-          </StakingProvider>
+          <!-- </StakingProvider> -->
           <BalStack vertical spacing="sm" v-if="migratableUserPools.length > 0">
             <h5>{{ $t('poolsToMigrate') }}</h5>
             <PoolsTable

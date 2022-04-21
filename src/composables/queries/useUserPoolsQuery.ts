@@ -130,7 +130,7 @@ export default function useUserPoolsQuery(
         poolType_not_in: POOLS.ExcludedPoolTypes
       }
     });
-    console.log('aaaaa3', pools);
+    // console.log('aaaaa3', pools);
 
     for (let i = 0; i < pools.length; i++) {
       const isStablePhantomPool = isStablePhantom(pools[i].poolType);
@@ -160,7 +160,7 @@ export default function useUserPoolsQuery(
       currency.value
     );
 
-    console.log('aaaaa4', decoratedPools);
+    // console.log('aaaaa4', decoratedPools);
 
     // TODO - cleanup and extract elsewhere in refactor
     for (let i = 0; i < decoratedPools.length; i++) {
@@ -255,7 +255,7 @@ export default function useUserPoolsQuery(
       };
     });
 
-    console.log('aaaaa-5', poolsWithShares);
+    // console.log('aaaaa-5', poolsWithShares);
 
     const totalInvestedAmount = poolsWithShares
       .map(pool => pool.shares)

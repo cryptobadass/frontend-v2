@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import AppNav from '@/components/navs/AppNav/AppNav.vue';
 import AppHero from '@/components/heros/AppHero.vue';
 import useBreakpoints from '@/composables/useBreakpoints';
-import StakingProvider from '@/providers/local/staking.provider';
+// import StakingProvider from '@/providers/local/staking.provider';
 
 /**
  * COMPOSABLES
@@ -22,9 +22,9 @@ const isHomePage = computed(() => route.path === '/');
   <div>
     <AppNav />
     <template v-if="isHomePage">
-      <StakingProvider>
+      <!-- <StakingProvider> -->
         <AppHero />
-      </StakingProvider>
+      <!-- </StakingProvider> -->
     </template>
     <div class="pb-16">
       <router-view :key="$route.path" />

@@ -124,35 +124,32 @@
         v-if="!isLiquidityBootstrappingPool"
         class="order-1 lg:order-2 px-1 lg:px-0"
       >
-        <StakingProvider :poolAddress="getAddressFromPoolId(id)">
-          <BalStack vertical>
-            <BalLoadingBlock
-              v-if="loadingPool"
-              class="pool-actions-card h-60 mb-4"
-            />
-            <MyPoolBalancesCard
-              v-else-if="!noInitLiquidity"
-              :pool="pool"
-              :missingPrices="missingPrices"
-              class="mb-4"
-            />
+        <!-- <StakingProvider :poolAddress="getAddressFromPoolId(id)"> -->
+        <BalStack vertical>
+          <BalLoadingBlock
+            v-if="loadingPool"
+            class="pool-actions-card h-60 mb-4"
+          />
+          <MyPoolBalancesCard
+            v-else-if="!noInitLiquidity"
+            :pool="pool"
+            :missingPrices="missingPrices"
+            class="mb-4"
+          />
 
-            <BalLoadingBlock
-              v-if="loadingPool"
-              class="pool-actions-card h-40"
-            />
-            <!-- <StakingIncentivesCard
+          <BalLoadingBlock v-if="loadingPool" class="pool-actions-card h-40" />
+          <!-- <StakingIncentivesCard
               v-if="isStakeablePool && !loadingPool && !isL2"
               :pool="pool"
             /> -->
-            <LMIncentivesCard v-if="isL2" :poolId="id" />
-            <!-- <PoolActionsCard
+          <LMIncentivesCard v-if="isL2" :poolId="id" />
+          <!-- <PoolActionsCard
           v-else-if="!noInitLiquidity"
           :pool="pool"
           :missingPrices="missingPrices"
         /> -->
-          </BalStack>
-        </StakingProvider>
+        </BalStack>
+        <!-- </StakingProvider> -->
       </div>
       <!-- <div v-else class="order-1 lg:order-2 px-1 lg:px-0">
         <BalCard
@@ -211,7 +208,7 @@ import useApp from '@/composables/useApp';
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 // import StakingIncentivesCard from '@/components/contextual/pages/pool/StakingIncentivesCard/StakingIncentivesCard.vue';
 import LMIncentivesCard from '@/components/contextual/pages/pool/LMIncentivesCard/LMIncentivesCard.vue';
-import StakingProvider from '@/providers/local/staking.provider';
+// import StakingProvider from '@/providers/local/staking.provider';
 import { getAddressFromPoolId } from '@/lib/utils';
 import { isL2 } from '@/composables/useNetwork';
 
@@ -225,7 +222,7 @@ export default defineComponent({
     GauntletIcon,
     LiquidityAPRTooltip,
     // StakingIncentivesCard,
-    StakingProvider,
+    // StakingProvider,
     LMIncentivesCard
   },
 

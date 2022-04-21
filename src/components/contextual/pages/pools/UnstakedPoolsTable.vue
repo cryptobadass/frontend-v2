@@ -78,15 +78,17 @@ const unstakedPools = computed(() => {
   // const availableGaugePoolIds = (userLiquidityGauges.value || []).map(
   //   gauge => gauge.poolId
   // );
-  return (userPools.value?.pools || [])
-    // .filter(pool => {
-    //   return availableGaugePoolIds?.includes(pool.id);
-    // })
-    .map(pool => ({
-      ...pool,
-      stakedPct: '0',
-      stakedShares: '0'
-    }));
+  return (
+    (userPools.value?.pools || [])
+      // .filter(pool => {
+      //   return availableGaugePoolIds?.includes(pool.id);
+      // })
+      .map(pool => ({
+        ...pool,
+        stakedPct: '0',
+        stakedShares: '0'
+      }))
+  );
 });
 
 const poolsToRender = computed(() => {

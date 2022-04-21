@@ -19,7 +19,7 @@ import InvestPreviewModal from './components/InvestPreviewModal/InvestPreviewMod
 import WrapStEthLink from '@/components/contextual/pages/pool/invest/WrapStEthLink.vue';
 import StakePreviewModal from '@/components/contextual/stake/StakePreviewModal.vue';
 
-import StakingProvider from '@/providers/local/staking.provider';
+// import StakingProvider from '@/providers/local/staking.provider';
 
 /**
  * TYPES
@@ -278,7 +278,7 @@ watch(useNativeAsset, shouldUseNativeAsset => {
       />
     </div>
 
-    <StakingProvider :poolAddress="pool.address">
+    <!-- <StakingProvider :poolAddress="pool.address"> -->
       <teleport to="#modal">
         <InvestPreviewModal
           v-if="showInvestPreview"
@@ -295,6 +295,6 @@ watch(useNativeAsset, shouldUseNativeAsset => {
           action="stake"
         /> -->
       </teleport>
-    </StakingProvider>
+    <!-- </StakingProvider> -->
   </div>
 </template>
