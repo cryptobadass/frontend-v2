@@ -51,13 +51,13 @@ const config: Config = {
     stablePoolFactory: '0x24f9aa126aC08D0B6e682F9E2139F6112D6191F5',
     tokenFactory: '0x01382FB56950655e42C17B73766c80e46b94fD53',
     weth: '0xbAD9016aa18Cf22d08aefd3B86c0D36E8C222B83',
-    stETH: '0x4803BB90d18a1Cb7a2187344Fe4feb0E07878D05', // metadata.concern.ts?5d42:89 Failed to fetch onchain meta
-    wstETH: '0xA387B91e393cFB9356A460370842BC8dBB2F29aF', // metadata.concern.ts?5d42:89 Failed to fetch onchain meta
+    stETH: '', // metadata.concern.ts?5d42:89 Failed to fetch onchain meta
+    wstETH: '', // metadata.concern.ts?5d42:89 Failed to fetch onchain meta
     lidoRelayer: '0x41B953164995c11C81DA73D212ED8Af25741b7Ac',
     MockFlashLoanReceiver: '',
     balancerHelpers: '0xB1ff50B7EFdF16A09626887189f4A2A93ED32570',
     batchRelayer: '0x6bfd48F3873E21F7686982d352b610E1523c218B',
-    veBAL: '0x0BA4d28a89b0aB0c48253f4f36B204DE24354651', // metadata.concern.ts?5d42:89 Failed to fetch onchain meta
+    veBAL: '0xBb57647DBB6E1f6DCa376039b94FCbf4d16D3bfE', //'0x0BA4d28a89b0aB0c48253f4f36B204DE24354651', // metadata.concern.ts?5d42:89 Failed to fetch onchain meta
     gaugeController: '0x28bE1a58A534B281c3A22df28d3720323bfF331D',
     gaugeFactory: '0xd561043759495414813103fD73928edeDbA3a29c',
     balancerMinter: '0xE1008f2871F5f5c3da47f806dEbA3cD83Fe0E55B'

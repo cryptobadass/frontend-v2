@@ -21,8 +21,8 @@ export default class GasPriceService {
 
   public async getLatest(): Promise<GasPrice | null> {
     switch (this.configService.network.key) {
-      case '43114':
-      case '43113':
+      // case '43114':
+      // case '43113':
       case '1':
         return await this.blocknativeProvider.getLatest();
       case '137':
