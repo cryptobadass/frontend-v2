@@ -14,7 +14,7 @@ export const defaultOptions: InitializationOptions = {
 // https://www.npmjs.com/package/bnc-sdk
 export default {
   install: app => {
-    const blocknative = {} //new BlocknativeSdk(defaultOptions);
+    const blocknative = {}; //new BlocknativeSdk(defaultOptions);
 
     // filter out pending simulation events
     // blocknative
