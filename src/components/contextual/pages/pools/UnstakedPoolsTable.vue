@@ -132,9 +132,10 @@ function handleModalClose() {
 <template>
   <BalStack vertical spacing="sm">
     <!-- <h5 v-if="!isL2">{{ $t('staking.unstakedPools') }}</h5> -->
+    <!-- :isLoading="isLoadingStakingData || isLoadingUserPools || isUserPoolsIdle" -->
     <PoolsTable
       :key="poolsToRender"
-      :isLoading="isLoadingStakingData || isLoadingUserPools || isUserPoolsIdle"
+      :isLoading="isLoadingUserPools || isUserPoolsIdle"
       :data="poolsToRender"
       :noPoolsLabel="$t('noInvestments')"
       :hiddenColumns="hiddenColumns"
