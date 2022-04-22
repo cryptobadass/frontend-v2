@@ -9,15 +9,15 @@ const distPath = path.resolve(__dirname, 'dist');
 const ssh = new NodeSSH();
 
 const config_all = {
-  qa: {
-    host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
-    pathUrl: '/usr/share/nginx',
-    webName: 'html',
-    // pathUrl: '/var/www/',
-    // webName: 'yotei.qa',
-    useName: 'ec2-user',
-    zipName: 'yotei_dist.zip'
-  },
+  // qa: {
+  //   host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
+  //   pathUrl: '/usr/share/nginx',
+  //   webName: 'html',
+  //   // pathUrl: '/var/www/',
+  //   // webName: 'yotei.qa',
+  //   useName: 'ec2-user',
+  //   zipName: 'yotei_dist.zip'
+  // },
   fuji: {
     host: 'ec2-44-200-25-74.compute-1.amazonaws.com',
     // pathUrl: '/usr/share/nginx',
@@ -36,7 +36,7 @@ const config_all = {
   }
 };
 
-const config = config_all[process.argv[2] || 'qa'];
+const config = config_all[process.argv[2] || 'fuji'];
 // nginx config :  /etc/nginx
 // console.log(config)
 

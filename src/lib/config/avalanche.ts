@@ -10,9 +10,8 @@ const config: Config = {
   portisNetwork: '',
   unknown: false,
   rpc: 'https://api.avax.network/ext/bc/C/rpc',
-  ws:
-    'wss://speedy-nodes-nyc.moralis.io/f7eaee720c05a3b9bb0ddefd/avalanche/mainnet/ws',
-  loggingRpc: '',
+  ws: 'wss://api.avax.network/ext/bc/C/ws',
+  loggingRpc: 'https://api.avax-test.network/ext/bc/C/rpc',
   explorer: 'https://snowtrace.io',
   explorerName: 'Snowtrace',
   subgraph:

@@ -412,9 +412,9 @@ export default defineComponent({
       );
     });
 
-    // const isStakeablePool = computed((): boolean =>
-    //   POOLS.Stakeable.AllowList.includes(route.params.id as string)
-    // );
+    const isStakeablePool = computed((): boolean =>
+      POOLS.Stakeable.AllowList.includes(route.params.id as string)
+    );
 
     /**
      * METHODS
@@ -472,7 +472,7 @@ export default defineComponent({
       copperNetworkPrefix,
       hasCustomToken,
       isL2,
-      // isStakeablePool,
+      isStakeablePool,
       // methods
       fNum2,
       onNewTx,
