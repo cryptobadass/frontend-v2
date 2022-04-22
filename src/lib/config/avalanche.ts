@@ -11,7 +11,7 @@ const config: Config = {
   unknown: false,
   rpc: 'https://api.avax.network/ext/bc/C/rpc',
   ws: 'wss://api.avax.network/ext/bc/C/ws',
-  loggingRpc: 'https://api.avax-test.network/ext/bc/C/rpc',
+  loggingRpc: 'https://api.avax.network/ext/bc/C/rpc',
   explorer: 'https://snowtrace.io',
   explorerName: 'Snowtrace',
   subgraph:
