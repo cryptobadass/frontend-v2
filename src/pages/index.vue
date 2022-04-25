@@ -94,6 +94,9 @@ watch(showMigrationColumn, () => console.log(showMigrationColumn.value));
 function navigateToCreatePool() {
   router.push({ name: 'create-pool' });
 }
+function navigateToCreateCopper() {
+  router.push({ name: 'create-copper' });
+}
 </script>
 
 <template>
@@ -149,6 +152,17 @@ function navigateToCreatePool() {
             :block="upToMediumBreakpoint"
           >
             {{ $t('createAPool.title') }}
+            <BalIcon name="chevron-right" size="sm" class="ml-1 text-cyan" />
+          </BalBtn>
+          <BalBtn
+            @click="navigateToCreateCopper"
+            color="cyan"
+            outline
+            size="sm"
+            :class="{ 'mt-4': upToMediumBreakpoint }"
+            :block="upToMediumBreakpoint"
+          >
+            {{ 'Create A Copper' }}
             <BalIcon name="chevron-right" size="sm" class="ml-1 text-cyan" />
           </BalBtn>
         </div>

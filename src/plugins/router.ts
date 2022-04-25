@@ -9,6 +9,9 @@ import CreatePoolPage from '@/pages/pool/create.vue';
 import TermsOfUsePage from '@/pages/terms-of-use.vue';
 import PrivacyPolicyPage from '@/pages/privacy-policy.vue';
 import CookiesPolicyPage from '@/pages/cookies-policy.vue';
+
+import CreateCopperPage from '@/pages/copper/create.vue';
+import UI from '@/pages/ui.vue';
 // import GetVeBalPage from '@/pages/get-vebal.vue';
 // import UnlockVeBalPage from '@/pages/unlock-vebal.vue';
 // import VeBalPage from '@/pages/vebal.vue';
@@ -63,6 +66,18 @@ const routes: RouteRecordRaw[] = [
     name: 'withdraw',
     component: PoolWithdrawPage,
     meta: { layout: 'PoolTransferLayout' }
+  },
+  {
+    path: '/copper/create',
+    name: 'create-copper',
+    component: CreateCopperPage,
+    meta: { layout: 'FocusedLayout' }
+  },
+  {
+    path: '/ui',
+    name: 'ui',
+    component: UI,
+    meta: { layout: 'BlankLayout' }
   },
   {
     path: '/liquidity-mining',
