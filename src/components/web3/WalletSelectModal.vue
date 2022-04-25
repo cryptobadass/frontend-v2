@@ -4,12 +4,11 @@
     <p class="pb-3 text-sm text-bluey-grey">
       {{ $t('byConnectingWallet') }}
       <router-link :to="{ name: 'terms-of-use' }" target="_blank">
-        <span className="link">{{ $t('policies.termsOfUse') }}</span
-        >,
+        <span className="link">{{ $t('policies.termsOfUse') }}</span>
       </router-link>
-      <router-link :to="{ name: 'cookies-policy' }" target="_blank">
+      <!-- <router-link :to="{ name: 'cookies-policy' }" target="_blank">
         <span className="link">{{ $t('policies.cookiesPolicy') }}</span>
-      </router-link>
+      </router-link> -->
       {{ $t('and') }}
       <router-link :to="{ name: 'privacy-policy' }" target="_blank">
         <span className="link">{{ $t('policies.privacyPolicy') }}</span
