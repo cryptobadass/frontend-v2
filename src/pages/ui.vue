@@ -222,7 +222,7 @@ function onFixedInput(val: string): void {
 .graph-modal {
   height: 450px;
 }
-.subsection{
-  @apply p-4 ;
+.subsection {
+  @apply p-4;
 }
 </style>

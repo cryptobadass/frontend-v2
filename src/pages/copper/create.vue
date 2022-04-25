@@ -88,7 +88,7 @@ const { removeAlert } = useAlerts();
 onBeforeMount(async () => {
   removeAlert('return-to-copper-creation');
 
-  // 
+  //
   // let previouslySavedState = lsGet(
   //   COPPER_CREATION_STATE_KEY,
   //   null,
