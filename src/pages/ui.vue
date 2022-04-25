@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white text-black min-h-screen">
+  <div class="bg-white text-black min-h-screen flex flex-col-reverse ">
     <div class="subsection">
       <h4>BalAccordion</h4>
       <p></p>
@@ -114,7 +114,91 @@
       <p>rightAlignHeader: boolean; default:false</p>
       <p>exposeOverflow: boolean; default: false</p>
       <p>overflowYScroll: boolean; default: false</p>
-      <div><BalCard /></div>
+      <p>shadow: '', none, sm, md, lg, xl,2xl, 3xl,4xl, default:''</p>
+      <div>
+        <BalCard
+          class="h-40"
+          title="this is a title"
+          titleTag="h3"
+          square
+          noPad
+          noContentPad
+          noBorder
+          darkBgColor="400"
+          imgSrc="https://img-operation.csdnimg.cn/csdn/silkroad/img/1649929536296.jpg?x-oss-process=image/resize,w_2048/format,webp"
+          growContent
+          rightAlignHeader
+          exposeOverflow
+          overflowYScroll
+          shadow="lg"
+        >
+          <template v-slot:header>
+            <div class="text-white">header</div>
+          </template>
+          <template v-slot:footer>
+            <div class="text-white">foot</div>
+          </template>
+          <div class="h-20 text-white">content1</div>
+          <div class="h-20 text-white">content2</div>
+          <div class="h-20 text-white">content3</div>
+        </BalCard>
+      </div>
+    </div>
+    <div class="subsection">
+      <h4>BalCarousel</h4>
+      <BalCarousel class="text-white text-center text-2xl ">
+        <div class="bg-yellow-200 h-20">1</div>
+        <div class="bg-yellow-400 h-20">2</div>
+        <div class="bg-yellow600 h-20">3</div>
+      </BalCarousel>
+    </div>
+    <div class="subsection">
+      <h4>BalCheckbox</h4>
+      <p>name:''</p>
+      <p>modelValue: boolean; default: false</p>
+      <BalCheckbox
+        :rules="[isRequired($t('priceImpactCheckbox'))]"
+        name="test"
+        label="priceImpactCheckbox"
+        size="lg"
+      />
+    </div>
+    <div class="subsection">
+      <h4>BalChip</h4>
+      <p>closeable: boolean ; default: false</p>
+      <p>size: 'sm' | 'md' | 'lg'; default: 'md'</p>
+      <p>color?: 'gray' | 'gradient' | 'white' | 'red' | 'cornflower';</p>
+      <p>outline: boolean; default: false</p>
+      <p>rounded: boolean; default: false</p>
+      <BalChip
+        label=" this is a Chip"
+        closeable
+        outline
+        rounded
+        color="gradient"
+      />
+    </div>
+    <div>
+      <h4>Baldropdown</h4>
+      <p></p>
+      <BalDropdown :options="options" minWidth="44" @selected="handleSelected">
+        <template #activator>
+          <div class="token-select-input selected group selectable">
+            <BalIcon
+              name="chevron-down"
+              size="sm"
+              class="text-white group-hover:text-cyan ml-2"
+            />
+          </div>
+        </template>
+        <template #option="{ option }">
+          <div class="flex items-center justify-between">
+            {{ option }}
+            <BalIcon name="check" class="text-blue-500 ml-2" />
+          </div>
+        </template>
+        BalDropdown
+      </BalDropdown>
     </div>
   </div>
 </template>
@@ -127,6 +211,7 @@ import { computed, onMounted, ref, reactive } from 'vue';
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
 import { sleep } from '@/lib/utils';
+import { isRequired } from '@/lib/utils/validations';
 
 // import useBreakpoints from '@/composables/useBreakpoints';
 // import useTokenLists from '@/composables/useTokenLists';
@@ -172,6 +257,8 @@ const ethereumTxTypeOptions = [
 const state = reactive({
   fixedSlippage: ''
 });
+
+const options = [111, 222, 333];
 
 /**
  * COMPOSABLES
