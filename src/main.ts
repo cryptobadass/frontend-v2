@@ -28,6 +28,10 @@ import '@/assets/css/index.css';
 import 'vue3-virtual-scroller/dist/vue3-virtual-scroller.css';
 import { Web3Provider } from '@ethersproject/providers';
 import Root from './Root';
+// import ElementPlus from 'element-plus';
+// import 'element-plus/dist/index.css';
+import Antd from 'ant-design-vue';
+// import 'ant-design-vue/dist/antd.css';
 
 use([
   TitleComponent,
@@ -45,6 +49,7 @@ use([
 ]);
 
 const app = createApp(Root)
+  .use(Antd)
   .use(i18n)
   .use(router)
   .use(store)

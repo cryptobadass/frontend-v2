@@ -24,9 +24,6 @@
           <ReviewSummary />
         </AnimatePresence>
         <AnimatePresence :isVisible="activeStep === 4">
-          <TermsOfUse />
-        </AnimatePresence>
-        <AnimatePresence :isVisible="activeStep === 5">
           <CreateLBP />
         </AnimatePresence>
       </div>
@@ -105,7 +102,7 @@ onBeforeMount(async () => {
 
 const steps = computed(() => [
   {
-    tooltip: 'Select token',
+    tooltip: 'Add Token Information',
     state: getStepState(0),
     label: 1
   },
@@ -124,15 +121,15 @@ const steps = computed(() => [
     state: getStepState(3),
     label: 4
   },
-  {
-    tooltip: 'Terms of Use',
-    state: getStepState(4),
-    label: 5
-  },
+  // {
+  //   tooltip: 'Terms of Use',
+  //   state: getStepState(4),
+  //   label: 5
+  // },
   {
     tooltip: 'Create LBP',
-    state: getStepState(5),
-    label: 6
+    state: getStepState(4),
+    label: 5
   }
 ]);
 

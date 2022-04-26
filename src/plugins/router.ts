@@ -78,7 +78,7 @@ const routes: RouteRecordRaw[] = [
     name: 'ui',
     component: UI,
     meta: { layout: 'BlankLayout' },
-    redirect: '/'
+    // redirect: '/'
   },
   {
     path: '/liquidity-mining',

@@ -2,18 +2,185 @@
   <div ref="cardWrapper" class="mb-16">
     <BalCard shadow="none">
       <BalStack vertical spacing="base">
-        <BalStack vertical spacing="xs">
-          <span class="text-xs text-gray-700 dark:text-bluey-grey">{{
-            networkName
-          }}</span>
-          <h5 class="font-bold dark:text-white border-b border-gunmetal pb-2">
-            Add Token Information
-          </h5>
+        <BalStack vertical spacing="sm">
+          <BalStack horizontal spacing="xs" align="center">
+            <button class="text-cyan-500 hover:text-cyan-700 flex">
+              <BalIcon class="flex" name="chevron-left" />
+            </button>
+            <h5 class="font-bold dark:text-white ">
+              LBP Configuration
+            </h5>
+          </BalStack>
+          <div class="h-px bg-gunmetal dark:border-gray-600"></div>
         </BalStack>
         <BalCard shadow="none" noBorder noPad class="bg-dark-3">
-          content
+          <!-- <div
+            class="grid grid-cols-1 xl:grid-cols-3 gap-y-8 gap-x-0 xl:gap-x-8"
+          ></div> -->
+          <div class=" mb-3">
+            <div class="font-bold mb-2">Deposit Quantities</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 mb-4">
+              <div class="col-span-1">
+                <div class="flex justify-between mb-2">
+                  <div>Main Token <span class="text-red-400">*</span></div>
+                  <div class="text-gray-400">Balance: 999999.99</div>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                  <div>
+                    <img
+                      class="inline-block"
+                      width="20"
+                      height="20"
+                      src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+                    />
+                    <span class="ml-2">LC</span>
+                  </div>
+                  <BalBtn outline label="MAX" color="cyan" size="xs" />
+                  <input
+                    class="p-1 w-20 h-8 text-right font-bold bg-gray-800"
+                    value="1000"
+                  />
+                </div>
+                <div class="text-xs text-right">~$1,000.00</div>
+              </div>
+              <div class="col-span-1">
+                <div class="flex justify-between mb-2">
+                  <div>base token<span class="text-red-400">*</span></div>
+                  <div class="text-gray-400">Balance: 999999.99</div>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                  <div>
+                    <img
+                      class="inline-block"
+                      width="20"
+                      height="20"
+                      src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+                    />
+                    <span class="ml-2">LC</span>
+                  </div>
+                  <BalBtn outline label="MAX" color="cyan" size="xs" />
+                  <input
+                    class="p-1 w-20 h-8 text-right font-bold bg-gray-800"
+                    value="1000"
+                  />
+                </div>
+                <div class="text-xs text-right">~$1,000.00</div>
+              </div>
+            </div>
+            <div class="font-bold mb-2">ChooseWeights</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 mb-4">
+              <div class="col-span-1">
+                <div class="flex justify-between mb-2">
+                  <div>Start Weights</div>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                  <div>
+                    <img
+                      class="inline-block"
+                      width="20"
+                      height="20"
+                      src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+                    />
+                    <span class="ml-2">LC</span>
+                  </div>
+                  <div>
+                    <img
+                      class="inline-block"
+                      width="20"
+                      height="20"
+                      src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+                    />
+                    <span class="ml-2">USDC</span>
+                  </div>
+                </div>
+                <div>
+                  <BalProgressBar
+                    :width="30"
+                    :bufferWidth="0"
+                    class="my-4"
+                    size="2"
+                  />
+                  <div class="flex items-center justify-between mb-2">
+                    <span>30%</span>
+                    <span>70%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-1">
+                <div class="flex justify-between mb-2">
+                  <div>End Weights</div>
+                </div>
+                <div class="flex items-center justify-between mb-2">
+                  <div>
+                    <img
+                      class="inline-block"
+                      width="20"
+                      height="20"
+                      src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+                    />
+                    <span class="ml-2">LC</span>
+                  </div>
+                  <div>
+                    <img
+                      class="inline-block"
+                      width="20"
+                      height="20"
+                      src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+                    />
+                    <span class="ml-2">USDC</span>
+                  </div>
+                </div>
+                <div>
+                  <BalProgressBar
+                    :width="30"
+                    :bufferWidth="0"
+                    class="my-4"
+                    size="2"
+                  />
+                  <div class="flex items-center justify-between mb-2">
+                    <span>30%</span>
+                    <span>70%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class=" font-bold mb-3">
+            <div class="font-bold mb-2">Duration</div>
+            <div>Start Date & End Date (UTC Time)</div>
+            <div class="text-red-400">TODO BalRangeDate</div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-6">
+            <div class="col-span-2 font-bold">
+              <div>Price Discovery Preview</div>
+              <BalLineChart
+                :data="series"
+                :isPeriodSelectionEnabled="false"
+                :color="chartColors"
+                height="96"
+                :showLegend="true"
+                :legendState="{ HODL: false }"
+                hide-y-axis
+              />
+            </div>
+            <div class="col-span-1 font-bold">
+              <BalCard>
+                <BalStack vertical spacing="sm">
+                  <div class="text-gray-400 text-sm">DURATION</div>
+                  <div class="font-bold text-white text-lg">7 days</div>
+                  <div class="text-gray-400 text-sm">IMPLIED MARKET CAP</div>
+                  <div class="font-bold text-white text-lg">$NaNt - $NaNt</div>
+                  <div class="text-gray-400 text-sm">PRICE RANGE</div>
+                  <div class="font-bold text-white text-lg">
+                    $Infinity - $Infinity
+                  </div>
+                </BalStack>
+              </BalCard>
+            </div>
+          </div>
         </BalCard>
       </BalStack>
+      <div class="mt-4"><BalBtn>Continue to LBP details</BalBtn></div>
     </BalCard>
   </div>
 </template>
@@ -39,6 +206,8 @@ import AnimatePresence from '@/components/animate/AnimatePresence.vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
+import useTailwind from '@/composables/useTailwind';
+const tailwind = useTailwind();
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
 
@@ -49,6 +218,16 @@ const emptyTokenWeight: PoolSeedToken = {
   isLocked: false,
   amount: '0'
 };
+const value1 = ref([
+  new Date(2022, 10, 10, 10, 10),
+  new Date(2024, 10, 11, 10, 10)
+]);
+const series = [
+  {
+    name: 'test',
+    values: [1, 2, 3, 4, 54, 5, 6, 7, 7, 8, 84, 3, 23, 5, 6, 8, 6, 9, 5, 5, 6]
+  }
+];
 
 /**
  * COMPOSABLES
@@ -75,6 +254,11 @@ const emptyTokenWeight: PoolSeedToken = {
  * STATE
  */
 const networkName = configService.network.name;
+const chartColors = computed(() => {
+  let color = tailwind.theme.colors.green['400'];
+  // if (isNegativeTrend.value) color = tailwind.theme.colors.red['400'];
+  return [color];
+});
 
 /**
  * COMPUTED

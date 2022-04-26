@@ -40,7 +40,7 @@ type FeeController = 'self' | 'other';
 const emptyPoolCreationState = {
   name: '',
   seedTokens: [] as PoolSeedToken[],
-  activeStep: 0,
+  activeStep: 4,
   initialFee: '0.003',
   isFeeGovManaged: false,
   feeManagementType: 'governance' as FeeManagementType,

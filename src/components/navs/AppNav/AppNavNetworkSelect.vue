@@ -129,7 +129,7 @@ export default defineComponent({
     }
 
     function appUrl(network: NetworkOption): string {
-      return `https://${network.subdomain}.balancer.fi`;
+      return `https://${network.subdomain}.yotei.finance`;
     }
 
     function isActive(network: NetworkOption): boolean {
