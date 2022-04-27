@@ -3,8 +3,6 @@ import { computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
-
-
 import CoppersTable from '@/components/tables/CoppersTable/CoppersTable.vue';
 
 import usePools from '@/composables/pools/usePools';

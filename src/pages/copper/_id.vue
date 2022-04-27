@@ -77,7 +77,6 @@ import TradeCardGP from '@/components/cards/TradeCardGP/TradeCardGP.vue';
 import { getAddressFromPoolId } from '@/lib/utils';
 import { isL2 } from '@/composables/useNetwork';
 
-
 interface PoolPageData {
   id: string;
 }
