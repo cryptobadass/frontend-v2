@@ -145,7 +145,6 @@
       </BalStack>
       <div class="mt-4"><BalBtn>Continue to LBP configuration</BalBtn></div>
     </BalCard>
-    
   </div>
 </template>
 

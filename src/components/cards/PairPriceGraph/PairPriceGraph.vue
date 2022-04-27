@@ -180,7 +180,6 @@ const chartData = computed(() => [
     values: priceData.value || []
   }
 ]);
-console.log('aaaaaaaaa', chartData.value)
 
 const isNegativeTrend = computed(() => {
   const _priceData = priceData.value || [];

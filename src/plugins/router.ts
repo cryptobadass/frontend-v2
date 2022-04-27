@@ -77,7 +77,7 @@ const routes: RouteRecordRaw[] = [
     path: '/ui',
     name: 'ui',
     component: UI,
-    meta: { layout: 'BlankLayout' },
+    meta: { layout: 'BlankLayout' }
     // redirect: '/'
   },
   {
