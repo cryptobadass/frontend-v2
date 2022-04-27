@@ -9,8 +9,9 @@ import CreatePoolPage from '@/pages/pool/create.vue';
 import TermsOfUsePage from '@/pages/terms-of-use.vue';
 import PrivacyPolicyPage from '@/pages/privacy-policy.vue';
 import CookiesPolicyPage from '@/pages/cookies-policy.vue';
-
+import CopperPage from '@/pages/copper/index.vue';
 import CreateCopperPage from '@/pages/copper/create.vue';
+import CopperDetail from '@/pages/copper/_id.vue';
 import UI from '@/pages/ui.vue';
 // import GetVeBalPage from '@/pages/get-vebal.vue';
 // import UnlockVeBalPage from '@/pages/unlock-vebal.vue';
@@ -68,10 +69,20 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: 'PoolTransferLayout' }
   },
   {
+    path: '/copper',
+    name: 'copper',
+    component: CopperPage
+  },
+  {
     path: '/copper/create',
     name: 'create-copper',
     component: CreateCopperPage,
     meta: { layout: 'FocusedLayout' }
+  },
+  {
+    path: '/copper/:id',
+    name: 'copper-detail',
+    component: CopperDetail
   },
   {
     path: '/ui',

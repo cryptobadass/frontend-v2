@@ -31,7 +31,8 @@ const blockIcon = ref<HTMLDivElement>();
 
 const navLinks = [
   { label: t('invest'), path: '/' },
-  { label: t('trade'), path: '/trade' }
+  { label: t('trade'), path: '/trade' },
+  { label: 'Copper', path: '/copper' }
   // { label: 'veBAL', path: '/vebal' },
   // { label: t('claim'), path: '/claim' }
 ];
@@ -50,8 +51,9 @@ const ecosystemLinks = [
 ];
 
 const socialLinks = [
-  { component: 'TwitterIcon', url: 'https://twitter.com/BalancerLabs' },
-  { component: 'DiscordIcon', url: 'https://discord.balancer.fi/' }
+  { component: 'TwitterIcon', url: 'https://twitter.com/yoteifinance' },
+  { component: 'DiscordIcon', url: 'https://discord.com/invite/pVUQXeHv2W' },
+  { component: 'TelegramIcon', url: 'https://t.me/yoteifinance' }
   // { component: 'MediumIcon', url: 'https://medium.com/balancer-protocol' },
   // {
   //   component: 'YoutubeIcon',
@@ -135,11 +137,7 @@ watch(blockNumber, async () => {
       >
         <component :is="link.component" />
       </BalLink>
-      <BalLink
-        href="mailto:contact@balancer.finance"
-        class="social-link"
-        noStyle
-      >
+      <BalLink href="mailto:dev@yotei.finance" class="social-link" noStyle>
         <EmailIcon />
       </BalLink>
     </div>

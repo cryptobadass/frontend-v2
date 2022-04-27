@@ -24,6 +24,9 @@ function isActive(page: string): boolean {
     <DesktopLinkItem to="/trade" :active="isActive('trade')">
       {{ $t('trade') }}
     </DesktopLinkItem>
+    <DesktopLinkItem to="/copper" :active="isActive('copper')">
+      {{ $t('copper') }}
+    </DesktopLinkItem>
     <!-- <DesktopLinkItem to="/vebal" :active="isActive('vebal')">
       veBAL
     </DesktopLinkItem>
