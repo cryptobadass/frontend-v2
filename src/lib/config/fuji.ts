@@ -61,8 +61,12 @@ const config: Config = {
     gaugeController: '0x28bE1a58A534B281c3A22df28d3720323bfF331D',
     gaugeFactory: '0xd561043759495414813103fD73928edeDbA3a29c',
     balancerMinter: '0xE1008f2871F5f5c3da47f806dEbA3cD83Fe0E55B',
-    copperProxyV2: '0x4DA66fA19e20C5EFdD053B137d05930156fa99Bf',
-    blockList: '0x3594F6cBf67e3603DF9c8E74f3010A0b4E473457'
+    // first
+    // copperProxyV2: '0x4DA66fA19e20C5EFdD053B137d05930156fa99Bf',
+    // blockList: '0x3594F6cBf67e3603DF9c8E74f3010A0b4E473457',
+    // second
+    copperProxyV2: '0x2ac87650654AB7E5Cc8d6369534Bfda023991244',
+    blockList: '0xE40fb333D61e90E17013dE523DCCF553BfbEA67D'
   },
   keys: {
     infura: '',

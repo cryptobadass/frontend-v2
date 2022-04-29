@@ -54,7 +54,7 @@ export default class LBPService {
     // const swapFeeScaled = scale(new BigNumber(swapFee), 18);
 
     const params = [poolConfig];
-    debugger;
+    // debugger;
     return sendTransaction(
       provider,
       copperProxyV2Address,
