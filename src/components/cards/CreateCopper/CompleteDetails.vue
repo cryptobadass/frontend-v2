@@ -146,7 +146,9 @@
           </div>
         </BalCard>
       </BalStack>
-      <div class="mt-4"><BalBtn @click="proceed">Continue to LBP configuration</BalBtn></div>
+      <div class="mt-4">
+        <BalBtn @click="proceed">Continue to LBP configuration</BalBtn>
+      </div>
     </BalCard>
   </div>
 </template>

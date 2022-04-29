@@ -80,7 +80,6 @@ export interface Config {
       name: string;
     }
   >;
-  
 }
 
 const config: Record<Network | number, Config> = {
