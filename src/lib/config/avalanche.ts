@@ -59,7 +59,9 @@ const config: Config = {
     veBAL: '0xBb57647DBB6E1f6DCa376039b94FCbf4d16D3bfE',
     gaugeController: '',
     gaugeFactory: '',
-    balancerMinter: ''
+    balancerMinter: '',
+    copperProxyV2: '0x16B7913B4d63a99e298a0bBE4f120AfB6A3932d8',
+    blockList: '0xD008286A21b29bb0cDb85ab2449A28CEC448Eb69'
   },
   keys: {
     infura: '',

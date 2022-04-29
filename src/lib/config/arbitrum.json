@@ -46,7 +46,9 @@
     "veBAL": "",
     "gaugeController": "",
     "gaugeFactory": "",
-    "balancerMinter": ""
+    "balancerMinter": "",
+    "copperProxyV2":"",
+    "blockList":""
   },
   "keys": {
     "infura": "1e629b40371341d1bfe9fcac27905d8c",

@@ -4,7 +4,10 @@
       <BalStack vertical spacing="base">
         <BalStack vertical spacing="sm">
           <BalStack horizontal spacing="xs" align="center">
-            <button class="text-cyan-500 hover:text-cyan-700 flex">
+            <button
+              @click="goBack"
+              class="text-cyan-500 hover:text-cyan-700 flex"
+            >
               <BalIcon class="flex" name="chevron-left" />
             </button>
             <h5 class="font-bold dark:text-white ">
@@ -179,7 +182,7 @@
         </BalCard>
       </BalStack>
       <div class="mt-4">
-        <BalBtn>Continue to creation transactions </BalBtn>
+        <BalBtn @click="proceed">Continue to creation transactions </BalBtn>
       </div>
     </BalCard>
   </div>
@@ -206,6 +209,7 @@ import AnimatePresence from '@/components/animate/AnimatePresence.vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
+import useCopperCreation from '@/composables/copper/useCopperCreation';
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
 
@@ -220,17 +224,7 @@ const emptyTokenWeight: PoolSeedToken = {
 /**
  * COMPOSABLES
  */
-// const {
-//   updateTokenWeights,
-//   proceed,
-//   acceptCustomTokenDisclaimer,
-//   setTokensList,
-//   seedTokens,
-//   tokensList,
-//   totalLiquidity,
-//   hasInjectedToken,
-//   acceptedCustomTokenDisclaimer
-// } = usePoolCreation();
+const { proceed, goBack } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();

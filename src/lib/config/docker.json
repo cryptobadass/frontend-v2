@@ -45,7 +45,9 @@
     "merkleOrchard": "",
     "batchRelayer": "",
     "veBAL": "",
-    "balancerMinter": ""
+    "balancerMinter": "",
+    "copperProxyV2":"",
+    "blockList":""
   },
   "keys": {},
   "strategies": {

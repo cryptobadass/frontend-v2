@@ -4,7 +4,10 @@
       <BalStack vertical spacing="base">
         <BalStack vertical spacing="sm">
           <BalStack horizontal spacing="xs" align="center">
-            <button class="text-cyan-500 hover:text-cyan-700 flex">
+            <button
+              @click="goBack"
+              class="text-cyan-500 hover:text-cyan-700 flex"
+            >
               <BalIcon class="flex" name="chevron-left" />
             </button>
             <h5 class="font-bold dark:text-white ">
@@ -180,7 +183,9 @@
           </div>
         </BalCard>
       </BalStack>
-      <div class="mt-4"><BalBtn>Continue to LBP details</BalBtn></div>
+      <div class="mt-4">
+        <BalBtn @click="proceed">Continue to LBP details</BalBtn>
+      </div>
     </BalCard>
   </div>
 </template>
@@ -207,6 +212,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import useTailwind from '@/composables/useTailwind';
+import useCopperCreation from '@/composables/copper/useCopperCreation';
 const tailwind = useTailwind();
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
@@ -232,17 +238,18 @@ const series = [
 /**
  * COMPOSABLES
  */
-// const {
-//   updateTokenWeights,
-//   proceed,
-//   acceptCustomTokenDisclaimer,
-//   setTokensList,
-//   seedTokens,
-//   tokensList,
-//   totalLiquidity,
-//   hasInjectedToken,
-//   acceptedCustomTokenDisclaimer
-// } = usePoolCreation();
+const {
+  // updateTokenWeights,
+  proceed,
+  goBack
+  // acceptCustomTokenDisclaimer,
+  // setTokensList,
+  // seedTokens,
+  // tokensList,
+  // totalLiquidity,
+  // hasInjectedToken,
+  // acceptedCustomTokenDisclaimer
+} = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();

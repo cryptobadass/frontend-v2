@@ -66,6 +66,8 @@ export interface Config {
     gaugeController: string;
     gaugeFactory: string;
     balancerMinter: string;
+    copperProxyV2: string;
+    blockList: string;
   };
   keys: {
     infura: string;
@@ -78,6 +80,7 @@ export interface Config {
       name: string;
     }
   >;
+  
 }
 
 const config: Record<Network | number, Config> = {

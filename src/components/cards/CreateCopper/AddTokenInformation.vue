@@ -96,7 +96,11 @@
               </BalCard>
             </div>
           </div>
-          <div class="mt-4"><BalBtn>Continue to LBP configuration</BalBtn></div>
+          <div class="mt-4">
+            <BalBtn @click="proceed">Continue to LBP configuration</BalBtn>
+            <BalBtn class="ml-2" @click="createLBP">createLBP</BalBtn>
+            <BalBtn class="ml-2" @click="approve">approve</BalBtn>
+          </div>
         </BalCard>
       </BalStack>
     </BalCard>
@@ -124,6 +128,7 @@ import AnimatePresence from '@/components/animate/AnimatePresence.vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
+import useCopperCreation from '@/composables/copper/useCopperCreation';
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
 
@@ -145,17 +150,19 @@ const activeNetwork = {
 /**
  * COMPOSABLES
  */
-// const {
-//   updateTokenWeights,
-//   proceed,
-//   acceptCustomTokenDisclaimer,
-//   setTokensList,
-//   seedTokens,
-//   tokensList,
-//   totalLiquidity,
-//   hasInjectedToken,
-//   acceptedCustomTokenDisclaimer
-// } = usePoolCreation();
+const {
+  // updateTokenWeights,
+  proceed,
+  // acceptCustomTokenDisclaimer,
+  // setTokensList,
+  // seedTokens,
+  // tokensList,
+  // totalLiquidity,
+  // hasInjectedToken,
+  // acceptedCustomTokenDisclaimer,
+  createLBP,
+  approve
+} = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();

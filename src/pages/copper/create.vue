@@ -10,20 +10,45 @@
           />
         </BalStack>
       </div>
-      <div class="col-span-3 order-2 px-1">
-        <AnimatePresence :isVisible="activeStep === 0">
+      <div class="relative col-span-3 order-2 px-1">
+        <AnimatePresence
+          :isVisible="activeStep === 0"
+          :initial="initialAnimateProps"
+          :animate="entryAnimateProps"
+          :exit="exitAnimateProps"
+        >
           <AddTokenInformation />
         </AnimatePresence>
-        <AnimatePresence :isVisible="activeStep === 1">
+        <AnimatePresence
+          :isVisible="activeStep === 1"
+          :initial="initialAnimateProps"
+          :animate="entryAnimateProps"
+          :exit="exitAnimateProps"
+        >
           <ConfigureSetting />
         </AnimatePresence>
-        <AnimatePresence :isVisible="activeStep === 2">
+        <AnimatePresence
+          :isVisible="activeStep === 2"
+          :initial="initialAnimateProps"
+          :animate="entryAnimateProps"
+          :exit="exitAnimateProps"
+        >
           <CompleteDetail />
         </AnimatePresence>
-        <AnimatePresence :isVisible="activeStep === 3">
+        <AnimatePresence
+          :isVisible="activeStep === 3"
+          :initial="initialAnimateProps"
+          :animate="entryAnimateProps"
+          :exit="exitAnimateProps"
+        >
           <ReviewSummary />
         </AnimatePresence>
-        <AnimatePresence :isVisible="activeStep === 4">
+        <AnimatePresence
+          :isVisible="activeStep === 4"
+          :initial="initialAnimateProps"
+          :animate="entryAnimateProps"
+          :exit="exitAnimateProps"
+        >
           <CreateLBP />
         </AnimatePresence>
       </div>
@@ -132,6 +157,29 @@ const steps = computed(() => [
     label: 5
   }
 ]);
+const initialAnimateProps = computed(() => ({
+  opacity: 0,
+  translateY: '100px',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0
+}));
+
+const entryAnimateProps = computed(() => ({
+  opacity: 1,
+  translateY: '0px',
+  position: 'relative'
+}));
+
+const exitAnimateProps = computed(() => ({
+  opacity: 0,
+  translateY: '-100px',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0
+}));
 
 /**
  * FUNCTIONS

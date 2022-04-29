@@ -60,7 +60,9 @@ const config: Config = {
     veBAL: '0xBb57647DBB6E1f6DCa376039b94FCbf4d16D3bfE', //'0x0BA4d28a89b0aB0c48253f4f36B204DE24354651', // metadata.concern.ts?5d42:89 Failed to fetch onchain meta
     gaugeController: '0x28bE1a58A534B281c3A22df28d3720323bfF331D',
     gaugeFactory: '0xd561043759495414813103fD73928edeDbA3a29c',
-    balancerMinter: '0xE1008f2871F5f5c3da47f806dEbA3cD83Fe0E55B'
+    balancerMinter: '0xE1008f2871F5f5c3da47f806dEbA3cD83Fe0E55B',
+    copperProxyV2: '0x4DA66fA19e20C5EFdD053B137d05930156fa99Bf',
+    blockList: '0x3594F6cBf67e3603DF9c8E74f3010A0b4E473457'
   },
   keys: {
     infura: '',
