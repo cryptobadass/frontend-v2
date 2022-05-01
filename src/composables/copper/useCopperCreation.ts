@@ -40,18 +40,18 @@ type FeeType = 'fixed' | 'dynamic';
 type FeeController = 'self' | 'other';
 
 const emptyPoolCreationState = {
-  name: 'lance', // stringπ
-  symbol: 'LC', // string
+  name: 'Token', // stringπ
+  symbol: 'UNI.e', // string
   tokens: [
-    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
-    '0x0eA185018F0cA3f8c545424d27bE300B22EE31D4'
+    '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846'
   ] as string[], // address[]
-  amounts: [10000, 100] as number[], // uint256[]
-  weights: [90, 10] as number[], // uint256[]
-  endWeights: [50, 50] as number[], // uint256[]
+  amounts: ['10000000000000000000', '10000000000000000000'] as string[], // uint256[]
+  weights: ['300000000000000000', '700000000000000000'] as string[], // uint256[]
+  endWeights: ['200000000000000000', '800000000000000000'] as string[], // uint256[]
   isCorrectOrder: true, // bool
-  swapFeePercentage: 1, // uint256
-  startTime: 1651334400 as number, // uint256
+  swapFeePercentage: '25000000000000000', // uint256
+  startTime: 1652398300 as number, // uint256
   endTime: 1659283200 as number, // uint256
 
   // seedTokens: [] as PoolSeedToken[],
@@ -407,18 +407,30 @@ export default function useCopperCreation() {
 
   async function createLBP(): Promise<TransactionResponse> {
     const provider = getProvider();
-    const poolConfig = {
-      name: poolCreationState.name,
-      symbol: poolCreationState.symbol,
-      tokens: poolCreationState.tokens,
-      amounts: poolCreationState.amounts,
-      weights: poolCreationState.weights,
-      endWeights: poolCreationState.endWeights,
-      isCorrectOrder: poolCreationState.isCorrectOrder,
-      swapFeePercentage: poolCreationState.swapFeePercentage,
-      startTime: poolCreationState.startTime,
-      endTime: poolCreationState.endTime
-    };
+    // const poolConfig = {
+    //   name: poolCreationState.name,
+    //   symbol: poolCreationState.symbol,
+    //   tokens: poolCreationState.tokens,
+    //   amounts: poolCreationState.amounts,
+    //   weights: poolCreationState.weights,
+    //   endWeights: poolCreationState.endWeights,
+    //   isCorrectOrder: poolCreationState.isCorrectOrder,
+    //   swapFeePercentage: poolCreationState.swapFeePercentage,
+    //   startTime: poolCreationState.startTime,
+    //   endTime: poolCreationState.endTime
+    // };
+    const poolConfig = [
+      poolCreationState.name,
+      poolCreationState.symbol,
+      poolCreationState.tokens,
+      poolCreationState.amounts,
+      poolCreationState.weights,
+      poolCreationState.endWeights,
+      poolCreationState.isCorrectOrder,
+      poolCreationState.swapFeePercentage,
+      poolCreationState.startTime,
+      poolCreationState.endTime
+    ];
     try {
       const tx = await copperService.pools.lbp.create(provider, poolConfig);
       // poolCreationState.createPoolTxHash = tx.hash;
@@ -455,11 +467,13 @@ export default function useCopperCreation() {
     try {
       const [tx] = await approveTokens(
         getProvider(),
-        '0x4DA66fA19e20C5EFdD053B137d05930156fa99Bf',
+        '0x2ac87650654AB7E5Cc8d6369534Bfda023991244',
+        // '0x4DA66fA19e20C5EFdD053B137d05930156fa99Bf',
         [
-          '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
-          '0x0eA185018F0cA3f8c545424d27bE300B22EE31D4'
+          '0x286EA60Cb66ba7647C8143c5d467594B92A3734C', // uni.e
+          '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846'
         ]
+        // 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846  link
       );
       console.log('aaaaaa', tx);
     } catch (e) {

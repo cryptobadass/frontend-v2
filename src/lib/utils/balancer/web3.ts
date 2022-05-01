@@ -43,13 +43,17 @@ export async function sendTransaction(
   const paramsOverrides = { ...overrides };
   try {
     // Gas estimation
+    // have error Fail with error 'BAL#101'
     const gasLimitNumber = await contractWithSigner.estimateGas[action](
       ...params,
       paramsOverrides
     );
 
     const gasLimit = gasLimitNumber.toNumber();
+    // console.log('gasLimit: ', gasLimit);
+    // const gasLimit = 4739888;
     paramsOverrides.gasLimit = Math.floor(gasLimit * (1 + GAS_LIMIT_BUFFER));
+    // debugger
 
     if (
       USE_BLOCKNATIVE_GAS_PLATFORM &&
