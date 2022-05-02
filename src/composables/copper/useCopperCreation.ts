@@ -43,8 +43,9 @@ const emptyPoolCreationState = {
   name: 'Token', // stringπ
   symbol: 'UNI.e', // string
   tokens: [
+    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
     '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
-    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846'
+    // '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846'
   ] as string[], // address[]
   amounts: ['10000000000000000000', '10000000000000000000'] as string[], // uint256[]
   weights: ['300000000000000000', '700000000000000000'] as string[], // uint256[]
@@ -100,11 +101,11 @@ export default function useCopperCreation() {
   /**
    * COMPUTED
    */
-  // const tokensList = computed(() =>
-  //   [...poolCreationState.tokensList].sort((tokenA, tokenB) => {
-  //     return tokenA > tokenB ? 1 : -1;
-  //   })
-  // );
+  const tokensList = computed(() =>
+    [...poolCreationState.tokens].sort((tokenA, tokenB) => {
+      return tokenA > tokenB ? 1 : -1;
+    })
+  );
 
   // const hasInjectedToken = computed(() => {
   //   return tokensList.value.some(
