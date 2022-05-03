@@ -44,7 +44,7 @@ const emptyPoolCreationState = {
   symbol: 'UNI.e', // string
   tokens: [
     '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
-    '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+    '0x286EA60Cb66ba7647C8143c5d467594B92A3734C'
     // '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846'
   ] as string[], // address[]
   amounts: ['10000000000000000000', '10000000000000000000'] as string[], // uint256[]
