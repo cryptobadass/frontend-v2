@@ -23,11 +23,11 @@ export default defineComponent({
     const day = ref<any>('');
     const time = ref('');
 
-    console.log('props,',props.modelValue)
+    console.log('props,', props.modelValue);
 
     if (props.modelValue) {
       console.log(props.modelValue);
-     
+
       // time.value = format(
       //   fromUnixTime(new Date(props.modelValue).getTime() / 1000),
       //   'HH:mm'
