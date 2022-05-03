@@ -49,6 +49,7 @@ const emptyPoolCreationState = {
   ] as string[], // address[]
   amounts: ['10000000000000000000', '10000000000000000000'] as string[], // uint256[]
   weights: ['300000000000000000', '700000000000000000'] as string[], // uint256[]
+  per: [0.3, 0.7],
   endWeights: ['200000000000000000', '800000000000000000'] as string[], // uint256[]
   isCorrectOrder: true, // bool
   swapFeePercentage: '25000000000000000', // uint256
@@ -56,7 +57,7 @@ const emptyPoolCreationState = {
   endTime: 1659283200 as number, // uint256
 
   // seedTokens: [] as PoolSeedToken[],
-  activeStep: 0
+  activeStep: 1
   // initialFee: '0.003',
   // isFeeGovManaged: false,
   // feeManagementType: 'governance' as FeeManagementType,

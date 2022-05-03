@@ -97,12 +97,14 @@
                   </div>
                 </div>
                 <div>
-                  <BalProgressBar
+                  <!-- <BalProgressBar
                     :width="30"
                     :bufferWidth="0"
                     class="my-4"
                     size="2"
-                  />
+                  /> -->
+                  <BalSlider v-model="per[0]" />
+                  <BalToggle  />
                   <div class="flex items-center justify-between mb-2">
                     <span>30%</span>
                     <span>70%</span>
@@ -134,12 +136,13 @@
                   </div>
                 </div>
                 <div>
-                  <BalProgressBar
+                  <!-- <BalProgressBar
                     :width="30"
                     :bufferWidth="0"
                     class="my-4"
                     size="2"
-                  />
+                  /> -->
+                  <BalSlider v-model="per[0]" />
                   <div class="flex items-center justify-between mb-2">
                     <span>30%</span>
                     <span>70%</span>
@@ -213,6 +216,8 @@ import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import useTailwind from '@/composables/useTailwind';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
+import BalSlider from '@/components/_global/BalSlider/BalSlider.vue';
+import BalToggle from '@/components/_global/BalToggle/BalToggle.vue';
 const tailwind = useTailwind();
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
@@ -241,7 +246,7 @@ const series = [
 const {
   // updateTokenWeights,
   proceed,
-  goBack
+  goBack,
   // acceptCustomTokenDisclaimer,
   // setTokensList,
   // seedTokens,
@@ -249,6 +254,7 @@ const {
   // totalLiquidity,
   // hasInjectedToken,
   // acceptedCustomTokenDisclaimer
+  per
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
