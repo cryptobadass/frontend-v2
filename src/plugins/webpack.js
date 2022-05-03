@@ -1,7 +1,17 @@
 // const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const { version } = require('../../package.json');
+const AutoImport = require('unplugin-auto-import/webpack');
+const Components = require('unplugin-vue-components/webpack');
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers');
 
-const plugins = [];
+const plugins = [
+  AutoImport({
+    resolvers: [ElementPlusResolver()]
+  }),
+  Components({
+    resolvers: [ElementPlusResolver()]
+  })
+];
 
 // if (process.env.VUE_APP_SENTRY_AUTH_TOKEN) {
 //   const release = `frontend-v2@${version}`;

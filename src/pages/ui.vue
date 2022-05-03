@@ -200,6 +200,9 @@
         BalDropdown
       </BalDropdown>
     </div>
+    <div>
+      <BalRangeInput />
+    </div>
   </div>
 </template>
 <script setup lang="ts">

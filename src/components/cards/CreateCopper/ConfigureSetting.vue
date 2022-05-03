@@ -103,8 +103,9 @@
                     class="my-4"
                     size="2"
                   /> -->
-                  <BalSlider v-model="per[0]" />
-                  <BalToggle />
+                  <div class="p-2"><BalRangeInput v-model="per[0]" /></div>
+
+                  <!-- <BalToggle /> -->
                   <div class="flex items-center justify-between mb-2">
                     <span>30%</span>
                     <span>70%</span>
@@ -142,7 +143,7 @@
                     class="my-4"
                     size="2"
                   /> -->
-                  <BalSlider v-model="per[0]" />
+                  <div class="p-2"><BalRangeInput v-model="per[0]" /></div>
                   <div class="flex items-center justify-between mb-2">
                     <span>30%</span>
                     <span>70%</span>
@@ -153,8 +154,27 @@
           </div>
           <div class=" font-bold mb-3">
             <div class="font-bold mb-2">Duration</div>
-            <div>Start Date & End Date (UTC Time)</div>
-            <div class="text-red-400">TODO BalRangeDate</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 mb-4">
+              <div class="col-span-1">
+                <div class="mb-2">Start Date & End Date (UTC Time)</div>
+                <el-date-picker
+                  v-model="value1"
+                  type="datetimerange"
+                  range-separator="To"
+                  start-placeholder="Start date"
+                  end-placeholder="End date"
+                  format="YYYY-MM-DD HH:mm"
+                />
+              </div>
+              <!-- <div class="col-span-1">
+                <div>Start Date (UTC Time)</div>
+                <BalRangeDate v-model="value1" />
+              </div>
+              <div class="col-span-1">
+                <div>End Date (UTC Time)</div>
+                <BalRangeDate v-model="value1" />
+              </div> -->
+            </div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-6">
             <div class="col-span-2 font-bold">
@@ -216,8 +236,9 @@ import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import useTailwind from '@/composables/useTailwind';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
-import BalSlider from '@/components/_global/BalSlider/BalSlider.vue';
+// import BalSlider from '@/components/_global/BalSlider/BalSlider.vue';
 import BalToggle from '@/components/_global/BalToggle/BalToggle.vue';
+import BalRangeDate from '@/components/_global/BalRangeDate/BalRangeDate.vue';
 const tailwind = useTailwind();
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
@@ -229,16 +250,20 @@ const emptyTokenWeight: PoolSeedToken = {
   isLocked: false,
   amount: '0'
 };
-const value1 = ref([
-  new Date(2022, 10, 10, 10, 10),
-  new Date(2024, 10, 11, 10, 10)
-]);
+const value1 = ref('');
+watch(value1, () => {
+  console.log('watch', value1);
+});
 const series = [
   {
     name: 'test',
     values: [1, 2, 3, 4, 54, 5, 6, 7, 7, 8, 84, 3, 23, 5, 6, 8, 6, 9, 5, 5, 6]
   }
 ];
+function disabledDate(v) {
+  console.log(v);
+  return false;
+}
 
 /**
  * COMPOSABLES
