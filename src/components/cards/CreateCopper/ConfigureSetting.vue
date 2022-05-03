@@ -104,7 +104,7 @@
                     size="2"
                   /> -->
                   <BalSlider v-model="per[0]" />
-                  <BalToggle  />
+                  <BalToggle />
                   <div class="flex items-center justify-between mb-2">
                     <span>30%</span>
                     <span>70%</span>
