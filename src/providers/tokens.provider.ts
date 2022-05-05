@@ -309,6 +309,7 @@ export default {
       if (!query) return removeExcluded(tokens.value, excluded);
 
       if (isAddress(query)) {
+        // debugger
         const address = getAddress(query);
         const token = allTokenListTokens.value[address];
         if (token) {

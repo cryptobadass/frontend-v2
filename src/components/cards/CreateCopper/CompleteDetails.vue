@@ -52,8 +52,10 @@
               <div class="font-bold mb-4">Swap Fee</div>
               <div class="mb-2">
                 <input
-                  class="border border-gray-400 rounded p-2 input flex-auto w-40 bg-transparent"
-                  placeholder="2.5"
+                  class="border border-gray-400 rounded p-2 mr-2 input flex-auto w-40 bg-transparent text-right"
+                  placeholder=""
+                  v-model="swapFeePercentage"
+                  type="number"
                 />%
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
@@ -189,7 +191,7 @@ const emptyTokenWeight: PoolSeedToken = {
 /**
  * COMPOSABLES
  */
-const { proceed, goBack } = useCopperCreation();
+const { proceed, goBack, swapFeePercentage } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();

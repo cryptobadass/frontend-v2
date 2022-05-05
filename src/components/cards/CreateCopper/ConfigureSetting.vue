@@ -26,9 +26,17 @@
               <div class="col-span-1">
                 <div class="flex justify-between mb-2">
                   <div>Main Token <span class="text-red-400">*</span></div>
-                  <div class="text-gray-400">Balance: 999999.99</div>
+                  <!-- <div class="text-gray-400">Balance: 999999.99</div> -->
                 </div>
-                <div class="flex items-center justify-between mb-2">
+                <div>
+                  <TokenInput
+                    v-model:amount="mainTokenAmount"
+                    v-model:address="mainTokenAddress"
+                    fixedToken
+                    :name="`initial-token-${mainToken.tokenAddress}`"
+                  />
+                </div>
+                <!-- <div class="flex items-center justify-between mb-2">
                   <div>
                     <img
                       class="inline-block"
@@ -44,14 +52,23 @@
                     value="1000"
                   />
                 </div>
-                <div class="text-xs text-right">~$1,000.00</div>
+                <div class="text-xs text-right">~$1,000.00</div> -->
               </div>
               <div class="col-span-1">
                 <div class="flex justify-between mb-2">
-                  <div>base token<span class="text-red-400">*</span></div>
-                  <div class="text-gray-400">Balance: 999999.99</div>
+                  <div>Base token<span class="text-red-400">*</span></div>
+                  <!-- <div class="text-gray-400">Balance: 999999.99</div> -->
                 </div>
-                <div class="flex items-center justify-between mb-2">
+                <div>
+                  <TokenInput
+                    v-model:amount="baseTokenAmount"
+                    v-model:address="baseTokenAddress"
+                    fixedToken
+                    :name="`initial-token-${mainToken.tokenAddress}`"
+                    :options="baseTokenOptions"
+                  />
+                </div>
+                <!-- <div class="flex items-center justify-between mb-2">
                   <div>
                     <img
                       class="inline-block"
@@ -67,7 +84,7 @@
                     value="1000"
                   />
                 </div>
-                <div class="text-xs text-right">~$1,000.00</div>
+                <div class="text-xs text-right">~$1,000.00</div> -->
               </div>
             </div>
             <div class="font-bold mb-2">ChooseWeights</div>
@@ -78,22 +95,24 @@
                 </div>
                 <div class="flex items-center justify-between mb-2">
                   <div>
-                    <img
+                    <TokenSelectInput v-model="mainTokenAddress" fixed />
+                    <!-- <img
                       class="inline-block"
                       width="20"
                       height="20"
                       src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
                     />
-                    <span class="ml-2">LC</span>
+                    <span class="ml-2">LC</span> -->
                   </div>
                   <div>
-                    <img
+                    <TokenSelectInput v-model="baseTokenAddress" fixed/>
+                    <!-- <img
                       class="inline-block"
                       width="20"
                       height="20"
                       src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
                     />
-                    <span class="ml-2">USDC</span>
+                    <span class="ml-2">USDC</span> -->
                   </div>
                 </div>
                 <div>
@@ -103,13 +122,20 @@
                     class="my-4"
                     size="2"
                   /> -->
-                  <div class="p-2"><BalRangeInput v-model="per[0]" /></div>
+                  <div class="p-2">
+                    <BalRangeInput :max="99" :min="1" v-model="startWeight">
+                      <template v-slot:leftLabel>{{ startWeight }}%</template>
+                      <template v-slot:rightLabel
+                        >{{ 100 - startWeight }}%</template
+                      >
+                    </BalRangeInput>
+                  </div>
 
                   <!-- <BalToggle /> -->
-                  <div class="flex items-center justify-between mb-2">
+                  <!-- <div class="flex items-center justify-between mb-2">
                     <span>30%</span>
                     <span>70%</span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
               <div class="col-span-1">
@@ -118,22 +144,24 @@
                 </div>
                 <div class="flex items-center justify-between mb-2">
                   <div>
-                    <img
+                    <TokenSelectInput v-model="mainTokenAddress" fixed />
+                    <!-- <img
                       class="inline-block"
                       width="20"
                       height="20"
                       src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
                     />
-                    <span class="ml-2">LC</span>
+                    <span class="ml-2">LC</span> -->
                   </div>
                   <div>
-                    <img
+                    <TokenSelectInput v-model="baseTokenAddress" fixed />
+                    <!-- <img
                       class="inline-block"
                       width="20"
                       height="20"
                       src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
                     />
-                    <span class="ml-2">USDC</span>
+                    <span class="ml-2">USDC</span> -->
                   </div>
                 </div>
                 <div>
@@ -143,11 +171,18 @@
                     class="my-4"
                     size="2"
                   /> -->
-                  <div class="p-2"><BalRangeInput v-model="per[0]" /></div>
-                  <div class="flex items-center justify-between mb-2">
+                  <div class="p-2">
+                    <BalRangeInput v-model="endWeight" :max="99" :min="1"
+                      ><template v-slot:leftLabel>{{ endWeight }}%</template>
+                      <template v-slot:rightLabel
+                        >{{ 100 - endWeight }}%</template
+                      ></BalRangeInput
+                    >
+                  </div>
+                  <!-- <div class="flex items-center justify-between mb-2">
                     <span>30%</span>
                     <span>70%</span>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -156,9 +191,9 @@
             <div class="font-bold mb-2">Duration</div>
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 mb-4">
               <div class="col-span-1">
-                <div class="mb-2">Start Date & End Date (UTC Time)</div>
+                <div class="mb-2">Start Date & End Date</div>
                 <el-date-picker
-                  v-model="value1"
+                  v-model="time"
                   type="datetimerange"
                   range-separator="To"
                   start-placeholder="Start date"
@@ -176,7 +211,7 @@
               </div> -->
             </div>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-6">
+          <!-- <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-6">
             <div class="col-span-2 font-bold">
               <div>Price Discovery Preview</div>
               <BalLineChart
@@ -203,7 +238,7 @@
                 </BalStack>
               </BalCard>
             </div>
-          </div>
+          </div> -->
         </BalCard>
       </BalStack>
       <div class="mt-4">
@@ -217,6 +252,7 @@
 import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
 
 import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
+import TokenInput from '@/components/inputs/TokenInput/TokenInput.vue';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import useBreakpoints from '@/composables/useBreakpoints';
@@ -239,6 +275,7 @@ import useCopperCreation from '@/composables/copper/useCopperCreation';
 // import BalSlider from '@/components/_global/BalSlider/BalSlider.vue';
 import BalToggle from '@/components/_global/BalToggle/BalToggle.vue';
 import BalRangeDate from '@/components/_global/BalRangeDate/BalRangeDate.vue';
+import TokenSelectInput from '@/components/inputs/TokenSelectInput/TokenSelectInput.vue';
 const tailwind = useTailwind();
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
@@ -250,10 +287,8 @@ const emptyTokenWeight: PoolSeedToken = {
   isLocked: false,
   amount: '0'
 };
-const value1 = ref('');
-watch(value1, () => {
-  console.log('watch', value1);
-});
+// const mainTokenAddress = ref('');
+// const baseTokenAddress = ref('');
 const series = [
   {
     name: 'test',
@@ -279,7 +314,16 @@ const {
   // totalLiquidity,
   // hasInjectedToken,
   // acceptedCustomTokenDisclaimer
-  per
+  startWeight,
+  endWeight,
+  time,
+  mainToken,
+  baseToken,
+  // tokens,
+  mainTokenAddress,
+  baseTokenAddress,
+  mainTokenAmount,
+  baseTokenAmount
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
@@ -287,6 +331,8 @@ const {
 // const { isWalletReady, toggleWalletSelectModal } = useWeb3();
 // const { t } = useI18n();
 // const { darkMode } = useDarkMode();
+const { balanceFor, priceFor, nativeAsset, wrappedNativeAsset, getToken } = useTokens();
+
 
 /**
  * STATE
@@ -304,6 +350,9 @@ const chartColors = computed(() => {
 // const tokenWeightItemHeight = computed(() =>
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
+const baseTokenOptions = [
+  nativeAsset.address, baseTokenAddress
+];
 
 /**
  * WATCHERS
@@ -317,6 +366,24 @@ const chartColors = computed(() => {
 //     deep: true
 //   }
 // );
+watch(startWeight, () => {
+  // console.log('startWeight', startWeight.value);
+  if (startWeight.value <= endWeight.value) {
+    endWeight.value = startWeight.value;
+  }
+});
+watch(endWeight, () => {
+  if (endWeight.value > startWeight.value) {
+    startWeight.value = endWeight.value;
+  }
+});
+watch(
+  time,
+  () => {
+    console.log('watch time', time.value);
+  },
+  { deep: true }
+);
 
 /**
  * LIFECYCLE

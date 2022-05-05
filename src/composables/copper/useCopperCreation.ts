@@ -42,19 +42,28 @@ type FeeController = 'self' | 'other';
 const emptyPoolCreationState = {
   name: 'Token', // stringπ
   symbol: 'UNI.e', // string
+  mainToken: {tokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846', weight: 50, id: '1', isLocked: false, amount: '2'},
+  baseToken: {tokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C', weight: 50, id: '2', isLocked: false, amount: '9.384150710184040771'},
   tokens: [
-    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
+    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846', // link
     '0x286EA60Cb66ba7647C8143c5d467594B92A3734C'
     // '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846'
   ] as string[], // address[]
+  mainTokenAmount: '',
+  baseTokenAmount: '',
+  mainTokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
+  baseTokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
   amounts: ['10000000000000000000', '10000000000000000000'] as string[], // uint256[]
   weights: ['300000000000000000', '700000000000000000'] as string[], // uint256[]
-  per: [0.3, 0.7],
+  startWeight: 99,
+  endWeight: 1,
+  endAdnStartWeight: [1, 99],
   endWeights: ['200000000000000000', '800000000000000000'] as string[], // uint256[]
   isCorrectOrder: true, // bool
-  swapFeePercentage: '25000000000000000', // uint256
+  swapFeePercentage: 2.5, // uint256
   startTime: 1652398300 as number, // uint256
   endTime: 1659283200 as number, // uint256
+  time: [null, null] as Array<Date | null>,
 
   // seedTokens: [] as PoolSeedToken[],
   activeStep: 1
@@ -374,19 +383,42 @@ export default function useCopperCreation() {
   //   return optimisedLiquidity;
   // }
 
-  // function getScaledAmounts() {
-  //   const scaledAmounts: string[] = poolCreationState.seedTokens.map(
-  //     (token: PoolSeedToken) => {
-  //       const tokenInfo = getToken(token.tokenAddress);
-  //       if (!tokenInfo) return '0';
-  //       const amount = new BigNumber(token.amount);
-  //       const scaledAmount = scale(amount, tokenInfo.decimals);
-  //       const scaledRoundedAmount = scaledAmount.dp(0, BigNumber.ROUND_FLOOR);
-  //       return scaledRoundedAmount.toString();
-  //     }
-  //   );
-  //   return scaledAmounts;
-  // }
+  function getScaledAmounts() {
+    const scaledAmounts: string[] = poolCreationState.tokens.map(token => {
+      // :PoolSeedToken
+      // const tokenInfo = getToken(token.tokenAddress);
+      // if (!tokenInfo) return '0';
+      const amount = new BigNumber(token);
+      const scaledAmount = scale(amount, 18);
+      const scaledRoundedAmount = scaledAmount.dp(0, BigNumber.ROUND_FLOOR);
+      return scaledRoundedAmount.toString();
+    });
+    return scaledAmounts;
+  }
+
+  function getScaledWeights() {
+    const scaledWeights: string[] = poolCreationState.weights.map(weight => {
+      // const tokenInfo = getToken(token.tokenAddress);
+      // if (!tokenInfo) return '0';
+      const amount = new BigNumber(weight);
+      const scaledWeight = scale(amount, 18);
+      const scaledRoundedWeight = scaledWeight.dp(0, BigNumber.ROUND_FLOOR);
+      return scaledRoundedWeight.toString();
+    });
+    return scaledWeights;
+  }
+
+  function getScaledEndWeights() {
+    const scaledWeights: string[] = poolCreationState.endWeights.map(weight => {
+      // const tokenInfo = getToken(token.tokenAddress);
+      // if (!tokenInfo) return '0';
+      const amount = new BigNumber(weight);
+      const scaledWeight = scale(amount, 18);
+      const scaledRoundedWeight = scaledWeight.dp(0, BigNumber.ROUND_FLOOR);
+      return scaledRoundedWeight.toString();
+    });
+    return scaledWeights;
+  }
 
   // function getPoolSymbol() {
   //   let valid = true;
@@ -425,11 +457,13 @@ export default function useCopperCreation() {
       poolCreationState.name,
       poolCreationState.symbol,
       poolCreationState.tokens,
-      poolCreationState.amounts,
-      poolCreationState.weights,
-      poolCreationState.endWeights,
+      // poolCreationState.amounts,
+      getScaledAmounts(),
+      getScaledWeights(),
+      getScaledEndWeights(),
+      // poolCreationState.endWeights,
       poolCreationState.isCorrectOrder,
-      poolCreationState.swapFeePercentage,
+      // poolCreationState.swapFeePercentage,
       poolCreationState.startTime,
       poolCreationState.endTime
     ];
@@ -473,7 +507,7 @@ export default function useCopperCreation() {
         // '0x4DA66fA19e20C5EFdD053B137d05930156fa99Bf',
         [
           '0x286EA60Cb66ba7647C8143c5d467594B92A3734C', // uni.e
-          '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846'
+          '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846' // link
         ]
         // 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846  link
       );

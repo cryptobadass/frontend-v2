@@ -130,7 +130,14 @@ import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import { sleep } from '@/lib/utils';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
+import useTokenApprovalActions from '@/composables/useTokenApprovalActions';
+
 const emit = defineEmits(['update:height', 'trigger:alert']);
+const { t } = useI18n();
+// const { tokenApprovalActions } = useTokenApprovalActions(
+//   ['',''],
+//   [configService.network.addresses.copperProxyV2]
+// );
 
 const emptyTokenWeight: PoolSeedToken = {
   tokenAddress: '',
@@ -141,24 +148,24 @@ const emptyTokenWeight: PoolSeedToken = {
 };
 const actions = [
   {
-    label: 'Schedule LC LBP',
-    loadingLabel: 'investment.preview.loadingLabel.create',
+    label: 'Approve',
+    loadingLabel: t('investment.preview.loadingLabel.approval'),
     confirmingLabel: 'confirming',
-    action: createPool,
-    stepTooltip: 'fundPoolTooltip'
+    action: approveAction,
+    stepTooltip: 'Approve'
   },
   {
-    label: 'fundPool',
-    loadingLabel: 'investment.preview.loadingLabel.fund',
+    label: 'Create',
+    loadingLabel: t('investment.preview.loadingLabel.create'),
     confirmingLabel: 'confirming',
-    action: joinPool,
-    stepTooltip: 'fundPoolTooltip'
+    action: createPoolAction,
+    stepTooltip: 'Create'
   }
 ];
 /**
  * COMPOSABLES
  */
-const { goBack, createLBP } = useCopperCreation();
+const { goBack, createLBP, approve } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();
@@ -206,12 +213,10 @@ const networkName = configService.network.name;
 /**
  * FUNCTIONS
  */
-async function createPool() {
-  await sleep(2000);
-  return await sleep(2000);
+async function createPoolAction() {
+  return createLBP();
 }
-async function joinPool() {
-  await sleep(2000);
-  return {};
+async function approveAction() {
+  return approve();
 }
 </script>
