@@ -234,8 +234,6 @@ const {
 // const { darkMode } = useDarkMode();
 // const mainTokenInfo = getToken(mainTokenAddress.value);
 
-
-
 /**
  * STATE
  */

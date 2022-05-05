@@ -42,8 +42,20 @@ type FeeController = 'self' | 'other';
 const emptyPoolCreationState = {
   name: 'Token', // stringπ
   symbol: 'UNI.e', // string
-  mainToken: {tokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846', weight: 50, id: '1', isLocked: false, amount: '2'},
-  baseToken: {tokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C', weight: 50, id: '2', isLocked: false, amount: '9.384150710184040771'},
+  mainToken: {
+    tokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
+    weight: 50,
+    id: '1',
+    isLocked: false,
+    amount: '2'
+  },
+  baseToken: {
+    tokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+    weight: 50,
+    id: '2',
+    isLocked: false,
+    amount: '9.384150710184040771'
+  },
   tokens: [
     '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846', // link
     '0x286EA60Cb66ba7647C8143c5d467594B92A3734C'

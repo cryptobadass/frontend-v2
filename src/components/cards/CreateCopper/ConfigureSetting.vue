@@ -105,7 +105,7 @@
                     <span class="ml-2">LC</span> -->
                   </div>
                   <div>
-                    <TokenSelectInput v-model="baseTokenAddress" fixed/>
+                    <TokenSelectInput v-model="baseTokenAddress" fixed />
                     <!-- <img
                       class="inline-block"
                       width="20"
@@ -331,8 +331,13 @@ const {
 // const { isWalletReady, toggleWalletSelectModal } = useWeb3();
 // const { t } = useI18n();
 // const { darkMode } = useDarkMode();
-const { balanceFor, priceFor, nativeAsset, wrappedNativeAsset, getToken } = useTokens();
-
+const {
+  balanceFor,
+  priceFor,
+  nativeAsset,
+  wrappedNativeAsset,
+  getToken
+} = useTokens();
 
 /**
  * STATE
@@ -350,9 +355,7 @@ const chartColors = computed(() => {
 // const tokenWeightItemHeight = computed(() =>
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
-const baseTokenOptions = [
-  nativeAsset.address, baseTokenAddress
-];
+const baseTokenOptions = [nativeAsset.address, baseTokenAddress];
 
 /**
  * WATCHERS
