@@ -18,13 +18,15 @@ import { JsonRpcProvider, TransactionResponse } from '@ethersproject/providers';
 import { POOLS } from '@/constants/pools';
 import { copperService } from '@/services/copper/coppper.service';
 import { approveTokens } from '@/lib/utils/balancer/tokens';
+import { add, getUnixTime } from 'date-fns';
 
 export const COPPER_CREATION_STATE_VERSION = '1.0';
 export const COPPER_CREATION_STATE_KEY = 'copperCreationState';
 
 export type PoolSeedToken = {
   tokenAddress: string;
-  weight: number;
+  startWeight: number;
+  endWeight: number;
   isLocked: boolean;
   amount: string;
   id: string;
@@ -38,47 +40,85 @@ export type OptimisedLiquidity = {
 type FeeManagementType = 'governance' | 'self';
 type FeeType = 'fixed' | 'dynamic';
 type FeeController = 'self' | 'other';
+const now = new Date();
+const defaultStartTime = add(now, {
+  hours: 1
+});
+const defaultEndTime = add(now, {
+  hours: 1,
+  days: 3
+});
 
 const emptyPoolCreationState = {
-  name: 'Token', // stringπ
-  symbol: 'UNI.e', // string
-  mainToken: {
-    tokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
-    weight: 50,
-    id: '1',
-    isLocked: false,
-    amount: '2'
-  },
-  baseToken: {
-    tokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
-    weight: 50,
-    id: '2',
-    isLocked: false,
-    amount: '9.384150710184040771'
-  },
-  tokens: [
-    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846', // link
-    '0x286EA60Cb66ba7647C8143c5d467594B92A3734C'
-    // '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846'
-  ] as string[], // address[]
+  // name: 'Token', // stringπ
+  // symbol: 'UNI.e', // string
+  // mainToken: {
+  //   tokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
+  //   weight: 50,
+  //   id: '1',
+  //   isLocked: false,
+  //   amount: '2'
+  // },
+  // baseToken: {
+  //   tokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+  //   weight: 50,
+  //   id: '2',
+  //   isLocked: false,
+  //   amount: '9.384150710184040771'
+  // },
+  seedTokens: [
+    {
+      tokenAddress: '0x32F106297E28bBf71FFC41b74DA98D78b703B479',
+      startWeight: 99,
+      endWeight: 1,
+      id: '1',
+      isLocked: false,
+      amount: ''
+    },
+    {
+      tokenAddress: '0xfAD1257Bd61131b6Bb60BEE08289167099014Ac6',
+      startWeight: 1,
+      endWeight: 99,
+      id: '2',
+      isLocked: false,
+      amount: ''
+    }
+  ] as PoolSeedToken[],
+  // tokens: [
+  //   '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846', // link
+  //   '0x286EA60Cb66ba7647C8143c5d467594B92A3734C'
+  //   // '0xed7F146612C8d2e8E101b8b5B8C58b8E70E99149',// aMock
+  //   // '0x386c2C22Cdfb4D4da4CC41a1edC61765156930e6',//myPool1
+  //   // '0xeb41cb98b02cBB91590A8637Ae1F47849628dF56',// myPool2
+  //   // '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
+  //   // '0x2A9cB455bA143f7f65Af8320e8F64a4bBFA99CC5', // xUST
+  // ] as string[], // address[]
   mainTokenAmount: '',
   baseTokenAmount: '',
-  mainTokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
-  baseTokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
-  amounts: ['10000000000000000000', '10000000000000000000'] as string[], // uint256[]
-  weights: ['300000000000000000', '700000000000000000'] as string[], // uint256[]
-  startWeight: 99,
-  endWeight: 1,
-  endAdnStartWeight: [1, 99],
-  endWeights: ['200000000000000000', '800000000000000000'] as string[], // uint256[]
+  // mainTokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
+  // baseTokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+  baseTokenOptions: [
+    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
+    '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+    '0xed7F146612C8d2e8E101b8b5B8C58b8E70E99149'
+  ],
+  // amounts: ['10000000000000000000', '10000000000000000000'] as string[], // uint256[]
+  // weights: ['300000000000000000', '700000000000000000'] as string[], // uint256[]
+  // startWeight: 99,
+  // endWeight: 1,
+  // endAdnStartWeight: [1, 99],
+  // endWeights: ['200000000000000000', '800000000000000000'] as string[], // uint256[]
   isCorrectOrder: true, // bool
   swapFeePercentage: 2.5, // uint256
-  startTime: 1652398300 as number, // uint256
-  endTime: 1659283200 as number, // uint256
-  time: [null, null] as Array<Date | null>,
+  // startTime: 1652398300 as number, // uint256
+  // endTime: 1659283200 as number, // uint256
+  time: [defaultStartTime, defaultEndTime] as Array<Date | null>,
 
   // seedTokens: [] as PoolSeedToken[],
-  activeStep: 1
+  activeStep: 0,
+  description: '',
+  learnMoreLink: '',
+  readAndAgree: false,
   // initialFee: '0.003',
   // isFeeGovManaged: false,
   // feeManagementType: 'governance' as FeeManagementType,
@@ -87,7 +127,7 @@ const emptyPoolCreationState = {
   // thirdPartyFeeController: '',
   // fee: '',
   // tokensList: [] as string[],
-  // poolId: '' as string,
+  poolId: '' as string,
   // poolAddress: '',
   // symbol: '',
   // manuallySetToken: '' as string,
@@ -96,7 +136,7 @@ const emptyPoolCreationState = {
   // type: PoolType.Weighted,
   // acceptedCustomTokenDisclaimer: false,
   // needsSeeding: false,
-  // createPoolTxHash: ''
+  createPoolTxHash: ''
 };
 
 export const poolCreationState = reactive({ ...emptyPoolCreationState });
@@ -123,11 +163,40 @@ export default function useCopperCreation() {
   /**
    * COMPUTED
    */
-  const tokensList = computed(() =>
-    [...poolCreationState.tokens].sort((tokenA, tokenB) => {
-      return tokenA > tokenB ? 1 : -1;
-    })
-  );
+  const mainTokenAddress = computed(() => {
+    return poolCreationState.seedTokens[0].tokenAddress;
+  });
+  const baseTokenAddress = computed(() => {
+    return poolCreationState.seedTokens[1].tokenAddress;
+  });
+
+  const mainTokenInfo = computed(() => {
+    return getToken(poolCreationState.seedTokens[0].tokenAddress);
+  });
+  const baseTokenInfo = computed(() => {
+    return getToken(poolCreationState.seedTokens[1].tokenAddress);
+  });
+  const LBPTokenSymbol = computed(() => {
+    return mainTokenInfo.value.symbol
+      ? `${mainTokenInfo.value.symbol}_LBP`
+      : '';
+  });
+  const LBPTokenName = computed(() => {
+    return mainTokenInfo.value.name
+      ? `${mainTokenInfo.value.name} Copper LBP`
+      : '';
+  });
+  // const tokenList = computed(() => {
+  //   return [
+  //     poolCreationState.mainTokenAddress,
+  //     poolCreationState.baseTokenAddress
+  //   ];
+  // });
+  // const sortTokensList = computed(() =>
+  //   tokenList.value.sort((tokenA, tokenB) => {
+  //     return tokenA > tokenB ? 1 : -1;
+  //   })
+  // );
 
   // const hasInjectedToken = computed(() => {
   //   return tokensList.value.some(
@@ -396,23 +465,24 @@ export default function useCopperCreation() {
   // }
 
   function getScaledAmounts() {
-    const scaledAmounts: string[] = poolCreationState.tokens.map(token => {
-      // :PoolSeedToken
-      // const tokenInfo = getToken(token.tokenAddress);
-      // if (!tokenInfo) return '0';
-      const amount = new BigNumber(token);
-      const scaledAmount = scale(amount, 18);
-      const scaledRoundedAmount = scaledAmount.dp(0, BigNumber.ROUND_FLOOR);
-      return scaledRoundedAmount.toString();
-    });
+    const scaledAmounts: string[] = poolCreationState.seedTokens.map(
+      (token: PoolSeedToken) => {
+        const tokenInfo = getToken(token.tokenAddress);
+        if (!tokenInfo) return '0';
+        const amount = new BigNumber(token.amount);
+        const scaledAmount = scale(amount, tokenInfo.decimals);
+        const scaledRoundedAmount = scaledAmount.dp(0, BigNumber.ROUND_FLOOR);
+        return scaledRoundedAmount.toString();
+      }
+    );
     return scaledAmounts;
   }
 
   function getScaledWeights() {
-    const scaledWeights: string[] = poolCreationState.weights.map(weight => {
+    const scaledWeights: string[] = poolCreationState.seedTokens.map(item => {
       // const tokenInfo = getToken(token.tokenAddress);
       // if (!tokenInfo) return '0';
-      const amount = new BigNumber(weight);
+      const amount = new BigNumber(item.startWeight / 100);
       const scaledWeight = scale(amount, 18);
       const scaledRoundedWeight = scaledWeight.dp(0, BigNumber.ROUND_FLOOR);
       return scaledRoundedWeight.toString();
@@ -421,15 +491,30 @@ export default function useCopperCreation() {
   }
 
   function getScaledEndWeights() {
-    const scaledWeights: string[] = poolCreationState.endWeights.map(weight => {
+    const scaledWeights: string[] = poolCreationState.seedTokens.map(item => {
       // const tokenInfo = getToken(token.tokenAddress);
       // if (!tokenInfo) return '0';
-      const amount = new BigNumber(weight);
+      const amount = new BigNumber(item.endWeight / 100);
       const scaledWeight = scale(amount, 18);
       const scaledRoundedWeight = scaledWeight.dp(0, BigNumber.ROUND_FLOOR);
       return scaledRoundedWeight.toString();
     });
     return scaledWeights;
+  }
+  function getScaledSwapFee() {
+    const swapFee = new BigNumber(poolCreationState.swapFeePercentage / 100);
+    const scaledSwapFee = scale(swapFee, 18);
+    const scaledRoundedSwapFee = scaledSwapFee.dp(0, BigNumber.ROUND_FLOOR);
+    return scaledRoundedSwapFee.toString();
+  }
+  function getNeedSwap() {
+    return (
+      mainTokenAddress.value.toLowerCase() >
+      baseTokenAddress.value.toLowerCase()
+    );
+  }
+  function swap(arr) {
+    return getNeedSwap() ? [arr[1], arr[0]] : arr;
   }
 
   // function getPoolSymbol() {
@@ -451,37 +536,25 @@ export default function useCopperCreation() {
   //   return valid ? tokenSymbols.join('-') : '';
   // }
 
-  async function createLBP(): Promise<TransactionResponse> {
+  async function createPool(): Promise<TransactionResponse> {
     const provider = getProvider();
-    // const poolConfig = {
-    //   name: poolCreationState.name,
-    //   symbol: poolCreationState.symbol,
-    //   tokens: poolCreationState.tokens,
-    //   amounts: poolCreationState.amounts,
-    //   weights: poolCreationState.weights,
-    //   endWeights: poolCreationState.endWeights,
-    //   isCorrectOrder: poolCreationState.isCorrectOrder,
-    //   swapFeePercentage: poolCreationState.swapFeePercentage,
-    //   startTime: poolCreationState.startTime,
-    //   endTime: poolCreationState.endTime
-    // };
     const poolConfig = [
-      poolCreationState.name,
-      poolCreationState.symbol,
-      poolCreationState.tokens,
-      // poolCreationState.amounts,
-      getScaledAmounts(),
-      getScaledWeights(),
-      getScaledEndWeights(),
-      // poolCreationState.endWeights,
+      LBPTokenName.value,
+      LBPTokenSymbol.value,
+      swap([mainTokenAddress.value, baseTokenAddress.value]),
+      swap(getScaledAmounts()),
+      swap(getScaledWeights()),
+      swap(getScaledEndWeights()),
       poolCreationState.isCorrectOrder,
-      // poolCreationState.swapFeePercentage,
-      poolCreationState.startTime,
-      poolCreationState.endTime
+      getScaledSwapFee(),
+      getUnixTime(poolCreationState.time[0] as Date),
+      getUnixTime(poolCreationState.time[1] as Date)
     ];
+    console.log('create pool ', poolConfig);
+    // return Promise.reject('Create failed');
     try {
       const tx = await copperService.pools.lbp.create(provider, poolConfig);
-      // poolCreationState.createPoolTxHash = tx.hash;
+      poolCreationState.createPoolTxHash = tx.hash;
       // saveState();
       // debugger;
 
@@ -491,13 +564,13 @@ export default function useCopperCreation() {
         action: 'createPool',
         summary: t('transactionSummary.createPool'),
         details: {
-          name: poolCreationState.name
+          name: LBPTokenName.value
         }
       });
       // 1;
       txListener(tx, {
         onTxConfirmed: async () => {
-          // retrievePoolDetails(tx.hash);
+          retrievePoolDetails(tx.hash);
         },
         onTxFailed: () => {
           console.log('Create failed');
@@ -511,23 +584,23 @@ export default function useCopperCreation() {
     }
   }
 
-  async function approve() {
-    try {
-      const [tx] = await approveTokens(
-        getProvider(),
-        '0x2ac87650654AB7E5Cc8d6369534Bfda023991244',
-        // '0x4DA66fA19e20C5EFdD053B137d05930156fa99Bf',
-        [
-          '0x286EA60Cb66ba7647C8143c5d467594B92A3734C', // uni.e
-          '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846' // link
-        ]
-        // 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846  link
-      );
-      console.log('aaaaaa', tx);
-    } catch (e) {
-      console.log('aaaaaa', e);
-    }
-  }
+  // async function approve() {
+  //   try {
+  //     const [tx] = await approveTokens(
+  //       getProvider(),
+  //       '0x2ac87650654AB7E5Cc8d6369534Bfda023991244',
+  //       // '0x4DA66fA19e20C5EFdD053B137d05930156fa99Bf',
+  //       [
+  //         '0x286EA60Cb66ba7647C8143c5d467594B92A3734C', // uni.e
+  //         '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846' // link
+  //       ]
+  //       // 0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846  link
+  //     );
+  //     console.log('aaaaaa', tx);
+  //   } catch (e) {
+  //     console.log('aaaaaa', e);
+  //   }
+  // }
 
   // async function joinPool() {
   //   const provider = getProvider();
@@ -606,21 +679,26 @@ export default function useCopperCreation() {
   //   hasRestoredFromSavedState.value = value;
   // }
 
-  // async function retrievePoolDetails(hash: string) {
-  //   const provider = new JsonRpcProvider(configService.network.publicRpc);
+  async function retrievePoolDetails(hash: string) {
+    const provider = new JsonRpcProvider(configService.network.publicRpc);
 
-  //   const poolDetails = await balancerService.pools.weighted.details(
-  //     provider,
-  //     hash
-  //   );
-  //   poolCreationState.poolId = poolDetails.id;
-  //   poolCreationState.poolAddress = poolDetails.address;
-  //   poolCreationState.needsSeeding = true;
-  //   saveState();
-  // }
+    const poolDetails = await copperService.pools.lbp.details(provider, hash);
+    console.log('aaaaretrievePoolDetails', poolDetails);
+    // poolCreationState.poolId = poolDetails.id;
+    // poolCreationState.poolAddress = poolDetails.address;
+    // poolCreationState.needsSeeding = true;
+    // saveState();
+  }
 
   return {
     ...toRefs(poolCreationState),
+    mainTokenAddress,
+    baseTokenAddress,
+    mainTokenInfo,
+    baseTokenInfo,
+    // tokenList,
+    LBPTokenSymbol,
+    LBPTokenName,
     // updateTokenWeights,
     proceed,
     // setFeeManagement,
@@ -632,10 +710,10 @@ export default function useCopperCreation() {
     // updateTokenColors,
     goBack,
     // getPoolSymbol,
-    // getScaledAmounts,
-    createLBP,
+    getScaledAmounts,
+    createPool,
     // joinPool,
-    setActiveStep,
+    setActiveStep
     // updateManuallySetToken,
     // sortSeedTokens,
     // clearAmounts,
@@ -662,6 +740,6 @@ export default function useCopperCreation() {
     // isWethPool,
     // hasInjectedToken,
     // hasRestoredFromSavedState
-    approve
+    // approve
   };
 }

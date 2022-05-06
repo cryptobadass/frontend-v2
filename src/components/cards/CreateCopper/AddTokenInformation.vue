@@ -60,7 +60,7 @@
               </div>
               <div class="mb-4">
                 <input
-                  v-model="mainTokenAddress"
+                  v-model="seedTokens[0].tokenAddress"
                   class="border border-gray-400 rounded p-2 input flex-auto w-3/4 bg-transparent"
                   placeholder="0x286EA60Cb66ba7647C8143c5d467594B92A3734C"
                 />
@@ -175,7 +175,7 @@ const {
   dynamicDataLoading,
   nativeAsset,
   injectTokens,
-  getToken
+  getToken,
 } = useTokens();
 
 const emptyTokenWeight: PoolSeedToken = {
@@ -209,15 +209,16 @@ const {
   proceed,
   // acceptCustomTokenDisclaimer,
   // setTokensList,
-  // seedTokens,
+  seedTokens,
   // tokensList,
   // totalLiquidity,
   // hasInjectedToken,
   // acceptedCustomTokenDisclaimer,
-  createLBP,
+  // createLBP,
   approve,
   // tokens,
-  mainTokenAddress
+  // mainTokenAddress,
+  mainTokenInfo
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
@@ -247,12 +248,12 @@ const network = configService.network.network;
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
 const tokenBalance = computed(() => {
-  return balanceFor(mainTokenAddress.value);
+  return balanceFor(seedTokens.value[0].tokenAddress);
 });
-const mainTokenInfo = computed(() => {
-  return getToken(mainTokenAddress.value);
-});
-console.log('aaaaaa', mainTokenInfo);
+// const mainTokenInfo = computed(() => {
+//   return getToken(mainTokenAddress.value);
+// });
+// console.log('aaaaaa', mainTokenInfo);
 
 /**
  * WATCHERS
@@ -267,16 +268,17 @@ console.log('aaaaaa', mainTokenInfo);
 //   }
 // );
 watch(
-  () => mainTokenAddress.value,
+  () => seedTokens,
   async newQuery => {
-    let results = await searchTokens(newQuery, []);
+    let _query = newQuery.value[0].tokenAddress
+    let results = await searchTokens(_query, []);
     console.log('searchTokens', results);
     // mainTokenResults.value = results.newQuery || {};
     mainTokenResults.address.value = results.newQuery?.address || '';
     mainTokenResults.name.value = results.newQuery?.name || '';
     mainTokenResults.symbol.value = results.newQuery?.symbol || '';
 
-    let balance = await balanceFor(newQuery);
+    let balance = await balanceFor(_query);
     // console.log('searchBalanceFor', balance);
     mainTokenResults.balance.value = balance;
   },

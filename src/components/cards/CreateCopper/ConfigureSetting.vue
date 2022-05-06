@@ -30,10 +30,10 @@
                 </div>
                 <div>
                   <TokenInput
-                    v-model:amount="mainTokenAmount"
-                    v-model:address="mainTokenAddress"
+                    v-model:amount="seedTokens[0].amount"
+                    v-model:address="seedTokens[0].tokenAddress"
                     fixedToken
-                    :name="`initial-token-${mainToken.tokenAddress}`"
+                    :name="`initial-token-${seedTokens[0].tokenAddress}`"
                   />
                 </div>
                 <!-- <div class="flex items-center justify-between mb-2">
@@ -61,10 +61,10 @@
                 </div>
                 <div>
                   <TokenInput
-                    v-model:amount="baseTokenAmount"
-                    v-model:address="baseTokenAddress"
+                    v-model:amount="seedTokens[1].amount"
+                    v-model:address="seedTokens[1].tokenAddress"
                     fixedToken
-                    :name="`initial-token-${mainToken.tokenAddress}`"
+                    :name="`initial-token-${seedTokens[1].tokenAddress}`"
                     :options="baseTokenOptions"
                   />
                 </div>
@@ -95,7 +95,10 @@
                 </div>
                 <div class="flex items-center justify-between mb-2">
                   <div>
-                    <TokenSelectInput v-model="mainTokenAddress" fixed />
+                    <TokenSelectInput
+                      v-model="seedTokens[0].tokenAddress"
+                      fixed
+                    />
                     <!-- <img
                       class="inline-block"
                       width="20"
@@ -105,7 +108,10 @@
                     <span class="ml-2">LC</span> -->
                   </div>
                   <div>
-                    <TokenSelectInput v-model="baseTokenAddress" fixed />
+                    <TokenSelectInput
+                      v-model="seedTokens[1].tokenAddress"
+                      fixed
+                    />
                     <!-- <img
                       class="inline-block"
                       width="20"
@@ -123,10 +129,16 @@
                     size="2"
                   /> -->
                   <div class="p-2">
-                    <BalRangeInput :max="99" :min="1" v-model="startWeight">
-                      <template v-slot:leftLabel>{{ startWeight }}%</template>
+                    <BalRangeInput
+                      :max="99"
+                      :min="1"
+                      v-model="seedTokens[0].startWeight"
+                    >
+                      <template v-slot:leftLabel
+                        >{{ seedTokens[0].startWeight }}%</template
+                      >
                       <template v-slot:rightLabel
-                        >{{ 100 - startWeight }}%</template
+                        >{{ seedTokens[1].startWeight }}%</template
                       >
                     </BalRangeInput>
                   </div>
@@ -144,7 +156,10 @@
                 </div>
                 <div class="flex items-center justify-between mb-2">
                   <div>
-                    <TokenSelectInput v-model="mainTokenAddress" fixed />
+                    <TokenSelectInput
+                      v-model="seedTokens[0].tokenAddress"
+                      fixed
+                    />
                     <!-- <img
                       class="inline-block"
                       width="20"
@@ -154,7 +169,10 @@
                     <span class="ml-2">LC</span> -->
                   </div>
                   <div>
-                    <TokenSelectInput v-model="baseTokenAddress" fixed />
+                    <TokenSelectInput
+                      v-model="seedTokens[1].tokenAddress"
+                      fixed
+                    />
                     <!-- <img
                       class="inline-block"
                       width="20"
@@ -172,10 +190,15 @@
                     size="2"
                   /> -->
                   <div class="p-2">
-                    <BalRangeInput v-model="endWeight" :max="99" :min="1"
-                      ><template v-slot:leftLabel>{{ endWeight }}%</template>
+                    <BalRangeInput
+                      v-model="seedTokens[0].endWeight"
+                      :max="99"
+                      :min="1"
+                      ><template v-slot:leftLabel
+                        >{{ seedTokens[0].endWeight }}%</template
+                      >
                       <template v-slot:rightLabel
-                        >{{ 100 - endWeight }}%</template
+                        >{{ seedTokens[1].endWeight }}%</template
                       ></BalRangeInput
                     >
                   </div>
@@ -314,16 +337,18 @@ const {
   // totalLiquidity,
   // hasInjectedToken,
   // acceptedCustomTokenDisclaimer
-  startWeight,
-  endWeight,
+  // startWeight,
+  // endWeight,
   time,
-  mainToken,
-  baseToken,
+  // mainToken,
+  // baseToken,
   // tokens,
-  mainTokenAddress,
-  baseTokenAddress,
+  seedTokens,
+  // mainTokenAddress,
+  // baseTokenAddress,
   mainTokenAmount,
-  baseTokenAmount
+  baseTokenAmount,
+  baseTokenOptions
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
@@ -355,7 +380,17 @@ const chartColors = computed(() => {
 // const tokenWeightItemHeight = computed(() =>
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
-const baseTokenOptions = [nativeAsset.address, baseTokenAddress];
+// const baseTokenOptions = [
+//   nativeAsset.address,
+//   baseTokenAddress.value,
+//   '0x0eA185018F0cA3f8c545424d27bE300B22EE31D4'
+// ];
+const mainStartWeight = computed(() => {
+  return seedTokens.value[0].startWeight;
+});
+const mainEndWeight = computed(() => {
+  return seedTokens.value[0].endWeight;
+});
 
 /**
  * WATCHERS
@@ -369,15 +404,22 @@ const baseTokenOptions = [nativeAsset.address, baseTokenAddress];
 //     deep: true
 //   }
 // );
-watch(startWeight, () => {
-  // console.log('startWeight', startWeight.value);
-  if (startWeight.value <= endWeight.value) {
-    endWeight.value = startWeight.value;
-  }
-});
-watch(endWeight, () => {
-  if (endWeight.value > startWeight.value) {
-    startWeight.value = endWeight.value;
+watch(
+  mainStartWeight,
+  () => {
+    // console.log('startWeight', seedTokens);
+    seedTokens.value[1].startWeight = 100 - mainStartWeight.value;
+    if (mainStartWeight.value <= mainEndWeight.value) {
+      seedTokens.value[0].endWeight = mainStartWeight.value;
+    }
+  },
+  { deep: true }
+);
+watch(mainEndWeight, () => {
+  seedTokens.value[1].endWeight = 100 - mainEndWeight.value;
+  if (mainEndWeight.value > mainStartWeight.value) {
+    seedTokens.value[0].startWeight = mainEndWeight.value;
+    // startWeight.value = endWeight.value;
   }
 });
 watch(

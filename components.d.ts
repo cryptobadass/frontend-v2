@@ -59,6 +59,7 @@ declare module '@vue/runtime-core' {
     BalPopover: typeof import('./src/components/_global/BalPopover/BalPopover.vue')['default']
     BalProgressBar: typeof import('./src/components/_global/BalProgressBar/BalProgressBar.vue')['default']
     BalRadio: typeof import('./src/components/_global/BalRadio/BalRadio.vue')['default']
+    BalRangeDate: typeof import('./src/components/_global/BalRangeDate/BalRangeDate.vue')['default']
     BalRangeInput: typeof import('./src/components/_global/BalRangeInput/BalRangeInput.vue')['default']
     BalSelectInput: typeof import('./src/components/_global/BalSelectInput/BalSelectInput.vue')['default']
     BalSlider: typeof import('./src/components/_global/BalSlider/BalSlider.vue')['default']
