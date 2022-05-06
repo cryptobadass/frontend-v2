@@ -49,7 +49,7 @@
           :animate="entryAnimateProps"
           :exit="exitAnimateProps"
         >
-          <CreateLBP  />
+          <CreateLBP />
         </AnimatePresence>
       </div>
     </div>

@@ -222,7 +222,6 @@ const networkName = configService.network.name;
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
 
-
 /**
  * WATCHERS
  */

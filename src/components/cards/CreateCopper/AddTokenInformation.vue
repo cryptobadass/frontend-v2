@@ -175,7 +175,7 @@ const {
   dynamicDataLoading,
   nativeAsset,
   injectTokens,
-  getToken,
+  getToken
 } = useTokens();
 
 const emptyTokenWeight: PoolSeedToken = {
@@ -270,7 +270,7 @@ const tokenBalance = computed(() => {
 watch(
   () => seedTokens,
   async newQuery => {
-    let _query = newQuery.value[0].tokenAddress
+    let _query = newQuery.value[0].tokenAddress;
     let results = await searchTokens(_query, []);
     console.log('searchTokens', results);
     // mainTokenResults.value = results.newQuery || {};

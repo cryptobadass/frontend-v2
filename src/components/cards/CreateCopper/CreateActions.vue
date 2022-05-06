@@ -65,7 +65,7 @@ const { tokenApprovalActions } = useTokenCopperApprovalActions(
 const {
   createPool,
   // joinPool,
-  poolId,
+  poolId
   // poolTypeString,
   // hasRestoredFromSavedState,
   // needsSeeding,
@@ -76,7 +76,7 @@ const {
  * COMPUTED
  */
 
-console.log('aaaaa', tokenApprovalActions)
+console.log('aaaaa', tokenApprovalActions);
 const actions = computed((): TransactionActionInfo[] => [
   ...tokenApprovalActions,
   {
@@ -85,7 +85,7 @@ const actions = computed((): TransactionActionInfo[] => [
     confirmingLabel: t('confirming'),
     action: createPool,
     stepTooltip: 'create LBP Pool'
-  },
+  }
   // {
   //   label: t('fundPool'),
   //   loadingLabel: t('investment.preview.loadingLabel.fund'),
@@ -124,7 +124,7 @@ onBeforeMount(async () => {
  * METHODS
  */
 function handleSuccess(details: any): void {
-  debugger
+  debugger;
   createState.confirmed = true;
   createState.receipt = details.receipt;
   createState.confirmedAt = details.confirmedAt;

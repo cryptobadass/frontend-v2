@@ -99,9 +99,13 @@
                     created
                   </div>
                   <div>
-                    <span class="font-bold">Main token amount:</span> {{mainTokenAmount}} {{mainTokenInfo.symbol}}
+                    <span class="font-bold">Main token amount:</span>
+                    {{ mainTokenAmount }} {{ mainTokenInfo.symbol }}
                   </div>
-                  <div><span class="font-bold">Swap fee:</span> {{swapFeePercentage}} %</div>
+                  <div>
+                    <span class="font-bold">Swap fee:</span>
+                    {{ swapFeePercentage }} %
+                  </div>
                   <div>
                     <span class="font-bold">Platform access fee:</span> 2%
                   </div>
@@ -220,7 +224,7 @@ const poolCreated = ref(false);
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
 const tokenAmounts = computed((): string[] => {
-   return getScaledAmounts();
+  return getScaledAmounts();
   // debugger
   // return tokenList.value.map(() => MaxUint256.toString()); // approve
 });
@@ -228,9 +232,9 @@ const { tokenApprovalActions } = useTokenCopperApprovalActions(
   seedTokens.value.map(el => el.tokenAddress),
   tokenAmounts
 );
-const tokenList = computed(()=>{
-  return [mainTokenAddress.value, baseTokenAddress.value]
-})
+const tokenList = computed(() => {
+  return [mainTokenAddress.value, baseTokenAddress.value];
+});
 /**
  * WATCHERS
  */
