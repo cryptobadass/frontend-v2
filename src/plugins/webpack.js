@@ -5,7 +5,7 @@ const { version } = require('../../package.json');
 // const { ElementPlusResolver } = require('unplugin-vue-components/resolvers');
 
 const plugins = [
-  // error: same name component like MyPoolBalancesCard 
+  // error: same name component like MyPoolBalancesCard
   // AutoImport({
   //   resolvers: [ElementPlusResolver()]
   // }),
