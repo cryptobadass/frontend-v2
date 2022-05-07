@@ -220,7 +220,7 @@ export default defineComponent({
   components: {
     ...PoolPageComponents,
     GauntletIcon,
-    LiquidityAPRTooltip,
+    LiquidityAPRTooltip
     // StakingIncentivesCard,
     // StakingProvider,
     // LMIncentivesCard
