@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 
 import CoppersTable from '@/components/tables/CoppersTable/CoppersTable.vue';
 
-import usePools from '@/composables/pools/usePools';
+// import usePools from '@/composables/pools/usePools';
 import useWeb3 from '@/services/web3/useWeb3';
 import usePoolFilters from '@/composables/pools/usePoolFilters';
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
@@ -13,6 +13,7 @@ import useBreakpoints from '@/composables/useBreakpoints';
 import { isMigratablePool } from '@/composables/usePool';
 import { MIN_FIAT_VALUE_POOL_MIGRATION } from '@/constants/pools';
 import { bnum } from '@/lib/utils';
+import useCopperPools from '@/composables/copper/useCopperPools';
 
 // COMPOSABLES
 const router = useRouter();
@@ -34,7 +35,7 @@ const {
   poolsHasNextPage,
   poolsIsFetchingNextPage,
   poolsQuery
-} = usePools(selectedTokens);
+} = useCopperPools(selectedTokens);
 const { addAlert, removeAlert } = useAlerts();
 const { upToMediumBreakpoint } = useBreakpoints();
 
