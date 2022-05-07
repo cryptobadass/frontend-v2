@@ -28,7 +28,7 @@
                 using your wallet.
               </h6>
               <div class="my-4">
-                <BalCheckbox>
+                <BalCheckbox v-model="readAndAgree">
                   <template v-slot:label>
                     <div class="mt-1">
                       I have read and agree to the Yotei Platform
@@ -46,19 +46,35 @@
               </div>
               <div class="text-bold text-lg flex items-center my-2">
                 Approve interactions with main and base tokens
-                <BalIcon class="ml-2" size="md" name="check-circle" />
+                <BalIcon
+                  v-if="tokenApprovalActions.length == 0"
+                  class="ml-2"
+                  size="md"
+                  name="check-circle"
+                />
               </div>
               <div class="text-bold text-lg flex items-center my-2">
                 Schedule LBP
-                <BalIcon class="ml-2" size="md" name="check-circle" />
+                <BalIcon
+                  v-if="poolCreated"
+                  class="ml-2"
+                  size="md"
+                  name="check-circle"
+                />
               </div>
               <div class="my-4">
-                <BalActionSteps
+                <!-- <BalActionSteps
                   :actions="actions"
                   class="w-full"
-                ></BalActionSteps>
+                ></BalActionSteps> -->
+                <CreateActions
+                  :createDisabled="!readAndAgree"
+                  :tokenAddresses="tokenList"
+                  :amounts="tokenAmounts"
+                  @success="handleSuccess"
+                />
               </div>
-              <div class="mt-6 text-gray-400">
+              <!-- <div class="mt-6 text-gray-400">
                 Stuck? Please paste the latest tx hash from your wallet once it
                 completes.
               </div>
@@ -73,7 +89,7 @@
                   size="sm"
                   label="Reset"
                 />
-              </div>
+              </div> -->
             </div>
             <div class="col-span-1">
               <BalCard>
@@ -83,19 +99,21 @@
                     created
                   </div>
                   <div>
-                    <span class="font-bold">Main token amount:</span> 11111 LC
+                    <span class="font-bold">Main token amount:</span>
+                    {{ mainTokenAmount }} {{ mainTokenInfo.symbol }}
                   </div>
-                  <div><span class="font-bold">Swap fee:</span> 2.5%</div>
+                  <div>
+                    <span class="font-bold">Swap fee:</span>
+                    {{ swapFeePercentage }} %
+                  </div>
                   <div>
                     <span class="font-bold">Platform access fee:</span> 2%
                   </div>
                   <div>
-                    <span class="font-bold">Start time:</span> 2022年4月26日 UTC
-                    10:54
+                    <span class="font-bold">Start time:</span> {{ time[0] }}
                   </div>
                   <div>
-                    <span class="font-bold">End time:</span> 2022年4月29日 UTC
-                    10:54
+                    <span class="font-bold">End time:</span> {{ time[1] }}
                   </div>
                 </BalStack>
               </BalCard>
@@ -111,7 +129,7 @@
 import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
 
 import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
-
+import CreateActions from '@/components/cards/CreateCopper/CreateActions.vue';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import useBreakpoints from '@/composables/useBreakpoints';
 import usePoolCreation, {
@@ -130,7 +148,19 @@ import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import { sleep } from '@/lib/utils';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
-const emit = defineEmits(['update:height', 'trigger:alert']);
+import useTokenApprovalActions from '@/composables/useTokenApprovalActions';
+import { MaxUint256 } from '@ethersproject/constants';
+import useTokenCopperApprovalActions from '@/composables/useTokenCopperApprovalActions';
+
+const emit = defineEmits<{
+  (e: 'close'): void;
+  (e: 'success'): void;
+}>();
+const { t } = useI18n();
+// const { tokenApprovalActions } = useTokenApprovalActions(
+//   ['',''],
+//   [configService.network.addresses.copperProxyV2]
+// );
 
 const emptyTokenWeight: PoolSeedToken = {
   tokenAddress: '',
@@ -139,26 +169,41 @@ const emptyTokenWeight: PoolSeedToken = {
   isLocked: false,
   amount: '0'
 };
-const actions = [
-  {
-    label: 'Schedule LC LBP',
-    loadingLabel: 'investment.preview.loadingLabel.create',
-    confirmingLabel: 'confirming',
-    action: createPool,
-    stepTooltip: 'fundPoolTooltip'
-  },
-  {
-    label: 'fundPool',
-    loadingLabel: 'investment.preview.loadingLabel.fund',
-    confirmingLabel: 'confirming',
-    action: joinPool,
-    stepTooltip: 'fundPoolTooltip'
-  }
-];
+// const actions = [
+//   {
+//     label: 'Approve',
+//     loadingLabel: t('investment.preview.loadingLabel.approval'),
+//     confirmingLabel: 'confirming',
+//     action: approveAction,
+//     stepTooltip: 'Approve'
+//   },
+//   {
+//     label: 'Create',
+//     loadingLabel: t('investment.preview.loadingLabel.create'),
+//     confirmingLabel: 'confirming',
+//     action: createPoolAction,
+//     stepTooltip: 'Create'
+//   }
+// ];
 /**
  * COMPOSABLES
  */
-const { goBack, createLBP } = useCopperCreation();
+const {
+  goBack,
+  // createLBP,
+  // approve,
+  readAndAgree,
+  getScaledAmounts,
+  // tokens
+  // tokenList,
+  time,
+  swapFeePercentage,
+  mainTokenAmount,
+  mainTokenInfo,
+  seedTokens,
+  mainTokenAddress,
+  baseTokenAddress
+} = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();
@@ -170,6 +215,7 @@ const { goBack, createLBP } = useCopperCreation();
  * STATE
  */
 const networkName = configService.network.name;
+const poolCreated = ref(false);
 
 /**
  * COMPUTED
@@ -177,7 +223,18 @@ const networkName = configService.network.name;
 // const tokenWeightItemHeight = computed(() =>
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
-
+const tokenAmounts = computed((): string[] => {
+  return getScaledAmounts();
+  // debugger
+  // return tokenList.value.map(() => MaxUint256.toString()); // approve
+});
+const { tokenApprovalActions } = useTokenCopperApprovalActions(
+  seedTokens.value.map(el => el.tokenAddress),
+  tokenAmounts
+);
+const tokenList = computed(() => {
+  return [mainTokenAddress.value, baseTokenAddress.value];
+});
 /**
  * WATCHERS
  */
@@ -206,12 +263,15 @@ const networkName = configService.network.name;
 /**
  * FUNCTIONS
  */
-async function createPool() {
-  await sleep(2000);
-  return await sleep(2000);
-}
-async function joinPool() {
-  await sleep(2000);
-  return {};
+// async function createPoolAction() {
+//   return createLBP();
+// }
+// async function approveAction() {
+//   return approve();
+// }
+
+function handleSuccess(): void {
+  poolCreated.value = true;
+  emit('success');
 }
 </script>

@@ -18,12 +18,32 @@
               <div class="font-bold mb-2">
                 Connected wallet network
               </div>
-              <div class="mb-4 ">
+
+              <div
+                class="mb-4"
+                v-if="isUnsupportedNetwork || isMismatchedNetwork"
+              >
+                <div class="mb-2">
+                  Unkown network
+                  <BalBtn
+                    class="ml-2"
+                    label="Switch network"
+                    outline
+                    color="cyan"
+                    size="sm"
+                    @click="connectToAppNetwork"
+                  />
+                </div>
+                <div class="text-red-400 text-sm">
+                  network does not match target
+                </div>
+              </div>
+              <div class="mb-4 " v-else>
                 <BalBtn
                   class="border-gunmetal border dark:bg-dark-222"
                   outline
                   color="white"
-                  :size="upToLargeBreakpoint ? 'md' : 'sm'"
+                  size="md"
                 >
                   <img
                     :src="iconSrc(network)"
@@ -35,28 +55,14 @@
                   </span>
                 </BalBtn>
               </div>
-              <div class="mb-4">
-                <div class="mb-2">
-                  Unkown network
-                  <BalBtn
-                    class="ml-2"
-                    label="Switch network"
-                    outline
-                    color="cyan"
-                    size="sm"
-                  />
-                </div>
-                <div class="text-red-400 text-sm">
-                  network does not match target
-                </div>
-              </div>
               <div class="font-bold mb-2">
                 Main Token <span class="text-red-400">*</span>
               </div>
               <div class="mb-4">
                 <input
+                  v-model="seedTokens[0].tokenAddress"
                   class="border border-gray-400 rounded p-2 input flex-auto w-3/4 bg-transparent"
-                  placeholder="0x82ec6ce24ee9d883d955327c0c54ebec85c4a19f"
+                  placeholder="0x286EA60Cb66ba7647C8143c5d467594B92A3734C"
                 />
               </div>
               <div class="font-bold mb-2">Token logo URL</div>
@@ -79,6 +85,7 @@
             </div>
             <div
               class="col-span-1 order-2 px-1 flex flex-col justify-center content-center"
+              v-if="mainTokenInfo"
             >
               <div class="font-bold text-lg mb-2 flex items-center">
                 token info validated<BalIcon
@@ -88,18 +95,36 @@
               </div>
               <BalCard>
                 <BalStack vertical spacing="base">
-                  <div>Token name: lance</div>
-                  <div>Token ticker:LC</div>
-                  <div>Total supply: 100,000,000,000</div>
-                  <div>Balance: 99,990,332.23</div>
+                  <div>
+                    <span class="text-gray-400 text-sm mr-2 font-bold"
+                      >Token name:</span
+                    >
+                    {{ mainTokenInfo?.name }}
+                  </div>
+                  <div>
+                    <span class="text-gray-400 text-sm mr-2  font-bold"
+                      >Token ticker:</span
+                    >{{ mainTokenInfo?.symbol }}
+                  </div>
+                  <!-- <div>
+                    <span class="text-gray-400 text-sm mr-2 font-bold"
+                      >Total supply: </span
+                    >100,000,000,000 ??
+                  </div> -->
+                  <div>
+                    <span class="text-gray-400 text-sm mr-2 font-bold"
+                      >Balance:</span
+                    >
+                    {{ tokenBalance }}
+                  </div>
                 </BalStack>
               </BalCard>
             </div>
           </div>
           <div class="mt-4">
             <BalBtn @click="proceed">Continue to LBP configuration</BalBtn>
-            <BalBtn class="ml-2" @click="createLBP">createLBP</BalBtn>
-            <BalBtn class="ml-2" @click="approve">approve</BalBtn>
+            <!-- <BalBtn class="ml-2" @click="createLBP">createLBP</BalBtn>
+            <BalBtn class="ml-2" @click="approve">approve</BalBtn> -->
           </div>
         </BalCard>
       </BalStack>
@@ -108,9 +133,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
+import {
+  computed,
+  onMounted,
+  ref,
+  nextTick,
+  onBeforeUpdate,
+  watch,
+  toRef,
+  toRefs
+} from 'vue';
 import AppNavNetworkSelect from '@/components/navs/AppNav/AppNavNetworkSelect.vue';
 import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
+import TokenInput from '@/components/inputs/TokenInput/TokenInput.vue';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import useBreakpoints from '@/composables/useBreakpoints';
@@ -132,6 +167,17 @@ import useCopperCreation from '@/composables/copper/useCopperCreation';
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
 
+const {
+  tokens: allTokens,
+  searchTokens,
+  priceFor,
+  balanceFor,
+  dynamicDataLoading,
+  nativeAsset,
+  injectTokens,
+  getToken
+} = useTokens();
+
 const emptyTokenWeight: PoolSeedToken = {
   tokenAddress: '',
   weight: 0,
@@ -146,6 +192,14 @@ const activeNetwork = {
   subdomain: 'fuji',
   key: '43113'
 };
+const query = ref('');
+const mainTokenResults = toRefs({
+  name: '',
+  address: '',
+  symbol: '',
+  balance: ''
+});
+const mainTokenBalance = ref('');
 
 /**
  * COMPOSABLES
@@ -155,20 +209,31 @@ const {
   proceed,
   // acceptCustomTokenDisclaimer,
   // setTokensList,
-  // seedTokens,
+  seedTokens,
   // tokensList,
   // totalLiquidity,
   // hasInjectedToken,
   // acceptedCustomTokenDisclaimer,
-  createLBP,
-  approve
+  // createLBP,
+  approve,
+  // tokens,
+  // mainTokenAddress,
+  mainTokenInfo
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();
-// const { isWalletReady, toggleWalletSelectModal } = useWeb3();
+const {
+  isWalletReady,
+  toggleWalletSelectModal,
+  isMismatchedNetwork,
+  isUnsupportedNetwork,
+  chainId,
+  connectToAppNetwork
+} = useWeb3();
 // const { t } = useI18n();
 // const { darkMode } = useDarkMode();
+// const mainTokenInfo = getToken(mainTokenAddress.value);
 
 /**
  * STATE
@@ -182,6 +247,13 @@ const network = configService.network.network;
 // const tokenWeightItemHeight = computed(() =>
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
+const tokenBalance = computed(() => {
+  return balanceFor(seedTokens.value[0].tokenAddress);
+});
+// const mainTokenInfo = computed(() => {
+//   return getToken(mainTokenAddress.value);
+// });
+// console.log('aaaaaa', mainTokenInfo);
 
 /**
  * WATCHERS
@@ -195,6 +267,23 @@ const network = configService.network.network;
 //     deep: true
 //   }
 // );
+watch(
+  () => seedTokens,
+  async newQuery => {
+    let _query = newQuery.value[0].tokenAddress;
+    let results = await searchTokens(_query, []);
+    console.log('searchTokens', results);
+    // mainTokenResults.value = results.newQuery || {};
+    mainTokenResults.address.value = results.newQuery?.address || '';
+    mainTokenResults.name.value = results.newQuery?.name || '';
+    mainTokenResults.symbol.value = results.newQuery?.symbol || '';
+
+    let balance = await balanceFor(_query);
+    // console.log('searchBalanceFor', balance);
+    mainTokenResults.balance.value = balance;
+  },
+  { deep: true }
+);
 
 /**
  * LIFECYCLE

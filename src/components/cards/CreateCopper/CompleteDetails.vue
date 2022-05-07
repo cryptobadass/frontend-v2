@@ -27,7 +27,8 @@
               </div>
               <div class="mb-4">
                 <textarea
-                  value="this is a description"
+                  v-model="description"
+                  placeholder="this is a description"
                   class="border border-gray-400 rounded p-2 input flex-auto w-full bg-transparent"
                   maxlength="1500"
                 />
@@ -36,6 +37,7 @@
               <div class="font-bold mb-2">Learn more link</div>
               <div class="mb-2">
                 <input
+                  v-model="learnMoreLink"
                   class="border border-gray-400 rounded p-2 input flex-auto w-full bg-transparent"
                   placeholder="Enter a URL"
                 />
@@ -44,16 +46,18 @@
                 Please enter a valid URL that starts with "http://" or
                 "https://"
               </div>
-              <div class="font-bold mb-2">Geoblocked countries</div>
+              <!-- <div class="font-bold mb-2">Geoblocked countries</div>
               <div class="mb-4">
                 TODO select
-              </div>
+              </div> -->
               <div class="font-bold mb-4">Preconfigured LBP settings</div>
               <div class="font-bold mb-4">Swap Fee</div>
               <div class="mb-2">
                 <input
-                  class="border border-gray-400 rounded p-2 input flex-auto w-40 bg-transparent"
-                  placeholder="2.5"
+                  class="border border-gray-400 rounded p-2 mr-2 input flex-auto w-40 bg-transparent text-right"
+                  placeholder=""
+                  v-model="swapFeePercentage"
+                  type="number"
                 />%
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
@@ -124,11 +128,11 @@
               <div class="grid grid-cols-1 md:grid-cols-2">
                 <div class="col-span-1 mb-4">
                   <div class="font-bold mb-2">LBP Token symbol</div>
-                  <div class="text-gray-400">LC_LBP</div>
+                  <div class="text-gray-400">{{ LBPTokenSymbol }}</div>
                 </div>
                 <div class="col-span-1 mb-4">
                   <div class="font-bold mb-2">LBP Token name</div>
-                  <div class="text-gray-400">LC Copper LBP</div>
+                  <div class="text-gray-400">{{ LBPTokenName }}</div>
                 </div>
               </div>
               <div class="font-bold mb-2">Rights</div>
@@ -189,10 +193,19 @@ const emptyTokenWeight: PoolSeedToken = {
 /**
  * COMPOSABLES
  */
-const { proceed, goBack } = useCopperCreation();
+const {
+  proceed,
+  goBack,
+  swapFeePercentage,
+  mainTokenAddress,
+  LBPTokenSymbol,
+  LBPTokenName,
+  description,
+  learnMoreLink
+} = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
-// const { nativeAsset, tokens } = useTokens();
+const { nativeAsset, tokens, getToken } = useTokens();
 // const { isWalletReady, toggleWalletSelectModal } = useWeb3();
 // const { t } = useI18n();
 // const { darkMode } = useDarkMode();

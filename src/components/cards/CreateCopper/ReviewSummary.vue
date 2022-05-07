@@ -32,23 +32,24 @@
                   <div class="mb-4">
                     <p class="text-gray-400 mb-2">Main Token Address</p>
                     <p class="mb-2">
-                      0x82ec6ce24ee9d883d955327c0c54ebec85c4a19f
+                      {{ mainTokenAddress }}
                     </p>
                     <div class="flex">
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Token name</p>
-                        <p>lance</p>
+                        <p>{{ mainTokenInfo.name }}</p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Token ticker</p>
                         <p>
-                          <img
+                          <!-- <img
                             class="inline-block"
                             width="20"
                             height="20"
                             src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
                           />
-                          <span class="ml-2">LC</span>
+                          <span class="ml-2">LC</span> -->
+                          <TokenSelectInput v-model="mainTokenAddress" fixed />
                         </p>
                       </div>
                     </div>
@@ -60,13 +61,11 @@
                     <div class="flex">
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Token quantity</p>
-                        <p>100 LC</p>
+                        <p>{{ mainTokenAmount }} {{ mainTokenInfo.symbol }}</p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Base token quantity</p>
-                        <p>
-                          1,000 USDC
-                        </p>
+                        <p>{{ baseTokenAmount }} {{ baseTokenInfo.symbol }}</p>
                       </div>
                     </div>
                   </div>
@@ -74,13 +73,11 @@
                     <div class="flex">
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Price range</p>
-                        <p>$10.4082 -$5.4072</p>
+                        <p></p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Liquidity</p>
-                        <p>
-                          $2,040.82
-                        </p>
+                        <p></p>
                       </div>
                     </div>
                   </div>
@@ -91,12 +88,20 @@
                     <div class="flex">
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Starting Weight</p>
-                        <p>51% LC 49% USDC</p>
+                        <p>
+                          {{ seedTokens[0].startWeight }}%
+                          {{ mainTokenInfo.symbol }} -
+                          {{ seedTokens[1].startWeight }}%
+                          {{ baseTokenInfo.symbol }}
+                        </p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">End weight</p>
                         <p>
-                          35% LC 65% USDC
+                          {{ seedTokens[0].endWeight }}%
+                          {{ mainTokenInfo.symbol }} -
+                          {{ seedTokens[1].endWeight }}%
+                          {{ baseTokenInfo.symbol }}
                         </p>
                       </div>
                     </div>
@@ -108,18 +113,19 @@
                     <div class="flex">
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Start time</p>
-                        <p>2022年4月28日 UTC 22:00</p>
+                        <p>{{ time[0] }}</p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">End time</p>
                         <p>
-                          2022年5月5日 UTC 22:00
+                          {{ time[1] }}
                         </p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Duration</p>
                         <p>
-                          168 hrs (7 days)
+                          {{ differenceInHour }} hrs ( {{ differenceInDay }}
+                          days )
                         </p>
                       </div>
                     </div>
@@ -130,31 +136,31 @@
 
                   <div class="w-full mb-4">
                     <p class="text-gray-400 mb-2">Description</p>
-                    <p>this is a description</p>
+                    <p class="mb-4">{{ description }}</p>
                   </div>
                   <div class="w-full mb-4">
                     <p class="text-gray-400 mb-2">Learn more link</p>
-                    <p>http://www.baidu.com</p>
+                    <p class="mb-4">{{ learnMoreLink }}</p>
                   </div>
                   <div class="flex mb-4">
                     <div class="w-60">
                       <p class="text-gray-400 mb-2">Swap fee</p>
-                      <p>2.5000%</p>
+                      <p>{{ swapFeePercentage }} %</p>
                     </div>
                     <div class="w-60">
                       <p class="text-gray-400 mb-2">Platform access fee</p>
                       <p>
-                        2%
+                        2 %
                       </p>
                     </div>
                   </div>
                   <div class="w-full mb-4">
                     <p class="text-gray-400 mb-2">LBP LP token symbol</p>
-                    <p>LC Copper LBP</p>
+                    <p>{{ LBPTokenSymbol }}</p>
                   </div>
                   <div class="w-full mb-4">
                     <p class="text-gray-400 mb-2">LBP token name</p>
-                    <p>LC_LBP</p>
+                    <p>{{ LBPTokenName }}</p>
                   </div>
                   <div class="w-full mb-4">
                     <div class="text-gray-400 mb-2">Rights</div>
@@ -192,7 +198,7 @@
 import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
 
 import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
-
+import TokenSelectInput from '@/components/inputs/TokenSelectInput/TokenSelectInput.vue';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import useBreakpoints from '@/composables/useBreakpoints';
 import usePoolCreation, {
@@ -210,6 +216,8 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
+import { toUtcTime } from '@/composables/useTime';
+import { differenceInDays, differenceInHours } from 'date-fns';
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
 
@@ -224,10 +232,30 @@ const emptyTokenWeight: PoolSeedToken = {
 /**
  * COMPOSABLES
  */
-const { proceed, goBack } = useCopperCreation();
+const {
+  proceed,
+  goBack,
+  mainTokenAddress,
+  baseTokenAddress,
+  mainTokenAmount,
+  baseTokenAmount,
+  // startWeight,
+  // endWeight,
+  // startTime,
+  // endTime,
+  time,
+  swapFeePercentage,
+  LBPTokenSymbol,
+  LBPTokenName,
+  mainTokenInfo,
+  baseTokenInfo,
+  description,
+  learnMoreLink,
+  seedTokens
+} = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
-// const { nativeAsset, tokens } = useTokens();
+const { nativeAsset, tokens, getToken } = useTokens();
 // const { isWalletReady, toggleWalletSelectModal } = useWeb3();
 // const { t } = useI18n();
 // const { darkMode } = useDarkMode();
@@ -243,6 +271,22 @@ const networkName = configService.network.name;
 // const tokenWeightItemHeight = computed(() =>
 //   upToLargeBreakpoint.value ? 56 : 64
 // );
+
+// const startTimeUTCStr = computed(() => {
+//   let str = time.value[0] ? (time.value[0] as Date).toUTCString() : '';
+//   console.log('aaaaaa', new Date(startTime.value), str, time);
+//   return str;
+// });
+// const endTimeUTCStr = computed(() => {
+//   return endTime.value ? new Date(endTime.value as number).toUTCString() : '';
+// });
+
+const differenceInDay = computed(() => {
+  return differenceInDays(time.value[1] as Date, time.value[0] as Date);
+});
+const differenceInHour = computed(() => {
+  return differenceInHours(time.value[1] as Date, time.value[0] as Date);
+});
 
 /**
  * WATCHERS

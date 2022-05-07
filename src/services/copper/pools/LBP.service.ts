@@ -51,7 +51,11 @@ export default class LBPService {
     // });
 
     // const seedTokens = this.calculateTokenWeights(tokens);
-    // const swapFeeScaled = scale(new BigNumber(swapFee), 18);
+    // const a = 1;
+    // const swapFeeScaled = scale(new BigNumber(a), 18);
+    // console.log('aaaaa',swapFeeScaled)
+    // debugger
+    // poolConfig.
 
     const params = [poolConfig];
     // debugger;

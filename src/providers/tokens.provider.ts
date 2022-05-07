@@ -136,7 +136,8 @@ export default {
       allowanceContracts: compact([
         networkConfig.addresses.vault,
         networkConfig.addresses.wstETH,
-        configService.network.addresses.veBAL
+        configService.network.addresses.veBAL,
+        networkConfig.addresses.copperProxyV2
       ]),
       injectedPrices: {}
     });
@@ -309,6 +310,7 @@ export default {
       if (!query) return removeExcluded(tokens.value, excluded);
 
       if (isAddress(query)) {
+        // debugger
         const address = getAddress(query);
         const token = allTokenListTokens.value[address];
         if (token) {
@@ -358,7 +360,11 @@ export default {
     ): boolean {
       if (!amount || bnum(amount).eq(0)) return false;
       if (!contractAddress) return false;
-      if (tokenAddress === nativeAsset.address) return false;
+      if (
+        tokenAddress === nativeAsset.address ||
+        tokenAddress === networkConfig.addresses.copperProxyV2
+      )
+        return false;
 
       const allowance = bnum(
         (allowances.value[contractAddress] || {})[getAddress(tokenAddress)]
