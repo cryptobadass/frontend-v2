@@ -137,12 +137,12 @@
             class="mb-4"
           />
 
-          <BalLoadingBlock v-if="loadingPool" class="pool-actions-card h-40" />
+          <!-- <BalLoadingBlock v-if="loadingPool" class="pool-actions-card h-40" /> -->
           <!-- <StakingIncentivesCard
               v-if="isStakeablePool && !loadingPool && !isL2"
               :pool="pool"
             /> -->
-          <LMIncentivesCard v-if="isL2" :poolId="id" />
+          <!-- <LMIncentivesCard v-if="isL2" :poolId="id" /> -->
           <!-- <PoolActionsCard
           v-else-if="!noInitLiquidity"
           :pool="pool"
@@ -207,7 +207,7 @@ import useTokens from '@/composables/useTokens';
 import useApp from '@/composables/useApp';
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 // import StakingIncentivesCard from '@/components/contextual/pages/pool/StakingIncentivesCard/StakingIncentivesCard.vue';
-import LMIncentivesCard from '@/components/contextual/pages/pool/LMIncentivesCard/LMIncentivesCard.vue';
+// import LMIncentivesCard from '@/components/contextual/pages/pool/LMIncentivesCard/LMIncentivesCard.vue';
 // import StakingProvider from '@/providers/local/staking.provider';
 import { getAddressFromPoolId } from '@/lib/utils';
 import { isL2 } from '@/composables/useNetwork';
@@ -223,7 +223,7 @@ export default defineComponent({
     LiquidityAPRTooltip,
     // StakingIncentivesCard,
     // StakingProvider,
-    LMIncentivesCard
+    // LMIncentivesCard
   },
 
   setup() {
