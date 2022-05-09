@@ -14,6 +14,7 @@ const config: Config = {
   loggingRpc: 'https://api.avax-test.network/ext/bc/C/rpc',
   explorer: 'https://testnet.snowtrace.io',
   explorerName: 'Snowtrace',
+  publicRpc: 'https://api.avax-test.network/ext/bc/C/rpc',
   subgraph:
     'https://api.thegraph.com/subgraphs/name/leedewyze/balancer-fuji-v2',
   // poolsUrlV1: '',

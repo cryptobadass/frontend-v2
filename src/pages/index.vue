@@ -94,6 +94,9 @@ watch(showMigrationColumn, () => console.log(showMigrationColumn.value));
 function navigateToCreatePool() {
   router.push({ name: 'create-pool' });
 }
+function navigateToCreateCopper() {
+  router.push({ name: 'create-copper' });
+}
 </script>
 
 <template>
@@ -151,6 +154,36 @@ function navigateToCreatePool() {
             {{ $t('createAPool.title') }}
             <BalIcon name="chevron-right" size="sm" class="ml-1 text-cyan" />
           </BalBtn>
+          <!-- <BalPopover no-pad>
+            <template v-slot:activator>
+              <BalBtn
+                color="cyan"
+                outline
+                size="sm"
+                :class="{ 'mt-4': upToMediumBreakpoint }"
+                :block="upToMediumBreakpoint"
+              >
+                {{ 'Create' }}
+                <BalIcon name="chevron-down" size="sm" class="ml-1 text-cyan" />
+              </BalBtn>
+            </template>
+            <div class="flex flex-col w-44 rounded-lg overflow-hidden">
+              <a
+                @click="navigateToCreatePool"
+                class="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-850 hover:text-cyan-50"
+              >
+                Create A Pool
+                <BalIcon name="chevron-right" size="sm" class="ml-1 "
+              /></a>
+              <a
+                @click="navigateToCreateCopper"
+                class="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-850 hover:text-cyan-50"
+              >
+                Create A LBP
+                <BalIcon name="chevron-right" size="sm" class="ml-1 "
+              /></a>
+            </div>
+          </BalPopover> -->
         </div>
       </div>
 

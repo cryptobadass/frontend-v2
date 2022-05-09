@@ -65,7 +65,8 @@ const { tokenApprovalActions } = useTokenCopperApprovalActions(
 const {
   createPool,
   // joinPool,
-  poolId
+  poolId,
+  poolAddress
   // poolTypeString,
   // hasRestoredFromSavedState,
   // needsSeeding,
@@ -76,7 +77,7 @@ const {
  * COMPUTED
  */
 
-console.log('aaaaa', tokenApprovalActions);
+// console.log('aaaaa', tokenApprovalActions);
 const actions = computed((): TransactionActionInfo[] => [
   ...tokenApprovalActions,
   {
@@ -124,7 +125,7 @@ onBeforeMount(async () => {
  * METHODS
  */
 function handleSuccess(details: any): void {
-  debugger;
+  // debugger;
   createState.confirmed = true;
   createState.receipt = details.receipt;
   createState.confirmedAt = details.confirmedAt;
@@ -166,9 +167,13 @@ function handleSuccess(details: any): void {
           />
         </BalLink>
       </div>
+      <!-- create balancer have one step fundPool ,
+       but create copper haven't so there have a 
+       error with params , the id must have -->
       <BalBtn
+        v-if="poolAddress"
         tag="router-link"
-        :to="{ name: 'pool', params: { id: poolId } }"
+        :to="{ name: 'copper-detail', params: { id: poolAddress } }"
         color="gray"
         outline
         block
