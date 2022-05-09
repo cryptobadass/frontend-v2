@@ -13,12 +13,12 @@
       <div class="col-span-2 order-2 lg:order-1">
         <div class="grid grid-cols-1 gap-y-8">
           <div class="px-1 lg:px-0">
-            <CopperChart
+            <!-- <CopperChart
               :pool="pool"
               :historicalPrices="historicalPrices"
               :snapshots="snapshots"
               :loading="isLoadingSnapshots"
-            />
+            /> -->
           </div>
           <!-- <div class="mb-4 px-1 lg:px-0">
             <CopperStatCards :pool="pool" :loading="loadingPool" />
@@ -116,7 +116,7 @@ export default defineComponent({
     /**
      * QUERIES
      */
-    const poolQuery = usePoolQuery(route.params.id as string);
+    // const poolQuery = usePoolQuery(route.params.id as string);
     const poolSnapshotsQuery = usePoolSnapshotsQuery(
       route.params.id as string,
       30
@@ -132,217 +132,217 @@ export default defineComponent({
     /**
      * COMPUTED
      */
-    const pool = computed(() => poolQuery.data.value);
-    const {
-      isStableLikePool,
-      isLiquidityBootstrappingPool,
-      isStablePhantomPool
-    } = usePool(poolQuery.data);
+    // const pool = computed(() => poolQuery.data.value);
+    // const {
+    //   isStableLikePool,
+    //   isLiquidityBootstrappingPool,
+    //   isStablePhantomPool
+    // } = usePool(poolQuery.data);
 
-    const noInitLiquidity = computed(
-      () =>
-        !loadingPool.value &&
-        pool.value &&
-        Number(pool.value.onchain.totalSupply) === 0
-    );
+    // const noInitLiquidity = computed(
+    //   () =>
+    //     !loadingPool.value &&
+    //     pool.value &&
+    //     Number(pool.value.onchain.totalSupply) === 0
+    // );
 
-    const communityManagedFees = computed(
-      () => pool.value?.owner == POOLS.DelegateOwner
-    );
-    const feesManagedByGauntlet = computed(
-      () =>
-        communityManagedFees.value &&
-        POOLS.DynamicFees.Gauntlet.includes(data.id)
-    );
-    const feesFixed = computed(() => pool.value?.owner == POOLS.ZeroAddress);
-    const swapFeeToolTip = computed(() => {
-      if (feesManagedByGauntlet.value) {
-        return t('feesManagedByGauntlet');
-      } else if (communityManagedFees.value) {
-        return t('delegateFeesTooltip');
-      } else if (feesFixed.value) {
-        return t('fixedFeesTooltip');
-      } else {
-        return t('ownerFeesTooltip');
-      }
-    });
+    // const communityManagedFees = computed(
+    //   () => pool.value?.owner == POOLS.DelegateOwner
+    // );
+    // const feesManagedByGauntlet = computed(
+    //   () =>
+    //     communityManagedFees.value &&
+    //     POOLS.DynamicFees.Gauntlet.includes(data.id)
+    // );
+    // const feesFixed = computed(() => pool.value?.owner == POOLS.ZeroAddress);
+    // const swapFeeToolTip = computed(() => {
+    //   if (feesManagedByGauntlet.value) {
+    //     return t('feesManagedByGauntlet');
+    //   } else if (communityManagedFees.value) {
+    //     return t('delegateFeesTooltip');
+    //   } else if (feesFixed.value) {
+    //     return t('fixedFeesTooltip');
+    //   } else {
+    //     return t('ownerFeesTooltip');
+    //   }
+    // });
 
-    const poolQueryLoading = computed(
-      () =>
-        poolQuery.isLoading.value ||
-        poolQuery.isIdle.value ||
-        poolQuery.error.value
-    );
+    // const poolQueryLoading = computed(
+    //   () =>
+    //     poolQuery.isLoading.value ||
+    //     poolQuery.isIdle.value ||
+    //     poolQuery.error.value
+    // );
 
-    const loadingPool = computed(() => poolQueryLoading.value || !pool.value);
+    // const loadingPool = computed(() => poolQueryLoading.value || !pool.value);
 
     const snapshots = computed(() => poolSnapshotsQuery.data.value?.snapshots);
-    const historicalPrices = computed(
-      () => poolSnapshotsQuery.data.value?.prices
-    );
-    const isLoadingSnapshots = computed(
-      () =>
-        poolSnapshotsQuery.isLoading.value || poolSnapshotsQuery.isIdle.value
-    );
+    // const historicalPrices = computed(
+    //   () => poolSnapshotsQuery.data.value?.prices
+    // );
+    // const isLoadingSnapshots = computed(
+    //   () =>
+    //     poolSnapshotsQuery.isLoading.value || poolSnapshotsQuery.isIdle.value
+    // );
 
-    const titleTokens = computed(() => {
-      if (!pool.value) return [];
+    // const titleTokens = computed(() => {
+    //   if (!pool.value) return [];
 
-      return Object.entries(pool.value.onchain.tokens).sort(
-        ([, a]: any[], [, b]: any[]) => b.weight - a.weight
-      );
-    });
+    //   return Object.entries(pool.value.onchain.tokens).sort(
+    //     ([, a]: any[], [, b]: any[]) => b.weight - a.weight
+    //   );
+    // });
 
-    const poolTypeLabel = computed(() => {
-      if (!pool.value) return '';
-      const key = POOLS.Factories[pool.value.factory];
+    // const poolTypeLabel = computed(() => {
+    //   if (!pool.value) return '';
+    //   const key = POOLS.Factories[pool.value.factory];
 
-      return key ? t(key) : t('unknownPoolType');
-    });
+    //   return key ? t(key) : t('unknownPoolType');
+    // });
 
-    const poolFeeLabel = computed(() => {
-      if (!pool.value) return '';
-      const feeLabel = `${fNum2(pool.value.onchain.swapFee, {
-        style: 'percent',
-        maximumFractionDigits: 4
-      })}`;
+    // const poolFeeLabel = computed(() => {
+    //   if (!pool.value) return '';
+    //   const feeLabel = `${fNum2(pool.value.onchain.swapFee, {
+    //     style: 'percent',
+    //     maximumFractionDigits: 4
+    //   })}`;
 
-      if (feesFixed.value) {
-        return t('fixedSwapFeeLabel', [feeLabel]);
-      } else if (communityManagedFees.value) {
-        return feesManagedByGauntlet.value
-          ? t('dynamicSwapFeeLabel', [feeLabel])
-          : t('communitySwapFeeLabel', [feeLabel]);
-      }
+    //   if (feesFixed.value) {
+    //     return t('fixedSwapFeeLabel', [feeLabel]);
+    //   } else if (communityManagedFees.value) {
+    //     return feesManagedByGauntlet.value
+    //       ? t('dynamicSwapFeeLabel', [feeLabel])
+    //       : t('communitySwapFeeLabel', [feeLabel]);
+    //   }
 
-      // Must be owner-controlled
-      return t('dynamicSwapFeeLabel', [feeLabel]);
-    });
+    //   // Must be owner-controlled
+    //   return t('dynamicSwapFeeLabel', [feeLabel]);
+    // });
 
-    const missingPrices = computed(() => {
-      if (pool.value) {
-        const tokensWithPrice = Object.keys(prices.value);
+    // const missingPrices = computed(() => {
+    //   if (pool.value) {
+    //     const tokensWithPrice = Object.keys(prices.value);
 
-        const tokens =
-          isStablePhantomPool.value && pool.value.mainTokens
-            ? pool.value.mainTokens
-            : pool.value.tokenAddresses;
+    //     const tokens =
+    //       isStablePhantomPool.value && pool.value.mainTokens
+    //         ? pool.value.mainTokens
+    //         : pool.value.tokenAddresses;
 
-        return !tokens.every(token => tokensWithPrice.includes(token));
-      }
-      return false;
-    });
+    //     return !tokens.every(token => tokensWithPrice.includes(token));
+    //   }
+    //   return false;
+    // });
 
-    const isCopperNetworkSupported = computed(
-      () =>
-        isMainnet.value ||
-        isPolygon.value ||
-        isKovan.value ||
-        isFuji.value ||
-        isAvalanche.value
-    );
+    // const isCopperNetworkSupported = computed(
+    //   () =>
+    //     isMainnet.value ||
+    //     isPolygon.value ||
+    //     isKovan.value ||
+    //     isFuji.value ||
+    //     isAvalanche.value
+    // );
 
     // Temporary solution to hide Copper card on Fei pool page.
     // Longer terms solution is needed distinguish LBP platforms
     // and display custom widgets linking to their pages.
-    const isCopperPool = computed((): boolean => {
-      const feiPoolId =
-        '0xede4efcc5492cf41ed3f0109d60bc0543cfad23a0002000000000000000000bb';
-      return (
-        !!pool.value &&
-        isLiquidityBootstrappingPool.value &&
-        pool.value.id !== feiPoolId &&
-        isCopperNetworkSupported.value
-      );
-    });
+    // const isCopperPool = computed((): boolean => {
+    //   const feiPoolId =
+    //     '0xede4efcc5492cf41ed3f0109d60bc0543cfad23a0002000000000000000000bb';
+    //   return (
+    //     !!pool.value &&
+    //     isLiquidityBootstrappingPool.value &&
+    //     pool.value.id !== feiPoolId &&
+    //     isCopperNetworkSupported.value
+    //   );
+    // });
 
-    const copperNetworkPrefix = computed(() => {
-      if (isPolygon.value) {
-        return 'polygon.';
-      }
-      if (isKovan.value) {
-        return 'kovan.';
-      }
-      return '';
-    });
+    // const copperNetworkPrefix = computed(() => {
+    //   if (isPolygon.value) {
+    //     return 'polygon.';
+    //   }
+    //   if (isKovan.value) {
+    //     return 'kovan.';
+    //   }
+    //   return '';
+    // });
 
-    const hasCustomToken = computed(() => {
-      const knownTokens = Object.keys(balancerTokenListTokens.value);
-      return (
-        !!pool.value &&
-        !isLiquidityBootstrappingPool.value &&
-        !isStablePhantomPool.value &&
-        pool.value.tokenAddresses.some(
-          address => !knownTokens.includes(address)
-        )
-      );
-    });
+    // const hasCustomToken = computed(() => {
+    //   const knownTokens = Object.keys(balancerTokenListTokens.value);
+    //   return (
+    //     !!pool.value &&
+    //     !isLiquidityBootstrappingPool.value &&
+    //     !isStablePhantomPool.value &&
+    //     pool.value.tokenAddresses.some(
+    //       address => !knownTokens.includes(address)
+    //     )
+    //   );
+    // });
 
-    const isStakeablePool = computed((): boolean =>
-      POOLS.Stakeable.AllowList.includes(route.params.id as string)
-    );
+    // const isStakeablePool = computed((): boolean =>
+    //   POOLS.Stakeable.AllowList.includes(route.params.id as string)
+    // );
 
     /**
      * METHODS
      */
-    function onNewTx(): void {
-      poolQuery.refetch.value();
-    }
+    // function onNewTx(): void {
+    //   poolQuery.refetch.value();
+    // }
 
     /**
      * WATCHERS
      */
-    watch(blockNumber, () => {
-      poolQuery.refetch.value();
-    });
+    // watch(blockNumber, () => {
+    //   poolQuery.refetch.value();
+    // });
 
-    watch(poolQuery.error, () => {
-      if (poolQuery.error.value) {
-        addAlert({
-          id: 'pool-fetch-error',
-          label: t('alerts.pool-fetch-error'),
-          type: AlertType.ERROR,
-          persistent: true,
-          action: poolQuery.refetch.value,
-          actionLabel: t('alerts.retry-label'),
-          priority: AlertPriority.MEDIUM
-        });
-      } else {
-        removeAlert('pool-fetch-error');
-      }
-    });
+    // watch(poolQuery.error, () => {
+    //   if (poolQuery.error.value) {
+    //     addAlert({
+    //       id: 'pool-fetch-error',
+    //       label: t('alerts.pool-fetch-error'),
+    //       type: AlertType.ERROR,
+    //       persistent: true,
+    //       action: poolQuery.refetch.value,
+    //       actionLabel: t('alerts.retry-label'),
+    //       priority: AlertPriority.MEDIUM
+    //     });
+    //   } else {
+    //     removeAlert('pool-fetch-error');
+    //   }
+    // });
 
     return {
       // data
       ...toRefs(data),
       EXTERNAL_LINKS,
       // computed
-      appLoading,
-      pool,
-      noInitLiquidity,
-      poolTypeLabel,
-      poolFeeLabel,
-      historicalPrices,
-      snapshots,
-      isLoadingSnapshots,
-      loadingPool,
-      titleTokens,
-      isWalletReady,
-      missingPrices,
-      feesManagedByGauntlet,
-      swapFeeToolTip,
-      isStableLikePool,
-      isLiquidityBootstrappingPool,
-      isCopperPool,
-      isStablePhantomPool,
-      copperNetworkPrefix,
-      hasCustomToken,
-      isL2,
-      isStakeablePool,
-      // methods
-      fNum2,
-      onNewTx,
-      getAddressFromPoolId
+      appLoading
+      // pool,
+      // noInitLiquidity,
+      // poolTypeLabel,
+      // poolFeeLabel,
+      // historicalPrices,
+      // snapshots,
+      // isLoadingSnapshots,
+      // loadingPool,
+      // titleTokens,
+      // isWalletReady,
+      // missingPrices,
+      // feesManagedByGauntlet,
+      // swapFeeToolTip,
+      // isStableLikePool,
+      // isLiquidityBootstrappingPool,
+      // isCopperPool,
+      // isStablePhantomPool,
+      // copperNetworkPrefix,
+      // hasCustomToken,
+      // isL2,
+      // isStakeablePool,
+      // // methods
+      // fNum2,
+      // onNewTx,
+      // getAddressFromPoolId
     };
   }
 });

@@ -14,14 +14,14 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   // COMPUTED
   const pools = computed(() =>
     poolsQuery.data.value
-      ? flatten(poolsQuery.data.value.pages.map(page => page.pools))
-      : []
+    //   ? flatten(poolsQuery.data.value.pages.map(page => page.pools))
+    //   : []
   );
 
   const tokens = computed(() =>
     poolsQuery.data.value
-      ? flatten(poolsQuery.data.value.pages.map(page => page.tokens))
-      : []
+      // ? flatten(poolsQuery.data.value.pages.map(page => page.tokens))
+      // : []
   );
 
   const userPools = computed(() => userPoolsQuery.data.value?.pools || []);

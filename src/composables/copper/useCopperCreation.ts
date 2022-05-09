@@ -720,7 +720,7 @@ export default function useCopperCreation() {
     // clearAmounts,
     // setAmountsToMaxBalances,
     // acceptCustomTokenDisclaimer,
-    saveState,
+    saveState
     // resetState,
     // importState,
     // setRestoredState,

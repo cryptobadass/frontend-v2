@@ -12,7 +12,7 @@ import {
 import { configService } from '@/services/config/config.service';
 import BigNumber from 'bignumber.js';
 import { BigNumber as EPBigNumber } from '@ethersproject/bignumber';
-import { sendTransaction } from '@/lib/utils/balancer/web3';
+import { callStatic, sendTransaction } from '@/lib/utils/balancer/web3';
 import { defaultAbiCoder } from '@ethersproject/abi';
 import { AddressZero } from '@ethersproject/constants';
 import { PoolSeedToken } from '@/composables/pools/usePoolCreation';
@@ -86,13 +86,14 @@ export default class LBPService {
         l => l.topics?.length > 0 && l.topics[0] === TOPICS.PoolCreated
       );
       poolAddress = logs[0].address;
+      // debugger
     }
 
-    const pool = new Contract(poolAddress, WeightedPool__factory.abi, provider);
-    const poolId = await pool.getPoolId();
+    // const pool = new Contract(poolAddress, copperAbi, provider);
+    // const poolId = await pool.getPoolId(); // can't get poolId
 
     const poolDetails: CreatePoolReturn = {
-      id: poolId,
+      id: '',
       address: poolAddress
     };
 
@@ -168,5 +169,17 @@ export default class LBPService {
     return tokensIn.map(address =>
       address === nativeAsset.address ? AddressZero : address
     );
+  }
+  public async poolList(provider: Web3Provider) {
+    const copperProxyV2Address = configService.network.addresses.copperProxyV2;
+
+    const pools = await callStatic(
+      provider,
+      copperProxyV2Address,
+      copperAbi,
+      'getPools',
+      []
+    );
+    return pools;
   }
 }
