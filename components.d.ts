@@ -85,7 +85,7 @@ declare module '@vue/runtime-core' {
     CoppersTable: typeof import('./src/components/tables/CoppersTable/CoppersTable.vue')['default']
     CopperStatCards: typeof import('./src/components/contextual/pages/copper/CopperStatCards.vue')['default']
     CopperTransactionsCard: typeof import('./src/components/contextual/pages/copper/CopperTransactionsCard/CopperTransactionsCard.vue')['default']
-    CreateActions: typeof import('./src/components/cards/CreateCopper/CreateActions.vue')['default']
+    CreateActions: typeof import('./src/components/cards/CreatePool/CreateActions.vue')['default']
     CreateLBP: typeof import('./src/components/cards/CreateCopper/CreateLBP.vue')['default']
     DarkModeToggle: typeof import('./src/components/btns/DarkModeToggle.vue')['default']
     DesktopLinkItem: typeof import('./src/components/navs/AppNav/DesktopLinks/DesktopLinkItem.vue')['default']

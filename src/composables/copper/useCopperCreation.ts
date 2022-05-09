@@ -128,14 +128,14 @@ const emptyPoolCreationState = {
   // fee: '',
   // tokensList: [] as string[],
   poolId: '' as string,
-  // poolAddress: '',
+  poolAddress: '',
   // symbol: '',
   // manuallySetToken: '' as string,
   // autoOptimiseBalances: false,
   // useNativeAsset: false,
   // type: PoolType.Weighted,
   // acceptedCustomTokenDisclaimer: false,
-  // needsSeeding: false,
+  needsSeeding: false,
   createPoolTxHash: ''
 };
 
@@ -382,7 +382,7 @@ export default function useCopperCreation() {
     // } else {
     poolCreationState.activeStep += 1;
     // }
-    // saveState();
+    saveState();
   }
 
   function goBack() {
@@ -555,7 +555,7 @@ export default function useCopperCreation() {
     try {
       const tx = await copperService.pools.lbp.create(provider, poolConfig);
       poolCreationState.createPoolTxHash = tx.hash;
-      // saveState();
+      saveState();
       // debugger;
 
       addTransaction({
@@ -656,17 +656,17 @@ export default function useCopperCreation() {
   //   poolCreationState.acceptedCustomTokenDisclaimer = true;
   // }
 
-  // function saveState() {
-  //   lsSet(
-  //     COPPER_CREATION_STATE_KEY,
-  //     JSON.stringify(poolCreationState),
-  //     COPPER_CREATION_STATE_VERSION
-  //   );
-  // }
+  function saveState() {
+    lsSet(
+      COPPER_CREATION_STATE_KEY,
+      JSON.stringify(poolCreationState),
+      COPPER_CREATION_STATE_VERSION
+    );
+  }
 
-  // function resetState() {
-  //   lsRemove(COPPER_CREATION_STATE_KEY);
-  // }
+  function resetState() {
+    lsRemove(COPPER_CREATION_STATE_KEY);
+  }
 
   // function importState(state) {
   //   for (const key of Object.keys(poolCreationState)) {
@@ -683,11 +683,12 @@ export default function useCopperCreation() {
     const provider = new JsonRpcProvider(configService.network.publicRpc);
 
     const poolDetails = await copperService.pools.lbp.details(provider, hash);
-    console.log('aaaaretrievePoolDetails', poolDetails);
+    // console.log('aaaaretrievePoolDetails', poolDetails);
     // poolCreationState.poolId = poolDetails.id;
-    // poolCreationState.poolAddress = poolDetails.address;
-    // poolCreationState.needsSeeding = true;
+    poolCreationState.poolAddress = poolDetails.address;
+    poolCreationState.needsSeeding = true;
     // saveState();
+    resetState();
   }
 
   return {
@@ -713,13 +714,13 @@ export default function useCopperCreation() {
     getScaledAmounts,
     createPool,
     // joinPool,
-    setActiveStep
+    setActiveStep,
     // updateManuallySetToken,
     // sortSeedTokens,
     // clearAmounts,
     // setAmountsToMaxBalances,
     // acceptCustomTokenDisclaimer,
-    // saveState,
+    saveState,
     // resetState,
     // importState,
     // setRestoredState,
