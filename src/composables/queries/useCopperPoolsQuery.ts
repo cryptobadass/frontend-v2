@@ -24,9 +24,9 @@ import { copperService } from '@/services/copper/coppper.service';
 
 type PoolsQueryResponse = {
   pools: DecoratedPool[];
-  tokens: string[];
-  skip?: number;
-  enabled?: boolean;
+  // tokens: string[];
+  // skip?: number;
+  // enabled?: boolean;
 };
 
 type FilterOptions = {
@@ -261,22 +261,28 @@ export default function useCopperPoolsQuery(
   // };
 
   const queryFn = async () => {
-    const provider = getProvider();
-    const pools = await copperService.pools.lbp.poolList(provider);
-    // debugger;
-    const tokens = Array(pools.length);
+    // const provider = getProvider();
+    const pools = await copperService.pools.lbp.poolList(1);
+    // {
+    //   "lbp_name":"xxx",
+    //   "price": 0,
+    //   "start_time": 0,
+    //   "end_time": 0,
+    //   "network": 1,
+    //   "image_url": "xxx",
+    //     "id":1
+    // }
+    // const tokens = Array(pools.length);
 
-    for (let i = 0; i < pools.length; i++) {
-      const item = await searchTokens(pools[i], []);
-      tokens[i] = item[pools[i]];
-    }
-    // console.log()
-    // debugger;
-    return { pools: [], tokens: [] };
+    // for (let i = 0; i < pools.length; i++) {
+    //   const item = await searchTokens(pools[i], []);
+    //   tokens[i] = item[pools[i]];
+    // }
+    return { pools };
   };
   const queryOptions = reactive({
     ...options,
-    getNextPageParam: (lastPage: PoolsQueryResponse) => lastPage.skip,
+    // getNextPageParam: (lastPage: PoolsQueryResponse) => lastPage.skip,
     enabled
   });
 

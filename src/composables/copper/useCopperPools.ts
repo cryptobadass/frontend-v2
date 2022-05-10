@@ -9,35 +9,35 @@ import useCopperPoolsQuery from '../queries/useCopperPoolsQuery';
 export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   // COMPOSABLES
   const poolsQuery = useCopperPoolsQuery(poolsTokenList);
-  const userPoolsQuery = useUserPoolsQuery();
+  // const userPoolsQuery = useUserPoolsQuery();
 
   // COMPUTED
-  const pools = computed(
-    () => poolsQuery.data.value
-    //   ? flatten(poolsQuery.data.value.pages.map(page => page.pools))
-    //   : []
+  const pools = computed(() =>
+    poolsQuery.data.value
+      ? flatten(poolsQuery.data.value.pages.map(page => page.pools))
+      : []
   );
 
-  const tokens = computed(
-    () => poolsQuery.data.value
-    // ? flatten(poolsQuery.data.value.pages.map(page => page.tokens))
-    // : []
-  );
+  // const tokens = computed(
+  //   () => poolsQuery.data.value
+  //   // ? flatten(poolsQuery.data.value.pages.map(page => page.tokens))
+  //   // : []
+  // );
 
-  const userPools = computed(() => userPoolsQuery.data.value?.pools || []);
+  // const userPools = computed(() => userPoolsQuery.data.value?.pools || []);
 
-  const totalInvestedAmount = computed(
-    () => userPoolsQuery.data.value?.totalInvestedAmount
-  );
+  // const totalInvestedAmount = computed(
+  //   () => userPoolsQuery.data.value?.totalInvestedAmount
+  // );
   // console.log('aaaaaaa-20',userPoolsQuery.data.value)
 
   const isLoadingPools = computed(
     () => poolsQuery.isLoading.value || poolsQuery.isIdle.value
   );
 
-  const isLoadingUserPools = computed(
-    () => userPoolsQuery.isLoading.value || userPoolsQuery.isIdle.value
-  );
+  // const isLoadingUserPools = computed(
+  //   () => userPoolsQuery.isLoading.value || userPoolsQuery.isIdle.value
+  // );
 
   const poolsHasNextPage = computed(() => poolsQuery.hasNextPage?.value);
   const poolsIsFetchingNextPage = computed(
@@ -52,11 +52,11 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   return {
     // computed
     pools,
-    tokens,
-    userPools,
-    totalInvestedAmount,
+    // tokens,
+    // userPools,
+    // totalInvestedAmount,
     isLoadingPools,
-    isLoadingUserPools,
+    // isLoadingUserPools,
     poolsHasNextPage,
     poolsIsFetchingNextPage,
     poolsQuery,

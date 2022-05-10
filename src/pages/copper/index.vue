@@ -28,9 +28,9 @@ const {
 
 const {
   pools,
-  userPools,
+  // userPools,
   isLoadingPools,
-  isLoadingUserPools,
+  // isLoadingUserPools,
   loadMorePools,
   poolsHasNextPage,
   poolsIsFetchingNextPage,
@@ -40,25 +40,25 @@ const { addAlert, removeAlert } = useAlerts();
 const { upToMediumBreakpoint } = useBreakpoints();
 
 // COMPUTED
-const filteredPools = computed(() =>
-  selectedTokens.value.length > 0
-    ? pools.value?.filter(pool => {
-        return selectedTokens.value.every((selectedToken: string) =>
-          pool.tokenAddresses.includes(selectedToken)
-        );
-      })
-    : pools?.value
-);
+// const filteredPools = computed(() =>
+//   selectedTokens.value.length > 0
+//     ? pools.value?.filter(pool => {
+//         return selectedTokens.value.every((selectedToken: string) =>
+//           pool.tokenAddresses.includes(selectedToken)
+//         );
+//       })
+//     : pools?.value
+// );
 
-const showMigrationColumn = computed(() =>
-  userPools.value?.some(pool => {
-    return (
-      isMigratablePool(pool) &&
-      // TODO: this is a temporary solution to allow only big holders to migrate due to gas costs.
-      bnum(pool.shares).gt(MIN_FIAT_VALUE_POOL_MIGRATION)
-    );
-  })
-);
+// const showMigrationColumn = computed(() =>
+//   userPools.value?.some(pool => {
+//     return (
+//       isMigratablePool(pool) &&
+//       // TODO: this is a temporary solution to allow only big holders to migrate due to gas costs.
+//       bnum(pool.shares).gt(MIN_FIAT_VALUE_POOL_MIGRATION)
+//     );
+//   })
+// );
 
 // userPools.value[0].shares
 watch(poolsQuery.error, () => {
@@ -77,11 +77,11 @@ watch(poolsQuery.error, () => {
   }
 });
 
-const migratableUserPools = computed(() => {
-  return userPools.value.filter(pool => isMigratablePool(pool));
-});
+// const migratableUserPools = computed(() => {
+//   return userPools.value.filter(pool => isMigratablePool(pool));
+// });
 
-watch(showMigrationColumn, () => console.log(showMigrationColumn.value));
+// watch(showMigrationColumn, () => console.log(showMigrationColumn.value));
 
 /**
  * METHODS
@@ -116,7 +116,7 @@ function navigateToCreateCopper() {
 
       <CoppersTable
         :isLoading="isLoadingPools"
-        :data="filteredPools"
+        :data="pools"
         :noPoolsLabel="$t('noPoolsFound')"
         :isPaginated="poolsHasNextPage"
         :isLoadingMore="poolsIsFetchingNextPage"

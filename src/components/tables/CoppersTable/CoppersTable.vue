@@ -28,8 +28,18 @@ import { stringToUpperCase as _up } from '@/lib/utils/index';
 /**
  * TYPES
  */
+type DecoratedPoolCopper = {
+  lbp_name: string;
+  price: number;
+  start_time: number;
+  end_time: number;
+  network: number;
+  image_url: string;
+  id: number;
+};
+
 type Props = {
-  data?: DecoratedPoolWithShares[];
+  data?: DecoratedPoolCopper[];
   isLoading?: boolean;
   isLoadingMore?: boolean;
   showPoolShares?: boolean;
@@ -70,55 +80,73 @@ const wideCompositionWidth = computed(() =>
 /**
  * DATA
  */
-const columns = computed<ColumnDefinition<DecoratedPoolWithShares>[]>(() => [
+const columns = computed<ColumnDefinition<DecoratedPoolCopper>[]>(() => [
   {
-    name: 'TOKEN',
-    id: 'icons',
-    accessor: 'uri',
-    // Header: 'iconColumnHeader',
-    Cell: 'iconColumnCell',
-    width: 250,
-    noGrow: true
+    name: 'LBP Name',
+    id: 'lbp_name',
+    accessor: 'lbp_name'
   },
   {
-    name: 'Network',
-    id: 'poolName',
-    accessor: 'id',
-    Cell: 'poolNameCell',
-    width: props.hiddenColumns.length >= 2 ? wideCompositionWidth.value : 350
+    name: 'Start Time',
+    id: 'start_time',
+    accessor: 'start_time'
   },
   {
-    name: 'LBP Status',
-    accessor: pool => {
-      // console.log('aaaa----pool', pool, pool.shares);
-      return fNum2(pool.shares, {
-        style: 'currency',
-        maximumFractionDigits: 0,
-        fixedFormat: true
-      });
-    },
-    align: 'right',
-    id: 'myBalance',
-    width: 250,
-    cellClassName: 'font-numeric'
+    name: 'End Time',
+    id: 'end_time',
+    accessor: 'end_time'
   },
   {
-    name: 'Price',
-    accessor: pool =>
-      fNum2(pool.totalLiquidity, {
-        style: 'currency',
-        maximumFractionDigits: 0
-      }),
-    align: 'right',
-    id: 'poolValue',
-    sortKey: pool => {
-      const apr = Number(pool.totalLiquidity);
-      if (apr === Infinity || isNaN(apr)) return 0;
-      return apr;
-    },
-    width: 250,
-    cellClassName: 'font-numeric'
+    name: 'Image',
+    id: 'image_url',
+    accessor: row => {
+      return row.image_url;
+    }
   }
+  // {
+  //   name: 'LBP name',
+  //   id: 'lbp_name',
+  //   accessor: 'lbp_name',
+  //   // Header: 'iconColumnHeader',
+  //   Cell: 'iconColumnCell',
+  //   width: 250,
+  //   noGrow: true
+  // },
+  // {
+  //   name: 'Network',
+  //   id: 'poolName',
+  //   accessor: 'id',
+  //   Cell: 'poolNameCell',
+  //   width: props.hiddenColumns.length >= 2 ? wideCompositionWidth.value : 350
+  // },
+  // {
+  //   name: 'start Time',
+  //   accessor: pool => {
+  //     // console.log('aaaa----pool', pool, pool.shares);
+  //     return pool.start_time;
+  //   },
+  //   align: 'right',
+  //   id: 'start_time',
+  //   width: 250,
+  //   cellClassName: 'font-numeric'
+  // },
+  // {
+  //   name: 'Price',
+  //   accessor: pool =>
+  //     fNum2(pool.price, {
+  //       style: 'currency',
+  //       maximumFractionDigits: 0
+  //     }),
+  //   align: 'right',
+  //   id: 'poolValue',
+  //   sortKey: pool => {
+  //     const apr = Number(pool.price);
+  //     if (apr === Infinity || isNaN(apr)) return 0;
+  //     return apr;
+  //   },
+  //   width: 250,
+  //   cellClassName: 'font-numeric'
+  // }
 ]);
 
 const visibleColumns = computed(() =>

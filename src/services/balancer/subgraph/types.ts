@@ -221,3 +221,24 @@ export type TradePairSnapshot = {
     };
   };
 };
+
+export type FullPoolCopper = {
+  id: number;
+  group_id: number;
+  lbp_name: string;
+  lbp_symbol: string;
+  main_token: string;
+  base_token: string;
+  image_url: string;
+  description: string;
+  price: number;
+  lbp_creation_tx: string;
+  owner_address: string;
+  pool_address: string;
+  swap_fee: number;
+  start_time: number;
+  end_time: number;
+  blocked_countries: Array<string>;
+  network_id: number;
+  learn_more_url: string;
+}

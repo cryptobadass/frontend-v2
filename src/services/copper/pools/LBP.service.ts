@@ -20,6 +20,7 @@ import { toNormalizedWeights } from '@balancer-labs/balancer-js';
 import { scale } from '@/lib/utils';
 import TOPICS from '@/constants/topics';
 import copperAbi from '@/lib/abi/Copper.json';
+import axios from 'axios';
 
 type Address = string;
 
@@ -170,16 +171,14 @@ export default class LBPService {
       address === nativeAsset.address ? AddressZero : address
     );
   }
-  public async poolList(provider: Web3Provider) {
-    const copperProxyV2Address = configService.network.addresses.copperProxyV2;
-
-    const pools = await callStatic(
-      provider,
-      copperProxyV2Address,
-      copperAbi,
-      'getPools',
-      []
+  public async poolList(groupId = 1) {
+    const response = await axios.get(
+      `//api.yotei.finance/pools?group_id=${groupId}`
     );
-    return pools;
+    return response.data.success ? response.data.result || [] : [];
+  }
+  public async poolDetail(id: number | string) {
+    const response = await axios.get(`//api.yotei.finance/pool/${id}`);
+    return response.data.success ? response.data.result || {} : {};
   }
 }

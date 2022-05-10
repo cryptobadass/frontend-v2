@@ -62,7 +62,7 @@ import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 import useNumbers from '@/composables/useNumbers';
 import { usePool } from '@/composables/usePool';
-import usePoolQuery from '@/composables/queries/usePoolQuery';
+import useCopperPoolQuery from '@/composables/queries/useCopperPoolQuery';
 import usePoolSnapshotsQuery from '@/composables/queries/usePoolSnapshotsQuery';
 import { POOLS } from '@/constants/pools';
 import { EXTERNAL_LINKS } from '@/constants/links';
@@ -116,7 +116,7 @@ export default defineComponent({
     /**
      * QUERIES
      */
-    // const poolQuery = usePoolQuery(route.params.id as string);
+    const poolQuery = useCopperPoolQuery(route.params.id as string);
     const poolSnapshotsQuery = usePoolSnapshotsQuery(
       route.params.id as string,
       30
@@ -132,7 +132,7 @@ export default defineComponent({
     /**
      * COMPUTED
      */
-    // const pool = computed(() => poolQuery.data.value);
+    const pool = computed(() => poolQuery.data.value);
     // const {
     //   isStableLikePool,
     //   isLiquidityBootstrappingPool,
@@ -167,14 +167,14 @@ export default defineComponent({
     //   }
     // });
 
-    // const poolQueryLoading = computed(
-    //   () =>
-    //     poolQuery.isLoading.value ||
-    //     poolQuery.isIdle.value ||
-    //     poolQuery.error.value
-    // );
+    const poolQueryLoading = computed(
+      () =>
+        poolQuery.isLoading.value ||
+        poolQuery.isIdle.value ||
+        poolQuery.error.value
+    );
 
-    // const loadingPool = computed(() => poolQueryLoading.value || !pool.value);
+    const loadingPool = computed(() => poolQueryLoading.value || !pool.value);
 
     const snapshots = computed(() => poolSnapshotsQuery.data.value?.snapshots);
     // const historicalPrices = computed(
@@ -317,15 +317,15 @@ export default defineComponent({
       ...toRefs(data),
       EXTERNAL_LINKS,
       // computed
-      appLoading
-      // pool,
+      appLoading,
+      pool,
       // noInitLiquidity,
       // poolTypeLabel,
       // poolFeeLabel,
       // historicalPrices,
       // snapshots,
       // isLoadingSnapshots,
-      // loadingPool,
+      loadingPool,
       // titleTokens,
       // isWalletReady,
       // missingPrices,
