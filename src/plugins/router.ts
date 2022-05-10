@@ -13,6 +13,7 @@ import CopperPage from '@/pages/copper/index.vue';
 import CreateCopperPage from '@/pages/copper/create.vue';
 import CopperDetail from '@/pages/copper/_id.vue';
 import UI from '@/pages/ui.vue';
+import Group from '@/pages/group.vue';
 // import GetVeBalPage from '@/pages/get-vebal.vue';
 // import UnlockVeBalPage from '@/pages/unlock-vebal.vue';
 // import VeBalPage from '@/pages/vebal.vue';
@@ -88,6 +89,13 @@ const routes: RouteRecordRaw[] = [
     path: '/ui',
     name: 'ui',
     component: UI,
+    meta: { layout: 'BlankLayout' }
+    // redirect: '/'
+  },
+  {
+    path: '/group',
+    name: 'group',
+    component: Group,
     meta: { layout: 'BlankLayout' }
     // redirect: '/'
   },
