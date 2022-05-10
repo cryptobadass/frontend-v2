@@ -49,7 +49,6 @@
                             mainTokenInfo.symbol || ''
                           }}</span>
                         </div>
-                       
                       </div>
                     </div>
                   </div>

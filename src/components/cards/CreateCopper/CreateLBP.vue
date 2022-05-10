@@ -161,7 +161,9 @@
                     2 %
                   </div>
                   <div>
-                    <span class="font-bold text-gray-400 mr-2">Start time:</span>
+                    <span class="font-bold text-gray-400 mr-2"
+                      >Start time:</span
+                    >
                     {{ time[0] }}
                   </div>
                   <div>
