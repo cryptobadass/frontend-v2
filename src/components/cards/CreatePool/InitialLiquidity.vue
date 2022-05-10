@@ -45,7 +45,7 @@ const {
   setAmountsToMaxBalances,
   saveState
 } = usePoolCreation();
-console.log('aaaaaa', seedTokens, tokensList);
+// console.log('aaaaaa', seedTokens, tokensList);
 const { t } = useI18n();
 
 const tokenAddresses = ref([] as string[]);

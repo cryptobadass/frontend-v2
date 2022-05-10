@@ -12,16 +12,16 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   const userPoolsQuery = useUserPoolsQuery();
 
   // COMPUTED
-  const pools = computed(() =>
-    poolsQuery.data.value
+  const pools = computed(
+    () => poolsQuery.data.value
     //   ? flatten(poolsQuery.data.value.pages.map(page => page.pools))
     //   : []
   );
 
-  const tokens = computed(() =>
-    poolsQuery.data.value
-      // ? flatten(poolsQuery.data.value.pages.map(page => page.tokens))
-      // : []
+  const tokens = computed(
+    () => poolsQuery.data.value
+    // ? flatten(poolsQuery.data.value.pages.map(page => page.tokens))
+    // : []
   );
 
   const userPools = computed(() => userPoolsQuery.data.value?.pools || []);

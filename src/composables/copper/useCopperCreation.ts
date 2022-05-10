@@ -40,32 +40,21 @@ export type OptimisedLiquidity = {
 type FeeManagementType = 'governance' | 'self';
 type FeeType = 'fixed' | 'dynamic';
 type FeeController = 'self' | 'other';
-const now = new Date();
-const defaultStartTime = add(now, {
-  hours: 1
-});
-const defaultEndTime = add(now, {
-  hours: 1,
-  days: 3
-});
+
+function getDefaultTime() {
+  const now = new Date();
+  const defaultStartTime = add(now, {
+    hours: 1
+  });
+  const defaultEndTime = add(now, {
+    hours: 1,
+    days: 3
+  });
+
+  return [defaultStartTime, defaultEndTime];
+}
 
 const emptyPoolCreationState = {
-  // name: 'Token', // stringπ
-  // symbol: 'UNI.e', // string
-  // mainToken: {
-  //   tokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
-  //   weight: 50,
-  //   id: '1',
-  //   isLocked: false,
-  //   amount: '2'
-  // },
-  // baseToken: {
-  //   tokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
-  //   weight: 50,
-  //   id: '2',
-  //   isLocked: false,
-  //   amount: '9.384150710184040771'
-  // },
   seedTokens: [
     {
       tokenAddress: '0x32F106297E28bBf71FFC41b74DA98D78b703B479',
@@ -84,57 +73,23 @@ const emptyPoolCreationState = {
       amount: ''
     }
   ] as PoolSeedToken[],
-  // tokens: [
-  //   '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846', // link
-  //   '0x286EA60Cb66ba7647C8143c5d467594B92A3734C'
-  //   // '0xed7F146612C8d2e8E101b8b5B8C58b8E70E99149',// aMock
-  //   // '0x386c2C22Cdfb4D4da4CC41a1edC61765156930e6',//myPool1
-  //   // '0xeb41cb98b02cBB91590A8637Ae1F47849628dF56',// myPool2
-  //   // '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
-  //   // '0x2A9cB455bA143f7f65Af8320e8F64a4bBFA99CC5', // xUST
-  // ] as string[], // address[]
+
   mainTokenAmount: '',
   baseTokenAmount: '',
-  // mainTokenAddress: '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
-  // baseTokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
   baseTokenOptions: [
     '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
     '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
     '0xed7F146612C8d2e8E101b8b5B8C58b8E70E99149'
   ],
-  // amounts: ['10000000000000000000', '10000000000000000000'] as string[], // uint256[]
-  // weights: ['300000000000000000', '700000000000000000'] as string[], // uint256[]
-  // startWeight: 99,
-  // endWeight: 1,
-  // endAdnStartWeight: [1, 99],
-  // endWeights: ['200000000000000000', '800000000000000000'] as string[], // uint256[]
   isCorrectOrder: true, // bool
   swapFeePercentage: 2.5, // uint256
-  // startTime: 1652398300 as number, // uint256
-  // endTime: 1659283200 as number, // uint256
-  time: [defaultStartTime, defaultEndTime] as Array<Date | null>,
-
-  // seedTokens: [] as PoolSeedToken[],
+  time: getDefaultTime() as Array<Date | null>,
   activeStep: 0,
   description: '',
   learnMoreLink: '',
   readAndAgree: false,
-  // initialFee: '0.003',
-  // isFeeGovManaged: false,
-  // feeManagementType: 'governance' as FeeManagementType,
-  // feeType: 'fixed' as FeeType,
-  // feeController: 'self' as FeeController,
-  // thirdPartyFeeController: '',
-  // fee: '',
-  // tokensList: [] as string[],
   poolId: '' as string,
   poolAddress: '',
-  // symbol: '',
-  // manuallySetToken: '' as string,
-  // autoOptimiseBalances: false,
-  // useNativeAsset: false,
-  // type: PoolType.Weighted,
-  // acceptedCustomTokenDisclaimer: false,
   needsSeeding: false,
   createPoolTxHash: ''
 };
@@ -666,6 +621,7 @@ export default function useCopperCreation() {
 
   function resetState() {
     lsRemove(COPPER_CREATION_STATE_KEY);
+    poolCreationState.time = getDefaultTime();
   }
 
   // function importState(state) {

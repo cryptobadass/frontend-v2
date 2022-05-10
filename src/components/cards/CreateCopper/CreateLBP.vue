@@ -48,7 +48,7 @@
                 Approve interactions with main and base tokens
                 <BalIcon
                   v-if="tokenApprovalActions.length == 0"
-                  class="ml-2"
+                  class="ml-2 text-cyan-50"
                   size="md"
                   name="check-circle"
                 />
@@ -57,7 +57,7 @@
                 Schedule LBP
                 <BalIcon
                   v-if="poolCreated"
-                  class="ml-2"
+                  class="ml-2 text-cyan-50"
                   size="md"
                   name="check-circle"
                 />
@@ -95,25 +95,78 @@
               <BalCard>
                 <BalStack vertical spacing="base">
                   <div>
-                    <span class="font-bold">LBP network address:</span> Not yet
-                    created
+                    <span class="font-bold text-gray-400 mr-2"
+                      >LBP network address:</span
+                    >
+                    <div v-if="poolAddress" class="inline-block">
+                      <div class="address flex items-baseline">
+                        <div class="text-cyan" v-text="_shorten(poolAddress)" />
+                        <div class="ml-3 flex">
+                          <BalTooltip width="auto">
+                            <template v-slot:activator>
+                              <BalBtn
+                                circle
+                                color="gray"
+                                size="xs"
+                                flat
+                                @click="copyAddress"
+                                class="mr-2"
+                              >
+                                <BalIcon
+                                  v-if="copiedAddress"
+                                  name="check"
+                                  size="xs"
+                                />
+                                <BalIcon v-else name="clipboard" size="xs" />
+                              </BalBtn>
+                            </template>
+                            <div
+                              v-text="
+                                copiedAddress ? $t('copied') : $t('copyAddress')
+                              "
+                              class="text-center"
+                            />
+                          </BalTooltip>
+                          <BalBtn
+                            circle
+                            flat
+                            color="gray"
+                            size="xs"
+                            tag="a"
+                            :href="explorerLinks.addressLink(poolAddress)"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <BalIcon name="arrow-up-right" size="xs" />
+                          </BalBtn>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="inline-block" v-else>Not yet created</div>
                   </div>
                   <div>
-                    <span class="font-bold">Main token amount:</span>
+                    <span class="font-bold text-gray-400 mr-2"
+                      >Main token amount:</span
+                    >
                     {{ mainTokenAmount }} {{ mainTokenInfo.symbol }}
                   </div>
                   <div>
-                    <span class="font-bold">Swap fee:</span>
+                    <span class="font-bold text-gray-400 mr-2">Swap fee:</span>
                     {{ swapFeePercentage }} %
                   </div>
                   <div>
-                    <span class="font-bold">Platform access fee:</span> 2%
+                    <span class="font-bold text-gray-400 mr-2"
+                      >Platform access fee:</span
+                    >
+                    2 %
                   </div>
                   <div>
-                    <span class="font-bold">Start time:</span> {{ time[0] }}
+                    <span class="font-bold text-gray-400 mr-2">Start time:</span>
+                    {{ time[0] }}
                   </div>
                   <div>
-                    <span class="font-bold">End time:</span> {{ time[1] }}
+                    <span class="font-bold text-gray-400 mr-2">End time:</span>
+                    {{ time[1] }}
                   </div>
                 </BalStack>
               </BalCard>
@@ -157,18 +210,8 @@ const emit = defineEmits<{
   (e: 'success'): void;
 }>();
 const { t } = useI18n();
-// const { tokenApprovalActions } = useTokenApprovalActions(
-//   ['',''],
-//   [configService.network.addresses.copperProxyV2]
-// );
 
-const emptyTokenWeight: PoolSeedToken = {
-  tokenAddress: '',
-  weight: 0,
-  id: '0',
-  isLocked: false,
-  amount: '0'
-};
+const copiedAddress = ref(false);
 // const actions = [
 //   {
 //     label: 'Approve',
@@ -202,12 +245,13 @@ const {
   mainTokenInfo,
   seedTokens,
   mainTokenAddress,
-  baseTokenAddress
+  baseTokenAddress,
+  poolAddress
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();
-// const { isWalletReady, toggleWalletSelectModal } = useWeb3();
+const { isWalletReady, toggleWalletSelectModal, explorerLinks } = useWeb3();
 // const { t } = useI18n();
 // const { darkMode } = useDarkMode();
 
@@ -273,5 +317,13 @@ const tokenList = computed(() => {
 function handleSuccess(): void {
   poolCreated.value = true;
   emit('success');
+}
+function copyAddress() {
+  navigator.clipboard.writeText(poolAddress.value);
+  copiedAddress.value = true;
+
+  setTimeout(() => {
+    copiedAddress.value = false;
+  }, 2 * 1000);
 }
 </script>

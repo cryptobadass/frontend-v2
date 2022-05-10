@@ -58,14 +58,25 @@
               <div class="font-bold mb-2">
                 Main Token <span class="text-red-400">*</span>
               </div>
-              <div class="mb-4">
+              <div class="mb-4 flex items-center">
                 <input
                   v-model="seedTokens[0].tokenAddress"
-                  class="border border-gray-400 rounded p-2 input flex-auto w-3/4 bg-transparent"
-                  placeholder="0x286EA60Cb66ba7647C8143c5d467594B92A3734C"
+                  class="border border-gray-400 rounded p-2 input  w-3/4 bg-transparent"
+                  placeholder="ERC-20 Token Contract Address"
+                />
+                <BalIcon
+                  v-if="mainTokenInfo"
+                  name="check-circle"
+                  class="text-cyan ml-2"
                 />
               </div>
-              <div class="font-bold mb-2">Token logo URL</div>
+              <div class="mt-4">
+                <BalBtn :disabled="!mainTokenInfo" @click="proceed"
+                  >Continue to LBP configuration</BalBtn
+                >
+              </div>
+
+              <!-- <div class="font-bold mb-2">Token logo URL</div>
               <div class="mb-2">
                 <input
                   class="border border-gray-400 rounded p-2 input flex-auto w-3/4 bg-transparent"
@@ -81,7 +92,7 @@
               <div class="mb-4 text-sm text-gray-400 font-normal">
                 Please enter a valid URL starting with "https://" and ending in
                 ".jpeg", ".jpg", or ".png".
-              </div>
+              </div> -->
             </div>
             <div
               class="col-span-1 order-2 px-1 flex flex-col justify-center content-center"
@@ -106,25 +117,15 @@
                       >Token ticker:</span
                     >{{ mainTokenInfo?.symbol }}
                   </div>
-                  <!-- <div>
-                    <span class="text-gray-400 text-sm mr-2 font-bold"
-                      >Total supply: </span
-                    >100,000,000,000 ??
-                  </div> -->
                   <div>
                     <span class="text-gray-400 text-sm mr-2 font-bold"
                       >Balance:</span
                     >
-                    {{ tokenBalance }}
+                    {{ fNum2(tokenBalance, FNumFormats.token) }}
                   </div>
                 </BalStack>
               </BalCard>
             </div>
-          </div>
-          <div class="mt-4">
-            <BalBtn @click="proceed">Continue to LBP configuration</BalBtn>
-            <!-- <BalBtn class="ml-2" @click="createLBP">createLBP</BalBtn>
-            <BalBtn class="ml-2" @click="approve">approve</BalBtn> -->
           </div>
         </BalCard>
       </BalStack>
@@ -215,13 +216,13 @@ const {
   // hasInjectedToken,
   // acceptedCustomTokenDisclaimer,
   // createLBP,
-  approve,
+  // approve,
   // tokens,
   // mainTokenAddress,
   mainTokenInfo
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
-// const { fNum2 } = useNumbers();
+const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();
 const {
   isWalletReady,

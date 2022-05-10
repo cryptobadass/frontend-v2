@@ -41,16 +41,15 @@
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Token ticker</p>
-                        <p>
-                          <!-- <img
-                            class="inline-block"
-                            width="20"
-                            height="20"
-                            src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
-                          />
-                          <span class="ml-2">LC</span> -->
-                          <TokenSelectInput v-model="mainTokenAddress" fixed />
-                        </p>
+                        <div
+                          class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
+                        >
+                          <BalAsset :address="mainTokenInfo.address" />
+                          <span class="ml-2">{{
+                            mainTokenInfo.symbol || ''
+                          }}</span>
+                        </div>
+                       
                       </div>
                     </div>
                   </div>
