@@ -241,4 +241,4 @@ export type FullPoolCopper = {
   blocked_countries: Array<string>;
   network_id: number;
   learn_more_url: string;
-}
+};

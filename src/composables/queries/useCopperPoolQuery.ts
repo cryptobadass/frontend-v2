@@ -7,7 +7,12 @@ import { formatUnits } from 'ethers/lib/utils';
 import { getAddress, isAddress } from '@ethersproject/address';
 import { balancerContractsService } from '@/services/balancer/contracts/balancer-contracts.service';
 import { balancerSubgraphService } from '@/services/balancer/subgraph/balancer-subgraph.service';
-import { FullPool, LinearPool, Pool, FullPoolCopper } from '@/services/balancer/subgraph/types';
+import {
+  FullPool,
+  LinearPool,
+  Pool,
+  FullPoolCopper
+} from '@/services/balancer/subgraph/types';
 import { POOLS } from '@/constants/pools';
 import useApp from '../useApp';
 import useUserSettings from '../useUserSettings';
@@ -220,10 +225,10 @@ export default function useCopperPoolQuery(
   //   return { onchain: onchainData, unwrappedTokens, ...decoratedPool };
   // };
 
-  const queryFn = async function(){
+  const queryFn = async function() {
     const pools = await copperService.pools.lbp.poolDetail(id);
     return pools;
-  }
+  };
   const queryOptions = reactive({
     enabled,
     ...options

@@ -325,7 +325,7 @@ export default defineComponent({
       // historicalPrices,
       // snapshots,
       // isLoadingSnapshots,
-      loadingPool,
+      loadingPool
       // titleTokens,
       // isWalletReady,
       // missingPrices,
