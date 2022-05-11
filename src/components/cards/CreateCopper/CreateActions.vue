@@ -173,7 +173,7 @@ function handleSuccess(details: any): void {
       <BalBtn
         v-if="poolAddress"
         tag="router-link"
-        :to="{ name: 'copper-detail', params: { id: poolAddress } }"
+        :to="{ name: 'launchpad-detail', params: { id: poolAddress } }"
         color="gray"
         outline
         block

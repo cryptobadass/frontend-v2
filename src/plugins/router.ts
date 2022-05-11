@@ -70,19 +70,19 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: 'PoolTransferLayout' }
   },
   {
-    path: '/copper',
-    name: 'copper',
+    path: '/launchpad',
+    name: 'launchpad',
     component: CopperPage
   },
   {
-    path: '/copper/create',
-    name: 'create-copper',
+    path: '/launchpad/create',
+    name: 'create-launchpad',
     component: CreateCopperPage,
     meta: { layout: 'FocusedLayout' }
   },
   {
-    path: '/copper/:id',
-    name: 'copper-detail',
+    path: '/launchpad/:id',
+    name: 'launchpad-detail',
     component: CopperDetail
   },
   {

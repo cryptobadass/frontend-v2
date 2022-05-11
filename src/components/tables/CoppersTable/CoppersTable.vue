@@ -160,7 +160,7 @@ const stakeablePoolIds = computed((): string[] => POOLS.Stakeable.AllowList);
  */
 function handleRowClick(pool: DecoratedPoolWithShares) {
   trackGoal(Goals.ClickPoolsTableRow);
-  router.push({ name: 'copper-detail', params: { id: pool.id } });
+  router.push({ name: 'launchpad-detail', params: { id: pool.id } });
 }
 
 function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
@@ -186,7 +186,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
       sticky="both"
       :square="upToLargeBreakpoint"
       :link="{
-        to: 'copper-detail',
+        to: 'launchpad-detail',
         getParams: pool => ({ id: pool.id })
       }"
       :on-row-click="handleRowClick"

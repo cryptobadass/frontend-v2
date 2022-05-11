@@ -31,8 +31,9 @@ const blockIcon = ref<HTMLDivElement>();
 
 const navLinks = [
   { label: t('invest'), path: '/' },
-  { label: t('trade'), path: '/trade' },
-  { label: 'Copper', path: '/copper' }
+  { label: 'Launchpad', path: '/launchpad' },
+  { label: t('trade'), path: '/trade' }
+
   // { label: 'veBAL', path: '/vebal' },
   // { label: t('claim'), path: '/claim' }
 ];

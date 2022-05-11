@@ -87,8 +87,8 @@ watch(poolsQuery.error, () => {
  * METHODS
  */
 
-function navigateToCreateCopper() {
-  router.push({ name: 'create-copper' });
+function navigateToCreateLaunchpad() {
+  router.push({ name: 'create-launchpad' });
 }
 </script>
 
@@ -101,14 +101,14 @@ function navigateToCreateCopper() {
           class="flex flex-col md:flex-row w-full justify-end items-end lg:items-center"
         >
           <BalBtn
-            @click="navigateToCreateCopper"
+            @click="navigateToCreateLaunchpad"
             color="cyan"
             outline
             size="sm"
             :class="{ 'mt-4': upToMediumBreakpoint }"
             :block="upToMediumBreakpoint"
           >
-            {{ 'Create A Copper' }}
+            {{ 'Create A Launchpad' }}
             <BalIcon name="chevron-right" size="sm" class="ml-1 text-cyan" />
           </BalBtn>
         </div>

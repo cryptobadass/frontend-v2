@@ -21,7 +21,7 @@ import { approveTokens } from '@/lib/utils/balancer/tokens';
 import { add, getUnixTime } from 'date-fns';
 
 export const COPPER_CREATION_STATE_VERSION = '1.0';
-export const COPPER_CREATION_STATE_KEY = 'copperCreationState';
+export const COPPER_CREATION_STATE_KEY = 'launchpadCreationState';
 
 export type PoolSeedToken = {
   tokenAddress: string;

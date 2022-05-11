@@ -95,7 +95,7 @@ function navigateToCreatePool() {
   router.push({ name: 'create-pool' });
 }
 function navigateToCreateCopper() {
-  router.push({ name: 'create-copper' });
+  router.push({ name: 'create-launchpad' });
 }
 </script>
 
