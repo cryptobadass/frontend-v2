@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, onBeforeMount, watch, ref } from 'vue';
+import { defineComponent, onBeforeMount, watch, ref, onMounted } from 'vue';
 import { VueQueryDevTools } from 'vue-query/devtools';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
@@ -25,6 +25,8 @@ import AppSidebar from './components/navs/AppNav/AppSidebar/AppSidebar.vue';
 import { useSidebar } from './composables/useSidebar';
 import useNavigationGuards from './composables/useNavigationGuards';
 import GlobalModalContainer from './components/modals/GlobalModalContainer.vue';
+import { lsSet } from './lib/utils';
+import { copperService } from './services/copper/coppper.service';
 
 BigNumber.config({ DECIMAL_PLACES: DEFAULT_TOKEN_DECIMALS });
 
@@ -96,8 +98,10 @@ export default defineComponent({
     /**
      * CALLBACKS
      */
-    onBeforeMount(async () => {
+    onBeforeMount(() => {
       store.dispatch('app/init');
+      copperService.pools.lbp.getToken();
+      // console.log('token:', token);
     });
 
     /**

@@ -19,6 +19,7 @@ import { POOLS } from '@/constants/pools';
 import { copperService } from '@/services/copper/coppper.service';
 import { approveTokens } from '@/lib/utils/balancer/tokens';
 import { add, getUnixTime } from 'date-fns';
+import { networkId } from '@/composables/useNetwork';
 
 export const COPPER_CREATION_STATE_VERSION = '1.0';
 export const COPPER_CREATION_STATE_KEY = 'launchpadCreationState';
@@ -91,7 +92,8 @@ const emptyPoolCreationState = {
   poolId: '' as string,
   poolAddress: '',
   needsSeeding: false,
-  createPoolTxHash: ''
+  createPoolTxHash: '',
+  image: ''
 };
 
 export const poolCreationState = reactive({ ...emptyPoolCreationState });
@@ -624,6 +626,30 @@ export default function useCopperCreation() {
     poolCreationState.time = getDefaultTime();
   }
 
+  function saveToYotei() {
+    const data = {
+      group_id: 1, // todo
+      network_id: networkId.value,
+      lbp_name: LBPTokenName.value,
+      lbp_symbol: LBPTokenSymbol.value,
+      main_token: mainTokenAddress.value,
+      base_token: baseTokenAddress.value,
+      image_url: poolCreationState.image,
+      description: poolCreationState.description,
+      price: 1, // todo
+      learn_more_url: poolCreationState.learnMoreLink,
+      swap_fee: poolCreationState.swapFeePercentage / 100,
+      start_time: getUnixTime(poolCreationState.time[0] as Date),
+      end_time: getUnixTime(poolCreationState.time[1] as Date),
+      owner_address: account.value,
+      pool_address: poolCreationState.poolAddress,
+      blocked_countries: [],
+      lbp_creation_tx: poolCreationState.createPoolTxHash
+    };
+    console.log('save lbp to Yotei', data);
+    copperService.pools.lbp.saveLBP(data);
+  }
+
   // function importState(state) {
   //   for (const key of Object.keys(poolCreationState)) {
   //     if (key === 'activeStep') continue;
@@ -644,6 +670,7 @@ export default function useCopperCreation() {
     poolCreationState.poolAddress = poolDetails.address;
     poolCreationState.needsSeeding = true;
     // saveState();
+    saveToYotei();
     resetState();
   }
 

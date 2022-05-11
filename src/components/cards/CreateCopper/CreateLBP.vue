@@ -318,6 +318,7 @@ const tokenList = computed(() => {
 
 function handleSuccess(): void {
   poolCreated.value = true;
+  
   emit('success');
 }
 function copyAddress() {

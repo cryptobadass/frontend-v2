@@ -21,6 +21,7 @@ import { scale } from '@/lib/utils';
 import TOPICS from '@/constants/topics';
 import copperAbi from '@/lib/abi/Copper.json';
 import axios from 'axios';
+import { request } from '@/lib/utils/request';
 
 type Address = string;
 
@@ -172,13 +173,25 @@ export default class LBPService {
     );
   }
   public async poolList(groupId = 1) {
-    const response = await axios.get(
-      `//api.yotei.finance/pools?group_id=${groupId}`
-    );
+    const response = await request.get(`/api/pools?group_id=${groupId}`);
     return response.data.success ? response.data.result || [] : [];
   }
   public async poolDetail(id: number | string) {
-    const response = await axios.get(`//api.yotei.finance/pool/${id}`);
+    const response = await request.get(`/api/pool/${id}`);
     return response.data.success ? response.data.result || {} : {};
+  }
+  public async saveLBP(data) {
+    const response = await request.post('/api/pool/create', data, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+    console.log('save create LBP', response);
+  }
+  public async getToken() {
+    const response = await request.get('/api/getToken', {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+    return response.data;
   }
 }

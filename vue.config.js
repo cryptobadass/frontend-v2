@@ -24,6 +24,14 @@ module.exports = {
       'Access-Control-Allow-Methods': 'GET',
       'Access-Control-Allow-Headers':
         'X-Requested-With, content-type, Authorization'
+    },
+    // proxy: 'http://api.yotei.finance'
+    proxy: {
+      '/api': {
+        target: 'http://api.yotei.finance',
+        pathRewrite: { '/api': '' },
+        secure: false
+      }
     }
   }
 };

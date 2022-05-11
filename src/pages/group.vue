@@ -98,10 +98,12 @@ import { computed, onMounted, ref, reactive } from 'vue';
 
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
-import { sleep } from '@/lib/utils';
+import { lsSet, sleep } from '@/lib/utils';
 import { isRequired } from '@/lib/utils/validations';
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import { copperService } from '@/services/copper/coppper.service';
+import { request } from '@/lib/utils/request';
 
 const { t } = useI18n();
 const emptyGroupState = {
@@ -136,15 +138,14 @@ const searchGroup = ref('');
  * METHODS
  */
 async function getGroup() {
-  const response = await axios.get('//api.yotei.finance/lbps');
+  
+  const response = await request.get('/api/lbps');
   if (response.data.success) {
     groupData.value = response.data.result || [];
   }
 }
 async function getPools() {
-  const response = await axios.get(
-    `//api.yotei.finance/pools?group_id=${searchGroup.value}`
-  );
+  const response = await request.get(`/api/pools?group_id=${searchGroup.value}`);
   if (response.data.success) {
     poolsData.value = response.data.result || [];
   }
@@ -184,7 +185,7 @@ async function createGroupAxios() {
     link: editGroupState.link,
     seq: editGroupState.seq
   };
-  const response = await axios.get('//api.yotei.finance/lbp/group/create', {
+  const response = await request.get('/api/lbp/group/create', {
     headers: { 'Content-Type': 'application/json' },
     data: params
   });
@@ -207,7 +208,7 @@ async function updateGroupAxios() {
     deleted: 1
   };
   const response = await axios.get(
-    `//api.yotei.finance/lbp/group/update/${editGroupState.id}`,
+    `/api/lbp/group/update/${editGroupState.id}`,
     {
       headers: { 'Content-Type': 'application/json' },
       data: params
@@ -226,10 +227,13 @@ async function updateGroupAxios() {
 /**
  * CALLBACKS
  */
-// onMounted(() => {
-//   // selectedPoolTokens are only persisted between the Home/Pool pages
-//   setSelectedTokens([]);
-// });
+onMounted(async () => {
+  // selectedPoolTokens are only persisted between the Home/Pool pages
+  // setSelectedTokens([]);
+  // const { token } = await copperService.pools.lbp.getToken();
+  // // console.log('token:', token);
+  // lsSet('token', token);
+});
 </script>
 
 <style scoped>
