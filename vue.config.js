@@ -26,12 +26,12 @@ module.exports = {
         'X-Requested-With, content-type, Authorization'
     },
     // proxy: 'http://api.yotei.finance'
-    proxy: {
-      '/api': {
-        target: 'http://api.yotei.finance',
-        pathRewrite: { '/api': '' },
-        secure: false
-      }
-    }
+    // proxy: {
+    //   '/api': {
+    //     target: 'https://api.yotei.finance',
+    //     pathRewrite: { '/api': '' },
+    //     secure: false
+    //   }
+    // }
   }
 };

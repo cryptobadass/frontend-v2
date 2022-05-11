@@ -2,7 +2,7 @@ import axios from 'axios';
 import { lsGet, lsSet } from '.';
 
 export const request = axios.create({
-  baseURL: 'http://api.yotei.finance',
+  baseURL: 'https://api.yotei.finance',
   timeout: 10000
 });
 
@@ -21,7 +21,7 @@ request.interceptors.request.use(
     config.url = config.url?.replace('/api', '');
 
     if (lsGet('token')) {
-      config.headers.authorization = `Bearer ${lsGet('token')}`;
+      config.headers.token = lsGet('token');
     }
     return config;
   },
