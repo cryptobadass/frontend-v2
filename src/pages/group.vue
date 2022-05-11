@@ -138,14 +138,15 @@ const searchGroup = ref('');
  * METHODS
  */
 async function getGroup() {
-  
   const response = await request.get('/api/lbps');
   if (response.data.success) {
     groupData.value = response.data.result || [];
   }
 }
 async function getPools() {
-  const response = await request.get(`/api/pools?group_id=${searchGroup.value}`);
+  const response = await request.get(
+    `/api/pools?group_id=${searchGroup.value}`
+  );
   if (response.data.success) {
     poolsData.value = response.data.result || [];
   }
