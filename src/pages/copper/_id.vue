@@ -4,7 +4,7 @@
       <div class="col-span-2">
         <BalLoadingBlock v-if="loadingPool" class="h-16" />
         <div v-else class="px-4 lg:px-0 flex flex-col">
-          <CopperDetailHeader />
+          <CopperDetailHeader :pool="pool" />
         </div>
       </div>
 
@@ -133,6 +133,7 @@ export default defineComponent({
      * COMPUTED
      */
     const pool = computed(() => poolQuery.data.value);
+    // debugger
     // const {
     //   isStableLikePool,
     //   isLiquidityBootstrappingPool,

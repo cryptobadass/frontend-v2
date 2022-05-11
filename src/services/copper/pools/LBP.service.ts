@@ -178,6 +178,7 @@ export default class LBPService {
   }
   public async poolDetail(id: number | string) {
     const response = await request.get(`/api/pool/${id}`);
+    // debugger;
     return response.data.success ? response.data.result || {} : {};
   }
   public async saveLBP(data) {

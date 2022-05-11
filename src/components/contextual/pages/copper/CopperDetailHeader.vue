@@ -2,38 +2,57 @@
 // import { toRef, computed, ref } from 'vue';
 // import { useRouter } from 'vue-router';
 
+import { FullPoolCopper } from '@/services/balancer/subgraph/types';
+import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
+import { computed, watch } from 'vue';
+import { differenceInDays } from 'date-fns';
+import useCountDown from '@/composables/useCountDown';
+
 /**
  * TYPES
  */
 type Props = {
-  a: string;
+  pool: FullPoolCopper;
 };
 
 /**
  * PROPS
  */
 const props = defineProps<Props>();
+
+const pool = computed(() => props.pool);
+const ends = computed(() => {
+  return props.pool.end_time;
+});
+const differenceInDay = computed(() => {
+  if (props.pool.end_time && props.pool.start_time) {
+    return differenceInDays(
+      new Date(props.pool.end_time * 1000),
+      new Date(props.pool.start_time * 1000)
+    );
+  } else {
+    return 0;
+  }
+});
+const countDown = useCountDown(props.pool.end_time);
 </script>
 
 <template>
   <div>
     <div class="flex items-center mb-4">
-      <div class="font-bold text-2xl">LC Liquidity Bootstrapping Pool</div>
-      <img
-        class="rounded-full inline-block ml-3 w-8 h-8"
-        :src="
-          'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-        "
-      />
+      <div class="font-bold text-2xl">
+        {{ pool.lbp_name }} Liquidity Bootstrapping Pool
+      </div>
+      <BalAsset :address="pool.pool_address"></BalAsset>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-y-4 gap-x-0 md:gap-x-2">
       <div class="col-span-1">
         <div class="text-gray-400">DURATION</div>
-        <div class="font-bold">4.5 days</div>
+        <div class="font-bold">{{ differenceInDay }} days</div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">ENDS IN</div>
-        <div class="font-bold">3:08:58:43</div>
+        <div class="font-bold">{{ countDown }}</div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">TOTAL VOLUME</div>

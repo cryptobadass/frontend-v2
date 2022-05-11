@@ -2,7 +2,7 @@ import axios from 'axios';
 import { lsGet, lsSet } from '.';
 
 export const request = axios.create({
-  // baseURL: 'http://api.yotei.finance',
+  baseURL: 'http://api.yotei.finance',
   timeout: 10000
 });
 
@@ -18,7 +18,7 @@ request.interceptors.request.use(
       config.data = formData;
     }
     // console.log('aaa', config.url);
-    // config.url = config.url?.replace('/api', '');
+    config.url = config.url?.replace('/api', '');
 
     if (lsGet('token')) {
       config.headers.authorization = `Bearer ${lsGet('token')}`;
@@ -38,6 +38,7 @@ request.interceptors.response.use(
       console.log('token:', res.data.token);
       lsSet('token', res.data.token);
     }
+    debugger
     if (!res.data.success) {
       // alert(res.error_msg)
       return Promise.reject(res);

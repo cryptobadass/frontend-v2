@@ -227,6 +227,7 @@ export default function useCopperPoolQuery(
 
   const queryFn = async function() {
     const pools = await copperService.pools.lbp.poolDetail(id);
+    // debugger;
     return pools;
   };
   const queryOptions = reactive({
