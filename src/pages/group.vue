@@ -98,12 +98,12 @@ import { computed, onMounted, ref, reactive } from 'vue';
 
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
-import { lsSet, sleep } from '@/lib/utils';
+import { lsGet, lsSet, sleep } from '@/lib/utils';
 import { isRequired } from '@/lib/utils/validations';
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { copperService } from '@/services/copper/coppper.service';
-import { request } from '@/lib/utils/request';
+import request from '@/lib/utils/request';
 
 const { t } = useI18n();
 const emptyGroupState = {
@@ -138,7 +138,11 @@ const searchGroup = ref('');
  * METHODS
  */
 async function getGroup() {
-  const response = await request.get('/api/lbps');
+  const response = await request.get('/api/lbps', {
+    // headers: {
+    //   token: lsGet('token')
+    // }
+  });
   if (response.data.success) {
     groupData.value = response.data.result || [];
   }

@@ -98,10 +98,11 @@ export default defineComponent({
     /**
      * CALLBACKS
      */
-    onBeforeMount(() => {
+    onBeforeMount(async () => {
       store.dispatch('app/init');
-      copperService.pools.lbp.getToken();
-      // console.log('token:', token);
+      const token = await copperService.pools.lbp.getToken();
+      console.log('aaa token:', token);
+      lsSet('token', token.token)
     });
 
     /**

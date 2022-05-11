@@ -20,8 +20,7 @@ import { toNormalizedWeights } from '@balancer-labs/balancer-js';
 import { scale } from '@/lib/utils';
 import TOPICS from '@/constants/topics';
 import copperAbi from '@/lib/abi/Copper.json';
-import axios from 'axios';
-import { request } from '@/lib/utils/request';
+import  request  from '@/lib/utils/request';
 
 type Address = string;
 
@@ -189,9 +188,9 @@ export default class LBPService {
   }
   public async getToken() {
     const response = await request.get('/api/getToken', {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
+      // headers: {
+      //   'Content-Type': 'application/x-www-form-urlencoded'
+      // }
     });
     return response.data;
   }

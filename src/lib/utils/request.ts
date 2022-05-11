@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { lsGet, lsSet } from '.';
 
-export const request = axios.create({
+const request = axios.create({
   baseURL: 'https://api.yotei.finance',
-  timeout: 10000
+  timeout: 50000
 });
 
 request.interceptors.request.use(
@@ -17,9 +17,10 @@ request.interceptors.request.use(
       );
       config.data = formData;
     }
-    // console.log('aaa', config.url);
+    console.log('aaa', config.url);
     config.url = config.url?.replace('/api', '');
-
+    // config.headers.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHAiOiJyZXdhcmRzIiwiaWF0IjoxNjUyMjg3Mjg0LCJleHAiOjE2NTIyOTA4ODR9.f18XaGd8k0MpPEin9CHM84cCLtvDmgCg4UU4R4VMeM0"
+    console.log('aaa', lsGet('token'));
     if (lsGet('token')) {
       config.headers.token = lsGet('token');
     }
@@ -33,9 +34,10 @@ request.interceptors.request.use(
 //返回状态判断(添加响应拦截器)
 request.interceptors.response.use(
   res => {
-    //对响应数据做些事
+    //对响应数据做些事  todo  返回拦截未生效
+    console.log('aaaa nnn', res);
     if (res.data.token) {
-      console.log('token:', res.data.token);
+      console.log('aaa token:', res.data.token);
       lsSet('token', res.data.token);
     }
     if (!res.data.success) {
@@ -56,3 +58,5 @@ request.interceptors.response.use(
     return Promise.reject(error.response.data);
   }
 );
+
+export default request;
