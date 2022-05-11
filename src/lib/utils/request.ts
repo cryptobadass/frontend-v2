@@ -38,7 +38,6 @@ request.interceptors.response.use(
       console.log('token:', res.data.token);
       lsSet('token', res.data.token);
     }
-    debugger
     if (!res.data.success) {
       // alert(res.error_msg)
       return Promise.reject(res);
