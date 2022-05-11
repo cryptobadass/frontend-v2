@@ -20,7 +20,7 @@ import { toNormalizedWeights } from '@balancer-labs/balancer-js';
 import { scale } from '@/lib/utils';
 import TOPICS from '@/constants/topics';
 import copperAbi from '@/lib/abi/Copper.json';
-import  request  from '@/lib/utils/request';
+import request from '@/lib/utils/request';
 
 type Address = string;
 

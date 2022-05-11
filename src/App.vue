@@ -102,7 +102,7 @@ export default defineComponent({
       store.dispatch('app/init');
       const token = await copperService.pools.lbp.getToken();
       console.log('aaa token:', token);
-      lsSet('token', token.token)
+      lsSet('token', token.token);
     });
 
     /**
