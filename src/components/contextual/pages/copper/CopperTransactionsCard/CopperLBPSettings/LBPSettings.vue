@@ -73,11 +73,10 @@ const isActive = ref(false);
 function swapChange(b) {
   console.log(b);
   setSwapEnabled(props.pool.pool_address, !isActive.value);
-  isActive.value = !isActive.value
-  
+  isActive.value = !isActive.value;
 }
-function withDrawAll(){
-  exitPool(props.pool.pool_address)
+function withDrawAll() {
+  exitPool(props.pool.pool_address);
 }
 </script>
 
@@ -203,7 +202,11 @@ function withDrawAll(){
                         />
                       </div>
                     </BalStack>
-                    <BalBtn @click="withDrawAll" label="Withdraw All" size="sm" />
+                    <BalBtn
+                      @click="withDrawAll"
+                      label="Withdraw All"
+                      size="sm"
+                    />
                   </BalStack>
                 </BalCard>
               </div>

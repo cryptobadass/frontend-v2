@@ -197,7 +197,11 @@ function copyAddress() {
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
                     1,000.00
-                    <BalAsset class="mx-2" :address="pool.main_token" :iconURI="pool.image_url" />
+                    <BalAsset
+                      class="mx-2"
+                      :address="pool.main_token"
+                      :iconURI="pool.image_url"
+                    />
                   </div>
                   <div class="flex items-center">
                     1,000.00
@@ -210,7 +214,12 @@ function copyAddress() {
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  1,000.00 <BalAsset class="mx-2" :address="pool.main_token" :iconURI="pool.image_url" />
+                  1,000.00
+                  <BalAsset
+                    class="mx-2"
+                    :address="pool.main_token"
+                    :iconURI="pool.image_url"
+                  />
                 </div>
               </BalCard>
             </div>
@@ -223,7 +232,8 @@ function copyAddress() {
                   <div class="flex items-center">
                     1,000.00<BalAsset
                       class="mx-2"
-                      :address="pool.main_token" :iconURI="pool.image_url"
+                      :address="pool.main_token"
+                      :iconURI="pool.image_url"
                     ></BalAsset>
                   </div>
                   <div class="flex items-center">
@@ -258,7 +268,12 @@ function copyAddress() {
               <BalCard noBorder>
                 <div class="flex items-center">
                   {{ fNum2(pool.start_weight || 0.99, FNumFormats.percent)
-                  }}<BalAsset class="mx-2" :address="pool.main_token" :iconURI="pool.image_url" /> +
+                  }}<BalAsset
+                    class="mx-2"
+                    :address="pool.main_token"
+                    :iconURI="pool.image_url"
+                  />
+                  +
                   {{
                     fNum2(1 - (pool.start_weight || 0.99), FNumFormats.percent)
                   }}<BalAsset class="mx-2" :address="pool.base_token" />
@@ -272,7 +287,12 @@ function copyAddress() {
               <BalCard noBorder
                 ><div class="flex items-center">
                   {{ fNum2(pool.end_weight || 0.01, FNumFormats.percent)
-                  }}<BalAsset class="mx-2" :address="pool.main_token" :iconURI="pool.image_url" /> +
+                  }}<BalAsset
+                    class="mx-2"
+                    :address="pool.main_token"
+                    :iconURI="pool.image_url"
+                  />
+                  +
                   {{
                     fNum2(1 - (pool.start_weight || 0.99), FNumFormats.percent)
                   }}<BalAsset class="mx-2" :address="pool.base_token" />

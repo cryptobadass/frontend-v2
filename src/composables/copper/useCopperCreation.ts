@@ -573,12 +573,19 @@ export default function useCopperCreation() {
       console.log(e);
       return Promise.reject('exit pool failed');
     }
-  } 
+  }
 
-  async function setSwapEnabled(address, swapEnabled): Promise<TransactionResponse> {
+  async function setSwapEnabled(
+    address,
+    swapEnabled
+  ): Promise<TransactionResponse> {
     const provider = getProvider();
     try {
-      const tx = await copperService.pools.lbp.setSwapEnabled(provider, address, swapEnabled);
+      const tx = await copperService.pools.lbp.setSwapEnabled(
+        provider,
+        address,
+        swapEnabled
+      );
       poolCreationState.createPoolTxHash = tx.hash;
       // saveState();
       // debugger;
@@ -607,7 +614,7 @@ export default function useCopperCreation() {
       console.log(e);
       return Promise.reject('set Swap Enabled failed');
     }
-  } 
+  }
 
   // async function approve() {
   //   try {
