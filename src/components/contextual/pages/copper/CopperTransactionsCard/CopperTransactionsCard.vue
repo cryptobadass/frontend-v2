@@ -2,7 +2,7 @@
 import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { FullPool } from '@/services/balancer/subgraph/types';
+import { FullPool, FullPoolCopper } from '@/services/balancer/subgraph/types';
 
 import { usePool } from '@/composables/usePool';
 
@@ -12,12 +12,13 @@ import Swaps from './CopperSwaps/Swaps.vue';
 
 import { CopperTransactionsTab } from './types';
 import { settings } from 'cluster';
+import useWeb3 from '@/services/web3/useWeb3';
 
 /**
  * TYPES
  */
 type Props = {
-  pool: FullPool;
+  pool: FullPoolCopper;
   loading: boolean;
 };
 
@@ -31,26 +32,35 @@ const props = withDefaults(defineProps<Props>(), {
 /**
  * COMPOSABLES
  */
-const { isStablePhantomPool } = usePool(toRef(props, 'pool'));
+// const { isStablePhantomPool } = usePool(toRef(props, 'pool'));
 const { t } = useI18n();
+const { account } = useWeb3();
 
 /**
  * COMPUTED
  */
-const tabs = computed(() => [
-  {
-    value: CopperTransactionsTab.LBP_DETAILS,
-    label: 'LBP Details'
-  },
-  {
-    value: CopperTransactionsTab.SWAP,
-    label: 'Swap History'
-  },
-  {
-    value: CopperTransactionsTab.SETTINGS,
-    label: 'LBP Settings'
+const isOwner = computed(() => {
+  return props.pool.owner_address == account.value;
+});
+const tabs = computed(() => {
+  const list = [
+    {
+      value: CopperTransactionsTab.LBP_DETAILS,
+      label: 'LBP Details'
+    },
+    {
+      value: CopperTransactionsTab.SWAP,
+      label: 'Swap History'
+    }
+  ];
+  if (isOwner.value) {
+    list.push({
+      value: CopperTransactionsTab.SETTINGS,
+      label: 'LBP Settings'
+    });
   }
-]);
+  return list;
+});
 
 /**
  * STATE

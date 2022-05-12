@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { flatten } from 'lodash';
 
 import usePoolSwapsQuery from '@/composables/queries/usePoolSwapsQuery';
 import useUserPoolSwapsQuery from '@/composables/queries/useUserPoolSwapsQuery';
 
-import { FullPool } from '@/services/balancer/subgraph/types';
+import { FullPool, FullPoolCopper } from '@/services/balancer/subgraph/types';
 
 import { PoolTransactionsTab } from '../types';
+import useCopperCreation from '@/composables/copper/useCopperCreation';
+import { func } from 'prop-types';
 
 /**
  * TYPES
  */
 type Props = {
-  pool: FullPool;
+  pool: FullPoolCopper;
   loading: boolean;
   poolActivityType: PoolTransactionsTab;
 };
@@ -31,40 +33,51 @@ const props = withDefaults(defineProps<Props>(), {
  * COMPOSABLES
  */
 const route = useRoute();
+const { exitPool, setSwapEnabled } = useCopperCreation();
 
 /**
  * STATE
  */
 
 const id = route.params.id as string;
+const isActive = ref(false);
 /**
  * QUERIES
  */
 
-const poolSwapsQuery =
-  props.poolActivityType === PoolTransactionsTab.ALL_ACTIVITY
-    ? usePoolSwapsQuery(id)
-    : useUserPoolSwapsQuery(id);
+// const poolSwapsQuery =
+//   props.poolActivityType === PoolTransactionsTab.ALL_ACTIVITY
+//     ? usePoolSwapsQuery(id)
+//     : useUserPoolSwapsQuery(id);
 
 /**
  * COMPUTED
  */
-const poolSwaps = computed(() =>
-  poolSwapsQuery.data.value
-    ? flatten(poolSwapsQuery.data.value.pages.map(page => page.poolSwaps))
-    : []
-);
-const isLoadingPoolSwaps = computed(() => poolSwapsQuery.isLoading.value);
-const poolSwapsHasNextPage = computed(() => poolSwapsQuery.hasNextPage?.value);
-const poolSwapsIsFetchingNextPage = computed(
-  () => poolSwapsQuery.isFetchingNextPage?.value
-);
+// const poolSwaps = computed(() =>
+//   poolSwapsQuery.data.value
+//     ? flatten(poolSwapsQuery.data.value.pages.map(page => page.poolSwaps))
+//     : []
+// );
+// const isLoadingPoolSwaps = computed(() => poolSwapsQuery.isLoading.value);
+// const poolSwapsHasNextPage = computed(() => poolSwapsQuery.hasNextPage?.value);
+// const poolSwapsIsFetchingNextPage = computed(
+//   () => poolSwapsQuery.isFetchingNextPage?.value
+// );
 
 /**
  * METHODS
  */
-function loadMorePoolSwaps() {
-  poolSwapsQuery.fetchNextPage.value();
+// function loadMorePoolSwaps() {
+//   poolSwapsQuery.fetchNextPage.value();
+// }
+function swapChange(b) {
+  console.log(b);
+  setSwapEnabled(props.pool.pool_address, !isActive.value);
+  isActive.value = !isActive.value
+  
+}
+function withDrawAll(){
+  exitPool(props.pool.pool_address)
 }
 </script>
 
@@ -81,7 +94,7 @@ function loadMorePoolSwaps() {
                   <div class="text-sm font-bold text-gray-400 mr-4">
                     Swapping is active
                   </div>
-                  <BalToggle />
+                  <BalToggle :checked="isActive" @toggle="swapChange" />
                 </div>
               </BalCard>
             </div>
@@ -99,19 +112,16 @@ function loadMorePoolSwaps() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<img
-                      class="rounded-full inline-block ml-3 w-4 h-4"
-                      :src="
-                        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                      "
+                    1,000.00<BalAsset
+                      class="mx-2"
+                      :address="pool.main_token"
+                      :iconURI="pool.image_url"
                     />
                   </div>
                   <div class="flex items-center">
-                    1,000.00<img
-                      class="rounded-full inline-block ml-3 w-4 h-4"
-                      :src="
-                        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                      "
+                    1,000.00<BalAsset
+                      class="mx-2"
+                      :address="pool.base_token"
                     /></div
                 ></BalStack>
               </BalCard>
@@ -123,11 +133,9 @@ function loadMorePoolSwaps() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<img
-                      class="rounded-full inline-block ml-3 w-4 h-4"
-                      :src="
-                        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                      "
+                    1,000.00<BalAsset
+                      class="mx-2"
+                      :address="pool.base_token"
                     /></div
                 ></BalStack>
               </BalCard>
@@ -156,11 +164,9 @@ function loadMorePoolSwaps() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<img
-                      class="rounded-full inline-block ml-3 w-4 h-4"
-                      :src="
-                        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                      "
+                    1,000.00<BalAsset
+                      class="mx-2"
+                      :address="pool.base_token"
                     /></div
                 ></BalStack>
               </BalCard>
@@ -184,23 +190,20 @@ function loadMorePoolSwaps() {
                   >
                     <BalStack vertical spacing="base">
                       <div class="flex items-center">
-                        1,000.00<img
-                          class="rounded-full inline-block ml-3 w-4 h-4"
-                          :src="
-                            'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                          "
+                        1,000.00<BalAsset
+                          class="mx-2"
+                          :address="pool.main_token"
+                          :iconURI="pool.image_url"
                         />
                       </div>
                       <div class="flex items-center">
-                        1,000.00<img
-                          class="rounded-full inline-block ml-3 w-4 h-4"
-                          :src="
-                            'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                          "
+                        1,000.00<BalAsset
+                          class="mx-2"
+                          :address="pool.base_token"
                         />
                       </div>
                     </BalStack>
-                    <BalBtn label="Withdraw All" size="sm" />
+                    <BalBtn @click="withDrawAll" label="Withdraw All" size="sm" />
                   </BalStack>
                 </BalCard>
               </div>

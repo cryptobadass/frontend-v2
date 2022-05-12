@@ -7,6 +7,9 @@ import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 import { computed, watch } from 'vue';
 import { differenceInDays } from 'date-fns';
 import useCountDown from '@/composables/useCountDown';
+import useNumbers, { FNumFormats } from '@/composables/useNumbers';
+
+const { fNum2 } = useNumbers();
 
 /**
  * TYPES
@@ -40,10 +43,13 @@ const countDown = useCountDown(props.pool.end_time);
 <template>
   <div>
     <div class="flex items-center mb-4">
-      <div class="font-bold text-2xl">
+      <div class="font-bold text-2xl mr-2">
         {{ pool.lbp_name }} Liquidity Bootstrapping Pool
       </div>
-      <BalAsset :address="pool.pool_address"></BalAsset>
+      <!-- <BalAsset
+        :address="pool.pool_address"
+        :iconURI="pool.image_url"
+      ></BalAsset> -->
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-y-4 gap-x-0 md:gap-x-2">
       <div class="col-span-1">
@@ -60,19 +66,19 @@ const countDown = useCountDown(props.pool.end_time);
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">LIQUIDITY</div>
-        <div class="font-bold">$1,125.29</div>
+        <div class="font-bold"></div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">PRICE</div>
-        <div class="font-bold">$1.9721</div>
+        <div class="font-bold">{{ fNum2(pool.price, FNumFormats.fiat) }}</div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">MAIN TOKENS RELEASED</div>
-        <div class="font-bold">0%</div>
+        <div class="font-bold">-</div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400 text-sm">BASE TOKENS ACCRUED</div>
-        <div class="font-bold">0.00</div>
+        <div class="font-bold">-</div>
         <div class="text-gray-400 font-bold text-sm">USDC</div>
       </div>
     </div>

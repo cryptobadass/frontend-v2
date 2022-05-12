@@ -6,15 +6,18 @@ import { flatten } from 'lodash';
 import usePoolActivitiesQuery from '@/composables/queries/usePoolActivitiesQuery';
 import usePoolUserActivitiesQuery from '@/composables/queries/usePoolUserActivitiesQuery';
 
-import { FullPool } from '@/services/balancer/subgraph/types';
+import { FullPool, FullPoolCopper } from '@/services/balancer/subgraph/types';
 
 import { PoolTransactionsTab } from '../types';
+import useTokens from '@/composables/useTokens';
+import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
+import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 
 /**
  * TYPES
  */
 type Props = {
-  pool: FullPool;
+  pool: FullPoolCopper;
   loading: boolean;
   poolActivityType: PoolTransactionsTab;
 };
@@ -31,6 +34,15 @@ const props = withDefaults(defineProps<Props>(), {
  * COMPOSABLES
  */
 const route = useRoute();
+const { fNum2 } = useNumbers();
+const {
+  balanceFor,
+  priceFor,
+  getToken,
+  nativeAsset,
+  wrappedNativeAsset,
+  injectedTokens
+} = useTokens();
 
 /**
  * STATE
@@ -38,7 +50,7 @@ const route = useRoute();
 
 const id = route.params.id as string;
 
-const account = ref('0xD3aac8967515aF9647506B6a5E0C9F9C44a38e08');
+// const account = ref('0xD3aac8967515aF9647506B6a5E0C9F9C44a38e08');
 const copiedAddress = ref(false);
 /**
  * QUERIES
@@ -68,7 +80,11 @@ const poolActivitiesHasNextPage = computed(
 const poolActivitiesIsFetchingNextPage = computed(
   () => poolActivitiesQuery.isFetchingNextPage?.value
 );
-
+const account = computed(() => props.pool.pool_address);
+const mainTokenInfo = computed(() => {
+  if (!props.pool) return null;
+  return getToken(props.pool.main_token);
+});
 /**
  * METHODS
  */
@@ -89,14 +105,18 @@ function copyAddress() {
   <div class="grid grid-cols-1 md:grid-cols-1 gap-y-8 gap-x-0 xl:gap-x-8">
     <div class="col-span-3">
       <div class="mb-6">
-        <img
-          class="rounded-full inline-block ml-3 w-8 h-8"
-          :src="
-            'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-          "
-        />
-        <span class="ml-4 font-bold text-lg">lance</span>
-        <BalBtn class="ml-4" label="$LC" size="xs" color="white"></BalBtn>
+        <div class="inline-block">
+          <BalAsset :address="pool.pool_address"></BalAsset>
+        </div>
+
+        <span class="ml-4 font-bold text-lg">{{ mainTokenInfo?.name }}</span>
+        <BalBtn
+          v-if="mainTokenInfo?.symbol"
+          class="ml-4"
+          :label="mainTokenInfo?.symbol"
+          size="xs"
+          color="white"
+        ></BalBtn>
       </div>
     </div>
     <div class="col-span-1 md:col-span-2">
@@ -131,7 +151,9 @@ function copyAddress() {
       </div>
       <div class="mb-6">
         <div class="font-bold text-lg mb-2">LBP Description</div>
-        <BalCard noBorder><div>this is a description</div> </BalCard>
+        <BalCard noBorder
+          ><div>{{ pool.description }}</div>
+        </BalCard>
       </div>
 
       <div class="mb-6">
@@ -141,7 +163,7 @@ function copyAddress() {
             <div class="col-span-1">
               <div class="text-sm font-bold text-gray-400 my-2">Status</div>
               <BalCard noBorder>
-                <div>Active</div>
+                <div>Active todo</div>
               </BalCard>
             </div>
           </div>
@@ -151,13 +173,13 @@ function copyAddress() {
             <div class="col-span-1">
               <div class="text-sm font-bold text-gray-400 my-2">Start Date</div>
               <BalCard noBorder>
-                <div>2022年4月26日 GMT+8 06:30</div>
+                <div>{{ new Date(pool.start_time * 1000) }}</div>
               </BalCard>
             </div>
             <div class="col-span-1">
               <div class="text-sm font-bold text-gray-400 my-2">End Date</div>
               <BalCard noBorder>
-                <div>2022年4月30日 GMT+8 20:30</div>
+                <div>{{ new Date(pool.end_time * 1000) }}</div>
               </BalCard>
             </div>
           </div>
@@ -174,20 +196,12 @@ function copyAddress() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<img
-                      class="rounded-full inline-block ml-3 w-4 h-4"
-                      :src="
-                        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                      "
-                    />
+                    1,000.00
+                    <BalAsset class="mx-2" :address="pool.main_token" :iconURI="pool.image_url" />
                   </div>
                   <div class="flex items-center">
-                    1,000.00<img
-                      class="rounded-full inline-block ml-3 w-4 h-4"
-                      :src="
-                        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                      "
-                    />
+                    1,000.00
+                    <BalAsset class="mx-2" :address="pool.base_token" />
                   </div>
                 </BalStack>
               </BalCard>
@@ -196,12 +210,7 @@ function copyAddress() {
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  1,000.00<img
-                    class="rounded-full inline-block ml-3 w-4 h-4"
-                    :src="
-                      'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                    "
-                  />
+                  1,000.00 <BalAsset class="mx-2" :address="pool.main_token" :iconURI="pool.image_url" />
                 </div>
               </BalCard>
             </div>
@@ -212,33 +221,26 @@ function copyAddress() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<img
-                      class="rounded-full inline-block ml-3 w-4 h-4"
-                      :src="
-                        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                      "
-                    />
+                    1,000.00<BalAsset
+                      class="mx-2"
+                      :address="pool.main_token" :iconURI="pool.image_url"
+                    ></BalAsset>
                   </div>
                   <div class="flex items-center">
-                    1,000.00<img
-                      class="rounded-full inline-block ml-3 w-4 h-4"
-                      :src="
-                        'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                      "
-                    />
+                    1,000.00
+                    <BalAsset
+                      class="mx-2"
+                      :address="pool.base_token"
+                    ></BalAsset>
                   </div> </BalStack
               ></BalCard>
               <div class="text-sm font-bold text-gray-400 my-2">
-                Main Token Released
+                Base Token Released
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  1,000.00<img
-                    class="rounded-full inline-block ml-3 w-4 h-4"
-                    :src="
-                      'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                    "
-                  />
+                  1,000.00
+                  <BalAsset class="mx-2" :address="pool.base_token"></BalAsset>
                 </div>
               </BalCard>
             </div>
@@ -255,18 +257,11 @@ function copyAddress() {
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  82%<img
-                    class="rounded-full inline-block mx-3 w-4 h-4"
-                    :src="
-                      'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                    "
-                  />
-                  + 18%<img
-                    class="rounded-full inline-block mx-3 w-4 h-4"
-                    :src="
-                      'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                    "
-                  />
+                  {{ fNum2(pool.start_weight || 0.99, FNumFormats.percent)
+                  }}<BalAsset class="mx-2" :address="pool.main_token" :iconURI="pool.image_url" /> +
+                  {{
+                    fNum2(1 - (pool.start_weight || 0.99), FNumFormats.percent)
+                  }}<BalAsset class="mx-2" :address="pool.base_token" />
                 </div>
               </BalCard>
             </div>
@@ -276,18 +271,11 @@ function copyAddress() {
               </div>
               <BalCard noBorder
                 ><div class="flex items-center">
-                  82%<img
-                    class="rounded-full inline-block mx-3 w-4 h-4"
-                    :src="
-                      'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                    "
-                  />
-                  + 18%<img
-                    class="rounded-full inline-block mx-3 w-4 h-4"
-                    :src="
-                      'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                    "
-                  />
+                  {{ fNum2(pool.end_weight || 0.01, FNumFormats.percent)
+                  }}<BalAsset class="mx-2" :address="pool.main_token" :iconURI="pool.image_url" /> +
+                  {{
+                    fNum2(1 - (pool.start_weight || 0.99), FNumFormats.percent)
+                  }}<BalAsset class="mx-2" :address="pool.base_token" />
                 </div>
               </BalCard>
             </div>
@@ -348,7 +336,11 @@ function copyAddress() {
               <div class="text-sm font-bold text-gray-400 mb-2">
                 Swap Fee (Collected by LC Project)
               </div>
-              <BalCard noBorder> <div>2.50%</div></BalCard>
+              <BalCard noBorder>
+                <div>
+                  {{ fNum2(pool.swap_fee, FNumFormats.percent) }}
+                </div></BalCard
+              >
             </div>
           </div>
         </div>

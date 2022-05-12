@@ -36,7 +36,7 @@ export default function useCopperPoolQuery(
    */
   const { getTokens, injectTokens, prices, dynamicDataLoading } = useTokens();
   const { appLoading } = useApp();
-  const { account } = useWeb3();
+  const { account, getProvider } = useWeb3();
   const { currency } = useUserSettings();
 
   /**
@@ -226,8 +226,13 @@ export default function useCopperPoolQuery(
   // };
 
   const queryFn = async function() {
+    // const provider = getProvider();
     const pools = await copperService.pools.lbp.poolDetail(id);
-    // debugger;
+    // const poolData = await copperService.pools.lbp.getPoolData(
+    //   provider,
+    //   pools.pool_address
+    // );
+    // console.log('ssssss', poolData)
     return pools;
   };
   const queryOptions = reactive({

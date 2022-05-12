@@ -541,6 +541,74 @@ export default function useCopperCreation() {
     }
   }
 
+  async function exitPool(address): Promise<TransactionResponse> {
+    const provider = getProvider();
+    try {
+      const tx = await copperService.pools.lbp.exitPool(provider, address);
+      poolCreationState.createPoolTxHash = tx.hash;
+      // saveState();
+      // debugger;
+
+      addTransaction({
+        id: tx.hash,
+        type: 'tx',
+        action: 'exitPool',
+        summary: 'exitPool',
+        details: {
+          name: 'exitPool'
+        }
+      });
+      // 1;
+      txListener(tx, {
+        onTxConfirmed: async () => {
+          // retrievePoolDetails(tx.hash);
+        },
+        onTxFailed: () => {
+          // console.log('Create failed');
+        }
+      });
+
+      return tx;
+    } catch (e) {
+      console.log(e);
+      return Promise.reject('exit pool failed');
+    }
+  } 
+
+  async function setSwapEnabled(address, swapEnabled): Promise<TransactionResponse> {
+    const provider = getProvider();
+    try {
+      const tx = await copperService.pools.lbp.setSwapEnabled(provider, address, swapEnabled);
+      poolCreationState.createPoolTxHash = tx.hash;
+      // saveState();
+      // debugger;
+
+      addTransaction({
+        id: tx.hash,
+        type: 'tx',
+        action: 'setSwapEnabled',
+        summary: 'setSwapEnabled',
+        details: {
+          name: 'setSwapEnabled'
+        }
+      });
+      // 1;
+      txListener(tx, {
+        onTxConfirmed: async () => {
+          // retrievePoolDetails(tx.hash);
+        },
+        onTxFailed: () => {
+          // console.log('Create failed');
+        }
+      });
+
+      return tx;
+    } catch (e) {
+      console.log(e);
+      return Promise.reject('set Swap Enabled failed');
+    }
+  } 
+
   // async function approve() {
   //   try {
   //     const [tx] = await approveTokens(
@@ -725,6 +793,8 @@ export default function useCopperCreation() {
     // hasInjectedToken,
     // hasRestoredFromSavedState
     // approve
-    saveToYotei
+    saveToYotei,
+    exitPool,
+    setSwapEnabled
   };
 }
