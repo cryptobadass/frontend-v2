@@ -271,7 +271,7 @@ function saveToYotei() {
     end_time: 1652604389,
     owner_address: '0xD3aac8967515aF9647506B6a5E0C9F9C44a38e08',
     pool_address: '0xA391b4a44fb3b77f7e830B536a3245252Fc4397F',
-    blocked_countries: ['us','cn'],
+    blocked_countries: ['us', 'cn'],
     lbp_creation_tx:
       '0xb10558ea351ec2fb5e30ab3fff1ce4a778af81a48b8d5d94f4729e9c764d5ab8'
   };

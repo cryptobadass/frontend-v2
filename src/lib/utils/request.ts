@@ -43,12 +43,12 @@ instance.interceptors.response.use(
     if (data.token) {
       lsSet('token', data.token);
     }
-    console.log('aaaaa res', data)
+    console.log('aaaaa res', data);
 
     return data;
   },
   error => {
-    console.log('error', error)
+    console.log('error', error);
     ElMessage.error(error.response.data.result || 'error');
     return Promise.reject(error);
   }

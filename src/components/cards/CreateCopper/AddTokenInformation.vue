@@ -79,9 +79,9 @@
                 />
                 <div class="rounded-full inline-block ml-3">
                   <BalAsset
-                      :iconURI="image"
-                      :address="seedTokens[0].tokenAddress"
-                    ></BalAsset>
+                    :iconURI="image"
+                    :address="seedTokens[0].tokenAddress"
+                  ></BalAsset>
                 </div>
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
