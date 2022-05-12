@@ -180,17 +180,28 @@ export default class LBPService {
     // debugger;
     return response.data.success ? response.data.result || {} : {};
   }
-  public async saveLBP(data) {
-    const response = await request.post('/api/pool/create', data, {
-      headers: { 'Content-Type': 'application/json' }
-    });
-    console.log('save create LBP', response);
+  public saveLBP(data) {
+    request
+      .post('/api/pool/create', data)
+      .then(res => {
+        console.log('aaaaa', res);
+      })
+      .catch(e => {
+        console.log('aaaa', e);
+      })
+      .finally(() => {
+        console.log('save create LBP finally');
+      });
   }
   public async getToken() {
-    const response = await request.get('/api/getToken', {
-      // headers: {
-      //   'Content-Type': 'application/x-www-form-urlencoded'
-      // }
+    // const response = await request.get('/api/getToken', {
+    //   // headers: {
+    //   //   'Content-Type': 'application/x-www-form-urlencoded'
+    //   // }
+    // });
+    const response = await request({
+      url: '/api/getToken',
+      method: 'GET'
     });
     return response.data;
   }

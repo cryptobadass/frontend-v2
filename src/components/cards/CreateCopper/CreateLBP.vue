@@ -90,6 +90,7 @@
                   label="Reset"
                 />
               </div> -->
+              <!-- <BalBtn @click="saveToYotei">saveToYotei</BalBtn> -->
             </div>
             <div class="col-span-1">
               <BalCard>
@@ -248,7 +249,8 @@ const {
   seedTokens,
   mainTokenAddress,
   baseTokenAddress,
-  poolAddress
+  poolAddress,
+  saveToYotei
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 // const { fNum2 } = useNumbers();

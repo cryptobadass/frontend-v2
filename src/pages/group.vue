@@ -4,8 +4,14 @@
       <el-tab-pane label="Group" name="groupList">
         <el-button class="mb-2" @click="getGroup">reload</el-button>
         <el-button class="mb-2" @click="createGroup">create group</el-button>
-        <el-table :data="groupData" style="width: 100%" stripe>
-          <el-table-column prop="date" label="id" width="80" />
+        <el-button class="mb-2" @click="saveToYotei">save one pool</el-button>
+        <el-table
+          :data="groupData"
+          style="width: 100%"
+          stripe
+          v-loading="loadingGroupList"
+        >
+          <el-table-column prop="id" label="id" width="80" />
           <el-table-column prop="title" label="title" width="180" />
           <el-table-column prop="description" label="description" />
           <el-table-column prop="image_url" label="image_url" />
@@ -21,7 +27,7 @@
               <el-button
                 size="small"
                 @click="handleGetPoolsByGroup(scope.$index, scope.row)"
-                >Edit</el-button
+                >Pools</el-button
               >
             </template>
           </el-table-column>
@@ -47,11 +53,11 @@
                 @click="handleEditGroup(scope.$index, scope.row)"
                 >Edit</el-button
               >
-              <el-button
+              <!-- <el-button
                 size="small"
                 @click="handleGetPoolsByGroup(scope.$index, scope.row)"
-                >Edit</el-button
-              >
+                >Pools</el-button
+              > -->
             </template>
           </el-table-column>
         </el-table>
@@ -85,7 +91,10 @@
       <template #footer>
         <div style="flex: auto">
           <el-button @click="showGroutDraw = false">cancel</el-button>
-          <el-button type="primary" @click="confirmGroupClick"
+          <el-button
+            type="primary"
+            :loading="loadingGroup"
+            @click="confirmGroupClick"
             >confirm</el-button
           >
         </div>
@@ -100,7 +109,7 @@ import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
 import { lsGet, lsSet, sleep } from '@/lib/utils';
 import { isRequired } from '@/lib/utils/validations';
-import axios from 'axios';
+// import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { copperService } from '@/services/copper/coppper.service';
 import request from '@/lib/utils/request';
@@ -120,10 +129,12 @@ const emptyGroupState = {
 const activeName = ref('groupList');
 const isCreateGroup = ref(true);
 const showGroutDraw = ref(false);
-const groupData = ref([]);
+const groupData = ref<Array<any>>([]);
 const poolsData = ref([]);
 const editGroupState = reactive({ ...emptyGroupState });
 const searchGroup = ref('');
+const loadingGroup = ref(false);
+const loadingGroupList = ref(false);
 /**
  * COMPOSABLES
  */
@@ -137,15 +148,19 @@ const searchGroup = ref('');
 /**
  * METHODS
  */
-async function getGroup() {
-  const response = await request.get('/api/lbps', {
-    // headers: {
-    //   token: lsGet('token')
-    // }
-  });
-  if (response.data.success) {
-    groupData.value = response.data.result || [];
-  }
+function getGroup() {
+  loadingGroupList.value = true;
+  request
+    .get<any, { success: boolean; result: Array<any> }>('/api/lbps')
+    .then(data => {
+      groupData.value = data.result || [];
+    })
+    .catch(e => {
+      console.log(e);
+    })
+    .finally(() => {
+      loadingGroupList.value = false;
+    });
 }
 async function getPools() {
   const response = await request.get(
@@ -157,6 +172,7 @@ async function getPools() {
 }
 function handleEditGroup(index, row) {
   console.log(index, row);
+  setGroup(row);
   isCreateGroup.value = false;
   showGroutDraw.value = true;
 }
@@ -171,18 +187,21 @@ function confirmGroupClick() {
     updateGroupAxios();
   }
 }
+function setGroup(obj) {
+  editGroupState.id = obj.id || '';
+  editGroupState.description = obj.description || '';
+  editGroupState.image_url = obj.image_url || '';
+  editGroupState.link = obj.link || '';
+  editGroupState.seq = obj.seq || '';
+  editGroupState.title = obj.title || '';
+}
 function createGroup() {
-  editGroupState.id = '';
-  editGroupState.description = '';
-  editGroupState.image_url = '';
-  editGroupState.link = '';
-  editGroupState.seq = '';
-  editGroupState.title = '';
+  setGroup({});
   isCreateGroup.value = true;
   showGroutDraw.value = true;
 }
 async function createGroupAxios() {
-  // console.log(1);
+  loadingGroup.value = true;
   const params = {
     title: editGroupState.title,
     description: editGroupState.description,
@@ -190,43 +209,74 @@ async function createGroupAxios() {
     link: editGroupState.link,
     seq: editGroupState.seq
   };
-  const response = await request.get('/api/lbp/group/create', {
-    headers: { 'Content-Type': 'application/json' },
-    data: params
-  });
-  if (response.data.success) {
-    // todo
-    ElMessage.success('create success');
-    showGroutDraw.value = false;
-    getGroup();
-  } else {
-    ElMessage.error(response.data.message || ' create error');
-  }
+  request
+    .post('/api/lbp/group/create', {
+      ...params
+    })
+    .then(data => {
+      // if (data.success) {
+      ElMessage.success('create success');
+      showGroutDraw.value = false;
+      getGroup();
+      // }
+    })
+    .catch(e => {
+      // ElMessage.error(e.data?.message || ' create error');
+    })
+    .finally(() => {
+      loadingGroup.value = false;
+    });
 }
-async function updateGroupAxios() {
+function updateGroupAxios() {
+  loadingGroup.value = true;
   const params = {
     title: editGroupState.title,
     description: editGroupState.description,
     image_url: editGroupState.image_url,
     link: editGroupState.link,
-    seq: editGroupState.seq,
-    deleted: 1
+    seq: editGroupState.seq
+    // deleted: 1
   };
-  const response = await axios.get(
-    `/api/lbp/group/update/${editGroupState.id}`,
-    {
-      headers: { 'Content-Type': 'application/json' },
-      data: params
-    }
-  );
-  if (response.data.success) {
-    // todo
-    ElMessage.success('update success');
-    showGroutDraw.value = false;
-    getGroup();
-  } else {
-    ElMessage.error(response.data.message || ' update error');
-  }
+  request
+    .post(`/api/lbp/group/update/${editGroupState.id}`, {
+      ...params
+    })
+    .then(data => {
+      ElMessage.success('update success');
+      showGroutDraw.value = false;
+      getGroup();
+    })
+    .catch(e => {
+      // ElMessage.error(e.data?.message || ' update error');
+    })
+    .finally(() => {
+      loadingGroup.value = false;
+    });
+}
+
+function saveToYotei() {
+  const data = {
+    group_id: 5, // todo
+    network_id: 43113,
+    lbp_name: 'lance Copper LBP',
+    lbp_symbol: 'LC_LBP',
+    main_token: '0x32F106297E28bBf71FFC41b74DA98D78b703B479',
+    base_token: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+    image_url: 'https://element-plus.org/images/formmaking.png',
+    description: 'description',
+    price: '1', // todo
+    learn_more_url: 'https://www.google.com',
+    swap_fee: '0.025',
+    start_time: 1652345189,
+    end_time: 1652604389,
+    owner_address: '0xD3aac8967515aF9647506B6a5E0C9F9C44a38e08',
+    pool_address: '0xA391b4a44fb3b77f7e830B536a3245252Fc4397F',
+    blocked_countries: ['us','cn'],
+    lbp_creation_tx:
+      '0xb10558ea351ec2fb5e30ab3fff1ce4a778af81a48b8d5d94f4729e9c764d5ab8'
+  };
+  console.log('save lbp to Yotei', data);
+  copperService.pools.lbp.saveLBP(data);
 }
 
 /**
@@ -238,6 +288,7 @@ onMounted(async () => {
   // const { token } = await copperService.pools.lbp.getToken();
   // // console.log('token:', token);
   // lsSet('token', token);
+  getGroup();
 });
 </script>
 

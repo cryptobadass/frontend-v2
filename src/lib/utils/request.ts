@@ -1,29 +1,34 @@
 import axios from 'axios';
+import { ElMessage } from 'element-plus';
 import { lsGet, lsSet } from '.';
 
-const request = axios.create({
-  baseURL: 'https://api.yotei.finance',
+// Add a response interceptor
+axios.interceptors.response.use(
+  function(response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  },
+  function(error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
+  }
+);
+
+const instance = axios.create({
+  // baseURL: 'https://api.yotei.finance',
   timeout: 50000
 });
 
-request.interceptors.request.use(
+instance.interceptors.request.use(
   config => {
-    // 设置以 form 表单的形式提交参数，如果以 JSON 的形式提交表单，可忽略
-    if (config.method === 'post') {
-      // JSON 转换为 FormData
-      const formData = new FormData();
-      Object.keys(config.data).forEach(key =>
-        formData.append(key, config.data[key])
-      );
-      config.data = formData;
-    }
-    console.log('aaa', config.url);
-    config.url = config.url?.replace('/api', '');
-    // config.headers.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHAiOiJyZXdhcmRzIiwiaWF0IjoxNjUyMjg3Mjg0LCJleHAiOjE2NTIyOTA4ODR9.f18XaGd8k0MpPEin9CHM84cCLtvDmgCg4UU4R4VMeM0"
-    console.log('aaa', lsGet('token'));
-    if (lsGet('token')) {
-      config.headers.token = lsGet('token');
-    }
+    // config.url = config.url?.replace('/api', '')
+    config.headers = {
+      ...config.headers,
+      token: lsGet('token', '')
+    };
+    // console.log('aaaaa req', config);
     return config;
   },
   error => {
@@ -31,32 +36,22 @@ request.interceptors.request.use(
   }
 );
 
-//返回状态判断(添加响应拦截器)
-request.interceptors.response.use(
-  res => {
-    //对响应数据做些事  todo  返回拦截未生效
-    console.log('aaaa nnn', res);
-    if (res.data.token) {
-      console.log('aaa token:', res.data.token);
-      lsSet('token', res.data.token);
+//
+instance.interceptors.response.use(
+  response => {
+    const data = response.data;
+    if (data.token) {
+      lsSet('token', data.token);
     }
-    if (!res.data.success) {
-      // alert(res.error_msg)
-      return Promise.reject(res);
-    }
-    return res;
+    console.log('aaaaa res', data)
+
+    return data;
   },
   error => {
-    if (error.response.status === 401) {
-      // location.href = '/login';
-    } else if (error.response.status === 500) {
-      // 服务器错误
-      // do something
-      return Promise.reject(error.response.data);
-    }
-    // 返回 response 里的错误信息
-    return Promise.reject(error.response.data);
+    console.log('error', error)
+    ElMessage.error(error.response.data.result || 'error');
+    return Promise.reject(error);
   }
 );
 
-export default request;
+export default instance;

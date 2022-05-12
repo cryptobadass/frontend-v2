@@ -70,29 +70,29 @@
                   class="text-cyan ml-2"
                 />
               </div>
+              <div class="font-bold mb-2">Token logo URL</div>
+              <div class="mb-4 flex items-center">
+                <input
+                  class="border border-gray-400 rounded p-2 input w-3/4 bg-transparent"
+                  placeholder="logo URL"
+                  v-model="image"
+                />
+                <div class="rounded-full inline-block ml-3">
+                  <BalAsset
+                      :iconURI="image"
+                      :address="seedTokens[0].tokenAddress"
+                    ></BalAsset>
+                </div>
+              </div>
+              <div class="mb-4 text-sm text-gray-400 font-normal">
+                Please enter a valid URL starting with "https://" and ending in
+                ".jpeg", ".jpg", or ".png".
+              </div>
               <div class="mt-4">
                 <BalBtn :disabled="!mainTokenInfo" @click="proceed"
                   >Continue to LBP configuration</BalBtn
                 >
               </div>
-
-              <!-- <div class="font-bold mb-2">Token logo URL</div>
-              <div class="mb-2">
-                <input
-                  class="border border-gray-400 rounded p-2 input flex-auto w-3/4 bg-transparent"
-                  placeholder="logo URL"
-                />
-                <img
-                  class="rounded-full inline-block ml-3 w-8 h-8"
-                  :src="
-                    'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png'
-                  "
-                />
-              </div>
-              <div class="mb-4 text-sm text-gray-400 font-normal">
-                Please enter a valid URL starting with "https://" and ending in
-                ".jpeg", ".jpg", or ".png".
-              </div> -->
             </div>
             <div
               class="col-span-1 order-2 px-1 flex flex-col justify-center content-center"
@@ -165,6 +165,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
+import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
 
@@ -219,7 +220,8 @@ const {
   // approve,
   // tokens,
   // mainTokenAddress,
-  mainTokenInfo
+  mainTokenInfo,
+  image
 } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 const { fNum2 } = useNumbers();

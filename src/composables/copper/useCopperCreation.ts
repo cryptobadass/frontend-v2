@@ -628,7 +628,7 @@ export default function useCopperCreation() {
 
   function saveToYotei() {
     const data = {
-      group_id: 1, // todo
+      group_id: 5, // todo
       network_id: networkId.value,
       lbp_name: LBPTokenName.value,
       lbp_symbol: LBPTokenSymbol.value,
@@ -636,14 +636,14 @@ export default function useCopperCreation() {
       base_token: baseTokenAddress.value,
       image_url: poolCreationState.image,
       description: poolCreationState.description,
-      price: 1, // todo
+      price: '1', // todo
       learn_more_url: poolCreationState.learnMoreLink,
-      swap_fee: poolCreationState.swapFeePercentage / 100,
+      swap_fee: (poolCreationState.swapFeePercentage / 100).toString(),
       start_time: getUnixTime(poolCreationState.time[0] as Date),
       end_time: getUnixTime(poolCreationState.time[1] as Date),
       owner_address: account.value,
       pool_address: poolCreationState.poolAddress,
-      blocked_countries: [],
+      blocked_countries: ['us', 'cn'],
       lbp_creation_tx: poolCreationState.createPoolTxHash
     };
     console.log('save lbp to Yotei', data);
@@ -703,7 +703,7 @@ export default function useCopperCreation() {
     // clearAmounts,
     // setAmountsToMaxBalances,
     // acceptCustomTokenDisclaimer,
-    saveState
+    saveState,
     // resetState,
     // importState,
     // setRestoredState,
@@ -725,5 +725,6 @@ export default function useCopperCreation() {
     // hasInjectedToken,
     // hasRestoredFromSavedState
     // approve
+    saveToYotei
   };
 }
