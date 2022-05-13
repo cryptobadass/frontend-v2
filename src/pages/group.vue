@@ -38,26 +38,31 @@
           <el-input v-model="searchGroup"></el-input>
         </div>
         <el-button @click="getPools">search</el-button>
-        <el-table :data="poolsData" style="width: 100%" stripe>
+        <el-table
+          :data="poolsData"
+          style="width: 100%"
+          stripe
+          v-loading="loadingPoolsList"
+        >
           <el-table-column prop="id" label="id" width="80" />
           <el-table-column prop="lbp_name" label="lbp_name" />
           <el-table-column prop="price" label="price" width="180" />
           <el-table-column prop="start_time" label="start_time" />
           <el-table-column prop="end_time" label="end_time" />
-          <el-table-column prop="network" label="network" />
+          <el-table-column prop="network_id" label="network" />
           <el-table-column prop="image_url" label="image_url" />
           <el-table-column label="Operations">
             <template #default="scope">
-              <el-button
+              <!-- <el-button
                 size="small"
                 @click="handleEditGroup(scope.$index, scope.row)"
                 >Edit</el-button
-              >
-              <!-- <el-button
-                size="small"
-                @click="handleGetPoolsByGroup(scope.$index, scope.row)"
-                >Pools</el-button
               > -->
+              <el-button
+                size="small"
+                @click="handleGetPoolDetailByid(scope.$index, scope.row)"
+                >Pools</el-button
+              >
             </template>
           </el-table-column>
         </el-table>
@@ -130,11 +135,12 @@ const activeName = ref('groupList');
 const isCreateGroup = ref(true);
 const showGroutDraw = ref(false);
 const groupData = ref<Array<any>>([]);
-const poolsData = ref([]);
+const poolsData = ref<Array<any>>([]);
 const editGroupState = reactive({ ...emptyGroupState });
 const searchGroup = ref('');
 const loadingGroup = ref(false);
 const loadingGroupList = ref(false);
+const loadingPoolsList = ref(false);
 /**
  * COMPOSABLES
  */
@@ -163,12 +169,30 @@ function getGroup() {
     });
 }
 async function getPools() {
-  const response = await request.get(
-    `/api/pools?group_id=${searchGroup.value}`
-  );
-  if (response.data.success) {
-    poolsData.value = response.data.result || [];
-  }
+  loadingPoolsList.value = true;
+  request
+    .get<any, { success: boolean; result: Array<any> }>(
+      `/api/pools?group_id=${searchGroup.value}`
+    )
+    .then(data => {
+      poolsData.value = data.result || [];
+    })
+    .catch(e => {
+      console.log(e);
+    })
+    .finally(() => {
+      loadingPoolsList.value = false;
+    });
+}
+function handleGetPoolDetailByid(index, row) {
+  request
+    .get<any, { success: boolean; result:any }>(`/api/pool/${row.id}`)
+    .then(data => {
+      console.log(`pool- ${row.id} -`, data);
+    })
+    .catch(e => {
+      console.log(e);
+    })
 }
 function handleEditGroup(index, row) {
   console.log(index, row);
@@ -179,6 +203,7 @@ function handleEditGroup(index, row) {
 function handleGetPoolsByGroup(index, row) {
   activeName.value = 'Pools';
   searchGroup.value = row.id || '';
+  getPools();
 }
 function confirmGroupClick() {
   if (isCreateGroup.value) {
@@ -256,24 +281,27 @@ function updateGroupAxios() {
 
 function saveToYotei() {
   const data = {
-    group_id: 5, // todo
-    network_id: 43113,
+    base_token: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+    blocked_countries: ['us', 'cn'],
+    description: 'des',
+    end_time: 1652671469,
+    group_id: 6,
+    image_url:
+      'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png',
+    lbp_creation_tx:
+      '0x5fbf09ef013bbc1534f643743a35c0ad15ad84f710dbbe4ce136df3548fe55e5',
     lbp_name: 'lance Copper LBP',
     lbp_symbol: 'LC_LBP',
+    learn_more_url: 'https://www.baidu.com',
     main_token: '0x32F106297E28bBf71FFC41b74DA98D78b703B479',
-    base_token: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
-    image_url: 'https://element-plus.org/images/formmaking.png',
-    description: 'description',
-    price: '1', // todo
-    learn_more_url: 'https://www.google.com',
-    swap_fee: '0.025',
-    start_time: 1652345189,
-    end_time: 1652604389,
+    network_id: 43113,
     owner_address: '0xD3aac8967515aF9647506B6a5E0C9F9C44a38e08',
-    pool_address: '0xA391b4a44fb3b77f7e830B536a3245252Fc4397F',
-    blocked_countries: ['us', 'cn'],
-    lbp_creation_tx:
-      '0xb10558ea351ec2fb5e30ab3fff1ce4a778af81a48b8d5d94f4729e9c764d5ab8'
+    pool_address: '0x8b5311Bb17F0677CE9fDBB16598DCb367cCB4fEf',
+    pool_id:
+      '0x8b5311bb17f0677ce9fdbb16598dcb367ccb4fef000200000000000000000031',
+    price: '1',
+    start_time: 1652412269,
+    swap_fee: '0.025'
   };
   console.log('save lbp to Yotei', data);
   copperService.pools.lbp.saveLBP(data);

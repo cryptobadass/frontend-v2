@@ -28,7 +28,7 @@ instance.interceptors.request.use(
       ...config.headers,
       token: lsGet('token', '')
     };
-    // console.log('aaaaa req', config);
+    console.log('request config', config);
     return config;
   },
   error => {
@@ -43,7 +43,7 @@ instance.interceptors.response.use(
     if (data.token) {
       lsSet('token', data.token);
     }
-    console.log('aaaaa res', data);
+    console.log('response', data);
 
     return data;
   },

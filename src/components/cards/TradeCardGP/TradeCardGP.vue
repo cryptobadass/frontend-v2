@@ -22,6 +22,8 @@
         :effectivePriceMessage="trading.effectivePriceMessage"
         @amountChange="trading.handleAmountChange"
         class="mb-4"
+        :lbp="lbp"
+        :fixedToken="fixedToken"
       />
       <GasReimbursement
         v-if="!ENABLE_LEGACY_TRADE_INTERFACE && trading.isBalancerTrade.value"
@@ -169,7 +171,14 @@ export default defineComponent({
     GasReimbursement
   },
 
-  setup() {
+  props: {
+    assetIn: { type: String, default: '' },
+    assetOut: { type: String, default: '' },
+    lbp: { type: Boolean, default: false },
+    fixedToken: { type: String, default: '' }
+  },
+
+  setup(props) {
     // COMPOSABLES
     const store = useStore();
     const router = useRouter();
@@ -341,7 +350,8 @@ export default defineComponent({
     }
 
     async function populateInitialTokens(): Promise<void> {
-      let assetIn = router.currentRoute.value.params.assetIn as string;
+      let assetIn =
+        (router.currentRoute.value.params.assetIn as string) || props.assetIn;
 
       if (assetIn === nativeAsset.deeplinkId) {
         assetIn = nativeAsset.address;
@@ -349,13 +359,15 @@ export default defineComponent({
         assetIn = getAddress(assetIn);
       }
 
-      let assetOut = router.currentRoute.value.params.assetOut as string;
+      let assetOut =
+        (router.currentRoute.value.params.assetOut as string) || props.assetOut;
 
       if (assetOut === nativeAsset.deeplinkId) {
         assetOut = nativeAsset.address;
       } else if (isAddress(assetOut)) {
         assetOut = getAddress(assetOut);
       }
+      // debugger
       setTokenInAddress(assetIn || store.state.trade.inputAsset);
       setTokenOutAddress(assetOut || store.state.trade.outputAsset);
     }

@@ -92,6 +92,14 @@
                   <p class="flex items-center">
                     more info<BalIcon name="arrow-up-right" />
                   </p>
+                  <BalLink external noStyle class="group flex items-center">
+                    More Info
+                    <BalIcon
+                      name="arrow-up-right"
+                      size="sm"
+                      class="ml-px group-hover:text-cyan-500 transition-colors"
+                    />
+                  </BalLink>
                 </BalStack>
               </div>
               <div class="font-bold mb-4">Swaps disabled by default</div>
@@ -109,6 +117,14 @@
                   <p class="flex items-center">
                     more info<BalIcon name="arrow-up-right" />
                   </p>
+                  <BalLink external noStyle class="group flex items-center">
+                    More Info
+                    <BalIcon
+                      name="arrow-up-right"
+                      size="sm"
+                      class="ml-px group-hover:text-cyan-500 transition-colors"
+                    />
+                  </BalLink>
                 </BalStack>
               </div>
               <div class="font-bold mb-4">A note about curation</div>
@@ -123,6 +139,14 @@
                   <p class="flex items-center">
                     View curation options<BalIcon name="arrow-up-right" />
                   </p>
+                  <BalLink external noStyle class="group flex items-center">
+                    View curation options
+                    <BalIcon
+                      name="arrow-up-right"
+                      size="sm"
+                      class="ml-px group-hover:text-cyan-500 transition-colors"
+                    />
+                  </BalLink>
                 </BalStack>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2">

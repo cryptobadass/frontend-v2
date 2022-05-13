@@ -19,6 +19,8 @@ type Props = {
   priceImpact?: number;
   effectivePriceMessage?: UseTrading['effectivePriceMessage'];
   tradeLoading?: boolean;
+  lbp?: boolean;
+  fixedToken?: string;
 };
 
 /**
@@ -152,6 +154,7 @@ watchEffect(() => {
       @update:amount="handleInAmountChange"
       @update:address="handleInputTokenChange"
       :disabled="tradeLoading"
+      :fixedToken="props.lbp && props.fixedToken == _tokenInAddress"
     />
 
     <div class="flex items-center my-2">
@@ -176,6 +179,7 @@ watchEffect(() => {
       noMax
       :disabled="tradeLoading"
       disableNativeAssetBuffer
+      :fixedToken="props.lbp && props.fixedToken == _tokenOutAddress"
     />
   </div>
 </template>

@@ -40,7 +40,7 @@ const { account } = useWeb3();
  * COMPUTED
  */
 const isOwner = computed(() => {
-  return props.pool.owner_address == account.value;
+  return props.pool?.owner_address == account.value;
 });
 const tabs = computed(() => {
   const list = [

@@ -256,7 +256,7 @@ const tokenBalance = computed(() => {
 // const mainTokenInfo = computed(() => {
 //   return getToken(mainTokenAddress.value);
 // });
-// console.log('aaaaaa', mainTokenInfo);
+
 
 /**
  * WATCHERS

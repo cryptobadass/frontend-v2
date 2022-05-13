@@ -77,7 +77,7 @@ const {
  * COMPUTED
  */
 
-// console.log('aaaaa', tokenApprovalActions);
+
 const actions = computed((): TransactionActionInfo[] => [
   ...tokenApprovalActions,
   {

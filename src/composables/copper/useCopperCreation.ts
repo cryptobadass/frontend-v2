@@ -439,7 +439,7 @@ export default function useCopperCreation() {
     const scaledWeights: string[] = poolCreationState.seedTokens.map(item => {
       // const tokenInfo = getToken(token.tokenAddress);
       // if (!tokenInfo) return '0';
-      const amount = new BigNumber(item.startWeight / 100);
+      const amount = new BigNumber(item.startWeight).div(100);
       const scaledWeight = scale(amount, 18);
       const scaledRoundedWeight = scaledWeight.dp(0, BigNumber.ROUND_FLOOR);
       return scaledRoundedWeight.toString();
@@ -451,7 +451,7 @@ export default function useCopperCreation() {
     const scaledWeights: string[] = poolCreationState.seedTokens.map(item => {
       // const tokenInfo = getToken(token.tokenAddress);
       // if (!tokenInfo) return '0';
-      const amount = new BigNumber(item.endWeight / 100);
+      const amount = new BigNumber(item.endWeight).div(100);
       const scaledWeight = scale(amount, 18);
       const scaledRoundedWeight = scaledWeight.dp(0, BigNumber.ROUND_FLOOR);
       return scaledRoundedWeight.toString();
@@ -459,7 +459,7 @@ export default function useCopperCreation() {
     return scaledWeights;
   }
   function getScaledSwapFee() {
-    const swapFee = new BigNumber(poolCreationState.swapFeePercentage / 100);
+    const swapFee = new BigNumber(poolCreationState.swapFeePercentage).div(100);
     const scaledSwapFee = scale(swapFee, 18);
     const scaledRoundedSwapFee = scaledSwapFee.dp(0, BigNumber.ROUND_FLOOR);
     return scaledRoundedSwapFee.toString();
@@ -713,10 +713,13 @@ export default function useCopperCreation() {
       description: poolCreationState.description,
       price: '1', // todo
       learn_more_url: poolCreationState.learnMoreLink,
-      swap_fee: (poolCreationState.swapFeePercentage / 100).toString(),
+      swap_fee: new BigNumber(poolCreationState.swapFeePercentage)
+        .div(100)
+        .toString(),
       start_time: getUnixTime(poolCreationState.time[0] as Date),
       end_time: getUnixTime(poolCreationState.time[1] as Date),
       owner_address: account.value,
+      pool_id: poolCreationState.poolId,
       pool_address: poolCreationState.poolAddress,
       blocked_countries: ['us', 'cn'],
       lbp_creation_tx: poolCreationState.createPoolTxHash
@@ -741,7 +744,7 @@ export default function useCopperCreation() {
 
     const poolDetails = await copperService.pools.lbp.details(provider, hash);
     // console.log('aaaaretrievePoolDetails', poolDetails);
-    // poolCreationState.poolId = poolDetails.id;
+    poolCreationState.poolId = poolDetails.id;
     poolCreationState.poolAddress = poolDetails.address;
     poolCreationState.needsSeeding = true;
     // saveState();

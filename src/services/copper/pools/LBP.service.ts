@@ -55,12 +55,9 @@ export default class LBPService {
     // const seedTokens = this.calculateTokenWeights(tokens);
     // const a = 1;
     // const swapFeeScaled = scale(new BigNumber(a), 18);
-    // console.log('aaaaa',swapFeeScaled)
-    // debugger
     // poolConfig.
 
     const params = [poolConfig];
-    // debugger;
     return sendTransaction(
       provider,
       copperProxyV2Address,
@@ -76,7 +73,6 @@ export default class LBPService {
   ): Promise<TransactionResponse> {
     const copperProxyV2Address = configService.network.addresses.copperProxyV2;
     const params = [pool, swapEnabled];
-    // debugger;
     return sendTransaction(
       provider,
       copperProxyV2Address,
@@ -123,11 +119,11 @@ export default class LBPService {
       // debugger
     }
 
-    // const pool = new Contract(poolAddress, copperAbi, provider);
-    // const poolId = await pool.getPoolId(); // can't get poolId
-
+    const pool = new Contract(poolAddress, WeightedPool__factory.abi, provider);
+    const poolId = await pool.getPoolId();
+    debugger;
     const poolDetails: CreatePoolReturn = {
-      id: '',
+      id: poolId,
       address: poolAddress
     };
 
@@ -226,7 +222,7 @@ export default class LBPService {
       { result: FullPoolCopper; success: boolean }
     >(`/api/pool/${id}`);
     // debugger;
-    console.log('response', response);
+    // console.log('response', response);
     return response.result;
   }
   public saveLBP(data) {

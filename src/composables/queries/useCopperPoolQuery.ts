@@ -11,7 +11,8 @@ import {
   FullPool,
   LinearPool,
   Pool,
-  FullPoolCopper
+  FullPoolCopper,
+  FullPoolCoppers
 } from '@/services/balancer/subgraph/types';
 import { POOLS } from '@/constants/pools';
 import useApp from '../useApp';
@@ -29,7 +30,7 @@ import { copperService } from '@/services/copper/coppper.service';
 export default function useCopperPoolQuery(
   id: string,
   isEnabled: Ref<boolean> = ref(true),
-  options: QueryObserverOptions<FullPoolCopper> = {}
+  options: QueryObserverOptions<FullPoolCoppers> = {}
 ) {
   /**
    * COMPOSABLES
@@ -38,7 +39,6 @@ export default function useCopperPoolQuery(
   const { appLoading } = useApp();
   const { account, getProvider } = useWeb3();
   const { currency } = useUserSettings();
-
   /**
    * COMPUTED
    */
@@ -228,17 +228,105 @@ export default function useCopperPoolQuery(
   const queryFn = async function() {
     // const provider = getProvider();
     const pools = await copperService.pools.lbp.poolDetail(id);
-    // const poolData = await copperService.pools.lbp.getPoolData(
-    //   provider,
-    //   pools.pool_address
-    // );
-    // console.log('ssssss', poolData)
-    return pools;
+    // debugger;
+    // by pools.pool_id;
+    let [pool] = await balancerSubgraphService.pools.get({
+      where: {
+        id: pools.pool_id.toLowerCase(),
+        totalShares_gt: -1, // Avoid the filtering for low liquidity pools
+        poolType_not_in: POOLS.ExcludedPoolTypes
+      }
+    });
+    if (isBlocked(pool)) throw new Error('Pool not allowed');
+    const isStablePhantomPool = isStablePhantom(pool.poolType);
+
+    if (isStablePhantomPool) {
+      pool = removePreMintedBPT(pool);
+      pool = await getLinearPoolAttrs(pool);
+    }
+    await injectTokens([
+      ...pool.tokensList,
+      ...lpTokensFor(pool),
+      balancerSubgraphService.pools.addressFor(pool.id)
+    ]);
+    await forChange(dynamicDataLoading, false);
+
+    const poolTokenMeta = getTokens(
+      pool.tokensList.map(address => getAddress(address))
+    );
+    const onchainData = await balancerContractsService.vault.getPoolData(
+      pools.pool_id,
+      pool.poolType,
+      poolTokenMeta
+    );
+
+    const [decoratedPool] = await balancerSubgraphService.pools.decorate(
+      [{ ...pool, onchain: onchainData }],
+      '24h',
+      prices.value,
+      currency.value
+    );
+
+    let unwrappedTokens: Pool['unwrappedTokens'];
+
+    if (isStablePhantomPool && onchainData.linearPools != null) {
+      unwrappedTokens = Object.entries(onchainData.linearPools).map(
+        ([, linearPool]) => linearPool.unwrappedTokenAddress
+      );
+
+      if (decoratedPool.linearPoolTokensMap != null) {
+        let totalLiquidity = bnum(0);
+        const tokensMap = getTokens(
+          Object.keys(decoratedPool.linearPoolTokensMap)
+        );
+
+        Object.entries(onchainData.linearPools).forEach(([address, token]) => {
+          const tokenShare = bnum(onchainData.tokens[address].balance).div(
+            token.totalSupply
+          );
+
+          const mainTokenBalance = formatUnits(
+            token.mainToken.balance,
+            tokensMap[token.mainToken.address].decimals
+          );
+
+          const wrappedTokenBalance = formatUnits(
+            token.wrappedToken.balance,
+            tokensMap[token.wrappedToken.address].decimals
+          );
+
+          const mainTokenPrice =
+            prices.value[token.mainToken.address] != null
+              ? prices.value[token.mainToken.address].usd
+              : null;
+
+          if (mainTokenPrice != null) {
+            const mainTokenValue = bnum(mainTokenBalance)
+              .times(tokenShare)
+              .times(mainTokenPrice);
+
+            const wrappedTokenValue = bnum(wrappedTokenBalance)
+              .times(tokenShare)
+              .times(mainTokenPrice)
+              .times(token.wrappedToken.priceRate);
+
+            totalLiquidity = bnum(totalLiquidity)
+              .plus(mainTokenValue)
+              .plus(wrappedTokenValue);
+          }
+        });
+
+        decoratedPool.totalLiquidity = totalLiquidity.toString();
+      }
+    }
+    console.log('aaaaa, poolQuery',{ onchain: onchainData, unwrappedTokens, ...decoratedPool, pools });
+
+    return { onchain: onchainData, unwrappedTokens, ...decoratedPool, pools };
   };
   const queryOptions = reactive({
     enabled,
     ...options
   });
 
-  return useQuery<FullPoolCopper>(queryKey, queryFn, queryOptions);
+  return useQuery<FullPoolCoppers>(queryKey, queryFn, queryOptions);
 }

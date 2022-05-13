@@ -40,7 +40,7 @@ const { exitPool, setSwapEnabled } = useCopperCreation();
  */
 
 const id = route.params.id as string;
-const isActive = ref(false);
+const isActive = ref(true);
 /**
  * QUERIES
  */

@@ -48,7 +48,7 @@ const {
  * STATE
  */
 
-const id = route.params.id as string;
+// const id = route.params.id as string;
 
 // const account = ref('0xD3aac8967515aF9647506B6a5E0C9F9C44a38e08');
 const copiedAddress = ref(false);
@@ -56,31 +56,31 @@ const copiedAddress = ref(false);
  * QUERIES
  */
 
-const poolActivitiesQuery =
-  props.poolActivityType === PoolTransactionsTab.ALL_ACTIVITY
-    ? usePoolActivitiesQuery(id)
-    : usePoolUserActivitiesQuery(id);
+// const poolActivitiesQuery =
+//   props.poolActivityType === PoolTransactionsTab.ALL_ACTIVITY
+//     ? usePoolActivitiesQuery(id)
+//     : usePoolUserActivitiesQuery(id);
 
 /**
  * COMPUTED
  */
-const poolActivities = computed(() =>
-  poolActivitiesQuery.data.value
-    ? flatten(
-        poolActivitiesQuery.data.value.pages.map(page => page.poolActivities)
-      )
-    : []
-);
-const isLoadingPoolActivities = computed(
-  () => poolActivitiesQuery.isLoading.value
-);
-const poolActivitiesHasNextPage = computed(
-  () => poolActivitiesQuery.hasNextPage?.value
-);
-const poolActivitiesIsFetchingNextPage = computed(
-  () => poolActivitiesQuery.isFetchingNextPage?.value
-);
-const account = computed(() => props.pool.pool_address);
+// const poolActivities = computed(() =>
+//   poolActivitiesQuery.data.value
+//     ? flatten(
+//         poolActivitiesQuery.data.value.pages.map(page => page.poolActivities)
+//       )
+//     : []
+// );
+// const isLoadingPoolActivities = computed(
+//   () => poolActivitiesQuery.isLoading.value
+// );
+// const poolActivitiesHasNextPage = computed(
+//   () => poolActivitiesQuery.hasNextPage?.value
+// );
+// const poolActivitiesIsFetchingNextPage = computed(
+//   () => poolActivitiesQuery.isFetchingNextPage?.value
+// );
+const account = computed(() => props.pool?.pool_address);
 const mainTokenInfo = computed(() => {
   if (!props.pool) return null;
   return getToken(props.pool.main_token);
@@ -88,9 +88,9 @@ const mainTokenInfo = computed(() => {
 /**
  * METHODS
  */
-function loadMorePoolActivities() {
-  poolActivitiesQuery.fetchNextPage.value();
-}
+// function loadMorePoolActivities() {
+//   poolActivitiesQuery.fetchNextPage.value();
+// }
 function copyAddress() {
   navigator.clipboard.writeText(account.value);
   copiedAddress.value = true;
@@ -104,9 +104,9 @@ function copyAddress() {
 <template>
   <div class="grid grid-cols-1 md:grid-cols-1 gap-y-8 gap-x-0 xl:gap-x-8">
     <div class="col-span-3">
-      <div class="mb-6">
+      <div class="mb-6 flex items-center">
         <div class="inline-block">
-          <BalAsset :address="pool.pool_address"></BalAsset>
+          <BalAsset :address="pool?.pool_address"></BalAsset>
         </div>
 
         <span class="ml-4 font-bold text-lg">{{ mainTokenInfo?.name }}</span>
@@ -152,8 +152,22 @@ function copyAddress() {
       <div class="mb-6">
         <div class="font-bold text-lg mb-2">LBP Description</div>
         <BalCard noBorder
-          ><div>{{ pool.description }}</div>
+          ><div>{{ pool?.description }}</div>
         </BalCard>
+        <BalLink
+          v-if="pool?.learn_more_url"
+          :href="pool?.learn_more_url"
+          external
+          noStyle
+          class="group flex items-center mt-2"
+        >
+          More Info
+          <BalIcon
+            name="arrow-up-right"
+            size="sm"
+            class="ml-px group-hover:text-cyan-500 transition-colors"
+          />
+        </BalLink>
       </div>
 
       <div class="mb-6">

@@ -4,7 +4,7 @@
       <div class="col-span-2">
         <BalLoadingBlock v-if="loadingPool" class="h-16" />
         <div v-else class="px-4 lg:px-0 flex flex-col">
-          <CopperDetailHeader :pool="pool" />
+          <CopperDetailHeader :pool="pool?.pools" />
         </div>
       </div>
 
@@ -25,15 +25,15 @@
           </div> -->
 
           <div>
-            <CopperTransactionsCard :pool="pool" :loading="loadingPool" />
+            <CopperTransactionsCard
+              :pool="pool?.pools"
+              :loading="loadingPool"
+            />
           </div>
         </div>
       </div>
 
-      <div
-        v-if="!isLiquidityBootstrappingPool"
-        class="order-1 lg:order-2 px-1 lg:px-0"
-      >
+      <div class="order-1 lg:order-2 px-1 lg:px-0">
         <BalStack vertical>
           <BalLoadingBlock
             v-if="loadingPool"
@@ -46,7 +46,12 @@
             :missingPrices="missingPrices"
             class="mb-4"
           /> -->
-          <TradeCardGP />
+          <TradeCardGP
+            :assetIn="pool?.pools.base_token"
+            :assetOut="pool?.pools.main_token"
+            lbp
+            :fixedToken="pool?.pools.main_token"
+          />
         </BalStack>
       </div>
     </div>
@@ -333,7 +338,7 @@ export default defineComponent({
       // feesManagedByGauntlet,
       // swapFeeToolTip,
       // isStableLikePool,
-      // isLiquidityBootstrappingPool,
+      // isLiquidityBootstrappingPool
       // isCopperPool,
       // isStablePhantomPool,
       // copperNetworkPrefix,

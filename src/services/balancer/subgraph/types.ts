@@ -235,6 +235,7 @@ export type FullPoolCopper = {
   lbp_creation_tx: string;
   owner_address: string;
   pool_address: string;
+  pool_id: string;
   swap_fee: number;
   start_time: number;
   end_time: number;
@@ -242,3 +243,6 @@ export type FullPoolCopper = {
   network_id: number;
   learn_more_url: string;
 };
+export interface FullPoolCoppers extends FullPool {
+  pools: FullPoolCopper;
+}
