@@ -160,7 +160,6 @@ export default function useUserPoolsQuery(
       currency.value
     );
 
-
     // TODO - cleanup and extract elsewhere in refactor
     for (let i = 0; i < decoratedPools.length; i++) {
       const isStablePhantomPool = isStablePhantom(decoratedPools[i].poolType);
@@ -253,7 +252,6 @@ export default function useUserPoolsQuery(
         bpt: poolSharesMap[pool.id].balance
       };
     });
-
 
     const totalInvestedAmount = poolsWithShares
       .map(pool => pool.shares)

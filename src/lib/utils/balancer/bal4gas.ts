@@ -1,4 +1,5 @@
-const ENDPOINT_BUDGET_SPENT = 'https://api.yotei.finance/liquidity-mining/v1/gas/';
+const ENDPOINT_BUDGET_SPENT =
+  'https://api.yotei.finance/liquidity-mining/v1/gas/';
 // The program's budget is 80k BAL. To avoid someone seeing
 // the message but ultimately not getting the reimbursement
 // we add a safety margin and stop showing the message @ 79.5k

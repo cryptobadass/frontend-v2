@@ -77,7 +77,6 @@ const {
  * COMPUTED
  */
 
-
 const actions = computed((): TransactionActionInfo[] => [
   ...tokenApprovalActions,
   {

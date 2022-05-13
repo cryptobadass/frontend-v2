@@ -186,13 +186,13 @@ async function getPools() {
 }
 function handleGetPoolDetailByid(index, row) {
   request
-    .get<any, { success: boolean; result:any }>(`/api/pool/${row.id}`)
+    .get<any, { success: boolean; result: any }>(`/api/pool/${row.id}`)
     .then(data => {
       console.log(`pool- ${row.id} -`, data);
     })
     .catch(e => {
       console.log(e);
-    })
+    });
 }
 function handleEditGroup(index, row) {
   console.log(index, row);

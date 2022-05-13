@@ -319,7 +319,12 @@ export default function useCopperPoolQuery(
         decoratedPool.totalLiquidity = totalLiquidity.toString();
       }
     }
-    console.log('aaaaa, poolQuery',{ onchain: onchainData, unwrappedTokens, ...decoratedPool, pools });
+    console.log('aaaaa, poolQuery', {
+      onchain: onchainData,
+      unwrappedTokens,
+      ...decoratedPool,
+      pools
+    });
 
     return { onchain: onchainData, unwrappedTokens, ...decoratedPool, pools };
   };
