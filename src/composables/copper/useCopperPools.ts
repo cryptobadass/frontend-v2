@@ -6,7 +6,9 @@ import { flatten } from 'lodash';
 import useUserPoolsQuery from '@/composables/queries/useUserPoolsQuery';
 import useCopperPoolsQuery from '../queries/useCopperPoolsQuery';
 
-export default function useCopperPools(poolsTokenList: Ref<string[]> = ref([])) {
+export default function useCopperPools(
+  poolsTokenList: Ref<string[]> = ref([])
+) {
   // COMPOSABLES
   const poolsQuery = useCopperPoolsQuery(poolsTokenList);
   // const userPoolsQuery = useUserPoolsQuery();
