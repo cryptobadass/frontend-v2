@@ -20,6 +20,7 @@ import { copperService } from '@/services/copper/coppper.service';
 import { approveTokens } from '@/lib/utils/balancer/tokens';
 import { add, getUnixTime } from 'date-fns';
 import { networkId } from '@/composables/useNetwork';
+import { TOKENS } from '@/constants/tokens';
 
 export const COPPER_CREATION_STATE_VERSION = '1.0';
 export const COPPER_CREATION_STATE_KEY = 'launchpadCreationState';
@@ -55,6 +56,8 @@ function getDefaultTime() {
   return [defaultStartTime, defaultEndTime];
 }
 
+const baseTokenOPtions = Object.keys(TOKENS.Prices.ChainMap[networkId.value]);
+
 const emptyPoolCreationState = {
   seedTokens: [
     {
@@ -66,7 +69,7 @@ const emptyPoolCreationState = {
       amount: ''
     },
     {
-      tokenAddress: '0xfAD1257Bd61131b6Bb60BEE08289167099014Ac6',
+      tokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
       startWeight: 1,
       endWeight: 99,
       id: '2',
@@ -78,7 +81,7 @@ const emptyPoolCreationState = {
   mainTokenAmount: '',
   baseTokenAmount: '',
   baseTokenOptions: [
-    '0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846',
+    '0xea6a8f1ae564070f7f3fa6180678ea6744a1e01a',
     '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
     '0xed7F146612C8d2e8E101b8b5B8C58b8E70E99149'
   ],
@@ -93,7 +96,7 @@ const emptyPoolCreationState = {
   poolAddress: '',
   needsSeeding: false,
   createPoolTxHash: '',
-  image: ''
+  image: 'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png'
 };
 
 export const poolCreationState = reactive({ ...emptyPoolCreationState });
@@ -312,13 +315,14 @@ export default function useCopperCreation() {
   //   isLoading: isLoadingSimilarPools
   // } = usePoolsQuery(tokensList, {}, { isExactTokensList: true });
 
-  // function resetPoolCreationState() {
-  //   for (const key of Object.keys(poolCreationState)) {
-  //     poolCreationState[key] = emptyPoolCreationState[key];
-  //   }
-  //   setRestoredState(false);
-  //   resetState();
-  // }
+  function resetPoolCreationState() {
+    for (const key of Object.keys(poolCreationState)) {
+      poolCreationState[key] = emptyPoolCreationState[key];
+    }
+    poolCreationState.time = getDefaultTime();
+    setRestoredState(false);
+    resetState();
+  }
 
   // function updateTokenWeights(weights: PoolSeedToken[]) {
   //   poolCreationState.seedTokens = weights;
@@ -348,9 +352,9 @@ export default function useCopperCreation() {
     //   return;
     // }
     poolCreationState.activeStep -= 1;
-    // if (hasRestoredFromSavedState.value) {
-    //   setRestoredState(false);
-    // }
+    if (hasRestoredFromSavedState.value) {
+      setRestoredState(false);
+    }
   }
 
   // function findSeedTokenByAddress(address: string) {
@@ -513,7 +517,6 @@ export default function useCopperCreation() {
       const tx = await copperService.pools.lbp.create(provider, poolConfig);
       poolCreationState.createPoolTxHash = tx.hash;
       saveState();
-      // debugger;
 
       addTransaction({
         id: tx.hash,
@@ -546,8 +549,6 @@ export default function useCopperCreation() {
     try {
       const tx = await copperService.pools.lbp.exitPool(provider, address);
       poolCreationState.createPoolTxHash = tx.hash;
-      // saveState();
-      // debugger;
 
       addTransaction({
         id: tx.hash,
@@ -587,8 +588,6 @@ export default function useCopperCreation() {
         swapEnabled
       );
       poolCreationState.createPoolTxHash = tx.hash;
-      // saveState();
-      // debugger;
 
       addTransaction({
         id: tx.hash,
@@ -698,7 +697,7 @@ export default function useCopperCreation() {
 
   function resetState() {
     lsRemove(COPPER_CREATION_STATE_KEY);
-    poolCreationState.time = getDefaultTime();
+    
   }
 
   function saveToYotei() {
@@ -728,16 +727,16 @@ export default function useCopperCreation() {
     copperService.pools.lbp.saveLBP(data);
   }
 
-  // function importState(state) {
-  //   for (const key of Object.keys(poolCreationState)) {
-  //     if (key === 'activeStep') continue;
-  //     poolCreationState[key] = state[key];
-  //   }
-  // }
+  function importState(state) {
+    for (const key of Object.keys(poolCreationState)) {
+      if (key === 'activeStep') continue;
+      poolCreationState[key] = state[key];
+    }
+  }
 
-  // function setRestoredState(value: boolean) {
-  //   hasRestoredFromSavedState.value = value;
-  // }
+  function setRestoredState(value: boolean) {
+    hasRestoredFromSavedState.value = value;
+  }
 
   async function retrievePoolDetails(hash: string) {
     const provider = new JsonRpcProvider(configService.network.publicRpc);
@@ -747,9 +746,9 @@ export default function useCopperCreation() {
     poolCreationState.poolId = poolDetails.id;
     poolCreationState.poolAddress = poolDetails.address;
     poolCreationState.needsSeeding = true;
-    // saveState();
+    saveState();
     saveToYotei();
-    resetState();
+    resetPoolCreationState();
   }
 
   return {
@@ -768,7 +767,7 @@ export default function useCopperCreation() {
     // setFeeController,
     // setTrpController,
     // setStep,
-    // resetPoolCreationState,
+    resetPoolCreationState,
     // updateTokenColors,
     goBack,
     // getPoolSymbol,
@@ -783,8 +782,8 @@ export default function useCopperCreation() {
     // acceptCustomTokenDisclaimer,
     saveState,
     // resetState,
-    // importState,
-    // setRestoredState,
+    importState,
+    setRestoredState,
     // setTokensList,
     // retrievePoolDetails,
     // currentLiquidity,
@@ -801,7 +800,7 @@ export default function useCopperCreation() {
     // tokenColors,
     // isWethPool,
     // hasInjectedToken,
-    // hasRestoredFromSavedState
+    hasRestoredFromSavedState,
     // approve
     saveToYotei,
     exitPool,

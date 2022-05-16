@@ -26,20 +26,24 @@
                 LBP description
               </div>
               <div class="mb-4">
-                <textarea
+                <BalTextInput
                   v-model="description"
                   placeholder="this is a description"
-                  class="border border-gray-400 rounded p-2 input flex-auto w-full bg-transparent"
+                  class=" flex-auto w-full bg-transparent"
                   maxlength="1500"
+                  size="sm"
+                  :rules="[isRequired()]"
                 />
-                <p>21 / 1500</p>
+                <p>{{description.length}} / 1500</p>
               </div>
               <div class="font-bold mb-2">Learn more link</div>
               <div class="mb-2">
-                <input
+                <BalTextInput
                   v-model="learnMoreLink"
-                  class="border border-gray-400 rounded p-2 input flex-auto w-full bg-transparent"
+                  class=" flex-auto w-full bg-transparent"
                   placeholder="Enter a URL"
+                  size="sm"
+                  :rules="[isRequired(), isHttpStart()]"
                 />
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
@@ -53,11 +57,14 @@
               <div class="font-bold mb-4">Preconfigured LBP settings</div>
               <div class="font-bold mb-4">Swap Fee</div>
               <div class="mb-2">
-                <input
-                  class="border border-gray-400 rounded p-2 mr-2 input flex-auto w-40 bg-transparent text-right"
+                <BalTextInput
+                  class=" mr-2 inline-block w-40 bg-transparent text-right"
                   placeholder=""
                   v-model="swapFeePercentage"
                   type="number"
+                  size="sm"
+                  inputAlignRight
+                  :rules="[isRequired()]"
                 />%
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
@@ -89,9 +96,6 @@
                     platform access fee to Copper from quantity accrued to the
                     base token at auction end.
                   </p>
-                  <p class="flex items-center">
-                    more info<BalIcon name="arrow-up-right" />
-                  </p>
                   <BalLink external noStyle class="group flex items-center">
                     More Info
                     <BalIcon
@@ -114,9 +118,6 @@
                     start. The LBP Settings tab will become available on the LBP
                     page once you’ve created the LBP.
                   </p>
-                  <p class="flex items-center">
-                    more info<BalIcon name="arrow-up-right" />
-                  </p>
                   <BalLink external noStyle class="group flex items-center">
                     More Info
                     <BalIcon
@@ -135,9 +136,6 @@
                     curators on the platform, participants in your LBP will be
                     mandated to first pass a quiz that will test their DeFi
                     competency.
-                  </p>
-                  <p class="flex items-center">
-                    View curation options<BalIcon name="arrow-up-right" />
                   </p>
                   <BalLink external noStyle class="group flex items-center">
                     View curation options
@@ -175,7 +173,11 @@
         </BalCard>
       </BalStack>
       <div class="mt-4">
-        <BalBtn @click="proceed">Continue to LBP configuration</BalBtn>
+        <BalBtn
+          @click="proceed"
+          :disabled="!description || !learnMoreLink || !swapFeePercentage"
+          >Continue to LBP configuration</BalBtn
+        >
       </div>
     </BalCard>
   </div>
@@ -203,6 +205,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
+import { isRequired, isHttpStart } from '@/lib/utils/validations';
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
 

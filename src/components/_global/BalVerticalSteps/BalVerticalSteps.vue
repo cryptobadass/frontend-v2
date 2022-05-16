@@ -92,7 +92,7 @@ function handleNavigate(state: StepState, stepIndex: number) {
           <BalStack horizontal align="center" spacing="sm">
             <div
               :class="[
-                'relative text-sm rounded-full w-7 h-7 flex justify-center items-center',
+                'relative text-sm rounded-full w-7 h-7 flex justify-center flex-shrink-0 items-center ',
                 stepCircleClasses[i],
                 { 'circle-line': i !== visibleSteps.length - 1 }
               ]"

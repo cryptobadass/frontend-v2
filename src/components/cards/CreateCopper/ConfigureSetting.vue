@@ -43,12 +43,11 @@
                   <div>Base token <span class="text-red-500">*</span></div>
                 </div>
                 <div>
+                  <!-- fixedToken :options="baseTokenOptions"-->
                   <TokenInput
                     v-model:amount="seedTokens[1].amount"
                     v-model:address="seedTokens[1].tokenAddress"
-                    fixedToken
                     :name="`initial-token-${seedTokens[1].tokenAddress}`"
-                    :options="baseTokenOptions"
                     :rules="[isGreaterThan(0)]"
                   />
                 </div>
@@ -70,8 +69,8 @@
                   <div
                     class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                   >
-                    <BalAsset :address="baseTokenInfo.address" />
-                    <span class="ml-2">{{ baseTokenInfo.symbol || '' }}</span>
+                    <BalAsset :address="baseTokenInfo?.address" />
+                    <span class="ml-2">{{ baseTokenInfo?.symbol || '' }}</span>
                   </div>
                 </div>
                 <div>
@@ -105,8 +104,8 @@
                   <div
                     class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                   >
-                    <BalAsset :address="baseTokenInfo.address" />
-                    <span class="ml-2">{{ baseTokenInfo.symbol || '' }}</span>
+                    <BalAsset :address="baseTokenInfo?.address" />
+                    <span class="ml-2">{{ baseTokenInfo?.symbol || '' }}</span>
                   </div>
                 </div>
                 <div>

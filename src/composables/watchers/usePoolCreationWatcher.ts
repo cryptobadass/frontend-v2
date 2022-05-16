@@ -24,6 +24,7 @@ export default function usePoolCreationWatcher() {
       null,
       POOL_CREATION_STATE_VERSION
     );
+    console.log('top return to pool creation', previouslySavedState)
     if (previouslySavedState) {
       addAlert({
         id: 'return-to-pool-creation',

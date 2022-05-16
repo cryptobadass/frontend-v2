@@ -52,3 +52,21 @@ export function isGreaterThan(min: number | string, msg = '') {
     bnum(v).isGreaterThan(min) ||
     (msg ? msg : i18n.global.t('mustBeMoreThan', [min]));
 }
+export const isImageUrlCheck = image => {
+  const regex = /^(https:\/\/).*.(png|jpg|gif|jpeg|webp)$/;
+  return regex.test(String(image).toLowerCase());
+};
+export function isImageUrl() {
+  return v =>
+    !v ||
+    isImageUrlCheck(v) ||
+    'starting with "https://" and ending in ".jpeg", ".jpg", or ".png".';
+}
+export const isHttpStartCheck = url => {
+  const regex = /^(http(s?):\/\/)/;
+  return regex.test(String(url).toLowerCase());
+};
+export function isHttpStart() {
+  return v =>
+    !v || isHttpStartCheck(v) || 'starts with "http://" or "https://"';
+}

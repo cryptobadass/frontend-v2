@@ -59,10 +59,11 @@
                 Main Token <span class="text-red-400">*</span>
               </div>
               <div class="mb-4 flex items-center">
-                <input
+                <BalTextInput
                   v-model="seedTokens[0].tokenAddress"
-                  class="border border-gray-400 rounded p-2 input  w-3/4 bg-transparent"
+                  class="w-3/4 bg-transparent"
                   placeholder="ERC-20 Token Contract Address"
+                  size="sm"
                 />
                 <BalIcon
                   v-if="mainTokenInfo"
@@ -72,16 +73,15 @@
               </div>
               <div class="font-bold mb-2">Token logo URL</div>
               <div class="mb-4 flex items-center">
-                <input
-                  class="border border-gray-400 rounded p-2 input w-3/4 bg-transparent"
+                <BalTextInput
+                  class=" w-3/4 bg-transparent"
                   placeholder="logo URL"
                   v-model="image"
+                  :rules="[isImageUrl()]"
+                  size="sm"
                 />
                 <div class="rounded-full inline-block ml-3">
-                  <BalAsset
-                    :iconURI="image"
-                    :address="seedTokens[0].tokenAddress"
-                  ></BalAsset>
+                  <BalAsset :iconURI="image"></BalAsset>
                 </div>
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
@@ -89,7 +89,7 @@
                 ".jpeg", ".jpg", or ".png".
               </div>
               <div class="mt-4">
-                <BalBtn :disabled="!mainTokenInfo" @click="proceed"
+                <BalBtn :disabled="disabledBtn" @click="proceed"
                   >Continue to LBP configuration</BalBtn
                 >
               </div>
@@ -166,6 +166,8 @@ import { useI18n } from 'vue-i18n';
 import useDarkMode from '@/composables/useDarkMode';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
 import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
+import BalInlineInput from '@/components/_global/BalInlineInput/BalInlineInput.vue';
+import { isImageUrl, isImageUrlCheck } from '@/lib/utils/validations';
 
 const emit = defineEmits(['update:height', 'trigger:alert']);
 
@@ -180,20 +182,6 @@ const {
   getToken
 } = useTokens();
 
-const emptyTokenWeight: PoolSeedToken = {
-  tokenAddress: '',
-  weight: 0,
-  id: '0',
-  isLocked: false,
-  amount: '0'
-};
-
-const activeNetwork = {
-  id: 'fuji',
-  name: 'Avalanche Fuji ',
-  subdomain: 'fuji',
-  key: '43113'
-};
 const query = ref('');
 const mainTokenResults = toRefs({
   name: '',
@@ -206,23 +194,7 @@ const mainTokenBalance = ref('');
 /**
  * COMPOSABLES
  */
-const {
-  // updateTokenWeights,
-  proceed,
-  // acceptCustomTokenDisclaimer,
-  // setTokensList,
-  seedTokens,
-  // tokensList,
-  // totalLiquidity,
-  // hasInjectedToken,
-  // acceptedCustomTokenDisclaimer,
-  // createLBP,
-  // approve,
-  // tokens,
-  // mainTokenAddress,
-  mainTokenInfo,
-  image
-} = useCopperCreation();
+const { proceed, seedTokens, mainTokenInfo, image } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();
@@ -252,6 +224,9 @@ const network = configService.network.network;
 // );
 const tokenBalance = computed(() => {
   return balanceFor(seedTokens.value[0].tokenAddress);
+});
+const disabledBtn = computed(() => {
+  return !mainTokenInfo.value || !isImageUrlCheck(image.value);
 });
 // const mainTokenInfo = computed(() => {
 //   return getToken(mainTokenAddress.value);

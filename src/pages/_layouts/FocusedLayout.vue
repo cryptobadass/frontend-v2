@@ -16,7 +16,9 @@ function getReturnRoute() {
     return { name: queryReturnRoute };
   }
 
-  return { name: 'home' };
+  return route.name === 'create-launchpad'
+    ? { name: 'launchpad' }
+    : { name: 'home' };
 }
 </script>
 <template>

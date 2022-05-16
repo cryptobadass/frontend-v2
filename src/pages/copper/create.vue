@@ -12,12 +12,27 @@
       </div>
       <div class="relative col-span-3 order-2 px-1">
         <AnimatePresence
+          :isVisible="hasRestoredFromSavedState && !appLoading"
+          unmountInstantly
+        >
+          <BalAlert
+            type="warning"
+            class="mb-4"
+            :title="$t('createAPool.recoveredState')"
+          >
+            {{ $t('createAPool.recoveredStateInfo') }}
+            <button @click="handleReset" class="font-semibold text-blue-500">
+              {{ $t('clickHere') }}
+            </button>
+          </BalAlert>
+        </AnimatePresence>
+        <AnimatePresence
           :isVisible="activeStep === 0"
           :initial="initialAnimateProps"
           :animate="entryAnimateProps"
           :exit="exitAnimateProps"
         >
-          <AddTokenInformation />
+          <AddTokenInformation @update:height="setWrapperHeight" />
         </AnimatePresence>
         <AnimatePresence
           :isVisible="activeStep === 1"
@@ -25,7 +40,7 @@
           :animate="entryAnimateProps"
           :exit="exitAnimateProps"
         >
-          <ConfigureSetting />
+          <ConfigureSetting @update:height="setWrapperHeight" />
         </AnimatePresence>
         <AnimatePresence
           :isVisible="activeStep === 2"
@@ -33,7 +48,7 @@
           :animate="entryAnimateProps"
           :exit="exitAnimateProps"
         >
-          <CompleteDetail />
+          <CompleteDetail @update:height="setWrapperHeight" />
         </AnimatePresence>
         <AnimatePresence
           :isVisible="activeStep === 3"
@@ -41,7 +56,7 @@
           :animate="entryAnimateProps"
           :exit="exitAnimateProps"
         >
-          <ReviewSummary />
+          <ReviewSummary @update:height="setWrapperHeight" />
         </AnimatePresence>
         <AnimatePresence
           :isVisible="activeStep === 4"
@@ -49,7 +64,7 @@
           :animate="entryAnimateProps"
           :exit="exitAnimateProps"
         >
-          <CreateLBP />
+          <CreateLBP @update:height="setWrapperHeight" />
         </AnimatePresence>
       </div>
     </div>
@@ -96,29 +111,52 @@ import useTokens from '@/composables/useTokens';
 /**
  * STATE
  */
+const isRestoring = ref(false);
 
 /**
  * COMPOSABLES
  */
 const { appLoading } = useApp();
-const { activeStep } = useCopperCreation();
+const {
+  activeStep,
+  resetPoolCreationState,
+  setActiveStep,
+  hasRestoredFromSavedState,
+  importState,
+  seedTokens,
+  baseTokenOptions,
+  setRestoredState
+} = useCopperCreation();
 const { removeAlert } = useAlerts();
-
+const {
+  dynamicDataLoading,
+  priceFor,
+  tokens,
+  injectTokens,
+  injectedPrices,
+  loading: isLoadingTokens
+} = useTokens();
 /**
  * LIFECYCLE
  */
 onBeforeMount(async () => {
   removeAlert('return-to-copper-creation');
 
-  //
-  // let previouslySavedState = lsGet(
-  //   COPPER_CREATION_STATE_KEY,
-  //   null,
-  //   COPPER_CREATION_STATE_VERSION
-  // )
-  // if(activeStep.value === 0 && previouslySavedState !== null){
-  //   isResto
-  // }
+  let previouslySavedState = lsGet(
+    COPPER_CREATION_STATE_KEY,
+    null,
+    COPPER_CREATION_STATE_VERSION
+  );
+  if (activeStep.value === 0 && previouslySavedState !== null) {
+    isRestoring.value = true;
+    previouslySavedState = JSON.parse(previouslySavedState);
+    importState(previouslySavedState);
+    setRestoredState(true);
+    await nextTick();
+    setActiveStep(previouslySavedState.activeStep);
+  }
+  injectUnknownPoolTokens();
+  isRestoring.value = false;
 });
 
 /**
@@ -168,7 +206,7 @@ const initialAnimateProps = computed(() => ({
 
 const entryAnimateProps = computed(() => ({
   opacity: 1,
-  translateY: '0px',
+  translateY: hasRestoredFromSavedState.value ? '116px' : '0px',
   position: 'relative'
 }));
 
@@ -193,6 +231,42 @@ function getStepState(idx: number) {
     } else {
       return StepState.Todo;
     }
+  }
+}
+function handleReset() {
+  resetPoolCreationState();
+  setActiveStep(0);
+}
+function setWrapperHeight(dimensions?: { width: number; height: number }) {
+  // need to transform the accordion as everything is absolutely
+  // positioned inside the AnimateHeight component
+  // if (dimensions?.height) prevWrapperHeight.value = dimensions.height;
+  // let mobileOffset = 20;
+  // anime({
+  //   targets: accordionWrapper.value,
+  //   translateY: `${prevWrapperHeight.value + mobileOffset}px`,
+  //   easing: 'spring(0.4, 500, 9, 0)',
+  //   complete: () => {
+  //     if (!hasCompletedMountAnimation.value) {
+  //       anime({
+  //         targets: accordionWrapper.value,
+  //         opacity: 1,
+  //         complete: () => {
+  //           hasCompletedMountAnimation.value = true;
+  //         }
+  //       });
+  //     }
+  //   }
+  // });
+}
+
+function injectUnknownPoolTokens() {
+  if (!isLoadingTokens.value) {
+    const uninjectedTokens = seedTokens.value
+      .filter(seedToken => tokens.value[seedToken.tokenAddress] === undefined)
+      .map(seedToken => seedToken.tokenAddress)
+      .filter(token => token !== '');
+    injectTokens(uninjectedTokens.concat(baseTokenOptions.value));
   }
 }
 /**
