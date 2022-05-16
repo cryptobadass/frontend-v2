@@ -48,6 +48,12 @@ const QUERY_KEYS = {
       'swaps',
       'user',
       { networkId, account, id }
+    ],
+    Copper: (networkId: Ref<Network>) => [
+      POOLS_ROOT_KEY,
+      'copper',
+      'list',
+      { networkId }
     ]
   },
   TokenLists: {

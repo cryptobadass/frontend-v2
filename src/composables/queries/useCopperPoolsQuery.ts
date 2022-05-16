@@ -54,12 +54,7 @@ export default function useCopperPoolsQuery(
   const { networkId } = useNetwork();
   const { getProvider } = useWeb3();
   // DATA
-  const queryKey = QUERY_KEYS.Pools.All(
-    networkId,
-    tokenList,
-    filterOptions?.poolIds,
-    filterOptions?.poolAddresses
-  );
+  const queryKey = QUERY_KEYS.Pools.Copper(networkId);
 
   // COMPUTED
   const enabled = computed(() => !appLoading.value && options.enabled);
