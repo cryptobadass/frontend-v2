@@ -697,7 +697,6 @@ export default function useCopperCreation() {
 
   function resetState() {
     lsRemove(COPPER_CREATION_STATE_KEY);
-    
   }
 
   function saveToYotei() {

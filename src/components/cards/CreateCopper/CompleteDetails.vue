@@ -34,7 +34,7 @@
                   size="sm"
                   :rules="[isRequired()]"
                 />
-                <p>{{description.length}} / 1500</p>
+                <p>{{ description.length }} / 1500</p>
               </div>
               <div class="font-bold mb-2">Learn more link</div>
               <div class="mb-2">
