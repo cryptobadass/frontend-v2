@@ -84,68 +84,131 @@ const columns = computed<ColumnDefinition<DecoratedPoolCopper>[]>(() => [
   {
     name: 'LBP Name',
     id: 'lbp_name',
-    accessor: 'lbp_name'
+    accessor: 'lbp_name',
+    width: 200,
+    noGrow: true
   },
   {
     name: 'Start Time',
     id: 'start_time',
-    accessor: 'start_time'
+    accessor: pool => {
+      return new Date(pool.start_time * 1000).toString();
+    },
+    width: 350,
+    noGrow: true
   },
   {
     name: 'End Time',
     id: 'end_time',
-    accessor: 'end_time'
+    // accessor: 'end_time',
+    accessor: pool => {
+      return new Date(pool.end_time * 1000).toString();
+    },
+    width: 350,
+    noGrow: true
   },
   {
     name: 'Image',
     id: 'image_url',
-    accessor: row => {
-      return row.image_url;
-    }
+    accessor: 'image_url',
+    // width: 150,
+    Cell: 'poolImageCell'
   }
   // {
-  //   name: 'LBP name',
-  //   id: 'lbp_name',
-  //   accessor: 'lbp_name',
+  //   name: 'TOKENS',
+  //   id: 'icons',
+  //   accessor: 'uri',
   //   // Header: 'iconColumnHeader',
   //   Cell: 'iconColumnCell',
-  //   width: 250,
+  //   width: 125,
   //   noGrow: true
-  // },
+  // }
   // {
-  //   name: 'Network',
+  //   name: _up(t('composition')),
   //   id: 'poolName',
   //   accessor: 'id',
   //   Cell: 'poolNameCell',
   //   width: props.hiddenColumns.length >= 2 ? wideCompositionWidth.value : 350
   // },
   // {
-  //   name: 'start Time',
+  //   name: _up(t('myBalance')),
   //   accessor: pool => {
   //     // console.log('aaaa----pool', pool, pool.shares);
-  //     return pool.start_time;
+  //     return fNum2(pool.shares, {
+  //       style: 'currency',
+  //       maximumFractionDigits: 0,
+  //       fixedFormat: true
+  //     });
   //   },
   //   align: 'right',
-  //   id: 'start_time',
-  //   width: 250,
+  //   id: 'myBalance',
+  //   hidden: !props.showPoolShares,
+  //   sortKey: pool => Number(pool.shares),
+  //   width: 200,
   //   cellClassName: 'font-numeric'
   // },
   // {
-  //   name: 'Price',
+  //   name: _up(t('poolValue')),
   //   accessor: pool =>
-  //     fNum2(pool.price, {
+  //     fNum2(pool.totalLiquidity, {
   //       style: 'currency',
   //       maximumFractionDigits: 0
   //     }),
   //   align: 'right',
   //   id: 'poolValue',
   //   sortKey: pool => {
-  //     const apr = Number(pool.price);
+  //     const apr = Number(pool.totalLiquidity);
   //     if (apr === Infinity || isNaN(apr)) return 0;
   //     return apr;
   //   },
-  //   width: 250,
+  //   width: 200,
   //   cellClassName: 'font-numeric'
+  // },
+  // {
+  //   name: _up(t('volume24h', [t('hourAbbrev')])),
+  //   accessor: pool =>
+  //     fNum2(pool.dynamic.volume, {
+  //       style: 'currency',
+  //       maximumFractionDigits: 0
+  //     }),
+  //   align: 'right',
+  //   id: 'poolVolume',
+  //   sortKey: pool => {
+  //     const apr = Number(pool.dynamic.volume);
+  //     if (apr === Infinity || isNaN(apr)) return 0;
+  //     return apr;
+  //   },
+  //   width: 200,
+  //   cellClassName: 'font-numeric'
+  // },
+  // {
+  //   name: props.showPoolShares ? _up(t('myApr')) : _up(t('apr')),
+  //   Cell: 'aprCell',
+  //   accessor: pool => pool.dynamic.apr.total,
+  //   align: 'right',
+  //   id: 'poolApr',
+  //   sortKey: pool => {
+  //     const apr = Number(pool.dynamic.apr.total);
+  //     if (apr === Infinity || isNaN(apr)) return 0;
+  //     return apr;
+  //   },
+  //   width: 150
+  // },
+  // {
+  //   name: _up(t('migrate')),
+  //   Cell: 'migrateCell',
+  //   accessor: 'migrate',
+  //   align: 'center',
+  //   id: 'migrate',
+  //   width: 150
+  // },
+  // {
+  //   name: _up(t('stake')),
+  //   Cell: 'stakeCell',
+  //   accessor: 'stake',
+  //   align: 'center',
+  //   id: 'stake',
+  //   width: 150
   // }
 ]);
 
@@ -192,24 +255,13 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
       :on-row-click="handleRowClick"
       :is-paginated="isPaginated"
       @load-more="emit('loadMore')"
-      :initial-state="{
-        sortColumn: 'poolValue',
-        sortDirection: 'desc'
-      }"
     >
-      <template v-slot:iconColumnHeader>
+      <template v-slot:poolImageCell="pool">
         <div class="flex items-center">
-          <img
-            v-if="darkMode"
-            :src="require('@/assets/images/icons/tokens_white.svg')"
-          />
-          <img
-            v-else
-            :src="require('@/assets/images/icons/tokens_black.svg')"
-          />
+          <BalAsset :iconURI="pool.image_url" />
         </div>
       </template>
-      <template v-slot:iconColumnCell="pool">
+      <!-- <template v-slot:iconColumnCell="pool">
         <div v-if="!isLoading" class="px-6 py-4">
           <BalAssetSet
             :addresses="orderedTokenAddresses(pool)"
@@ -272,7 +324,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
           </BalBtn>
           <div v-else>{{ $t('notAvailable') }}</div>
         </div>
-      </template>
+      </template> -->
     </BalTable>
   </BalCard>
 </template>

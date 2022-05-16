@@ -213,8 +213,11 @@ export default class LBPService {
     return poolData;
   }
   public async poolList(groupId = 1) {
-    const response = await request.get(`/api/pools?group_id=${groupId}`);
-    return response.data.success ? response.data.result || [] : [];
+    const data = await request.get<
+      null,
+      { success: boolean; result: Array<any> }
+    >(`/api/pools?group_id=${groupId}`);
+    return data.success ? data.result || [] : [];
   }
   public async poolDetail(id: number | string) {
     const response = await request.get<

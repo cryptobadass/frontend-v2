@@ -64,7 +64,6 @@ export default defineComponent({
      * WATCHERS
      */
     watch(iconSRC, newURL => {
-      console.log('aa', newURL);
       if (newURL !== '') error.value = false;
     });
 

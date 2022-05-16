@@ -113,7 +113,6 @@ function navigateToCreateLaunchpad() {
           </BalBtn>
         </div>
       </div>
-
       <CoppersTable
         :isLoading="isLoadingPools"
         :data="pools"

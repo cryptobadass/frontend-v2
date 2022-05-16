@@ -262,7 +262,7 @@ export default function useCopperPoolsQuery(
 
   const queryFn = async () => {
     // const provider = getProvider();
-    const pools = await copperService.pools.lbp.poolList(1);
+    const pools = await copperService.pools.lbp.poolList(6);
     // {
     //   "lbp_name":"xxx",
     //   "price": 0,
@@ -278,6 +278,10 @@ export default function useCopperPoolsQuery(
     //   const item = await searchTokens(pools[i], []);
     //   tokens[i] = item[pools[i]];
     // }
+    // for (let i = 0; i < pools.length; i++) {
+    //   pools[i].info = await copperService.pools.lbp.poolDetail(pools[i].id);
+    // }
+    console.log('aaaaaaa', pools);
     return { pools };
   };
   const queryOptions = reactive({
