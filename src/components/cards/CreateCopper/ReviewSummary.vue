@@ -37,16 +37,16 @@
                     <div class="flex">
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Token name</p>
-                        <p>{{ mainTokenInfo.name }}</p>
+                        <p>{{ mainTokenInfo?.name }}</p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Token ticker</p>
                         <div
                           class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                         >
-                          <BalAsset :address="mainTokenInfo.address" />
+                          <BalAsset :address="mainTokenInfo?.address" />
                           <span class="ml-2">{{
-                            mainTokenInfo.symbol || ''
+                            mainTokenInfo?.symbol || ''
                           }}</span>
                         </div>
                       </div>
@@ -59,11 +59,11 @@
                     <div class="flex">
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Token quantity</p>
-                        <p>{{ mainTokenAmount }} {{ mainTokenInfo.symbol }}</p>
+                        <p>{{ mainTokenAmount }} {{ mainTokenInfo?.symbol }}</p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Base token quantity</p>
-                        <p>{{ baseTokenAmount }} {{ baseTokenInfo.symbol }}</p>
+                        <p>{{ baseTokenAmount }} {{ baseTokenInfo?.symbol }}</p>
                       </div>
                     </div>
                   </div>
@@ -88,18 +88,18 @@
                         <p class="text-gray-400 mb-2">Starting Weight</p>
                         <p>
                           {{ seedTokens[0].startWeight }}%
-                          {{ mainTokenInfo.symbol }} -
+                          {{ mainTokenInfo?.symbol }} -
                           {{ seedTokens[1].startWeight }}%
-                          {{ baseTokenInfo.symbol }}
+                          {{ baseTokenInfo?.symbol }}
                         </p>
                       </div>
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">End weight</p>
                         <p>
                           {{ seedTokens[0].endWeight }}%
-                          {{ mainTokenInfo.symbol }} -
+                          {{ mainTokenInfo?.symbol }} -
                           {{ seedTokens[1].endWeight }}%
-                          {{ baseTokenInfo.symbol }}
+                          {{ baseTokenInfo?.symbol }}
                         </p>
                       </div>
                     </div>
@@ -193,39 +193,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
+import { computed } from 'vue';
 
-import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
-import TokenSelectInput from '@/components/inputs/TokenSelectInput/TokenSelectInput.vue';
-import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import useBreakpoints from '@/composables/useBreakpoints';
-import usePoolCreation, {
-  PoolSeedToken
-} from '@/composables/pools/usePoolCreation';
-import useTokens from '@/composables/useTokens';
-
-import { configService } from '@/services/config/config.service';
-
-import { sum, sumBy, uniqueId } from 'lodash';
-import anime from 'animejs';
-import { bnum } from '@/lib/utils';
-import AnimatePresence from '@/components/animate/AnimatePresence.vue';
-import useWeb3 from '@/services/web3/useWeb3';
-import { useI18n } from 'vue-i18n';
-import useDarkMode from '@/composables/useDarkMode';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
-import { toUtcTime } from '@/composables/useTime';
 import { differenceInDays, differenceInHours } from 'date-fns';
-
-const emit = defineEmits(['update:height', 'trigger:alert']);
-
-const emptyTokenWeight: PoolSeedToken = {
-  tokenAddress: '',
-  weight: 0,
-  id: '0',
-  isLocked: false,
-  amount: '0'
-};
 
 /**
  * COMPOSABLES
@@ -234,13 +205,8 @@ const {
   proceed,
   goBack,
   mainTokenAddress,
-  baseTokenAddress,
   mainTokenAmount,
   baseTokenAmount,
-  // startWeight,
-  // endWeight,
-  // startTime,
-  // endTime,
   time,
   swapFeePercentage,
   LBPTokenSymbol,
@@ -251,33 +217,10 @@ const {
   learnMoreLink,
   seedTokens
 } = useCopperCreation();
-// const { upToLargeBreakpoint } = useBreakpoints();
-// const { fNum2 } = useNumbers();
-const { nativeAsset, tokens, getToken } = useTokens();
-// const { isWalletReady, toggleWalletSelectModal } = useWeb3();
-// const { t } = useI18n();
-// const { darkMode } = useDarkMode();
-
-/**
- * STATE
- */
-const networkName = configService.network.name;
 
 /**
  * COMPUTED
  */
-// const tokenWeightItemHeight = computed(() =>
-//   upToLargeBreakpoint.value ? 56 : 64
-// );
-
-// const startTimeUTCStr = computed(() => {
-//   let str = time.value[0] ? (time.value[0] as Date).toUTCString() : '';
-//   console.log('aaaaaa', new Date(startTime.value), str, time);
-//   return str;
-// });
-// const endTimeUTCStr = computed(() => {
-//   return endTime.value ? new Date(endTime.value as number).toUTCString() : '';
-// });
 
 const differenceInDay = computed(() => {
   return differenceInDays(time.value[1] as Date, time.value[0] as Date);
@@ -289,27 +232,10 @@ const differenceInHour = computed(() => {
 /**
  * WATCHERS
  */
-// watch(
-//   () => seedTokens,
-//   () => {
-//     setTokensList(seedTokens.value.map(w => w.tokenAddress));
-//   },
-//   {
-//     deep: true
-//   }
-// );
 
 /**
  * LIFECYCLE
  */
-// onMounted(async () => {
-//   // wait for vue to reflect the changes of above
-//   await nextTick();
-// });
-
-// onBeforeUpdate(() => {
-//   seedTokenElements.value = [];
-// });
 
 /**
  * FUNCTIONS

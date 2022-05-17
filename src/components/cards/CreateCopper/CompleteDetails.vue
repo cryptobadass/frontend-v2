@@ -184,38 +184,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
-
-import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
-
-import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import useBreakpoints from '@/composables/useBreakpoints';
-import usePoolCreation, {
-  PoolSeedToken
-} from '@/composables/pools/usePoolCreation';
-import useTokens from '@/composables/useTokens';
-
-import { configService } from '@/services/config/config.service';
-
-import { sum, sumBy, uniqueId } from 'lodash';
-import anime from 'animejs';
-import { bnum } from '@/lib/utils';
-import AnimatePresence from '@/components/animate/AnimatePresence.vue';
-import useWeb3 from '@/services/web3/useWeb3';
-import { useI18n } from 'vue-i18n';
-import useDarkMode from '@/composables/useDarkMode';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
 import { isRequired, isHttpStart } from '@/lib/utils/validations';
-
-const emit = defineEmits(['update:height', 'trigger:alert']);
-
-const emptyTokenWeight: PoolSeedToken = {
-  tokenAddress: '',
-  weight: 0,
-  id: '0',
-  isLocked: false,
-  amount: '0'
-};
 
 /**
  * COMPOSABLES
@@ -224,55 +194,23 @@ const {
   proceed,
   goBack,
   swapFeePercentage,
-  mainTokenAddress,
   LBPTokenSymbol,
   LBPTokenName,
   description,
   learnMoreLink
 } = useCopperCreation();
-// const { upToLargeBreakpoint } = useBreakpoints();
-// const { fNum2 } = useNumbers();
-const { nativeAsset, tokens, getToken } = useTokens();
-// const { isWalletReady, toggleWalletSelectModal } = useWeb3();
-// const { t } = useI18n();
-// const { darkMode } = useDarkMode();
-
-/**
- * STATE
- */
-const networkName = configService.network.name;
 
 /**
  * COMPUTED
  */
-// const tokenWeightItemHeight = computed(() =>
-//   upToLargeBreakpoint.value ? 56 : 64
-// );
 
 /**
  * WATCHERS
  */
-// watch(
-//   () => seedTokens,
-//   () => {
-//     setTokensList(seedTokens.value.map(w => w.tokenAddress));
-//   },
-//   {
-//     deep: true
-//   }
-// );
 
 /**
  * LIFECYCLE
  */
-// onMounted(async () => {
-//   // wait for vue to reflect the changes of above
-//   await nextTick();
-// });
-
-// onBeforeUpdate(() => {
-//   seedTokenElements.value = [];
-// });
 
 /**
  * FUNCTIONS

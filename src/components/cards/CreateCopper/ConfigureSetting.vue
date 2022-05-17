@@ -156,75 +156,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 
-import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
 import TokenInput from '@/components/inputs/TokenInput/TokenInput.vue';
 
-import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import useBreakpoints from '@/composables/useBreakpoints';
-import usePoolCreation, {
-  PoolSeedToken
-} from '@/composables/pools/usePoolCreation';
-import useTokens from '@/composables/useTokens';
-
-import { configService } from '@/services/config/config.service';
-
-import { sum, sumBy, uniqueId } from 'lodash';
-import anime from 'animejs';
 import { bnum } from '@/lib/utils';
-import AnimatePresence from '@/components/animate/AnimatePresence.vue';
-import useWeb3 from '@/services/web3/useWeb3';
-import { useI18n } from 'vue-i18n';
-import useDarkMode from '@/composables/useDarkMode';
-import useTailwind from '@/composables/useTailwind';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
 // import BalSlider from '@/components/_global/BalSlider/BalSlider.vue';
-import BalToggle from '@/components/_global/BalToggle/BalToggle.vue';
-import BalRangeDate from '@/components/_global/BalRangeDate/BalRangeDate.vue';
-import TokenSelectInput from '@/components/inputs/TokenSelectInput/TokenSelectInput.vue';
 import { isGreaterThan } from '@/lib/utils/validations';
 import { oneDayInMs, oneMinInMs } from '@/composables/useTime';
-const tailwind = useTailwind();
-
-const emit = defineEmits(['update:height', 'trigger:alert']);
 
 /**
  * COMPOSABLES
  */
 const {
-  // updateTokenWeights,
   proceed,
   goBack,
   time,
   seedTokens,
   mainTokenInfo,
-  baseTokenInfo,
-  baseTokenOptions
+  baseTokenInfo
 } = useCopperCreation();
-// const { upToLargeBreakpoint } = useBreakpoints();
-// const { fNum2 } = useNumbers();
-// const { nativeAsset, tokens } = useTokens();
-// const { isWalletReady, toggleWalletSelectModal } = useWeb3();
-// const { t } = useI18n();
-// const { darkMode } = useDarkMode();
-const {
-  balanceFor,
-  priceFor,
-  nativeAsset,
-  wrappedNativeAsset,
-  getToken
-} = useTokens();
-
-/**
- * STATE
- */
-const networkName = configService.network.name;
-// const chartColors = computed(() => {
-//   let color = tailwind.theme.colors.green['400'];
-//   // if (isNegativeTrend.value) color = tailwind.theme.colors.red['400'];
-//   return [color];
-// });
 
 const timeError = ref('');
 
@@ -278,14 +230,6 @@ watch(
 /**
  * LIFECYCLE
  */
-// onMounted(async () => {
-//   // wait for vue to reflect the changes of above
-//   await nextTick();
-// });
-
-// onBeforeUpdate(() => {
-//   seedTokenElements.value = [];
-// });
 
 /**
  * FUNCTIONS

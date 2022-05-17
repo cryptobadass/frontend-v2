@@ -57,20 +57,13 @@ const createState = reactive<CreateState>({
 const { t } = useI18n();
 const { explorerLinks } = useWeb3();
 const { networkConfig } = useConfig();
-const { isTxConfirmed } = useEthers();
 const { tokenApprovalActions } = useTokenCopperApprovalActions(
   props.tokenAddresses,
   ref(props.amounts)
 );
 const {
   createPool,
-  // joinPool,
-  poolId,
   poolAddress
-  // poolTypeString,
-  // hasRestoredFromSavedState,
-  // needsSeeding,
-  // createPoolTxHash
 } = useCopperCreation();
 
 /**
@@ -124,7 +117,6 @@ onBeforeMount(async () => {
  * METHODS
  */
 function handleSuccess(details: any): void {
-  // debugger;
   createState.confirmed = true;
   createState.receipt = details.receipt;
   createState.confirmedAt = details.confirmedAt;

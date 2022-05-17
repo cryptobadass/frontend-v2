@@ -134,62 +134,26 @@
 </template>
 
 <script setup lang="ts">
-import {
-  computed,
-  onMounted,
-  ref,
-  nextTick,
-  onBeforeUpdate,
-  watch,
-  toRef,
-  toRefs
-} from 'vue';
-import AppNavNetworkSelect from '@/components/navs/AppNav/AppNavNetworkSelect.vue';
-import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
-import TokenInput from '@/components/inputs/TokenInput/TokenInput.vue';
+import { computed, ref, watch, toRefs } from 'vue';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import useBreakpoints from '@/composables/useBreakpoints';
-import usePoolCreation, {
-  PoolSeedToken
-} from '@/composables/pools/usePoolCreation';
 import useTokens from '@/composables/useTokens';
 
 import { configService } from '@/services/config/config.service';
 
-import { sum, sumBy, uniqueId } from 'lodash';
-import anime from 'animejs';
-import { bnum } from '@/lib/utils';
-import AnimatePresence from '@/components/animate/AnimatePresence.vue';
 import useWeb3 from '@/services/web3/useWeb3';
-import { useI18n } from 'vue-i18n';
-import useDarkMode from '@/composables/useDarkMode';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
 import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
-import BalInlineInput from '@/components/_global/BalInlineInput/BalInlineInput.vue';
 import { isImageUrl, isImageUrlCheck } from '@/lib/utils/validations';
 
-const emit = defineEmits(['update:height', 'trigger:alert']);
+const { searchTokens, balanceFor } = useTokens();
 
-const {
-  tokens: allTokens,
-  searchTokens,
-  priceFor,
-  balanceFor,
-  dynamicDataLoading,
-  nativeAsset,
-  injectTokens,
-  getToken
-} = useTokens();
-
-const query = ref('');
 const mainTokenResults = toRefs({
   name: '',
   address: '',
   symbol: '',
   balance: ''
 });
-const mainTokenBalance = ref('');
 
 /**
  * COMPOSABLES
@@ -199,16 +163,10 @@ const { proceed, seedTokens, mainTokenInfo, image } = useCopperCreation();
 const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();
 const {
-  isWalletReady,
-  toggleWalletSelectModal,
   isMismatchedNetwork,
   isUnsupportedNetwork,
-  chainId,
   connectToAppNetwork
 } = useWeb3();
-// const { t } = useI18n();
-// const { darkMode } = useDarkMode();
-// const mainTokenInfo = getToken(mainTokenAddress.value);
 
 /**
  * STATE
@@ -228,35 +186,23 @@ const tokenBalance = computed(() => {
 const disabledBtn = computed(() => {
   return !mainTokenInfo.value || !isImageUrlCheck(image.value);
 });
-// const mainTokenInfo = computed(() => {
-//   return getToken(mainTokenAddress.value);
-// });
+
 
 /**
  * WATCHERS
  */
-// watch(
-//   () => seedTokens,
-//   () => {
-//     setTokensList(seedTokens.value.map(w => w.tokenAddress));
-//   },
-//   {
-//     deep: true
-//   }
-// );
+
 watch(
   () => seedTokens,
   async newQuery => {
     let _query = newQuery.value[0].tokenAddress;
     let results = await searchTokens(_query, []);
     console.log('searchTokens', results);
-    // mainTokenResults.value = results.newQuery || {};
     mainTokenResults.address.value = results.newQuery?.address || '';
     mainTokenResults.name.value = results.newQuery?.name || '';
     mainTokenResults.symbol.value = results.newQuery?.symbol || '';
 
     let balance = await balanceFor(_query);
-    // console.log('searchBalanceFor', balance);
     mainTokenResults.balance.value = balance;
   },
   { deep: true }

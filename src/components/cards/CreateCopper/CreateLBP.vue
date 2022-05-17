@@ -182,30 +182,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, nextTick, onBeforeUpdate, watch } from 'vue';
+import { computed, ref } from 'vue';
 
-import TokenWeightInput from '@/components/inputs/TokenInput/TokenWeightInput.vue';
 import CreateActions from '@/components/cards/CreateCopper/CreateActions.vue';
-import useNumbers, { FNumFormats } from '@/composables/useNumbers';
-import useBreakpoints from '@/composables/useBreakpoints';
-import usePoolCreation, {
-  PoolSeedToken
-} from '@/composables/pools/usePoolCreation';
-import useTokens from '@/composables/useTokens';
 
 import { configService } from '@/services/config/config.service';
 
-import { sum, sumBy, uniqueId } from 'lodash';
-import anime from 'animejs';
-import { bnum } from '@/lib/utils';
-import AnimatePresence from '@/components/animate/AnimatePresence.vue';
 import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
-import useDarkMode from '@/composables/useDarkMode';
-import { sleep } from '@/lib/utils';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
-import useTokenApprovalActions from '@/composables/useTokenApprovalActions';
-import { MaxUint256 } from '@ethersproject/constants';
 import useTokenCopperApprovalActions from '@/composables/useTokenCopperApprovalActions';
 
 const emit = defineEmits<{
@@ -215,22 +200,7 @@ const emit = defineEmits<{
 const { t } = useI18n();
 
 const copiedAddress = ref(false);
-// const actions = [
-//   {
-//     label: 'Approve',
-//     loadingLabel: t('investment.preview.loadingLabel.approval'),
-//     confirmingLabel: 'confirming',
-//     action: approveAction,
-//     stepTooltip: 'Approve'
-//   },
-//   {
-//     label: 'Create',
-//     loadingLabel: t('investment.preview.loadingLabel.create'),
-//     confirmingLabel: 'confirming',
-//     action: createPoolAction,
-//     stepTooltip: 'Create'
-//   }
-// ];
+
 /**
  * COMPOSABLES
  */
@@ -249,28 +219,16 @@ const {
   seedTokens,
   mainTokenAddress,
   baseTokenAddress,
-  poolAddress,
-  saveToYotei
+  poolAddress
 } = useCopperCreation();
-// const { upToLargeBreakpoint } = useBreakpoints();
-// const { fNum2 } = useNumbers();
-// const { nativeAsset, tokens } = useTokens();
-const { isWalletReady, toggleWalletSelectModal, explorerLinks } = useWeb3();
-// const { t } = useI18n();
-// const { darkMode } = useDarkMode();
+const { explorerLinks } = useWeb3();
 
-/**
- * STATE
- */
-const networkName = configService.network.name;
 const poolCreated = ref(false);
 
 /**
  * COMPUTED
  */
-// const tokenWeightItemHeight = computed(() =>
-//   upToLargeBreakpoint.value ? 56 : 64
-// );
+
 const tokenAmounts = computed((): string[] => {
   return getScaledAmounts();
   // debugger
@@ -286,41 +244,17 @@ const tokenList = computed(() => {
 /**
  * WATCHERS
  */
-// watch(
-//   () => seedTokens,
-//   () => {
-//     setTokensList(seedTokens.value.map(w => w.tokenAddress));
-//   },
-//   {
-//     deep: true
-//   }
-// );
 
 /**
  * LIFECYCLE
  */
-// onMounted(async () => {
-//   // wait for vue to reflect the changes of above
-//   await nextTick();
-// });
-
-// onBeforeUpdate(() => {
-//   seedTokenElements.value = [];
-// });
 
 /**
  * FUNCTIONS
  */
-// async function createPoolAction() {
-//   return createLBP();
-// }
-// async function approveAction() {
-//   return approve();
-// }
 
 function handleSuccess(): void {
   poolCreated.value = true;
-
   emit('success');
 }
 function copyAddress() {

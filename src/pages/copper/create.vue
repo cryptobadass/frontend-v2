@@ -259,6 +259,12 @@ function setWrapperHeight(dimensions?: { width: number; height: number }) {
   //   }
   // });
 }
+function handleNavigate(stepIndex: number) {
+  if (hasRestoredFromSavedState.value) {
+    setRestoredState(false);
+  }
+  setActiveStep(stepIndex);
+}
 
 function injectUnknownPoolTokens() {
   if (!isLoadingTokens.value) {
