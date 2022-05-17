@@ -89,9 +89,9 @@
                 ".jpeg", ".jpg", or ".png".
               </div>
               <div class="mt-4">
-                <BalBtn :disabled="isProceedDisabled" @click="handleProceed"
-                  >{{walletLabel}}</BalBtn
-                >
+                <BalBtn :disabled="isProceedDisabled" @click="handleProceed">{{
+                  walletLabel
+                }}</BalBtn>
               </div>
             </div>
             <div
@@ -161,7 +161,8 @@ const {
   isMismatchedNetwork,
   isUnsupportedNetwork,
   connectToAppNetwork,
-  isWalletReady, toggleWalletSelectModal
+  isWalletReady,
+  toggleWalletSelectModal
 } = useWeb3();
 
 /**
