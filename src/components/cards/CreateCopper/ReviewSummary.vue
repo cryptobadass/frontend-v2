@@ -1,5 +1,5 @@
 <template>
-  <div ref="cardWrapper" class="mb-16">
+  <div class="mb-16">
     <BalCard shadow="none">
       <BalStack vertical spacing="base">
         <BalStack vertical spacing="sm">

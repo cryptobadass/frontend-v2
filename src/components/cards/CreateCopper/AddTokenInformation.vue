@@ -1,5 +1,5 @@
 <template>
-  <div ref="cardWrapper" class="mb-16">
+  <div class="mb-16">
     <BalCard shadow="none">
       <BalStack vertical spacing="base">
         <BalStack vertical spacing="xs">
@@ -89,8 +89,8 @@
                 ".jpeg", ".jpg", or ".png".
               </div>
               <div class="mt-4">
-                <BalBtn :disabled="disabledBtn" @click="proceed"
-                  >Continue to LBP configuration</BalBtn
+                <BalBtn :disabled="isProceedDisabled" @click="handleProceed"
+                  >{{walletLabel}}</BalBtn
                 >
               </div>
             </div>
@@ -145,6 +145,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
 import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 import { isImageUrl, isImageUrlCheck } from '@/lib/utils/validations';
+import { useI18n } from 'vue-i18n';
 
 const { balanceFor } = useTokens();
 
@@ -155,10 +156,12 @@ const { proceed, seedTokens, mainTokenInfo, image } = useCopperCreation();
 // const { upToLargeBreakpoint } = useBreakpoints();
 const { fNum2 } = useNumbers();
 // const { nativeAsset, tokens } = useTokens();
+const { t } = useI18n();
 const {
   isMismatchedNetwork,
   isUnsupportedNetwork,
-  connectToAppNetwork
+  connectToAppNetwork,
+  isWalletReady, toggleWalletSelectModal
 } = useWeb3();
 
 /**
@@ -176,8 +179,15 @@ const network = configService.network.network;
 const tokenBalance = computed(() => {
   return balanceFor(seedTokens.value[0].tokenAddress);
 });
-const disabledBtn = computed(() => {
+const isProceedDisabled = computed(() => {
+  if (!isWalletReady.value) return false;
   return !mainTokenInfo.value || !isImageUrlCheck(image.value);
+});
+const walletLabel = computed(() => {
+  if (!isWalletReady.value) {
+    return t('connectWallet');
+  }
+  return 'Continue to LBP configuration';
 });
 
 /**
@@ -202,5 +212,12 @@ const disabledBtn = computed(() => {
 
 function iconSrc(network): string {
   return require(`@/assets/images/icons/networks/${network}.svg`);
+}
+function handleProceed() {
+  if (!isWalletReady.value) {
+    toggleWalletSelectModal(true);
+  } else {
+    proceed();
+  }
 }
 </script>
