@@ -286,7 +286,7 @@ function saveToYotei() {
     blocked_countries: ['us', 'cn'],
     description: 'des',
     end_time: 1652671469,
-    group_id: 6,
+    group_id: 5,
     image_url:
       'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png',
     lbp_creation_tx:

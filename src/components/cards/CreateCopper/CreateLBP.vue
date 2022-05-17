@@ -32,10 +32,7 @@
                   <template v-slot:label>
                     <div class="mt-1">
                       I have read and agree to the Yotei Platform
-                      <router-link
-                        :to="{ name: 'terms-of-use' }"
-                        target="_blank"
-                      >
+                      <router-link :to="{ name: 'home' }" target="_blank">
                         <span className="link">{{
                           $t('policies.termsOfUse')
                         }}</span>

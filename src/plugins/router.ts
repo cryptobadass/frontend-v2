@@ -79,7 +79,7 @@ const routes: RouteRecordRaw[] = [
     path: '/launchpad',
     name: 'launchpad',
     // component: CopperPage
-    component: () => import('@/pages/copper/index.vue'),
+    component: () => import('@/pages/copper/index.vue')
   },
   {
     path: '/launchpad/create',
@@ -92,7 +92,7 @@ const routes: RouteRecordRaw[] = [
     path: '/launchpad/:id',
     name: 'launchpad-detail',
     // component: CopperDetail
-    component: () => import('@/pages/copper/_id.vue'),
+    component: () => import('@/pages/copper/_id.vue')
   },
   // {
   //   path: '/ui',

@@ -257,7 +257,7 @@ export default function useCopperPoolsQuery(
 
   const queryFn = async () => {
     // const provider = getProvider();
-    const pools = await copperService.pools.lbp.poolList(6);
+    const pools = await copperService.pools.lbp.poolList(5);
     // {
     //   "lbp_name":"xxx",
     //   "price": 0,

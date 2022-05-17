@@ -5,7 +5,7 @@ import { flatten } from 'lodash';
 
 import usePoolSwapsQuery from '@/composables/queries/usePoolSwapsQuery';
 
-import { FullPool, FullPoolCopper } from '@/services/balancer/subgraph/types';
+import { FullPoolCopper } from '@/services/balancer/subgraph/types';
 
 import Table from './Table.vue';
 
