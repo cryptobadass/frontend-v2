@@ -121,7 +121,7 @@ export default class LBPService {
 
     const pool = new Contract(poolAddress, WeightedPool__factory.abi, provider);
     const poolId = await pool.getPoolId();
-    debugger;
+    // debugger;
     const poolDetails: CreatePoolReturn = {
       id: poolId,
       address: poolAddress

@@ -61,7 +61,7 @@ const { tokenApprovalActions } = useTokenCopperApprovalActions(
   props.tokenAddresses,
   ref(props.amounts)
 );
-const { createPool, poolAddress } = useCopperCreation();
+const { createPool, poolId } = useCopperCreation();
 
 /**
  * COMPUTED
@@ -159,9 +159,9 @@ function handleSuccess(details: any): void {
        but create copper haven't so there have a 
        error with params , the id must have -->
       <BalBtn
-        v-if="poolAddress"
+        v-if="poolId"
         tag="router-link"
-        :to="{ name: 'launchpad-detail', params: { id: poolAddress } }"
+        :to="{ name: 'launchpad-detail', params: { id: poolId } }"
         color="gray"
         outline
         block

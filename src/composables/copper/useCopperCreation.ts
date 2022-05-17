@@ -755,7 +755,7 @@ export default function useCopperCreation() {
     poolCreationState.needsSeeding = true;
     saveState();
     saveToYotei();
-    resetPoolCreationState();
+    // resetPoolCreationState();
   }
 
   watch(mainTokenAddress, async newQuery => {
