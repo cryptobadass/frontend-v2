@@ -61,10 +61,7 @@ const { tokenApprovalActions } = useTokenCopperApprovalActions(
   props.tokenAddresses,
   ref(props.amounts)
 );
-const {
-  createPool,
-  poolAddress
-} = useCopperCreation();
+const { createPool, poolAddress } = useCopperCreation();
 
 /**
  * COMPUTED

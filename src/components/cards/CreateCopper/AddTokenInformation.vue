@@ -187,7 +187,6 @@ const disabledBtn = computed(() => {
   return !mainTokenInfo.value || !isImageUrlCheck(image.value);
 });
 
-
 /**
  * WATCHERS
  */
