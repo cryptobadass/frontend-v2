@@ -148,7 +148,6 @@ import { isImageUrl, isImageUrlCheck } from '@/lib/utils/validations';
 
 const { balanceFor } = useTokens();
 
-
 /**
  * COMPOSABLES
  */
@@ -184,8 +183,6 @@ const disabledBtn = computed(() => {
 /**
  * WATCHERS
  */
-
-
 
 /**
  * LIFECYCLE

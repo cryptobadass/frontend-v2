@@ -109,7 +109,11 @@ function tokenFor(option: string): TokenInfo {
       <template #activator>
         <div class="token-select-input selected group selectable">
           <div class="w-8">
-            <BalAsset :address="token?.address" :iconURI="fixedImage" class="shadow" />
+            <BalAsset
+              :address="token?.address"
+              :iconURI="fixedImage"
+              class="shadow"
+            />
           </div>
           <span class="text-base font-medium">
             {{ token?.symbol }}

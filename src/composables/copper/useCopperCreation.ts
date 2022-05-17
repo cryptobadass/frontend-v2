@@ -96,8 +96,7 @@ const emptyPoolCreationState = {
   poolAddress: '',
   needsSeeding: false,
   createPoolTxHash: '',
-  image: '', // 'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png'
- 
+  image: '' // 'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png'
 };
 
 export const poolCreationState = reactive({ ...emptyPoolCreationState });

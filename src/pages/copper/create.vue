@@ -140,7 +140,6 @@ const {
  * LIFECYCLE
  */
 onBeforeMount(async () => {
-  injectUnknownPoolTokens();
   removeAlert('return-to-copper-creation');
 
   let previouslySavedState = lsGet(
@@ -156,6 +155,7 @@ onBeforeMount(async () => {
     await nextTick();
     setActiveStep(previouslySavedState.activeStep);
   }
+  injectUnknownPoolTokens();
   isRestoring.value = false;
 });
 
@@ -276,7 +276,7 @@ function injectUnknownPoolTokens() {
     const uninjectedTokensOptions = baseTokenOptions.value
       .filter(token => tokens.value[token] === undefined)
       .filter(token => token !== '');
-      // console.log('aaaaa---injectTokens:',[...uninjectedTokens, ...uninjectedTokensOptions])
+    // console.log('aaaaa---injectTokens:',[...uninjectedTokens, ...uninjectedTokensOptions])
     injectTokens([...uninjectedTokens, ...uninjectedTokensOptions]);
   }
 }

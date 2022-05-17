@@ -44,7 +44,10 @@
                         <div
                           class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                         >
-                          <BalAsset :address="mainTokenInfo?.address" :iconURI="image"/>
+                          <BalAsset
+                            :address="mainTokenInfo?.address"
+                            :iconURI="image"
+                          />
                           <span class="ml-2">{{
                             mainTokenInfo?.symbol || ''
                           }}</span>
