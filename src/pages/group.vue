@@ -189,7 +189,7 @@ function handleGetPoolDetailByid(index, row) {
     .get<any, { success: boolean; result: any }>(`/api/pool/${row.pool_id}`)
     .then(data => {
       console.log(`pool- ${row.pool_id} -`, data);
-      ElMessage.success('see result in console')
+      ElMessage.success('see result in console');
     })
     .catch(e => {
       console.log(e);

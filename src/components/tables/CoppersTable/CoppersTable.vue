@@ -3,7 +3,10 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
-import { DecoratedPoolWithShares, FullPoolCopper } from '@/services/balancer/subgraph/types';
+import {
+  DecoratedPoolWithShares,
+  FullPoolCopper
+} from '@/services/balancer/subgraph/types';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import useFathom from '@/composables/useFathom';
