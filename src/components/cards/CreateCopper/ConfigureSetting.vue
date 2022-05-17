@@ -35,6 +35,7 @@
                     fixedToken
                     :name="`initial-token-${seedTokens[0].tokenAddress}`"
                     :rules="[isGreaterThan(0)]"
+                    :fixedImage="image"
                   />
                 </div>
               </div>
@@ -63,8 +64,11 @@
                   <div
                     class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                   >
-                    <BalAsset :address="mainTokenInfo.address" />
-                    <span class="ml-2">{{ mainTokenInfo.symbol || '' }}</span>
+                    <BalAsset
+                      :address="mainTokenInfo?.address"
+                      :iconURI="image"
+                    />
+                    <span class="ml-2">{{ mainTokenInfo?.symbol || '' }}</span>
                   </div>
                   <div
                     class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
@@ -98,8 +102,11 @@
                   <div
                     class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                   >
-                    <BalAsset :address="mainTokenInfo.address" />
-                    <span class="ml-2">{{ mainTokenInfo.symbol || '' }}</span>
+                    <BalAsset
+                      :address="mainTokenInfo?.address"
+                      :iconURI="image"
+                    />
+                    <span class="ml-2">{{ mainTokenInfo?.symbol || '' }}</span>
                   </div>
                   <div
                     class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
@@ -175,7 +182,8 @@ const {
   time,
   seedTokens,
   mainTokenInfo,
-  baseTokenInfo
+  baseTokenInfo,
+  image
 } = useCopperCreation();
 
 const timeError = ref('');

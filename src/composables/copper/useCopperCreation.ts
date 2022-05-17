@@ -1,4 +1,4 @@
-import { ref, reactive, toRefs, computed } from 'vue';
+import { ref, reactive, toRefs, computed, watch } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 import usePoolsQuery from '@/composables/queries/usePoolsQuery';
@@ -61,7 +61,7 @@ const baseTokenOPtions = Object.keys(TOKENS.Prices.ChainMap[networkId.value]);
 const emptyPoolCreationState = {
   seedTokens: [
     {
-      tokenAddress: '0x32F106297E28bBf71FFC41b74DA98D78b703B479',
+      tokenAddress: '', // 0x32F106297E28bBf71FFC41b74DA98D78b703B479
       startWeight: 99,
       endWeight: 1,
       id: '1',
@@ -69,7 +69,7 @@ const emptyPoolCreationState = {
       amount: ''
     },
     {
-      tokenAddress: '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+      tokenAddress: '', // 0x286EA60Cb66ba7647C8143c5d467594B92A3734C
       startWeight: 1,
       endWeight: 99,
       id: '2',
@@ -96,7 +96,8 @@ const emptyPoolCreationState = {
   poolAddress: '',
   needsSeeding: false,
   createPoolTxHash: '',
-  image: 'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png'
+  image: '', // 'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png'
+ 
 };
 
 export const poolCreationState = reactive({ ...emptyPoolCreationState });
@@ -108,6 +109,7 @@ export default function useCopperCreation() {
    * COMPOSABLES
    */
   const {
+    searchTokens,
     balanceFor,
     priceFor,
     getToken,
@@ -131,18 +133,18 @@ export default function useCopperCreation() {
   });
 
   const mainTokenInfo = computed(() => {
-    return getToken(poolCreationState.seedTokens[0].tokenAddress);
+    return getToken(poolCreationState.seedTokens[0].tokenAddress) || null;
   });
   const baseTokenInfo = computed(() => {
-    return getToken(poolCreationState.seedTokens[1].tokenAddress);
+    return getToken(poolCreationState.seedTokens[1].tokenAddress) || null;
   });
   const LBPTokenSymbol = computed(() => {
-    return mainTokenInfo.value.symbol
+    return mainTokenInfo.value && mainTokenInfo.value.symbol
       ? `${mainTokenInfo.value.symbol}_LBP`
       : '';
   });
   const LBPTokenName = computed(() => {
-    return mainTokenInfo.value.name
+    return mainTokenInfo.value && mainTokenInfo.value.name
       ? `${mainTokenInfo.value.name} Copper LBP`
       : '';
   });
@@ -729,6 +731,13 @@ export default function useCopperCreation() {
   function importState(state) {
     for (const key of Object.keys(poolCreationState)) {
       if (key === 'activeStep') continue;
+      if (key === 'time') {
+        poolCreationState[key] = [
+          new Date(state[key][0]),
+          new Date(state[key][1])
+        ];
+        continue;
+      }
       poolCreationState[key] = state[key];
     }
   }
@@ -749,6 +758,10 @@ export default function useCopperCreation() {
     saveToYotei();
     resetPoolCreationState();
   }
+
+  watch(mainTokenAddress, async newQuery => {
+    searchTokens(newQuery, []);
+  });
 
   return {
     ...toRefs(poolCreationState),

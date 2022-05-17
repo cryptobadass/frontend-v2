@@ -149,7 +149,7 @@
                     <span class="font-bold text-gray-400 mr-2"
                       >Main token amount:</span
                     >
-                    {{ mainTokenAmount }} {{ mainTokenInfo.symbol }}
+                    {{ mainTokenAmount }} {{ mainTokenInfo?.symbol }}
                   </div>
                   <div>
                     <span class="font-bold text-gray-400 mr-2">Swap fee:</span>

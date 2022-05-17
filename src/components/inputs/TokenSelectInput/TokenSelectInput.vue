@@ -15,6 +15,7 @@ type Props = {
   excludedTokens?: string[];
   options?: string[];
   disableInjection?: boolean;
+  fixedImage?: string;
 };
 
 /**
@@ -26,7 +27,8 @@ const props = withDefaults(defineProps<Props>(), {
   weight: 0,
   excludedTokens: () => [],
   options: () => [],
-  disableInjection: false
+  disableInjection: false,
+  fixedImage: ''
 });
 
 const emit = defineEmits<{
@@ -74,7 +76,11 @@ function tokenFor(option: string): TokenInfo {
       @click="toggleModal"
     >
       <div class="w-8">
-        <BalAsset :address="token?.address" class="shadow" />
+        <BalAsset
+          :address="token?.address"
+          :iconURI="fixedImage"
+          class="shadow"
+        />
       </div>
       <span class="text-base font-medium">
         {{ token?.symbol }}
@@ -103,7 +109,7 @@ function tokenFor(option: string): TokenInfo {
       <template #activator>
         <div class="token-select-input selected group selectable">
           <div class="w-8">
-            <BalAsset :address="token?.address" class="shadow" />
+            <BalAsset :address="token?.address" :iconURI="fixedImage" class="shadow" />
           </div>
           <span class="text-base font-medium">
             {{ token?.symbol }}

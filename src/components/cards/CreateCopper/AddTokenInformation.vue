@@ -146,14 +146,8 @@ import useCopperCreation from '@/composables/copper/useCopperCreation';
 import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 import { isImageUrl, isImageUrlCheck } from '@/lib/utils/validations';
 
-const { searchTokens, balanceFor } = useTokens();
+const { balanceFor } = useTokens();
 
-const mainTokenResults = toRefs({
-  name: '',
-  address: '',
-  symbol: '',
-  balance: ''
-});
 
 /**
  * COMPOSABLES
@@ -191,21 +185,7 @@ const disabledBtn = computed(() => {
  * WATCHERS
  */
 
-watch(
-  () => seedTokens,
-  async newQuery => {
-    let _query = newQuery.value[0].tokenAddress;
-    let results = await searchTokens(_query, []);
-    console.log('searchTokens', results);
-    mainTokenResults.address.value = results.newQuery?.address || '';
-    mainTokenResults.name.value = results.newQuery?.name || '';
-    mainTokenResults.symbol.value = results.newQuery?.symbol || '';
 
-    let balance = await balanceFor(_query);
-    mainTokenResults.balance.value = balance;
-  },
-  { deep: true }
-);
 
 /**
  * LIFECYCLE

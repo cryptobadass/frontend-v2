@@ -44,6 +44,7 @@ type Props = {
   hideFooter?: boolean;
   ignoreWalletBalance?: boolean;
   tokenValue?: string;
+  fixedImage?: string;
 };
 
 /**
@@ -64,7 +65,8 @@ const props = withDefaults(defineProps<Props>(), {
   hideFooter: false,
   ignoreWalletBalance: false,
   options: () => [],
-  rules: () => []
+  rules: () => [],
+  fixedImage: ''
 });
 
 const emit = defineEmits<{
@@ -244,6 +246,7 @@ watchEffect(() => {
           v-model="_address"
           :weight="weight"
           :fixed="fixedToken"
+          :fixedImage="fixedImage"
           :options="options"
           class="mr-2"
           @update:modelValue="emit('update:address', $event)"
