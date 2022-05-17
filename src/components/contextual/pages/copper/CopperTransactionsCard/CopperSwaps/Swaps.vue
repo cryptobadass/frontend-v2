@@ -32,12 +32,12 @@ const route = useRoute();
 /**
  * STATE
  */
-// const id = route.params.id as string;
+const id = route.params.id as string;
 
 /**
  * QUERIES
  */
-const poolSwapsQuery = usePoolSwapsQuery(props.pool.pool_id);
+const poolSwapsQuery = usePoolSwapsQuery(id);
 
 /**
  * COMPUTED

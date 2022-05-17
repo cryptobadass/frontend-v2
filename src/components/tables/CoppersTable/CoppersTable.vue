@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
-import { DecoratedPoolWithShares } from '@/services/balancer/subgraph/types';
+import { DecoratedPoolWithShares, FullPoolCopper } from '@/services/balancer/subgraph/types';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import useFathom from '@/composables/useFathom';
@@ -221,9 +221,9 @@ const stakeablePoolIds = computed((): string[] => POOLS.Stakeable.AllowList);
 /**
  * METHODS
  */
-function handleRowClick(pool: DecoratedPoolWithShares) {
+function handleRowClick(pool: FullPoolCopper) {
   trackGoal(Goals.ClickPoolsTableRow);
-  router.push({ name: 'launchpad-detail', params: { id: pool.id } });
+  router.push({ name: 'launchpad-detail', params: { id: pool.pool_id } });
 }
 
 function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
@@ -250,7 +250,7 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
       :square="upToLargeBreakpoint"
       :link="{
         to: 'launchpad-detail',
-        getParams: pool => ({ id: pool.id })
+        getParams: pool => ({ id: pool.pool_id })
       }"
       :on-row-click="handleRowClick"
       :is-paginated="isPaginated"

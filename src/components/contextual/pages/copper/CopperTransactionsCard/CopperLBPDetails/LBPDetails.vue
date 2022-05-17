@@ -102,11 +102,18 @@ function copyAddress() {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-1 gap-y-8 gap-x-0 xl:gap-x-8">
+  <BalLoadingBlock v-if="loading" class="h-screen" />
+  <div
+    v-else
+    class="grid grid-cols-1 md:grid-cols-1 gap-y-8 gap-x-0 xl:gap-x-8"
+  >
     <div class="col-span-3">
       <div class="mb-6 flex items-center">
         <div class="inline-block">
-          <BalAsset :address="pool?.pool_address"></BalAsset>
+          <BalAsset
+            :address="pool?.pool_address"
+            :iconURI="pool.image_url"
+          ></BalAsset>
         </div>
 
         <span class="ml-4 font-bold text-lg">{{ mainTokenInfo?.name }}</span>
@@ -124,7 +131,7 @@ function copyAddress() {
         <div class="font-bold text-lg mb-2">Token Contract Address</div>
         <BalCard noBorder>
           <div class="address flex items-baseline">
-            <div class="text-cyan" v-text="_shorten(account)" />
+            <div class="text-cyan" v-text="account" />
             <div class="ml-3 flex">
               <BalTooltip width="auto">
                 <template v-slot:activator>
@@ -177,7 +184,7 @@ function copyAddress() {
             <div class="col-span-1">
               <div class="text-sm font-bold text-gray-400 my-2">Status</div>
               <BalCard noBorder>
-                <div>Active todo</div>
+                <div>Active</div>
               </BalCard>
             </div>
           </div>

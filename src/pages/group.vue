@@ -186,9 +186,10 @@ async function getPools() {
 }
 function handleGetPoolDetailByid(index, row) {
   request
-    .get<any, { success: boolean; result: any }>(`/api/pool/${row.id}`)
+    .get<any, { success: boolean; result: any }>(`/api/pool/${row.pool_id}`)
     .then(data => {
-      console.log(`pool- ${row.id} -`, data);
+      console.log(`pool- ${row.pool_id} -`, data);
+      ElMessage.success('see result in console')
     })
     .catch(e => {
       console.log(e);

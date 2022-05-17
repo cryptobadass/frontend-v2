@@ -2,7 +2,7 @@
   <div class="lg:container lg:mx-auto pt-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-8 gap-x-0 lg:gap-x-8">
       <div class="col-span-2">
-        <BalLoadingBlock v-if="loadingPool" class="h-16" />
+        <BalLoadingBlock v-if="loadingPool" class="h-36" />
         <div v-else class="px-4 lg:px-0 flex flex-col">
           <CopperDetailHeader :pool="pool?.pools" />
         </div>
@@ -37,7 +37,7 @@
         <BalStack vertical>
           <BalLoadingBlock
             v-if="loadingPool"
-            class="pool-actions-card h-60 mb-4"
+            class="pool-actions-card h-80 mb-4"
           />
 
           <!-- <GetDeFiCertifiedCard
@@ -47,6 +47,7 @@
             class="mb-4"
           /> -->
           <TradeCardGP
+            v-else
             :assetIn="pool?.pools.base_token"
             :assetOut="pool?.pools.main_token"
             lbp
@@ -174,10 +175,7 @@ export default defineComponent({
     // });
 
     const poolQueryLoading = computed(
-      () =>
-        poolQuery.isLoading.value ||
-        poolQuery.isIdle.value ||
-        poolQuery.error.value
+      () => poolQuery.isLoading.value || poolQuery.error.value
     );
 
     const loadingPool = computed(() => poolQueryLoading.value || !pool.value);
