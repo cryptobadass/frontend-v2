@@ -1,3 +1,4 @@
+import { copperService } from '@/services/copper/coppper.service';
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { lsGet, lsSet } from '.';
@@ -17,13 +18,13 @@ axios.interceptors.response.use(
 );
 
 const instance = axios.create({
-  baseURL: 'https://api.yotei.finance',
+  // baseURL: 'https://api.yotei.finance', // open when production
   timeout: 50000
 });
 
 instance.interceptors.request.use(
   config => {
-    config.url = config.url?.replace('/api', '');
+    // config.url = config.url?.replace('/api', ''); // open when production
     config.headers = {
       ...config.headers,
       token: lsGet('token', '')
@@ -40,6 +41,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   response => {
     const data = response.data;
+    console.log('response', response);
     if (data.token) {
       lsSet('token', data.token);
     }
@@ -49,7 +51,10 @@ instance.interceptors.response.use(
   },
   error => {
     console.log('error', error);
-    ElMessage.error(error.response.data.result || 'error');
+    if (error?.response?.status === 401) {
+      copperService.pools.lbp.getToken();
+    }
+    // ElMessage.error(error.response.data.result || 'error');
     return Promise.reject(error);
   }
 );

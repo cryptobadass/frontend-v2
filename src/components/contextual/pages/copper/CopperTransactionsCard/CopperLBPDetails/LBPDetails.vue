@@ -6,18 +6,24 @@ import { flatten } from 'lodash';
 import usePoolActivitiesQuery from '@/composables/queries/usePoolActivitiesQuery';
 import usePoolUserActivitiesQuery from '@/composables/queries/usePoolUserActivitiesQuery';
 
-import { FullPool, FullPoolCopper } from '@/services/balancer/subgraph/types';
+import {
+  FullPool,
+  FullPoolCopper,
+  LBPDetail
+} from '@/services/balancer/subgraph/types';
 
 import { PoolTransactionsTab } from '../types';
 import useTokens from '@/composables/useTokens';
 import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
+import { formatUnits } from '@ethersproject/units';
 
 /**
  * TYPES
  */
 type Props = {
   pool: FullPoolCopper;
+  lbpDetail: LBPDetail;
   loading: boolean;
   poolActivityType: PoolTransactionsTab;
 };
@@ -84,6 +90,41 @@ const account = computed(() => props.pool?.pool_address);
 const mainTokenInfo = computed(() => {
   if (!props.pool) return null;
   return getToken(props.pool.main_token);
+});
+const mainAndBaseNeedSwap = computed(() => {
+  return props.pool.main_token == props.lbpDetail.tokensList[0] ? 0 : 1;
+});
+const mainCurrentBalances = computed(() => {
+  if (!props.pool || !props.lbpDetail) return '';
+  return props.lbpDetail.tokens[mainAndBaseNeedSwap.value].balance || '';
+});
+const baseCurrentBalances = computed(() => {
+  if (!props.pool || !props.lbpDetail) return '';
+  return props.lbpDetail.tokens[1 - mainAndBaseNeedSwap.value].balance || '';
+});
+const mainStartWeights = computed(() => {
+  if (!props.pool || !props.lbpDetail) return 0;
+  return formatUnits(
+    props.lbpDetail.weightUpdates[0].startWeights[mainAndBaseNeedSwap.value]
+  );
+});
+const baseStartWeights = computed(() => {
+  if (!props.pool || !props.lbpDetail) return 0;
+  return formatUnits(
+    props.lbpDetail.weightUpdates[0].startWeights[1 - mainAndBaseNeedSwap.value]
+  );
+});
+const mainEndWeights = computed(() => {
+  if (!props.pool || !props.lbpDetail) return 0;
+  return formatUnits(
+    props.lbpDetail.weightUpdates[0].endWeights[mainAndBaseNeedSwap.value]
+  );
+});
+const baseEndWeights = computed(() => {
+  if (!props.pool || !props.lbpDetail) return 0;
+  return formatUnits(
+    props.lbpDetail.weightUpdates[0].endWeights[1 - mainAndBaseNeedSwap.value]
+  );
 });
 /**
  * METHODS
@@ -184,7 +225,7 @@ function copyAddress() {
             <div class="col-span-1">
               <div class="text-sm font-bold text-gray-400 my-2">Status</div>
               <BalCard noBorder>
-                <div>Active</div>
+                <div>{{ lbpDetail.swapEnabled ? 'Active' : 'Inactive' }}</div>
               </BalCard>
             </div>
           </div>
@@ -251,14 +292,15 @@ function copyAddress() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<BalAsset
+                    {{ fNum2(mainCurrentBalances, FNumFormats.token)
+                    }}<BalAsset
                       class="mx-2"
                       :address="pool.main_token"
                       :iconURI="pool.image_url"
                     ></BalAsset>
                   </div>
                   <div class="flex items-center">
-                    1,000.00
+                    {{ fNum2(baseCurrentBalances, FNumFormats.token) }}
                     <BalAsset
                       class="mx-2"
                       :address="pool.base_token"

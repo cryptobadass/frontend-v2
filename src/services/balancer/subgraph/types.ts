@@ -243,6 +243,40 @@ export type FullPoolCopper = {
   network_id: number;
   learn_more_url: string;
 };
+export type LBPDetail = {
+  id: string;
+  address: string;
+  strategyType: string;
+  symbol: string;
+  name: string;
+  swapEnabled: boolean;
+  swapFee: string;
+  owner: string;
+  totalWeight: number;
+  totalSwapVolume: string;
+  totalSwapFee: string;
+  totalLiquidity: string;
+  createTime: number;
+  swapsCount: number;
+  holdersCount: number;
+  tx: string;
+  tokensList: Array<string>;
+  tokens: Array<{
+    symbol: string;
+    name: string;
+    address: string;
+    weight: string;
+    priceRate: string;
+    balance: string;
+  }>;
+  weightUpdates: Array<{
+    startTimestamp: number;
+    endTimestamp: number;
+    startWeights: Array<string>;
+    endWeights: Array<string>;
+  }>;
+}
 export interface FullPoolCoppers extends FullPool {
   pools: FullPoolCopper;
+  lbpDetail: LBPDetail;
 }

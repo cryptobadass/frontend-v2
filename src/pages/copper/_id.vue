@@ -4,7 +4,10 @@
       <div class="col-span-2">
         <BalLoadingBlock v-if="loadingPool" class="h-36" />
         <div v-else class="px-4 lg:px-0 flex flex-col">
-          <CopperDetailHeader :pool="pool?.pools" />
+          <CopperDetailHeader
+            :pool="pool?.pools"
+            :lbpDetail="pool?.lbpDetail"
+          />
         </div>
       </div>
 
@@ -27,6 +30,7 @@
           <div>
             <CopperTransactionsCard
               :pool="pool?.pools"
+              :lbpDetail="pool?.lbpDetail"
               :loading="loadingPool"
             />
           </div>

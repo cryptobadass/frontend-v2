@@ -266,6 +266,20 @@ export default function useCopperPoolQuery(
       prices.value,
       currency.value
     );
+    // debugger
+    console.log('aaa', pool.address);
+    const [lbpDetail] = await balancerSubgraphService.lbpDetail.get({
+      where: { address: pool.address }
+    });
+    // debugger
+    const lbpStatistics = await balancerSubgraphService.lbpStatistics.get({
+      where: {
+        sender: pool.address,
+        pool: pool.id
+      }
+    });
+    console.log('aaaaa', lbpDetail, lbpStatistics);
+    // debugger;
 
     let unwrappedTokens: Pool['unwrappedTokens'];
 
@@ -326,7 +340,13 @@ export default function useCopperPoolQuery(
       pools
     });
 
-    return { onchain: onchainData, unwrappedTokens, ...decoratedPool, pools };
+    return {
+      onchain: onchainData,
+      unwrappedTokens,
+      ...decoratedPool,
+      pools,
+      lbpDetail
+    };
   };
   const queryOptions = reactive({
     enabled,

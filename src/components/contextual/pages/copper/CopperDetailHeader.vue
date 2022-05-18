@@ -2,12 +2,13 @@
 // import { toRef, computed, ref } from 'vue';
 // import { useRouter } from 'vue-router';
 
-import { FullPoolCopper } from '@/services/balancer/subgraph/types';
+import { FullPoolCopper, LBPDetail } from '@/services/balancer/subgraph/types';
 import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 import { computed, watch } from 'vue';
 import { differenceInDays } from 'date-fns';
 import useCountDown from '@/composables/useCountDown';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
+import { toJsTimestamp } from '@/composables/useTime';
 
 const { fNum2 } = useNumbers();
 
@@ -16,6 +17,7 @@ const { fNum2 } = useNumbers();
  */
 type Props = {
   pool: FullPoolCopper;
+  lbpDetail: LBPDetail;
 };
 
 /**
@@ -24,14 +26,15 @@ type Props = {
 const props = defineProps<Props>();
 
 const pool = computed(() => props.pool);
+const lbpDetail = computed(()=> props.lbpDetail);
 const ends = computed(() => {
   return props.pool.end_time;
 });
 const differenceInDay = computed(() => {
   if (props.pool.end_time && props.pool.start_time) {
     return differenceInDays(
-      new Date(props.pool.end_time * 1000),
-      new Date(props.pool.start_time * 1000)
+      new Date(toJsTimestamp(props.pool.end_time)),
+      new Date(toJsTimestamp(props.pool.start_time))
     );
   } else {
     return 0;
@@ -62,11 +65,11 @@ const countDown = useCountDown(props.pool.end_time);
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">TOTAL VOLUME</div>
-        <div class="font-bold">-</div>
+        <div class="font-bold">{{ lbpDetail.totalSwapVolume }}</div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">LIQUIDITY</div>
-        <div class="font-bold"></div>
+        <div class="font-bold">{{ lbpDetail.totalLiquidity }}</div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">PRICE</div>

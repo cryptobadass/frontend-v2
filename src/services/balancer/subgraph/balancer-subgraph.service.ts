@@ -6,6 +6,8 @@ import PoolActivities from './entities/poolActivities';
 import PoolSwaps from './entities/poolSwaps';
 import PoolSnapshots from './entities/poolSnapshots';
 import TradePairSnapshots from './entities/tradePairs';
+import LBPDetail from './entities/lbpDetail';
+import LBPStatistics from './entities/lbpStatistics'
 
 import { networkId } from '@/composables/useNetwork';
 // import { Network } from '@balancer-labs/sdk';
@@ -18,6 +20,8 @@ export default class BalancerSubgraphService {
   poolSwaps: PoolSwaps;
   poolSnapshots: PoolSnapshots;
   tradePairSnapshots: TradePairSnapshots;
+  lbpDetail: LBPDetail;
+  lbpStatistics: LBPStatistics;
 
   constructor(
     readonly client = balancerSubgraphClient,
@@ -30,6 +34,8 @@ export default class BalancerSubgraphService {
     this.poolSwaps = new PoolSwaps(this);
     this.poolSnapshots = new PoolSnapshots(this);
     this.tradePairSnapshots = new TradePairSnapshots(this);
+    this.lbpDetail = new LBPDetail(this);
+    this.lbpStatistics = new LBPStatistics(this);
   }
 
   public get blockTime(): number {
