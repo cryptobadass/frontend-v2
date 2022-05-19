@@ -138,7 +138,7 @@ watch(blockNumber, async () => {
       >
         <component :is="link.component" />
       </BalLink>
-      <BalLink href="mailto:dev@yotei.finance" class="social-link" noStyle>
+      <BalLink href="mailto:info@yotei.finance" class="social-link" noStyle>
         <EmailIcon />
       </BalLink>
     </div>
