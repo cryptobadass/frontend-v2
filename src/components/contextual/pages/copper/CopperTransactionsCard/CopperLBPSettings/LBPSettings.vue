@@ -232,4 +232,3 @@ function withDrawAll() {
     <div class="col-span-1 md:col-span-1"></div>
   </div>
 </template>
-
