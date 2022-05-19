@@ -161,8 +161,8 @@ watch(blockNumber, async () => {
         external
         noStyle
       > -->
-        App: v{{ version }}
-        <!-- <BalIcon name="arrow-up-right" size="xs" class="ml-1" />
+      App: v{{ version }}
+      <!-- <BalIcon name="arrow-up-right" size="xs" class="ml-1" />
       </BalLink> -->
     </div>
   </div>

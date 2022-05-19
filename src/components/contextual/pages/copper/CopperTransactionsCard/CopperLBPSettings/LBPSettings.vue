@@ -135,7 +135,8 @@ function withDrawAll() {
                     />
                   </div>
                   <div class="flex items-center">
-                    {{ fNum2(baseCurrentBalances, FNumFormats.token) }}<BalAsset class="mx-2" :address="pool.base_token" /></div
+                    {{ fNum2(baseCurrentBalances, FNumFormats.token)
+                    }}<BalAsset class="mx-2" :address="pool.base_token" /></div
                 ></BalStack>
               </BalCard>
             </div>
