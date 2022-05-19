@@ -1,7 +1,6 @@
 import { merge } from 'lodash';
 
-const defaultArgs = {
-};
+const defaultArgs = {};
 
 const defaultAttrs = {
   type: true,

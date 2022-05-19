@@ -122,7 +122,7 @@ function navigateToCreateLaunchpad() {
         @loadMore="loadMorePools"
         :selectedTokens="selectedTokens"
         class="mb-8"
-        :hiddenColumns="['migrate', 'stake']"
+        :hiddenColumns="[]"
       />
     </BalStack>
   </div>

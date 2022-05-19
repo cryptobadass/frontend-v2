@@ -19,7 +19,7 @@ export default class PoolActivities {
 
   serializeActivity(pools: FullPoolCopper[]) {
     return pools.map(pool => ({
-      ...pool,
+      ...pool
       // createTime: pool.createTime * 1000
     }));
   }

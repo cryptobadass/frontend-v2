@@ -26,7 +26,7 @@ type Props = {
 const props = defineProps<Props>();
 
 const pool = computed(() => props.pool);
-const lbpDetail = computed(()=> props.lbpDetail);
+const lbpDetail = computed(() => props.lbpDetail);
 const ends = computed(() => {
   return props.pool.end_time;
 });

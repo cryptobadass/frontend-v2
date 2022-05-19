@@ -431,7 +431,7 @@ export default function useCopperCreation() {
       (token: PoolSeedToken) => {
         const tokenInfo = getToken(token.tokenAddress);
         if (!tokenInfo) return '0';
-        const amount = new BigNumber(token.amount);
+        const amount = bnum(token.amount);
         const scaledAmount = scale(amount, tokenInfo.decimals);
         const scaledRoundedAmount = scaledAmount.dp(0, BigNumber.ROUND_FLOOR);
         return scaledRoundedAmount.toString();
@@ -444,7 +444,7 @@ export default function useCopperCreation() {
     const scaledWeights: string[] = poolCreationState.seedTokens.map(item => {
       // const tokenInfo = getToken(token.tokenAddress);
       // if (!tokenInfo) return '0';
-      const amount = new BigNumber(item.startWeight).div(100);
+      const amount = bnum(item.startWeight).div(100);
       const scaledWeight = scale(amount, 18);
       const scaledRoundedWeight = scaledWeight.dp(0, BigNumber.ROUND_FLOOR);
       return scaledRoundedWeight.toString();
@@ -456,7 +456,7 @@ export default function useCopperCreation() {
     const scaledWeights: string[] = poolCreationState.seedTokens.map(item => {
       // const tokenInfo = getToken(token.tokenAddress);
       // if (!tokenInfo) return '0';
-      const amount = new BigNumber(item.endWeight).div(100);
+      const amount = bnum(item.endWeight).div(100);
       const scaledWeight = scale(amount, 18);
       const scaledRoundedWeight = scaledWeight.dp(0, BigNumber.ROUND_FLOOR);
       return scaledRoundedWeight.toString();
@@ -464,7 +464,7 @@ export default function useCopperCreation() {
     return scaledWeights;
   }
   function getScaledSwapFee() {
-    const swapFee = new BigNumber(poolCreationState.swapFeePercentage).div(100);
+    const swapFee = bnum(poolCreationState.swapFeePercentage).div(100);
     const scaledSwapFee = scale(swapFee, 18);
     const scaledRoundedSwapFee = scaledSwapFee.dp(0, BigNumber.ROUND_FLOOR);
     return scaledRoundedSwapFee.toString();
@@ -579,7 +579,9 @@ export default function useCopperCreation() {
 
   async function setSwapEnabled(
     address,
-    swapEnabled
+    swapEnabled,
+    success,
+    error
   ): Promise<TransactionResponse> {
     const provider = getProvider();
     try {
@@ -603,15 +605,18 @@ export default function useCopperCreation() {
       txListener(tx, {
         onTxConfirmed: async () => {
           // retrievePoolDetails(tx.hash);
+          success && success();
         },
         onTxFailed: () => {
           // console.log('Create failed');
+          error && error();
         }
       });
 
       return tx;
     } catch (e) {
       console.log(e);
+      error && error();
       return Promise.reject('set Swap Enabled failed');
     }
   }
@@ -710,9 +715,12 @@ export default function useCopperCreation() {
       base_token: baseTokenAddress.value,
       image_url: poolCreationState.image,
       description: poolCreationState.description,
-      price: '1', // todo
+      price: bnum(priceFor(baseTokenAddress.value))
+        .times(poolCreationState.seedTokens[1].amount)
+        .div(poolCreationState.seedTokens[0].amount)
+        .toString(), // todo
       learn_more_url: poolCreationState.learnMoreLink,
-      swap_fee: new BigNumber(poolCreationState.swapFeePercentage)
+      swap_fee: bnum(poolCreationState.swapFeePercentage)
         .div(100)
         .toString(),
       start_time: getUnixTime(poolCreationState.time[0] as Date),

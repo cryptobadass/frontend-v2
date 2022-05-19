@@ -273,9 +273,13 @@ export default function useCopperPoolsQuery(
     //   const item = await searchTokens(pools[i], []);
     //   tokens[i] = item[pools[i]];
     // }
-    // for (let i = 0; i < pools.length; i++) {
-    //   pools[i].info = await copperService.pools.lbp.poolDetail(pools[i].id);
-    // }
+    for (let i = 0; i < pools.length; i++) {
+      // pools[i].info = await copperService.pools.lbp.poolDetail(pools[i].id);
+      const [lbpDetail] = await balancerSubgraphService.lbpDetail.get({
+        where: { address: pools[i].pool_address }
+      });
+      pools[i].lbpDetail = lbpDetail;
+    }
     console.log('aaaaaaa', pools);
     return { pools };
   };

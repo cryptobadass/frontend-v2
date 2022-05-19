@@ -3,17 +3,38 @@
     <WalletButton v-for="wallet in wallets" :wallet="wallet" :key="wallet" />
     <p class="pb-3 text-sm text-bluey-grey">
       {{ $t('byConnectingWallet') }}
-      <router-link :to="{ name: 'terms-of-use' }" target="_blank">
+      <!-- <router-link
+        to="http://137.184.125.1/yotei/terms-of-use2.html"
+        target="_blank"
+      >
         <span className="link">{{ $t('policies.termsOfUse') }}</span>
-      </router-link>
+      </router-link> -->
+      <BalLink
+        :href="'http://137.184.125.1/yotei/terms-of-use.html'"
+        external
+        noStyle
+      >
+        <span className="link">{{ $t('policies.termsOfUse') }}</span></BalLink
+      >
       <!-- <router-link :to="{ name: 'cookies-policy' }" target="_blank">
         <span className="link">{{ $t('policies.cookiesPolicy') }}</span>
       </router-link> -->
       {{ $t('and') }}
-      <router-link :to="{ name: 'privacy-policy' }" target="_blank">
+      <BalLink
+        href="http://137.184.125.1/yotei/privacy-policy.html"
+        external
+        noStyle
+      >
+        <span className="link">{{ $t('policies.privacyPolicy') }}</span
+        >.</BalLink
+      >
+      <!-- <router-link
+        :to="' http://137.184.125.1/yotei/privacy-policy.html'"
+        target="_blank"
+      >
         <span className="link">{{ $t('policies.privacyPolicy') }}</span
         >.
-      </router-link>
+      </router-link> -->
     </p>
     <!-- <div
       class="

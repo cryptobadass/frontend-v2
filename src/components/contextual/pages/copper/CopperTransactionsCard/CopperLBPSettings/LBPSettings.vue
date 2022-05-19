@@ -1,22 +1,18 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { flatten } from 'lodash';
+import { computed, onMounted, ref } from 'vue';
 
-import usePoolSwapsQuery from '@/composables/queries/usePoolSwapsQuery';
-import useUserPoolSwapsQuery from '@/composables/queries/useUserPoolSwapsQuery';
-
-import { FullPool, FullPoolCopper } from '@/services/balancer/subgraph/types';
+import { FullPoolCopper, LBPDetail } from '@/services/balancer/subgraph/types';
 
 import { PoolTransactionsTab } from '../types';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
-import { func } from 'prop-types';
+import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 
 /**
  * TYPES
  */
 type Props = {
   pool: FullPoolCopper;
+  lbpDetail: LBPDetail;
   loading: boolean;
   poolActivityType: PoolTransactionsTab;
 };
@@ -32,38 +28,39 @@ const props = withDefaults(defineProps<Props>(), {
 /**
  * COMPOSABLES
  */
-const route = useRoute();
+// const route = useRoute();
 const { exitPool, setSwapEnabled } = useCopperCreation();
+const { fNum2 } = useNumbers();
 
 /**
  * STATE
  */
 
-const id = route.params.id as string;
-const isActive = ref(true);
+// const id = route.params.id as string;
+const isActive = ref(false);
+const isBtnDisabled = ref(false);
 /**
  * QUERIES
  */
 
-// const poolSwapsQuery =
-//   props.poolActivityType === PoolTransactionsTab.ALL_ACTIVITY
-//     ? usePoolSwapsQuery(id)
-//     : useUserPoolSwapsQuery(id);
-
 /**
  * COMPUTED
  */
-// const poolSwaps = computed(() =>
-//   poolSwapsQuery.data.value
-//     ? flatten(poolSwapsQuery.data.value.pages.map(page => page.poolSwaps))
-//     : []
-// );
-// const isLoadingPoolSwaps = computed(() => poolSwapsQuery.isLoading.value);
-// const poolSwapsHasNextPage = computed(() => poolSwapsQuery.hasNextPage?.value);
-// const poolSwapsIsFetchingNextPage = computed(
-//   () => poolSwapsQuery.isFetchingNextPage?.value
-// );
 
+const mainAndBaseNeedSwap = computed(() => {
+  return props.pool.main_token == props.lbpDetail.tokensList[0] ? 0 : 1;
+});
+const mainCurrentBalances = computed(() => {
+  if (!props.pool || !props.lbpDetail) return '';
+  return props.lbpDetail.tokens[mainAndBaseNeedSwap.value].balance || '';
+});
+const baseCurrentBalances = computed(() => {
+  if (!props.pool || !props.lbpDetail) return '';
+  return props.lbpDetail.tokens[1 - mainAndBaseNeedSwap.value].balance || '';
+});
+onMounted(() => {
+  isActive.value = props.lbpDetail.swapEnabled;
+});
 /**
  * METHODS
  */
@@ -72,8 +69,18 @@ const isActive = ref(true);
 // }
 function swapChange(b) {
   console.log(b);
-  setSwapEnabled(props.pool.pool_address, !isActive.value);
-  isActive.value = !isActive.value;
+  isBtnDisabled.value = true;
+  setSwapEnabled(
+    props.pool.pool_address,
+    !isActive.value,
+    () => {
+      isActive.value = !isActive.value;
+      isBtnDisabled.value = false;
+    },
+    () => {
+      isBtnDisabled.value = false;
+    }
+  );
 }
 function withDrawAll() {
   exitPool(props.pool.pool_address);
@@ -91,9 +98,18 @@ function withDrawAll() {
               <BalCard noBorder darkBgColor="700">
                 <div class="flex items-center ">
                   <div class="text-sm font-bold text-gray-400 mr-4">
-                    Swapping is active
+                    Swapping is
+                    {{ lbpDetail.swapEnabled ? 'Active' : 'Inactive' }}
                   </div>
-                  <BalToggle :checked="isActive" @toggle="swapChange" />
+                  <BalToggle
+                    :checked="isActive"
+                    @toggle="swapChange"
+                    :disabled="isBtnDisabled"
+                  />
+                  <div
+                    v-if="isBtnDisabled"
+                    class="block-icon ml-2 mt-1 w-2 h-2 rounded-full bg-green-500"
+                  />
                 </div>
               </BalCard>
             </div>
@@ -111,17 +127,15 @@ function withDrawAll() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<BalAsset
+                    {{ fNum2(mainCurrentBalances, FNumFormats.token)
+                    }}<BalAsset
                       class="mx-2"
                       :address="pool.main_token"
                       :iconURI="pool.image_url"
                     />
                   </div>
                   <div class="flex items-center">
-                    1,000.00<BalAsset
-                      class="mx-2"
-                      :address="pool.base_token"
-                    /></div
+                    {{ fNum2(baseCurrentBalances, FNumFormats.token) }}<BalAsset class="mx-2" :address="pool.base_token" /></div
                 ></BalStack>
               </BalCard>
             </div>
@@ -132,10 +146,7 @@ function withDrawAll() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<BalAsset
-                      class="mx-2"
-                      :address="pool.base_token"
-                    /></div
+                    -<BalAsset class="mx-2" :address="pool.base_token" /></div
                 ></BalStack>
               </BalCard>
             </div>
@@ -163,10 +174,7 @@ function withDrawAll() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00<BalAsset
-                      class="mx-2"
-                      :address="pool.base_token"
-                    /></div
+                    -<BalAsset class="mx-2" :address="pool.base_token" /></div
                 ></BalStack>
               </BalCard>
             </div>
@@ -177,7 +185,7 @@ function withDrawAll() {
           <div class="grid grid-cols-2 gap-x-4 ">
             <div class="col-span-1">
               <div class="text-sm font-bold text-gray-400 mb-4">
-                Blocked countries
+                Balances After Platform Access Fee
               </div>
               <div>
                 <BalCard>
@@ -189,17 +197,14 @@ function withDrawAll() {
                   >
                     <BalStack vertical spacing="base">
                       <div class="flex items-center">
-                        1,000.00<BalAsset
+                        -<BalAsset
                           class="mx-2"
                           :address="pool.main_token"
                           :iconURI="pool.image_url"
                         />
                       </div>
                       <div class="flex items-center">
-                        1,000.00<BalAsset
-                          class="mx-2"
-                          :address="pool.base_token"
-                        />
+                        -<BalAsset class="mx-2" :address="pool.base_token" />
                       </div>
                     </BalStack>
                     <BalBtn
@@ -218,3 +223,16 @@ function withDrawAll() {
     <div class="col-span-1 md:col-span-1"></div>
   </div>
 </template>
+<style scoped>
+.block-icon {
+  animation: anim infinite 0.5s alternate;
+}
+@keyframes anim {
+  from {
+    box-shadow: 0px 0px 0px 0px theme('colors.green.500');
+  }
+  to {
+    box-shadow: 0px 0px 3px 2px theme('colors.green.500');
+  }
+}
+</style>

@@ -7,7 +7,7 @@ import PoolSwaps from './entities/poolSwaps';
 import PoolSnapshots from './entities/poolSnapshots';
 import TradePairSnapshots from './entities/tradePairs';
 import LBPDetail from './entities/lbpDetail';
-import LBPStatistics from './entities/lbpStatistics'
+import LBPStatistics from './entities/lbpStatistics';
 
 import { networkId } from '@/composables/useNetwork';
 // import { Network } from '@balancer-labs/sdk';

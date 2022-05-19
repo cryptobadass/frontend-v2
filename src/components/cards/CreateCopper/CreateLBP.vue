@@ -32,11 +32,20 @@
                   <template v-slot:label>
                     <div class="mt-1">
                       I have read and agree to the Yotei Platform
-                      <router-link :to="{ name: 'home' }" target="_blank">
+                      <!-- <router-link
+                        :to="'http://137.184.125.1/yotei/terms-of-use.html'"
+                        target="_blank"
+                      > -->
+                      <BalLink
+                        :href="'http://137.184.125.1/yotei/terms-of-use.html'"
+                        external
+                        noStyle
+                      >
                         <span className="link">{{
                           $t('policies.termsOfUse')
-                        }}</span>
-                      </router-link>
+                        }}</span></BalLink
+                      >
+                      <!-- </router-link> -->
                     </div></template
                   >
                 </BalCheckbox>

@@ -153,17 +153,17 @@ watch(blockNumber, async () => {
           {{ networkConfig.name }}: Block {{ blockNumber }}
         </span>
       </div>
-      <BalLink
+      <!-- <BalLink
         :href="
           `https://github.com/balancer-labs/frontend-v2/releases/tag/${version}`
         "
         class="text-gray-300 flex items-center mt-2"
         external
         noStyle
-      >
+      > -->
         App: v{{ version }}
-        <BalIcon name="arrow-up-right" size="xs" class="ml-1" />
-      </BalLink>
+        <!-- <BalIcon name="arrow-up-right" size="xs" class="ml-1" />
+      </BalLink> -->
     </div>
   </div>
 </template>

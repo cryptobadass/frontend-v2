@@ -5,7 +5,8 @@ import { useI18n } from 'vue-i18n';
 
 import {
   DecoratedPoolWithShares,
-  FullPoolCopper
+  FullPoolCopper,
+  LBPDetail
 } from '@/services/balancer/subgraph/types';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
@@ -27,6 +28,7 @@ import { PoolMigrationType } from '@/components/forms/pool_actions/MigrateForm/t
 import TokenPills from './TokenPills/TokenPills.vue';
 import { POOLS } from '@/constants/pools';
 import { stringToUpperCase as _up } from '@/lib/utils/index';
+import { toJsTimestamp } from '@/composables/useTime';
 
 /**
  * TYPES
@@ -39,6 +41,7 @@ type DecoratedPoolCopper = {
   network: number;
   image_url: string;
   id: number;
+  lbpDetail: LBPDetail;
 };
 
 type Props = {
@@ -85,11 +88,12 @@ const wideCompositionWidth = computed(() =>
  */
 const columns = computed<ColumnDefinition<DecoratedPoolCopper>[]>(() => [
   {
-    name: 'LBP Name',
+    name: 'Token',
     id: 'lbp_name',
     accessor: 'lbp_name',
-    width: 200,
-    noGrow: true
+    width: 250,
+    noGrow: true,
+    Cell: 'poolTokenCell'
   },
   {
     name: 'Start Time',
@@ -110,12 +114,26 @@ const columns = computed<ColumnDefinition<DecoratedPoolCopper>[]>(() => [
     width: 350,
     noGrow: true
   },
+  // {
+  //   name: 'Image',
+  //   id: 'image_url',
+  //   accessor: 'image_url',
+  //   // width: 150,
+  //   Cell: 'poolImageCell'
+  // },
   {
-    name: 'Image',
-    id: 'image_url',
-    accessor: 'image_url',
-    // width: 150,
-    Cell: 'poolImageCell'
+    name: 'Status',
+    id: 'status',
+    accessor: 'status',
+    Cell: 'poolStatusCell'
+    // align: 'center'
+  },
+  {
+    name: 'Price',
+    id: 'price',
+    accessor: pool => {
+      return fNum2(pool.price, FNumFormats.fiat);
+    }
   }
   // {
   //   name: 'TOKENS',
@@ -239,6 +257,14 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
     query: { returnRoute: 'home' }
   });
 }
+function formatStatus(pool: DecoratedPoolCopper) {
+  const start_time = toJsTimestamp(pool.start_time);
+  const end_time = toJsTimestamp(pool.end_time);
+  const now_time = Date.now();
+  if (now_time < start_time) return 'Unstart';
+  if (now_time > end_time) return 'Ended';
+  return pool.lbpDetail.swapEnabled ? 'Active' : 'Inactive';
+}
 </script>
 
 <template>
@@ -262,6 +288,17 @@ function navigateToPoolMigration(pool: DecoratedPoolWithShares) {
       <template v-slot:poolImageCell="pool">
         <div class="flex items-center">
           <BalAsset :iconURI="pool.image_url" />
+        </div>
+      </template>
+      <template v-slot:poolTokenCell="pool">
+        <div class="flex items-center">
+          <BalAsset class="mx-2" :iconURI="pool.image_url" />
+          {{ pool.lbp_name }}
+        </div>
+      </template>
+      <template v-slot:poolStatusCell="pool">
+        <div class="flex items-center px-4">
+          {{ formatStatus(pool) }}
         </div>
       </template>
       <!-- <template v-slot:iconColumnCell="pool">

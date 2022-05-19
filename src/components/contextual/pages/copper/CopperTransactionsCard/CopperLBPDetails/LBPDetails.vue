@@ -96,6 +96,7 @@ const mainAndBaseNeedSwap = computed(() => {
 });
 const mainCurrentBalances = computed(() => {
   if (!props.pool || !props.lbpDetail) return '';
+  // parseEther
   return props.lbpDetail.tokens[mainAndBaseNeedSwap.value].balance || '';
 });
 const baseCurrentBalances = computed(() => {
@@ -225,7 +226,18 @@ function copyAddress() {
             <div class="col-span-1">
               <div class="text-sm font-bold text-gray-400 my-2">Status</div>
               <BalCard noBorder>
-                <div>{{ lbpDetail.swapEnabled ? 'Active' : 'Inactive' }}</div>
+                <div class="flex items-center">
+                  <div
+                    ref="blockIcon"
+                    :class="[
+                      ' w-2 h-2 rounded-full mr-1',
+                      lbpDetail.swapEnabled
+                        ? 'bg-green-500 block-icon-green'
+                        : 'bg-gray-500 block-icon-gray'
+                    ]"
+                  />
+                  {{ lbpDetail.swapEnabled ? 'Active' : 'Inactive' }}
+                </div>
               </BalCard>
             </div>
           </div>
@@ -258,7 +270,7 @@ function copyAddress() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    1,000.00
+                    -
                     <BalAsset
                       class="mx-2"
                       :address="pool.main_token"
@@ -266,7 +278,7 @@ function copyAddress() {
                     />
                   </div>
                   <div class="flex items-center">
-                    1,000.00
+                    -
                     <BalAsset class="mx-2" :address="pool.base_token" />
                   </div>
                 </BalStack>
@@ -276,7 +288,7 @@ function copyAddress() {
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  1,000.00
+                  -
                   <BalAsset
                     class="mx-2"
                     :address="pool.main_token"
@@ -312,7 +324,7 @@ function copyAddress() {
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  1,000.00
+                  -
                   <BalAsset class="mx-2" :address="pool.base_token"></BalAsset>
                 </div>
               </BalCard>
@@ -330,15 +342,14 @@ function copyAddress() {
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  {{ fNum2(pool.start_weight || 0.99, FNumFormats.percent)
+                  {{ fNum2(mainStartWeights, FNumFormats.percent)
                   }}<BalAsset
                     class="mx-2"
                     :address="pool.main_token"
                     :iconURI="pool.image_url"
                   />
                   +
-                  {{
-                    fNum2(1 - (pool.start_weight || 0.99), FNumFormats.percent)
+                  {{ fNum2(baseStartWeights, FNumFormats.percent)
                   }}<BalAsset class="mx-2" :address="pool.base_token" />
                 </div>
               </BalCard>
@@ -349,15 +360,14 @@ function copyAddress() {
               </div>
               <BalCard noBorder
                 ><div class="flex items-center">
-                  {{ fNum2(pool.end_weight || 0.01, FNumFormats.percent)
+                  {{ fNum2(mainEndWeights, FNumFormats.percent)
                   }}<BalAsset
                     class="mx-2"
                     :address="pool.main_token"
                     :iconURI="pool.image_url"
                   />
                   +
-                  {{
-                    fNum2(1 - (pool.start_weight || 0.99), FNumFormats.percent)
+                  {{ fNum2(baseEndWeights, FNumFormats.percent)
                   }}<BalAsset class="mx-2" :address="pool.base_token" />
                 </div>
               </BalCard>
@@ -413,7 +423,11 @@ function copyAddress() {
               <div class="text-sm font-bold text-gray-400 mb-2">
                 Total Volume
               </div>
-              <BalCard noBorder><div>$0.00</div></BalCard>
+              <BalCard noBorder
+                ><div>
+                  {{ fNum2(lbpDetail.totalSwapVolume, FNumFormats.fiat) }}
+                </div></BalCard
+              >
             </div>
             <div class="col-span-1">
               <div class="text-sm font-bold text-gray-400 mb-2">
@@ -421,7 +435,7 @@ function copyAddress() {
               </div>
               <BalCard noBorder>
                 <div>
-                  {{ fNum2(pool.swap_fee, FNumFormats.percent) }}
+                  {{ fNum2(lbpDetail.swapFee, FNumFormats.percent) }}
                 </div></BalCard
               >
             </div>
@@ -448,3 +462,13 @@ function copyAddress() {
     <div class="col-span-1 md:col-span-1"></div>
   </div>
 </template>
+<style scoped>
+.block-icon-green {
+  box-shadow: 0px 0px 3px 2px theme('colors.green.500');
+  transition: box-shadow 0.3s ease-in-out;
+}
+.block-icon-gray {
+  box-shadow: 0px 0px 3px 2px theme('colors.gray.500');
+  transition: box-shadow 0.3s ease-in-out;
+}
+</style>

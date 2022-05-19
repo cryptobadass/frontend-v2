@@ -2,7 +2,11 @@
 import { computed, ref, toRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { FullPool, FullPoolCopper, LBPDetail } from '@/services/balancer/subgraph/types';
+import {
+  FullPool,
+  FullPoolCopper,
+  LBPDetail
+} from '@/services/balancer/subgraph/types';
 
 import { usePool } from '@/composables/usePool';
 
@@ -51,7 +55,7 @@ const tabs = computed(() => {
     },
     {
       value: CopperTransactionsTab.SWAP,
-      label: 'Swap History'
+      label: `Swap History (${props?.lbpDetail?.swapsCount || '0'})`
     }
   ];
   if (isOwner.value) {
@@ -92,6 +96,7 @@ const activeTab = ref(tabs.value[0].value);
     v-if="activeTab === CopperTransactionsTab.SETTINGS"
     :pool-activity-type="CopperTransactionsTab.SETTINGS"
     :pool="pool"
+    :lbpDetail="lbpDetail"
     :loading="loading"
   />
 </template>
