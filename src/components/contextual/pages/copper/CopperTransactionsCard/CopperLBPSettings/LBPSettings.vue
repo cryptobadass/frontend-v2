@@ -39,6 +39,7 @@ const { fNum2 } = useNumbers();
 // const id = route.params.id as string;
 const isActive = ref(false);
 const isBtnDisabled = ref(false);
+const isWithdrawAll = ref(false);
 /**
  * QUERIES
  */
@@ -83,7 +84,10 @@ function swapChange(b) {
   );
 }
 function withDrawAll() {
-  exitPool(props.pool.pool_address);
+  isWithdrawAll.value = true;
+  exitPool(props.pool.pool_address, () => {
+    isWithdrawAll.value = false;
+  });
 }
 </script>
 
@@ -106,9 +110,11 @@ function withDrawAll() {
                     @toggle="swapChange"
                     :disabled="isBtnDisabled"
                   />
-                  <div
+                  <BalLoadingIcon
                     v-if="isBtnDisabled"
-                    class="block-icon ml-2 mt-1 w-2 h-2 rounded-full bg-green-500"
+                    class="ml-2"
+                    :size="'md'"
+                    color="white"
                   />
                 </div>
               </BalCard>
@@ -212,6 +218,8 @@ function withDrawAll() {
                       @click="withDrawAll"
                       label="Withdraw All"
                       size="sm"
+                      :loading="isWithdrawAll"
+                      :loading-label="'transaction'"
                     />
                   </BalStack>
                 </BalCard>
@@ -224,16 +232,4 @@ function withDrawAll() {
     <div class="col-span-1 md:col-span-1"></div>
   </div>
 </template>
-<style scoped>
-.block-icon {
-  animation: anim infinite 0.5s alternate;
-}
-@keyframes anim {
-  from {
-    box-shadow: 0px 0px 0px 0px theme('colors.green.500');
-  }
-  to {
-    box-shadow: 0px 0px 3px 2px theme('colors.green.500');
-  }
-}
-</style>
+

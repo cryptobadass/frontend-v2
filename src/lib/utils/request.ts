@@ -18,13 +18,13 @@ axios.interceptors.response.use(
 );
 
 const instance = axios.create({
-  // baseURL: 'https://api.yotei.finance', // open when production
+  baseURL: 'https://api.yotei.finance', // open when production
   timeout: 50000
 });
 
 instance.interceptors.request.use(
   config => {
-    // config.url = config.url?.replace('/api', ''); // open when production
+    config.url = config.url?.replace('/api', ''); // open when production
     config.headers = {
       ...config.headers,
       token: lsGet('token', '')

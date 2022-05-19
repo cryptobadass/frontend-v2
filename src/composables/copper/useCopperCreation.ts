@@ -545,7 +545,7 @@ export default function useCopperCreation() {
     }
   }
 
-  async function exitPool(address): Promise<TransactionResponse> {
+  async function exitPool(address, callBack): Promise<TransactionResponse> {
     const provider = getProvider();
     try {
       const tx = await copperService.pools.lbp.exitPool(provider, address);
@@ -564,15 +564,18 @@ export default function useCopperCreation() {
       txListener(tx, {
         onTxConfirmed: async () => {
           // retrievePoolDetails(tx.hash);
+          callBack && callBack();
         },
         onTxFailed: () => {
           // console.log('Create failed');
+          callBack && callBack();
         }
       });
 
       return tx;
     } catch (e) {
       console.log(e);
+      callBack && callBack();
       return Promise.reject('exit pool failed');
     }
   }

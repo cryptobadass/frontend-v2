@@ -230,7 +230,7 @@ function copyAddress() {
                   <div
                     ref="blockIcon"
                     :class="[
-                      ' w-2 h-2 rounded-full mr-1',
+                      ' w-2 h-2 rounded-full mr-2',
                       lbpDetail.swapEnabled
                         ? 'bg-green-500 block-icon-green'
                         : 'bg-gray-500 block-icon-gray'
