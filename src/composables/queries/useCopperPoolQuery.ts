@@ -37,7 +37,7 @@ export default function useCopperPoolQuery(
    */
   const { getTokens, injectTokens, prices, dynamicDataLoading } = useTokens();
   const { appLoading } = useApp();
-  const { account, getProvider } = useWeb3();
+  const { account, getProvider, appNetworkConfig } = useWeb3();
   const { currency } = useUserSettings();
   /**
    * COMPUTED
@@ -267,18 +267,18 @@ export default function useCopperPoolQuery(
       currency.value
     );
     // debugger
-    console.log('aaa', pool.address);
+    // console.log('aaa', pool.address);
     const [lbpDetail] = await balancerSubgraphService.lbpDetail.get({
       where: { address: pool.address }
     });
     // debugger
     const lbpStatistics = await balancerSubgraphService.lbpStatistics.get({
       where: {
-        sender: pool.address,
+        sender: appNetworkConfig.addresses.copperProxyV2, //pool.address,
         pool: pool.id
       }
     });
-    console.log('aaaaa', lbpDetail, lbpStatistics);
+    // console.log('aaaaa', lbpDetail, lbpStatistics);
     // debugger;
 
     let unwrappedTokens: Pool['unwrappedTokens'];
@@ -333,19 +333,21 @@ export default function useCopperPoolQuery(
         decoratedPool.totalLiquidity = totalLiquidity.toString();
       }
     }
-    console.log('aaaaa, poolQuery', {
-      onchain: onchainData,
-      unwrappedTokens,
-      ...decoratedPool,
-      pools
-    });
+    // console.log('aaaaa, poolQuery', {
+    //   onchain: onchainData,
+    //   unwrappedTokens,
+    //   ...decoratedPool,
+    //   pools,
+    //   lbpStatistics
+    // });
 
     return {
       onchain: onchainData,
       unwrappedTokens,
       ...decoratedPool,
       pools,
-      lbpDetail
+      lbpDetail,
+      lbpStatistics
     };
   };
   const queryOptions = reactive({

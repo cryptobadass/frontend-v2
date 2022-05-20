@@ -276,7 +276,12 @@ export type LBPDetail = {
     endWeights: Array<string>;
   }>;
 };
+export type LBPStatistics = Array<{
+  amounts: Array<string>;
+  type: string;
+}>;
 export interface FullPoolCoppers extends FullPool {
   pools: FullPoolCopper;
   lbpDetail: LBPDetail;
+  lbpStatistics: LBPStatistics;
 }

@@ -280,7 +280,7 @@ export default function useCopperPoolsQuery(
       });
       pools[i].lbpDetail = lbpDetail;
     }
-    console.log('aaaaaaa', pools);
+    // console.log('aaaaaaa', pools);
     return { pools };
   };
   const queryOptions = reactive({

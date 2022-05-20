@@ -5,7 +5,8 @@ import { useI18n } from 'vue-i18n';
 import {
   FullPool,
   FullPoolCopper,
-  LBPDetail
+  LBPDetail,
+LBPStatistics
 } from '@/services/balancer/subgraph/types';
 
 import { usePool } from '@/composables/usePool';
@@ -24,6 +25,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 type Props = {
   pool: FullPoolCopper;
   lbpDetail: LBPDetail;
+  lbpStatistics: LBPStatistics;
   loading: boolean;
 };
 
@@ -88,6 +90,7 @@ const activeTab = ref(tabs.value[0].value);
     :pool-activity-type="CopperTransactionsTab.LBP_DETAILS"
     :pool="pool"
     :lbpDetail="lbpDetail"
+    :lbpStatistics="lbpStatistics"
     :loading="loading"
   />
   <Swaps

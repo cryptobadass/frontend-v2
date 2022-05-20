@@ -31,6 +31,7 @@
             <CopperTransactionsCard
               :pool="pool?.pools"
               :lbpDetail="pool?.lbpDetail"
+              :lbpStatistics="pool?.lbpStatistics"
               :loading="loadingPool"
               @refetch="refetch"
             />

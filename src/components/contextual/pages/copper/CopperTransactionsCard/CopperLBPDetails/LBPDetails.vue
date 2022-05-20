@@ -9,7 +9,8 @@ import usePoolUserActivitiesQuery from '@/composables/queries/usePoolUserActivit
 import {
   FullPool,
   FullPoolCopper,
-  LBPDetail
+  LBPDetail,
+  LBPStatistics
 } from '@/services/balancer/subgraph/types';
 
 import { PoolTransactionsTab } from '../types';
@@ -24,6 +25,7 @@ import { formatUnits } from '@ethersproject/units';
 type Props = {
   pool: FullPoolCopper;
   lbpDetail: LBPDetail;
+  lbpStatistics: LBPStatistics;
   loading: boolean;
   poolActivityType: PoolTransactionsTab;
 };
@@ -126,6 +128,18 @@ const baseEndWeights = computed(() => {
   return formatUnits(
     props.lbpDetail.weightUpdates[0].endWeights[1 - mainAndBaseNeedSwap.value]
   );
+});
+const startBalanceList = computed(() => {
+  if (!props.pool || !props.lbpDetail) return null;
+  return props.lbpStatistics.filter(item => item.type == 'Join')[0].amounts;
+});
+const mainStartBalances = computed(() => {
+  if (!startBalanceList.value) return null;
+  return startBalanceList.value[mainAndBaseNeedSwap.value];
+});
+const baseStartBalances = computed(() => {
+  if (!startBalanceList.value) return null;
+  return startBalanceList.value[1 - mainAndBaseNeedSwap.value];
 });
 /**
  * METHODS
@@ -270,7 +284,7 @@ function copyAddress() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    -
+                    {{ mainStartBalances }}
                     <BalAsset
                       class="mx-2"
                       :address="pool.main_token"
@@ -278,7 +292,7 @@ function copyAddress() {
                     />
                   </div>
                   <div class="flex items-center">
-                    -
+                    {{ baseStartBalances }}
                     <BalAsset class="mx-2" :address="pool.base_token" />
                   </div>
                 </BalStack>

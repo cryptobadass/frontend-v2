@@ -232,10 +232,10 @@ export default class LBPService {
     request
       .post('/api/pool/create', data)
       .then(res => {
-        console.log('aaaaa', res);
+        // console.log('aaaaa', res);
       })
       .catch(e => {
-        console.log('aaaa', e);
+        // console.log('aaaa', e);
       })
       .finally(() => {
         console.log('save create LBP finally');
