@@ -126,7 +126,7 @@ const columns = computed<ColumnDefinition<DecoratedPoolCopper>[]>(() => [
     id: 'status',
     accessor: 'status',
     Cell: 'poolStatusCell',
-    width: 150,
+    width: 150
     // align: 'center'
   },
   {
