@@ -32,6 +32,7 @@
               :pool="pool?.pools"
               :lbpDetail="pool?.lbpDetail"
               :loading="loadingPool"
+              @refetch="refetch"
             />
           </div>
         </div>
@@ -43,20 +44,37 @@
             v-if="loadingPool"
             class="pool-actions-card h-80 mb-4"
           />
-
-          <!-- <GetDeFiCertifiedCard
+          <div v-else>
+            <!-- <GetDeFiCertifiedCard
             v-else
             :pool="pool"
             :missingPrices="missingPrices"
             class="mb-4"
           /> -->
-          <TradeCardGP
-            v-else
-            :assetIn="pool?.pools.base_token"
-            :assetOut="pool?.pools.main_token"
-            lbp
-            :fixedToken="pool?.pools.main_token"
-          />
+            <TradeCardGP
+              v-if="pool?.lbpDetail.swapEnabled"
+              :assetIn="pool?.pools.base_token"
+              :assetOut="pool?.pools.main_token"
+              lbp
+              :fixedToken="pool?.pools.main_token"
+            />
+            <BalCard
+              v-else
+              class="relative card-container"
+              shadow="lg"
+              no-border
+            >
+              <template v-slot:header>
+                <div class="text-center w-full text-xl font-bold">
+                  Swapping is disabled upon LBP creation
+                </div>
+              </template>
+              <div class="text-center text-gray-400 px-8 py-4">
+                To enable swapping once the price decay is about to start please
+                visit the "LBP Settings" tab
+              </div>
+            </BalCard>
+          </div>
         </BalStack>
       </div>
     </div>
@@ -73,7 +91,7 @@ import { useRoute } from 'vue-router';
 import useNumbers from '@/composables/useNumbers';
 import { usePool } from '@/composables/usePool';
 import useCopperPoolQuery from '@/composables/queries/useCopperPoolQuery';
-import usePoolSnapshotsQuery from '@/composables/queries/usePoolSnapshotsQuery';
+// import usePoolSnapshotsQuery from '@/composables/queries/usePoolSnapshotsQuery';
 import { POOLS } from '@/constants/pools';
 import { EXTERNAL_LINKS } from '@/constants/links';
 import useWeb3 from '@/services/web3/useWeb3';
@@ -86,6 +104,7 @@ import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 import TradeCardGP from '@/components/cards/TradeCardGP/TradeCardGP.vue';
 import { getAddressFromPoolId } from '@/lib/utils';
 import { isL2 } from '@/composables/useNetwork';
+import BalCard from '@/components/_global/BalCard/BalCard.vue';
 
 interface PoolPageData {
   id: string;
@@ -94,12 +113,13 @@ interface PoolPageData {
 export default defineComponent({
   components: {
     ...CopperPageComponents,
-    TradeCardGP
+    TradeCardGP,
     // GauntletIcon,
     // LiquidityAPRTooltip,
     // StakingIncentivesCard,
     // StakingProvider,
     // LMIncentivesCard
+    BalCard
   },
 
   setup() {
@@ -127,10 +147,10 @@ export default defineComponent({
      * QUERIES
      */
     const poolQuery = useCopperPoolQuery(route.params.id as string);
-    const poolSnapshotsQuery = usePoolSnapshotsQuery(
-      route.params.id as string,
-      30
-    );
+    // const poolSnapshotsQuery = usePoolSnapshotsQuery(
+    //   route.params.id as string,
+    //   30
+    // );
 
     /**
      * STATE
@@ -184,7 +204,7 @@ export default defineComponent({
 
     const loadingPool = computed(() => poolQueryLoading.value || !pool.value);
 
-    const snapshots = computed(() => poolSnapshotsQuery.data.value?.snapshots);
+    // const snapshots = computed(() => poolSnapshotsQuery.data.value?.snapshots);
     // const historicalPrices = computed(
     //   () => poolSnapshotsQuery.data.value?.prices
     // );
@@ -300,9 +320,6 @@ export default defineComponent({
     /**
      * WATCHERS
      */
-    // watch(blockNumber, () => {
-    //   poolQuery.refetch.value();
-    // });
 
     // watch(poolQuery.error, () => {
     //   if (poolQuery.error.value) {
@@ -319,6 +336,10 @@ export default defineComponent({
     //     removeAlert('pool-fetch-error');
     //   }
     // });
+    function refetch() {
+      console.log('refetchrefetchrefetchrefetchrefetch')
+      poolQuery.refetch.value();
+    }
 
     return {
       // data
@@ -333,7 +354,7 @@ export default defineComponent({
       // historicalPrices,
       // snapshots,
       // isLoadingSnapshots,
-      loadingPool
+      loadingPool,
       // titleTokens,
       // isWalletReady,
       // missingPrices,
@@ -351,6 +372,7 @@ export default defineComponent({
       // fNum2,
       // onNewTx,
       // getAddressFromPoolId
+      refetch
     };
   }
 });

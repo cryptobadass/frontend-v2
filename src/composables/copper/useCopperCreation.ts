@@ -599,7 +599,7 @@ export default function useCopperCreation() {
         id: tx.hash,
         type: 'tx',
         action: 'setSwapEnabled',
-        summary: 'setSwapEnabled',
+        summary: `set Swap ${swapEnabled ? 'Enabled' : 'Disable'}`,
         details: {
           name: 'setSwapEnabled'
         }

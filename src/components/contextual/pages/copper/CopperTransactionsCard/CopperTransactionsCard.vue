@@ -34,6 +34,9 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false
 });
 
+const emit = defineEmits<{
+  (e: 'refetch'): void;
+}>();
 /**
  * COMPOSABLES
  */
@@ -98,5 +101,6 @@ const activeTab = ref(tabs.value[0].value);
     :pool="pool"
     :lbpDetail="lbpDetail"
     :loading="loading"
+    @refetch="emit('refetch')"
   />
 </template>

@@ -24,6 +24,9 @@ const props = withDefaults(defineProps<Props>(), {
   loading: false,
   poolActivityType: PoolTransactionsTab.ALL_ACTIVITY
 });
+const emit = defineEmits<{
+  (e: 'refetch'): void;
+}>();
 
 /**
  * COMPOSABLES
@@ -77,9 +80,11 @@ function swapChange(b) {
     () => {
       isActive.value = !isActive.value;
       isBtnDisabled.value = false;
+      emit('refetch');
     },
     () => {
       isBtnDisabled.value = false;
+      emit('refetch');
     }
   );
 }
