@@ -6,7 +6,7 @@ import {
   FullPool,
   FullPoolCopper,
   LBPDetail,
-LBPStatistics
+  LBPStatistics
 } from '@/services/balancer/subgraph/types';
 
 import { usePool } from '@/composables/usePool';
