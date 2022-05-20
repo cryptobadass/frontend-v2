@@ -125,7 +125,8 @@ const columns = computed<ColumnDefinition<DecoratedPoolCopper>[]>(() => [
     name: 'Status',
     id: 'status',
     accessor: 'status',
-    Cell: 'poolStatusCell'
+    Cell: 'poolStatusCell',
+    width: 150,
     // align: 'center'
   },
   {
@@ -133,7 +134,8 @@ const columns = computed<ColumnDefinition<DecoratedPoolCopper>[]>(() => [
     id: 'price',
     accessor: pool => {
       return fNum2(pool.price, FNumFormats.fiat);
-    }
+    },
+    width: 150
   }
   // {
   //   name: 'TOKENS',
