@@ -337,7 +337,6 @@ export default defineComponent({
     //   }
     // });
     function refetch() {
-      console.log('refetchrefetchrefetchrefetchrefetch')
       poolQuery.refetch.value();
     }
 
