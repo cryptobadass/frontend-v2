@@ -96,11 +96,12 @@ const emptyPoolCreationState = {
   poolAddress: '',
   needsSeeding: false,
   createPoolTxHash: '',
-  image: '' // 'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png'
+  image: '', // 'https://img-operation.csdnimg.cn/csdn/silkroad/img/1607569674685.png'
+  country: []
 };
 
 export const poolCreationState = reactive({ ...emptyPoolCreationState });
-const tokenColors = ref<string[]>([]);
+const countries = ref<string[]>([]);
 export const hasRestoredFromSavedState = ref<boolean | null>(null);
 
 export default function useCopperCreation() {
@@ -731,7 +732,7 @@ export default function useCopperCreation() {
       owner_address: account.value,
       pool_id: poolCreationState.poolId,
       pool_address: poolCreationState.poolAddress,
-      blocked_countries: ['us', 'cn'],
+      blocked_countries: poolCreationState.country,
       lbp_creation_tx: poolCreationState.createPoolTxHash
     };
     console.log('save lbp to Yotei', data);

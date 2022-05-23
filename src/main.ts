@@ -30,6 +30,7 @@ import { Web3Provider } from '@ethersproject/providers';
 import Root from './Root';
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
+import '@/assets/css/css-vars.css';
 
 use([
   TitleComponent,

@@ -26,7 +26,7 @@
                 LBP description
               </div>
               <div class="mb-4">
-                <BalTextInput
+                <BalTextArea
                   v-model="description"
                   placeholder="this is a description"
                   class=" flex-auto w-full bg-transparent"
@@ -50,10 +50,25 @@
                 Please enter a valid URL that starts with "http://" or
                 "https://"
               </div>
-              <!-- <div class="font-bold mb-2">Geoblocked countries</div>
+              <div class="font-bold mb-2">Geoblocked countries</div>
               <div class="mb-4">
-                TODO select
-              </div> -->
+                <!-- <BalSelectInput :options="countryList"></BalSelectInput> -->
+                <el-select
+                  class="w-full"
+                  v-model="country"
+                  multiple
+                  collapse-tags
+                  collapse-tags-tooltip
+                  clearable
+                >
+                  <el-option
+                    v-for="item in countries"
+                    :key="item.id"
+                    :label="item.country"
+                    :value="item.alpha2"
+                  ></el-option>
+                </el-select>
+              </div>
               <div class="font-bold mb-4">Preconfigured LBP settings</div>
               <div class="font-bold mb-4">Swap Fee</div>
               <div class="mb-2">
@@ -185,7 +200,11 @@
 
 <script setup lang="ts">
 import useCopperCreation from '@/composables/copper/useCopperCreation';
+import useCountries from '@/composables/useCountries';
 import { isRequired, isHttpStart } from '@/lib/utils/validations';
+import BalSelectInput from '@/components/_global/BalSelectInput/BalSelectInput.vue';
+import { computed } from 'vue';
+// import 'element-plus/theme-chalk/dark/el-select-v2.css';
 
 /**
  * COMPOSABLES
@@ -197,12 +216,22 @@ const {
   LBPTokenSymbol,
   LBPTokenName,
   description,
-  learnMoreLink
+  learnMoreLink,
+  country
 } = useCopperCreation();
+const { countries } = useCountries();
 
 /**
  * COMPUTED
  */
+// const countryList = computed(() => {
+//   return countries.value.map(item => {
+//     return {
+//       text: item.country,
+//       value: item.alpha2
+//     };
+//   });
+// });
 
 /**
  * WATCHERS
@@ -216,3 +245,11 @@ const {
  * FUNCTIONS
  */
 </script>
+<style>
+.el-select__tags {
+  @apply p-2;
+}
+.el-input__wrapper {
+  @apply h-12;
+}
+</style>

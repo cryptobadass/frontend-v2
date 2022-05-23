@@ -22,6 +22,7 @@ import TOPICS from '@/constants/topics';
 import copperAbi from '@/lib/abi/Copper.json';
 import request from '@/lib/utils/request';
 import { FullPoolCopper } from '@/services/balancer/subgraph/types';
+import { Country } from '@/composables/useCountries';
 
 type Address = string;
 
@@ -242,15 +243,17 @@ export default class LBPService {
       });
   }
   public async getToken() {
-    // const response = await request.get('/api/getToken', {
-    //   // headers: {
-    //   //   'Content-Type': 'application/x-www-form-urlencoded'
-    //   // }
-    // });
     const response = await request({
       url: '/api/getToken',
       method: 'GET'
     });
     return response.data;
+  }
+  public async getCountries() {
+    const response = await request.get<
+      any,
+      { count: number; result: Array<Country> }
+    >('/api/countries');
+    return response.result;
   }
 }
