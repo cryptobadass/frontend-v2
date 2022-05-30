@@ -263,7 +263,7 @@ function formatStatus(pool: DecoratedPoolCopper) {
   const start_time = toJsTimestamp(pool.start_time);
   const end_time = toJsTimestamp(pool.end_time);
   const now_time = Date.now();
-  if (now_time < start_time) return 'Unstart';
+  if (now_time < start_time) return 'Unstarted';
   if (now_time > end_time) return 'Ended';
   return pool.lbpDetail.swapEnabled ? 'Active' : 'Inactive';
 }
