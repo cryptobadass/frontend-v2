@@ -75,14 +75,14 @@ function tokenFor(option: string): TokenInfo {
       :class="['token-select-input selected group', { selectable: !fixed }]"
       @click="toggleModal"
     >
-      <div class="w-8">
+      <div class="w-8 flex-shrink-0">
         <BalAsset
           :address="token?.address"
           :iconURI="fixedImage"
           class="shadow"
         />
       </div>
-      <span class="text-base font-medium">
+      <span class="text-base font-medium truncate">
         {{ token?.symbol }}
       </span>
       <span v-if="Number(weight) > 0" class="text-gray-500 ml-2">
@@ -108,14 +108,14 @@ function tokenFor(option: string): TokenInfo {
     >
       <template #activator>
         <div class="token-select-input selected group selectable">
-          <div class="w-8">
+          <div class="w-8 flex-shrink-0">
             <BalAsset
               :address="token?.address"
               :iconURI="fixedImage"
               class="shadow"
             />
           </div>
-          <span class="text-base font-medium">
+          <span class="text-base font-medium truncate ">
             {{ token?.symbol }}
           </span>
           <span v-if="Number(weight) > 0" class="text-gray-500 ml-2">
@@ -179,6 +179,7 @@ function tokenFor(option: string): TokenInfo {
 .token-select-input {
   @apply shadow rounded-lg flex items-center h-10 px-4 whitespace-nowrap;
   @apply text-sm;
+  max-width: 15rem;
   font-variation-settings: 'wght' 700;
 }
 

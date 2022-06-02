@@ -1,5 +1,5 @@
 <template>
-  <div class=" text-black min-h-screen flex flex-col-reverse ">
+  <div class="text-black min-h-screen flex flex-col-reverse ">
     <div class="subsection">
       <h4>BalAccordion</h4>
       <p></p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white min-h-screen p-2">
+  <div class=" min-h-screen p-2">
     <el-tabs v-model="activeName" class="text-black p-2">
       <el-tab-pane label="Group" name="groupList">
         <el-button class="mb-2" @click="getGroup">reload</el-button>
