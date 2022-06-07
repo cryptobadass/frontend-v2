@@ -19,6 +19,7 @@ const config: Config = {
     'https://api.thegraph.com/subgraphs/name/leedewyze/balancer-fuji-v2',
   // poolsUrlV1: '',
   poolsUrlV2: '',
+  defaultLaunchpadGroupId: 5,
   subgraphs: {
     aave: '',
     gauge: ''

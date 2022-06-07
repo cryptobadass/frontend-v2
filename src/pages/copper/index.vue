@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import CoppersTable from '@/components/tables/CoppersTable/CoppersTable.vue';
@@ -17,6 +17,7 @@ import useCopperPools from '@/composables/copper/useCopperPools';
 
 // COMPOSABLES
 const router = useRouter();
+// const route = useRoute();
 const { t } = useI18n();
 const { isWalletReady, appNetworkConfig, isWalletConnecting } = useWeb3();
 const isElementSupported = appNetworkConfig.supportsElementPools;
@@ -25,6 +26,7 @@ const {
   addSelectedToken,
   removeSelectedToken
 } = usePoolFilters();
+// console.log('aaaa', route.query);
 
 const {
   pools,

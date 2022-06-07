@@ -22,6 +22,7 @@ const config: Config = {
     aave: '',
     gauge: ''
   },
+  defaultLaunchpadGroupId: 5,
   // etherscan: {
   //   apiKey: '',
   //   apiUrl: 'https://api.snowtrace.io/api'

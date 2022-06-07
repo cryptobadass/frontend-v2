@@ -8,24 +8,25 @@
   "portisNetwork": "Avalanche Fuji",
   "unknown": false,
   "rpc": "https://api.avax-test.network/ext/bc/C/rpc",
-  "ws": "wss://api.avax-test.network/ext/bc/C/ws", 
-  "loggingRpc": "https://api.avax-test.network/ext/bc/C/rpc", 
-  "explorer": "https://testnet.snowtrace.io/",  
-  "explorerName": "snowtrace", 
-  "subgraph": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-fuji-v2", 
-  "poolsUrlV2": "https://storageapi.fleek.co/johngrantuk-team-bucket/poolsV2.json", 
+  "ws": "wss://api.avax-test.network/ext/bc/C/ws",
+  "loggingRpc": "https://api.avax-test.network/ext/bc/C/rpc",
+  "explorer": "https://testnet.snowtrace.io/",
+  "explorerName": "snowtrace",
+  "subgraph": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-fuji-v2",
+  "poolsUrlV2": "https://storageapi.fleek.co/johngrantuk-team-bucket/poolsV2.json",
   "subgraphs": {
-    "aave": "https://api.thegraph.com/subgraphs/name/aave/protocol-v2", 
-    "gauge": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-gauges" 
+    "aave": "https://api.thegraph.com/subgraphs/name/aave/protocol-v2",
+    "gauge": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-gauges"
   },
   "supportsEIP1559": true,
+  "defaultLaunchpadGroupId": 5,
   "nativeAsset": {
     "name": "Avalanche",
-    "address": "0xD008286A21b29bb0cDb85ab2449A28CEC448Eb69", 
+    "address": "0xD008286A21b29bb0cDb85ab2449A28CEC448Eb69",
     "symbol": "AVAX",
     "decimals": 18,
     "deeplinkId": "ether",
-    "logoURI": "https://raw.githubusercontent.com/pangolindex/sdk/master/src/images/chains/avax.png", 
+    "logoURI": "https://raw.githubusercontent.com/pangolindex/sdk/master/src/images/chains/avax.png",
     "minTransactionBuffer": "0.05"
   },
   "addresses": {
@@ -51,11 +52,11 @@
     "gaugeController": "0xC128468b7Ce63eA702C1f104D55A2566b13D3ABD",
     "gaugeFactory": "0x4E7bBd911cf1EFa442BC1b2e9Ea01ffE785412EC",
     "balancerMinter": "0x239e55F427D44C3cc793f49bFB507ebe76638a2b",
-    "copperProxyV2":"",
-    "blockList":""
+    "copperProxyV2": "",
+    "blockList": ""
   },
   "keys": {
-    "infura": "1e629b40371341d1bfe9fcac27905d8c",  
+    "infura": "1e629b40371341d1bfe9fcac27905d8c",
     "alchemy": "cQGZUiTLRCFsQS7kbRxPJK4eH4fTTu88"
   },
   "strategies": {

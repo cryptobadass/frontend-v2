@@ -65,11 +65,15 @@ const countDown = useCountDown(props.pool.end_time);
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">TOTAL VOLUME</div>
-        <div class="font-bold">{{ lbpDetail.totalSwapVolume }}</div>
+        <div class="font-bold">
+          {{ fNum2(lbpDetail.totalSwapVolume, FNumFormats.token) }}
+        </div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">LIQUIDITY</div>
-        <div class="font-bold">{{ lbpDetail.totalLiquidity }}</div>
+        <div class="font-bold">
+          {{ fNum2(lbpDetail.totalLiquidity, FNumFormats.token) }}
+        </div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">PRICE</div>

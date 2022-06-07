@@ -31,6 +31,7 @@ export interface Config {
     aave: string;
     gauge: string;
   };
+  defaultLaunchpadGroupId?: number;
   supportsEIP1559: boolean;
   supportsElementPools: boolean;
   nativeAsset: {

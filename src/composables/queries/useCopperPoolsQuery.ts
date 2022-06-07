@@ -21,6 +21,8 @@ import { isStablePhantom, lpTokensFor } from '../usePool';
 import { balancerContractsService } from '@/services/balancer/contracts/balancer-contracts.service';
 import useWeb3 from '@/services/web3/useWeb3';
 import { copperService } from '@/services/copper/coppper.service';
+import { useRoute } from 'vue-router';
+import { configService } from '@/services/config/config.service';
 
 type PoolsQueryResponse = {
   pools: DecoratedPool[];
@@ -53,6 +55,7 @@ export default function useCopperPoolsQuery(
   const { appLoading } = useApp();
   const { networkId } = useNetwork();
   const { getProvider } = useWeb3();
+  const route = useRoute();
   // DATA
   const queryKey = QUERY_KEYS.Pools.Copper(networkId);
 
@@ -257,7 +260,10 @@ export default function useCopperPoolsQuery(
 
   const queryFn = async () => {
     // const provider = getProvider();
-    const pools = await copperService.pools.lbp.poolList(5);
+    const group = route.query.group as string;
+    const pools = await copperService.pools.lbp.poolList(
+      group ? parseInt(group) : configService.network.defaultLaunchpadGroupId
+    );
     // {
     //   "lbp_name":"xxx",
     //   "price": 0,

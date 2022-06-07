@@ -134,11 +134,11 @@ const startBalanceList = computed(() => {
   return props.lbpStatistics.filter(item => item.type == 'Join')[0].amounts;
 });
 const mainStartBalances = computed(() => {
-  if (!startBalanceList.value) return null;
+  if (!startBalanceList.value) return '';
   return startBalanceList.value[mainAndBaseNeedSwap.value];
 });
 const baseStartBalances = computed(() => {
-  if (!startBalanceList.value) return null;
+  if (!startBalanceList.value) return '';
   return startBalanceList.value[1 - mainAndBaseNeedSwap.value];
 });
 /**
@@ -284,7 +284,8 @@ function copyAddress() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    {{ mainStartBalances }}
+                    <!-- {{ mainStartBalances }} -->
+                    {{ fNum2(mainStartBalances, FNumFormats.token) }}
                     <BalAsset
                       class="mx-2"
                       :address="pool.main_token"
@@ -292,7 +293,8 @@ function copyAddress() {
                     />
                   </div>
                   <div class="flex items-center">
-                    {{ baseStartBalances }}
+                    <!-- {{ baseStartBalances }} -->
+                    {{ fNum2(baseStartBalances, FNumFormats.token) }}
                     <BalAsset class="mx-2" :address="pool.base_token" />
                   </div>
                 </BalStack>
