@@ -21,6 +21,7 @@ import { approveTokens } from '@/lib/utils/balancer/tokens';
 import { add, getUnixTime } from 'date-fns';
 import { networkId } from '@/composables/useNetwork';
 import { TOKENS } from '@/constants/tokens';
+import { useRoute } from 'vue-router';
 
 export const COPPER_CREATION_STATE_VERSION = '1.0';
 export const COPPER_CREATION_STATE_KEY = 'launchpadCreationState';
@@ -121,6 +122,7 @@ export default function useCopperCreation() {
   const { txListener } = useEthers();
   const { addTransaction } = useTransactions();
   const { t } = useI18n();
+  const route = useRoute();
 
   /**
    * COMPUTED
@@ -710,8 +712,11 @@ export default function useCopperCreation() {
   }
 
   function saveToYotei() {
+    const group = route.query.group as string;
     const data = {
-      group_id: 5, // todo
+      group_id: group
+        ? parseInt(group)
+        : configService.network.defaultLaunchpadGroupId, // todo
       network_id: networkId.value,
       lbp_name: LBPTokenName.value,
       lbp_symbol: LBPTokenSymbol.value,
