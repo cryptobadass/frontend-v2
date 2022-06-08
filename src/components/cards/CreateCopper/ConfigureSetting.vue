@@ -50,6 +50,7 @@
                     v-model:address="seedTokens[1].tokenAddress"
                     :name="`initial-token-${seedTokens[1].tokenAddress}`"
                     :rules="[isGreaterThan(0)]"
+                    :excludedTokens="excludedTokens"
                   />
                 </div>
               </div>
@@ -139,6 +140,7 @@
               <div class="col-span-1">
                 <div class="mb-2">Start Date & End Date</div>
                 <el-date-picker
+                  readonly
                   v-model="time"
                   type="datetimerange"
                   range-separator="To"
@@ -172,6 +174,7 @@ import useCopperCreation from '@/composables/copper/useCopperCreation';
 // import BalSlider from '@/components/_global/BalSlider/BalSlider.vue';
 import { isGreaterThan } from '@/lib/utils/validations';
 import { oneDayInMs, oneMinInMs } from '@/composables/useTime';
+import useTokens from '@/composables/useTokens';
 
 /**
  * COMPOSABLES
@@ -185,6 +188,7 @@ const {
   baseTokenInfo,
   image
 } = useCopperCreation();
+const { balanceFor } = useTokens();
 
 const timeError = ref('');
 
@@ -203,8 +207,21 @@ const hasZeroAmount = computed(() => {
     seedToken => bnum(seedToken.amount).eq(0) || seedToken.amount === ''
   );
 });
+const isExceedingWalletBalance = computed(() => {
+  // need to perform rounding here as JS cuts off those
+  // really long numbers which makes it impossible to compare
+  const isExceeding = seedTokens.value.some((t, i) =>
+    bnum(seedTokens.value[i].amount).gt(balanceFor(t.tokenAddress))
+  );
+  return isExceeding;
+});
 const disabledBtn = computed(() => {
-  return hasZeroAmount.value || !!timeError.value;
+  return (
+    hasZeroAmount.value || !!timeError.value || isExceedingWalletBalance.value
+  );
+});
+const excludedTokens = computed((): string[] => {
+  return [seedTokens.value[0].tokenAddress];
 });
 
 /**

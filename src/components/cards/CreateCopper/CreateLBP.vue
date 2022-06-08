@@ -37,7 +37,7 @@
                         target="_blank"
                       > -->
                       <BalLink
-                        :href="'http://137.184.125.1/yotei/terms-of-use.html'"
+                        :href="'https://yotei.finance/terms-of-use.html'"
                         external
                         noStyle
                       >

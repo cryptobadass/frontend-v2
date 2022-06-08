@@ -51,16 +51,9 @@
                 "https://"
               </div>
               <div class="font-bold mb-2">Geoblocked countries</div>
-              <div class="mb-4">
+              <div class="mb-4" v-if="countries.length">
                 <!-- <BalSelectInput :options="countryList"></BalSelectInput> -->
-                <el-select
-                  class="w-full"
-                  v-model="country"
-                  multiple
-                  collapse-tags
-                  collapse-tags-tooltip
-                  clearable
-                >
+                <el-select class="w-full" v-model="country" multiple clearable>
                   <el-option
                     v-for="item in countries"
                     :key="item.id"
@@ -79,7 +72,7 @@
                   type="number"
                   size="sm"
                   inputAlignRight
-                  :rules="[isRequired()]"
+                  :rules="[isRequired(), isLessThanOrEqualTo(100)]"
                 />%
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
@@ -188,9 +181,7 @@
         </BalCard>
       </BalStack>
       <div class="mt-4">
-        <BalBtn
-          @click="proceed"
-          :disabled="!description || !learnMoreLink || !swapFeePercentage"
+        <BalBtn @click="proceed" :disabled="isProceedDisabled"
           >Continue to LBP configuration</BalBtn
         >
       </div>
@@ -201,10 +192,15 @@
 <script setup lang="ts">
 import useCopperCreation from '@/composables/copper/useCopperCreation';
 import useCountries from '@/composables/useCountries';
-import { isRequired, isHttpStart } from '@/lib/utils/validations';
+import {
+  isRequired,
+  isHttpStart,
+  isHttpStartCheck
+} from '@/lib/utils/validations';
 import BalSelectInput from '@/components/_global/BalSelectInput/BalSelectInput.vue';
 import { computed } from 'vue';
 // import 'element-plus/theme-chalk/dark/el-select-v2.css';
+import { isLessThanOrEqualTo } from '@/lib/utils/validations';
 
 /**
  * COMPOSABLES
@@ -232,7 +228,13 @@ const { countries } = useCountries();
 //     };
 //   });
 // });
-
+const isProceedDisabled = computed(() => {
+  if (!description.value) return true;
+  if (!learnMoreLink.value || !isHttpStartCheck(learnMoreLink.value))
+    return true;
+  if (!swapFeePercentage.value || swapFeePercentage.value > 100) return true;
+  return false;
+});
 /**
  * WATCHERS
  */
@@ -250,6 +252,7 @@ const { countries } = useCountries();
   @apply p-2;
 }
 .el-input__wrapper {
-  @apply h-12;
+  /* @apply h-12; */
+  min-height: 3rem;
 }
 </style>

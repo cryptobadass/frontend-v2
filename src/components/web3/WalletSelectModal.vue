@@ -10,7 +10,7 @@
         <span className="link">{{ $t('policies.termsOfUse') }}</span>
       </router-link> -->
       <BalLink
-        :href="'http://137.184.125.1/yotei/terms-of-use.html'"
+        :href="'https://yotei.finance/terms-of-use.html'"
         external
         noStyle
       >
@@ -21,7 +21,7 @@
       </router-link> -->
       {{ $t('and') }}
       <BalLink
-        href="http://137.184.125.1/yotei/privacy-policy.html"
+        href="https://yotei.finance/privacy-policy.html"
         external
         noStyle
       >
