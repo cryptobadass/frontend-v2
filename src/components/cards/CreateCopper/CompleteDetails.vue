@@ -104,14 +104,14 @@
                     platform access fee to Copper from quantity accrued to the
                     base token at auction end.
                   </p>
-                  <BalLink external noStyle class="group flex items-center">
+                  <!-- <BalLink external noStyle class="group flex items-center">
                     More Info
                     <BalIcon
                       name="arrow-up-right"
                       size="sm"
                       class="ml-px group-hover:text-cyan-500 transition-colors"
                     />
-                  </BalLink>
+                  </BalLink> -->
                 </BalStack>
               </div>
               <div class="font-bold mb-4">Swaps disabled by default</div>
@@ -126,14 +126,14 @@
                     start. The LBP Settings tab will become available on the LBP
                     page once you’ve created the LBP.
                   </p>
-                  <BalLink external noStyle class="group flex items-center">
+                  <!-- <BalLink external noStyle class="group flex items-center">
                     More Info
                     <BalIcon
                       name="arrow-up-right"
                       size="sm"
                       class="ml-px group-hover:text-cyan-500 transition-colors"
                     />
-                  </BalLink>
+                  </BalLink> -->
                 </BalStack>
               </div>
               <div class="font-bold mb-4">A note about curation</div>
@@ -145,14 +145,14 @@
                     mandated to first pass a quiz that will test their DeFi
                     competency.
                   </p>
-                  <BalLink external noStyle class="group flex items-center">
+                  <!-- <BalLink external noStyle class="group flex items-center">
                     View curation options
                     <BalIcon
                       name="arrow-up-right"
                       size="sm"
                       class="ml-px group-hover:text-cyan-500 transition-colors"
                     />
-                  </BalLink>
+                  </BalLink> -->
                 </BalStack>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2">

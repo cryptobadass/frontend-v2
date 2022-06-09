@@ -188,7 +188,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 
 import CreateActions from '@/components/cards/CreateCopper/CreateActions.vue';
 
@@ -198,6 +198,7 @@ import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
 import useTokenCopperApprovalActions from '@/composables/useTokenCopperApprovalActions';
+import { copperService } from '@/services/copper/coppper.service';
 
 const emit = defineEmits<{
   (e: 'close'): void;
@@ -254,15 +255,18 @@ const tokenList = computed(() => {
 /**
  * LIFECYCLE
  */
+onBeforeMount(() => {
+  // get token
+  copperService.pools.lbp.getToken();
+}),
+  /**
+   * FUNCTIONS
+   */
 
-/**
- * FUNCTIONS
- */
-
-function handleSuccess(): void {
-  poolCreated.value = true;
-  emit('success');
-}
+  function handleSuccess(): void {
+    poolCreated.value = true;
+    emit('success');
+  };
 function copyAddress() {
   navigator.clipboard.writeText(poolAddress.value);
   copiedAddress.value = true;
