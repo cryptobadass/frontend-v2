@@ -7,6 +7,7 @@
           <CopperDetailHeader
             :pool="pool?.pools"
             :lbpDetail="pool?.lbpDetail"
+            :lbpStatistics="pool?.lbpStatistics"
           />
         </div>
       </div>

@@ -103,6 +103,7 @@ const activeTab = ref(tabs.value[0].value);
     :pool-activity-type="CopperTransactionsTab.SETTINGS"
     :pool="pool"
     :lbpDetail="lbpDetail"
+    :lbpStatistics="lbpStatistics"
     :loading="loading"
     @refetch="emit('refetch')"
   />

@@ -18,6 +18,7 @@ import useTokens from '@/composables/useTokens';
 import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import { formatUnits } from '@ethersproject/units';
+import { bnum } from '@/lib/utils';
 
 /**
  * TYPES
@@ -140,6 +141,20 @@ const mainStartBalances = computed(() => {
 const baseStartBalances = computed(() => {
   if (!startBalanceList.value) return '';
   return startBalanceList.value[1 - mainAndBaseNeedSwap.value];
+});
+const mainTokenReleased = computed(() => {
+  if (!startBalanceList.value) return '';
+  let released = bnum(mainStartBalances.value).minus(
+    bnum(mainCurrentBalances.value)
+  );
+  return released.gt(0) ? released : 0;
+});
+const baseTokenAccrued = computed(() => {
+  if (!startBalanceList.value) return '';
+  let accrued = bnum(baseCurrentBalances.value).minus(
+    bnum(baseStartBalances.value)
+  );
+  return accrued.gt(0) ? accrued : 0;
 });
 /**
  * METHODS
@@ -300,11 +315,11 @@ function copyAddress() {
                 </BalStack>
               </BalCard>
               <div class="text-sm font-bold text-gray-400 my-2">
-                Main Token Released
+                Main Tokens Released
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  -
+                  {{ fNum2(mainTokenReleased as string, FNumFormats.token) }}
                   <BalAsset
                     class="mx-2"
                     :address="pool.main_token"
@@ -336,11 +351,11 @@ function copyAddress() {
                   </div> </BalStack
               ></BalCard>
               <div class="text-sm font-bold text-gray-400 my-2">
-                Base Token Released
+                Base Tokens Accrued
               </div>
               <BalCard noBorder>
                 <div class="flex items-center">
-                  -
+                  {{fNum2(baseTokenAccrued as string, FNumFormats.token )}}
                   <BalAsset class="mx-2" :address="pool.base_token"></BalAsset>
                 </div>
               </BalCard>

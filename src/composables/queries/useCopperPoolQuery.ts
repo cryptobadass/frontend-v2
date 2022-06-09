@@ -341,6 +341,42 @@ export default function useCopperPoolQuery(
     //   lbpStatistics
     // });
 
+    // get Main tokens released by get swap History
+    //
+    // let paginateShares = true;
+    // let shareSkip = 0;
+    // let swapResults: Array<any> = [];
+    // // let resSwap = await balancerSubgraphService.poolSwaps.get();
+    // while (paginateShares) {
+    //   const resSwap = await balancerSubgraphService.poolSwaps.get({
+    //     first: 1000,
+    //     skip: shareSkip,
+    //     where: Object.assign({
+    //       poolId: id
+    //     })
+    //   });
+    //   swapResults = swapResults.concat(resSwap);
+    //   if (resSwap.length < 1000) {
+    //     paginateShares = false;
+    //   } else {
+    //     shareSkip += 1000;
+    //     continue;
+    //   }
+    // }
+    // console.log('aaaaaaa   swap history list :', {
+    //   onchain: onchainData,
+    //   unwrappedTokens,
+    //   ...decoratedPool,
+    //   pools,
+    //   lbpDetail,
+    //   lbpStatistics
+    // });
+    // const extData = getExtData(
+    //   swapResults,
+    //   pools.main_token.toUpperCase(),
+    //   pools.base_token.toUpperCase()
+    // );
+
     return {
       onchain: onchainData,
       unwrappedTokens,

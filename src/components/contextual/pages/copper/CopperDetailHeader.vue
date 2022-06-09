@@ -2,13 +2,18 @@
 // import { toRef, computed, ref } from 'vue';
 // import { useRouter } from 'vue-router';
 
-import { FullPoolCopper, LBPDetail } from '@/services/balancer/subgraph/types';
+import {
+  FullPoolCopper,
+  LBPDetail,
+  LBPStatistics
+} from '@/services/balancer/subgraph/types';
 import BalAsset from '@/components/_global/BalAsset/BalAsset.vue';
 import { computed, watch } from 'vue';
 import { differenceInDays } from 'date-fns';
 import useCountDown from '@/composables/useCountDown';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import { toJsTimestamp } from '@/composables/useTime';
+import { bnum } from '@/lib/utils';
 
 const { fNum2 } = useNumbers();
 
@@ -18,6 +23,7 @@ const { fNum2 } = useNumbers();
 type Props = {
   pool: FullPoolCopper;
   lbpDetail: LBPDetail;
+  lbpStatistics: LBPStatistics;
 };
 
 /**
@@ -41,6 +47,48 @@ const differenceInDay = computed(() => {
   }
 });
 const countDown = useCountDown(props.pool.end_time);
+const startBalanceList = computed(() => {
+  if (!props.pool || !props.lbpDetail) return null;
+  return props.lbpStatistics.filter(item => item.type == 'Join')[0].amounts;
+});
+const mainAndBaseNeedSwap = computed(() => {
+  return props.pool.main_token == props.lbpDetail.tokensList[0] ? 0 : 1;
+});
+const mainStartBalances = computed(() => {
+  if (!startBalanceList.value) return '';
+  return startBalanceList.value[mainAndBaseNeedSwap.value];
+});
+const baseStartBalances = computed(() => {
+  if (!startBalanceList.value) return '';
+  return startBalanceList.value[1 - mainAndBaseNeedSwap.value];
+});
+const mainCurrentBalances = computed(() => {
+  if (!props.pool || !props.lbpDetail) return '';
+  // parseEther
+  return props.lbpDetail.tokens[mainAndBaseNeedSwap.value].balance || '';
+});
+const mainTokenReleased = computed(() => {
+  if (!startBalanceList.value) return '';
+  let released = bnum(mainStartBalances.value)
+    .minus(bnum(mainCurrentBalances.value))
+    .div(bnum(mainStartBalances.value));
+  return released;
+});
+const baseCurrentBalances = computed(() => {
+  if (!props.pool || !props.lbpDetail) return '';
+  return props.lbpDetail.tokens[1 - mainAndBaseNeedSwap.value].balance || '';
+});
+const baseTokenAccrued = computed(() => {
+  if (!startBalanceList.value) return '';
+  let accrued = bnum(baseCurrentBalances.value).minus(
+    bnum(baseStartBalances.value)
+  );
+  return accrued;
+});
+const baseTokenSymbol = computed(() => {
+  if (!startBalanceList.value) return '';
+  return props.lbpDetail.tokens[1 - mainAndBaseNeedSwap.value].symbol || '';
+});
 </script>
 
 <template>
@@ -81,12 +129,16 @@ const countDown = useCountDown(props.pool.end_time);
       </div>
       <div class="col-span-1">
         <div class="text-gray-400">MAIN TOKENS RELEASED</div>
-        <div class="font-bold">-</div>
+        <div class="font-bold">
+          {{ fNum2(mainTokenReleased as string, FNumFormats.percent) }}
+        </div>
       </div>
       <div class="col-span-1">
         <div class="text-gray-400 text-sm">BASE TOKENS ACCRUED</div>
-        <div class="font-bold">-</div>
-        <div class="text-gray-400 font-bold text-sm">USDC</div>
+        <div class="font-bold">
+          {{ fNum2(baseTokenAccrued as string, FNumFormats.token) }}
+        </div>
+        <div class="text-gray-400 font-bold text-sm">{{ baseTokenSymbol }}</div>
       </div>
     </div>
   </div>

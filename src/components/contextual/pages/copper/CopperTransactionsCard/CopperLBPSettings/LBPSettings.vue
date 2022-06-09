@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 
-import { FullPoolCopper, LBPDetail } from '@/services/balancer/subgraph/types';
+import {
+  FullPoolCopper,
+  LBPDetail,
+  LBPStatistics
+} from '@/services/balancer/subgraph/types';
 
 import { PoolTransactionsTab } from '../types';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
+import { bnum } from '@/lib/utils';
 
 /**
  * TYPES
@@ -13,6 +18,7 @@ import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 type Props = {
   pool: FullPoolCopper;
   lbpDetail: LBPDetail;
+  lbpStatistics: LBPStatistics;
   loading: boolean;
   poolActivityType: PoolTransactionsTab;
 };
@@ -61,6 +67,38 @@ const mainCurrentBalances = computed(() => {
 const baseCurrentBalances = computed(() => {
   if (!props.pool || !props.lbpDetail) return '';
   return props.lbpDetail.tokens[1 - mainAndBaseNeedSwap.value].balance || '';
+});
+const startBalanceList = computed(() => {
+  if (!props.pool || !props.lbpDetail) return null;
+  return props.lbpStatistics.filter(item => item.type == 'Join')[0].amounts;
+});
+const baseStartBalances = computed(() => {
+  if (!startBalanceList.value) return '';
+  return startBalanceList.value[1 - mainAndBaseNeedSwap.value];
+});
+const baseTokenAccrued = computed(() => {
+  if (!startBalanceList.value) return '';
+  let accrued = bnum(baseCurrentBalances.value).minus(
+    bnum(baseStartBalances.value)
+  );
+  return accrued.gt(0) ? accrued : 0;
+});
+const platformAccessFee = computed(() => {
+  if (!startBalanceList.value) return '';
+  return bnum(baseTokenAccrued.value).times(0.02);
+});
+const afterPlatformBase = computed(() => {
+  if (!startBalanceList.value) return '';
+  return bnum(baseCurrentBalances.value).minus(bnum(platformAccessFee.value));
+});
+const ShowWithDrawAll = computed(() => {
+  if (!mainCurrentBalances.value || !baseCurrentBalances.value) return false;
+  if (
+    bnum(mainCurrentBalances.value).gt(1e-12) ||
+    bnum(baseCurrentBalances.value).gt(1e-12)
+  )
+    return true;
+  return false;
 });
 onMounted(() => {
   isActive.value = props.lbpDetail.swapEnabled;
@@ -138,16 +176,16 @@ function withDrawAll() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    {{ fNum2(mainCurrentBalances, FNumFormats.token)
-                    }}<BalAsset
+                    {{ fNum2(mainCurrentBalances, FNumFormats.token) }}
+                    <BalAsset
                       class="mx-2"
                       :address="pool.main_token"
                       :iconURI="pool.image_url"
                     />
                   </div>
                   <div class="flex items-center">
-                    {{ fNum2(baseCurrentBalances, FNumFormats.token)
-                    }}<BalAsset class="mx-2" :address="pool.base_token" /></div
+                    {{ fNum2(baseCurrentBalances, FNumFormats.token) }}
+                    <BalAsset class="mx-2" :address="pool.base_token" /></div
                 ></BalStack>
               </BalCard>
             </div>
@@ -158,7 +196,8 @@ function withDrawAll() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    -<BalAsset class="mx-2" :address="pool.base_token" /></div
+                    {{fNum2(baseTokenAccrued as string, FNumFormats.token ) }}
+                    <BalAsset class="mx-2" :address="pool.base_token" /></div
                 ></BalStack>
               </BalCard>
             </div>
@@ -186,7 +225,8 @@ function withDrawAll() {
               <BalCard noBorder>
                 <BalStack vertical spacing="base">
                   <div class="flex items-center">
-                    -<BalAsset class="mx-2" :address="pool.base_token" /></div
+                    {{ fNum2(platformAccessFee as string, FNumFormats.token) }}
+                    <BalAsset class="mx-2" :address="pool.base_token" /></div
                 ></BalStack>
               </BalCard>
             </div>
@@ -209,17 +249,20 @@ function withDrawAll() {
                   >
                     <BalStack vertical spacing="base">
                       <div class="flex items-center">
-                        -<BalAsset
+                        {{ fNum2(mainCurrentBalances, FNumFormats.token) }}
+                        <BalAsset
                           class="mx-2"
                           :address="pool.main_token"
                           :iconURI="pool.image_url"
                         />
                       </div>
                       <div class="flex items-center">
-                        -<BalAsset class="mx-2" :address="pool.base_token" />
+                        {{ fNum2(afterPlatformBase as string, FNumFormats.token) }}
+                        <BalAsset class="mx-2" :address="pool.base_token" />
                       </div>
                     </BalStack>
                     <BalBtn
+                      v-if="ShowWithDrawAll"
                       @click="withDrawAll"
                       label="Withdraw All"
                       size="sm"
