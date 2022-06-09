@@ -70,7 +70,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="mb-2">
+                  <!-- <div class="mb-2">
                     <div class="flex">
                       <div class="w-60">
                         <p class="text-gray-400 mb-2">Price range</p>
@@ -81,7 +81,7 @@
                         <p></p>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div>
                   <div class="font-bold mb-2">Weights</div>
