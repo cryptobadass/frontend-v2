@@ -8,11 +8,11 @@
       background: 'white'
     }"
     @error="error = true"
-    class="rounded-full inline-block leading-none shadow-sm"
+    class="rounded-full inline-block leading-none shadow-sm flex-shrink-0"
   />
   <div
     v-else
-    class="leading-none rounded-full overflow-hidden"
+    class="leading-none rounded-full overflow-hidden flex-shrink-0"
     :style="{
       width: `${size}px`,
       height: `${size}px`

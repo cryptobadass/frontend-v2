@@ -8,7 +8,7 @@
       background: 'white'
     }"
     @error="error = true"
-    class="rounded-full inline-block leading-none shadow-sm"
+    class="rounded-full inline-block leading-none shadow-sm flex-shrink-0"
   />
   <Avatar v-else :address="address" :size="size" />
 </template>
