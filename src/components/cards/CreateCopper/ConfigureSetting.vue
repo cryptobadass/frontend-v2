@@ -63,19 +63,23 @@
                 </div>
                 <div class="flex items-center justify-between mb-2">
                   <div
-                    class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
+                    class="flex items-center max-w-40 px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                   >
                     <BalAsset
                       :address="mainTokenInfo?.address"
                       :iconURI="image"
                     />
-                    <span class="ml-2">{{ mainTokenInfo?.symbol || '' }}</span>
+                    <span class="ml-2 truncate">{{
+                      mainTokenInfo?.symbol || ''
+                    }}</span>
                   </div>
                   <div
-                    class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
+                    class="flex items-center max-w-40 px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                   >
                     <BalAsset :address="baseTokenInfo?.address" />
-                    <span class="ml-2">{{ baseTokenInfo?.symbol || '' }}</span>
+                    <span class="ml-2 truncate">{{
+                      baseTokenInfo?.symbol || ''
+                    }}</span>
                   </div>
                 </div>
                 <div>
@@ -101,19 +105,23 @@
                 </div>
                 <div class="flex items-center justify-between mb-2">
                   <div
-                    class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
+                    class="flex max-w-40 items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                   >
                     <BalAsset
                       :address="mainTokenInfo?.address"
                       :iconURI="image"
                     />
-                    <span class="ml-2">{{ mainTokenInfo?.symbol || '' }}</span>
+                    <span class="ml-2 truncate">{{
+                      mainTokenInfo?.symbol || ''
+                    }}</span>
                   </div>
                   <div
-                    class="flex items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
+                    class="flex max-w-40 items-center px-2 h-10 bg-gray-50 dark:bg-gray-850 rounded-lg"
                   >
                     <BalAsset :address="baseTokenInfo?.address" />
-                    <span class="ml-2">{{ baseTokenInfo?.symbol || '' }}</span>
+                    <span class="ml-2 truncate">{{
+                      baseTokenInfo?.symbol || ''
+                    }}</span>
                   </div>
                 </div>
                 <div>
@@ -287,5 +295,8 @@ function continueClick() {
 <style scoped>
 .error {
   @apply text-xs text-red-500 mt-1 ml-1;
+}
+.max-w-40 {
+  max-width: 40%;
 }
 </style>
