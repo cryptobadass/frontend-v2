@@ -56,6 +56,9 @@ const isInRate = ref<boolean>(true);
 /**
  * COMPUTED
  */
+const excludedTokens = computed(() => {
+  return props.lbp ? [props.tokenOutAddress] : [];
+});
 const missingToken = computed(
   () => !_tokenInAddress.value || !_tokenOutAddress.value
 );
@@ -155,6 +158,7 @@ watchEffect(() => {
       @update:address="handleInputTokenChange"
       :disabled="tradeLoading"
       :fixedToken="props.lbp && props.fixedToken == _tokenInAddress"
+      :excludedTokens="excludedTokens"
     />
 
     <div class="flex items-center my-2">
@@ -180,6 +184,7 @@ watchEffect(() => {
       :disabled="tradeLoading"
       disableNativeAssetBuffer
       :fixedToken="props.lbp && props.fixedToken == _tokenOutAddress"
+      :excludedTokens="excludedTokens"
     />
   </div>
 </template>
