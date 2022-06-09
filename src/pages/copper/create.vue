@@ -141,22 +141,23 @@ const {
  */
 onBeforeMount(async () => {
   removeAlert('return-to-copper-creation');
+  resetPoolCreationState(); // reset state
 
-  let previouslySavedState = lsGet(
-    COPPER_CREATION_STATE_KEY,
-    null,
-    COPPER_CREATION_STATE_VERSION
-  );
-  if (activeStep.value === 0 && previouslySavedState !== null) {
-    isRestoring.value = true;
-    previouslySavedState = JSON.parse(previouslySavedState);
-    importState(previouslySavedState);
-    setRestoredState(true);
-    await nextTick();
-    setActiveStep(previouslySavedState.activeStep);
-  }
-  injectUnknownPoolTokens();
-  isRestoring.value = false;
+  // let previouslySavedState = lsGet(
+  //   COPPER_CREATION_STATE_KEY,
+  //   null,
+  //   COPPER_CREATION_STATE_VERSION
+  // );
+  // if (activeStep.value === 0 && previouslySavedState !== null) {
+  //   isRestoring.value = true;
+  //   previouslySavedState = JSON.parse(previouslySavedState);
+  //   importState(previouslySavedState);
+  //   setRestoredState(true);
+  //   await nextTick();
+  //   setActiveStep(previouslySavedState.activeStep);
+  // }
+  // injectUnknownPoolTokens();
+  // isRestoring.value = false;
 });
 
 /**
