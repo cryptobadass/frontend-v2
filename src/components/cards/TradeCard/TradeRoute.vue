@@ -366,12 +366,12 @@ export default defineComponent({
         [Network.KOVAN]: 'kovan.',
         [Network.POLYGON]: 'polygon.',
         [Network.ARBITRUM]: 'arbitrum.',
-        [Network.FUJI]: 'fuji.',
-        [Network.AVALANCHE]: 'avalanche.'
+        [Network.FUJI]: 'app.',
+        [Network.AVALANCHE]: 'app.'
       };
       const prefix = prefixMap[chainId] || '';
 
-      return `https://${prefix}balancer.fi/#/pool/${id}`;
+      return `https://${prefix}yotei.finance/#/pool/${id}`;
     }
 
     return {

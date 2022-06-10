@@ -110,32 +110,44 @@ const routes: RouteRecordRaw[] = [
     meta: { layout: 'BlankLayout' }
     // redirect: '/'
   },
+  {
+    path: '/lbp-faq',
+    name: 'lbp-faq',
+    component: () => import('@/pages/lbp-faq.vue'),
+    meta: { layout: 'ContentLayout' }
+  },
+  {
+    path: '/lbp-creation',
+    name: 'lbp-creation',
+    component: () => import('@/pages/lbp-creation.vue'),
+    meta: { layout: 'ContentLayout' }
+  },
   // {
   //   path: '/liquidity-mining',
   //   name: 'liquidity-mining',
-  //   component: LiquidityMiningPage,
-  //   redirect: '/'
+  //   component: LiquidityMiningPage
+  //   // redirect: '/'
   // },
   // {
   //   path: '/terms-of-use',
   //   name: 'terms-of-use',
   //   component: TermsOfUsePage,
-  //   meta: { layout: 'ContentLayout' },
-  //   redirect: '/'
+  //   meta: { layout: 'ContentLayout' }
+  //   // redirect: '/'
   // },
   // {
   //   path: '/privacy-policy',
   //   name: 'privacy-policy',
   //   component: PrivacyPolicyPage,
-  //   meta: { layout: 'ContentLayout' },
-  //   redirect: '/'
+  //   meta: { layout: 'ContentLayout' }
+  //   // redirect: '/'
   // },
   // {
   //   path: '/cookies-policy',
   //   name: 'cookies-policy',
   //   component: CookiesPolicyPage,
-  //   meta: { layout: 'ContentLayout' },
-  //   redirect: '/'
+  //   meta: { layout: 'ContentLayout' }
+  //   // redirect: '/'
   // },
   {
     path: '/:pathMatch(.*)*',

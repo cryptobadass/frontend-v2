@@ -108,9 +108,8 @@
                     external
                     noStyle
                     class="group flex items-center"
-                    :href="
-                      'https://docs.alchemist.wtf/copper/lbps/faq#5.-how-does-coppers-fee-structure-work'
-                    "
+                    tag="router-link"
+                    :to="{ name: 'lbp-faq' }"
                   >
                     More Info
                     <BalIcon
@@ -137,9 +136,8 @@
                     external
                     noStyle
                     class="group flex items-center"
-                    :href="
-                      'https://docs.alchemist.wtf/copper/lbps/auction-creation'
-                    "
+                    tag="router-link"
+                    :to="{ name: 'lbp-creation' }"
                   >
                     More Info
                     <BalIcon
@@ -217,7 +215,7 @@ import {
   isHttpStart,
   isHttpStartCheck
 } from '@/lib/utils/validations';
-import BalSelectInput from '@/components/_global/BalSelectInput/BalSelectInput.vue';
+// import BalSelectInput from '@/components/_global/BalSelectInput/BalSelectInput.vue';
 import { computed } from 'vue';
 // import 'element-plus/theme-chalk/dark/el-select-v2.css';
 import { isLessThanOrEqualTo } from '@/lib/utils/validations';

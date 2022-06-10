@@ -22,8 +22,8 @@ export default class ConfigService {
     return {
       APP_ENV: process.env.VUE_APP_ENV || 'development',
       NETWORK: networkId.value,
-      APP_DOMAIN: process.env.VUE_APP_DOMAIN || 'app.balancer.fi',
-      APP_HOST: process.env.VUE_APP_HOST || 'balancer.fi',
+      APP_DOMAIN: process.env.VUE_APP_DOMAIN || 'app.yotei.finance',
+      APP_HOST: process.env.VUE_APP_HOST || 'yotei.finance',
       IPFS_NODE: process.env.VUE_APP_IPFS_NODE || 'cloudflare-ipfs.com',
       BLOCKNATIVE_DAPP_ID:
         process.env.VUE_APP_BLOCKNATIVE_DAPP_ID || 'MISSING_KEY',
