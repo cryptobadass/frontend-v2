@@ -246,7 +246,7 @@ export default function useCopperPoolQuery(
     }
     await injectTokens([
       ...pool.tokensList,
-      ...lpTokensFor(pool),
+      // ...lpTokensFor(pool),
       balancerSubgraphService.pools.addressFor(pool.id)
     ]);
     await forChange(dynamicDataLoading, false);
@@ -348,7 +348,7 @@ export default function useCopperPoolQuery(
     // let swapResults: Array<any> = [];
     // // let resSwap = await balancerSubgraphService.poolSwaps.get();
     // while (paginateShares) {
-    //   const resSwap = await balancerSubgraphService.poolSwaps.get({
+    // const resSwap = await balancerSubgraphService.poolSwaps.get({
     //     first: 1000,
     //     skip: shareSkip,
     //     where: Object.assign({
@@ -364,6 +364,7 @@ export default function useCopperPoolQuery(
     //   }
     // }
     // console.log('aaaaaaa   swap history list :', {
+    //   swapResults,
     //   onchain: onchainData,
     //   unwrappedTokens,
     //   ...decoratedPool,

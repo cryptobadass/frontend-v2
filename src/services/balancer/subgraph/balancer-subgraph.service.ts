@@ -8,7 +8,7 @@ import PoolSnapshots from './entities/poolSnapshots';
 import TradePairSnapshots from './entities/tradePairs';
 import LBPDetail from './entities/lbpDetail';
 import LBPStatistics from './entities/lbpStatistics';
-
+import LBPSwap from './entities/lbpSwap';
 import { networkId } from '@/composables/useNetwork';
 // import { Network } from '@balancer-labs/sdk';
 import { Network } from 'yotei-sdk';
@@ -22,6 +22,7 @@ export default class BalancerSubgraphService {
   tradePairSnapshots: TradePairSnapshots;
   lbpDetail: LBPDetail;
   lbpStatistics: LBPStatistics;
+  lbpSwap: LBPSwap;
 
   constructor(
     readonly client = balancerSubgraphClient,
@@ -36,6 +37,7 @@ export default class BalancerSubgraphService {
     this.tradePairSnapshots = new TradePairSnapshots(this);
     this.lbpDetail = new LBPDetail(this);
     this.lbpStatistics = new LBPStatistics(this);
+    this.lbpSwap = new LBPSwap(this);
   }
 
   public get blockTime(): number {

@@ -144,6 +144,7 @@ const token = computed((): TokenInfo | undefined => {
 });
 
 const tokenValue = computed(() => {
+  // console.log('aaaaabbb', props.tokenValue, _amount.value, _address.value);
   return props.tokenValue ?? toFiat(_amount.value, _address.value);
 });
 

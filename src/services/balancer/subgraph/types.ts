@@ -192,6 +192,18 @@ export interface PoolSwap {
   tx: string;
 }
 
+export interface CopperSwap {
+  tokenIn: string;
+  tokenOut: string;
+  tokenAmountIn: string;
+  tokenAmountOut: string;
+  timestamp: number;
+  tx: string;
+  tokenInSym: string;
+  tokenOutSym: string;
+  caller: string;
+}
+
 export interface PoolSnapshot {
   pool: {
     id: string;

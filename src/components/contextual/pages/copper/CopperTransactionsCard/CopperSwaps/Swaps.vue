@@ -3,11 +3,12 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { flatten } from 'lodash';
 
-import usePoolSwapsQuery from '@/composables/queries/usePoolSwapsQuery';
+// import usePoolSwapsQuery from '@/composables/queries/usePoolSwapsQuery';
 
 import { FullPoolCopper } from '@/services/balancer/subgraph/types';
 
 import Table from './Table.vue';
+import useCopperSwapsQuery from '@/composables/queries/useCopperSwapsQuery';
 
 /**
  * TYPES
@@ -37,7 +38,7 @@ const id = route.params.id as string;
 /**
  * QUERIES
  */
-const poolSwapsQuery = usePoolSwapsQuery(id);
+const poolSwapsQuery = useCopperSwapsQuery(id);
 
 /**
  * COMPUTED
@@ -60,6 +61,10 @@ const tokens = computed(() => {
   // ];
   return [props.pool.main_token, props.pool.base_token];
 });
+const swap = computed(() => {
+  if (!props.pool) return '0';
+  return props.pool.swap_fee;
+});
 
 /**
  * METHODS
@@ -72,6 +77,7 @@ function loadMorePoolSwaps() {
 <template>
   <Table
     :tokens="tokens"
+    :swap-fee="swap"
     :pool-swaps="poolSwaps"
     :is-loading="loading || isLoadingPoolSwaps"
     :is-loading-more="poolSwapsIsFetchingNextPage"
