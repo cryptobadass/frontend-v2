@@ -93,7 +93,8 @@ const columns = computed<ColumnDefinition<DecoratedPoolCopper>[]>(() => [
     accessor: 'lbp_name',
     width: 250,
     noGrow: true,
-    Cell: 'poolTokenCell'
+    Cell: 'poolTokenCell',
+    align: 'left'
   },
   {
     name: 'Start Time',
@@ -293,7 +294,7 @@ function formatStatus(pool: DecoratedPoolCopper) {
         </div>
       </template>
       <template v-slot:poolTokenCell="pool">
-        <div class="flex items-center">
+        <div class="flex items-center text-left">
           <BalAsset class="mx-2" :iconURI="pool.image_url" />
           {{ pool.lbp_name }}
         </div>
