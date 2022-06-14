@@ -130,6 +130,7 @@
   "repository": "balancer-labs/frontend-v2",
   "dependencies": {
     "element-plus": "^2.2.1",
+    "validator": "^13.7.0",
     "yotei-sdk": "^0.1.2"
   }
 }

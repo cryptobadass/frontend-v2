@@ -10,7 +10,7 @@
       class="mr-3"
     />
     <div class="flex-auto">
-      {{ token.symbol }}
+      <div class="w-40 md:w-60 truncate">{{ token.symbol }}</div>
       <div class="text-gray text-sm w-40 md:w-60 truncate">
         {{ token.name }}
       </div>

@@ -43,7 +43,7 @@
                   class=" flex-auto w-full bg-transparent"
                   placeholder="Enter a URL"
                   size="sm"
-                  :rules="[isRequired(), isHttpStart()]"
+                  :rules="[isRequired(), isHttpStart(),isURL()]"
                 />
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
@@ -213,7 +213,8 @@ import useCountries from '@/composables/useCountries';
 import {
   isRequired,
   isHttpStart,
-  isHttpStartCheck
+  isHttpStartCheck,
+  isURL
 } from '@/lib/utils/validations';
 // import BalSelectInput from '@/components/_global/BalSelectInput/BalSelectInput.vue';
 import { computed } from 'vue';

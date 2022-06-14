@@ -27,7 +27,7 @@ import { configService } from '@/services/config/config.service';
 type PoolsQueryResponse = {
   pools: DecoratedPool[];
   // tokens: string[];
-  // skip?: number;
+  currentPage?: number;
   // enabled?: boolean;
 };
 
@@ -258,11 +258,12 @@ export default function useCopperPoolsQuery(
   //   };
   // };
 
-  const queryFn = async () => {
+  const queryFn = async ({pageParam = 1}) => {
+    // const {pageParam ,...bb} = a;
     // const provider = getProvider();
     const group = route.query.group as string;
     const pools = await copperService.pools.lbp.poolList(
-      group ? parseInt(group) : configService.network.defaultLaunchpadGroupId
+      group ? parseInt(group) : configService.network.defaultLaunchpadGroupId, pageParam,POOLS.Pagination.PerPage
     );
     // {
     //   "lbp_name":"xxx",
@@ -287,11 +288,12 @@ export default function useCopperPoolsQuery(
       pools[i].lbpDetail = lbpDetail;
     }
     // console.log('aaaaaaa', pools);
-    return { pools };
+    return { pools, 
+      currentPage: pools.length <POOLS.Pagination.PerPage ? undefined: pageParam+1};
   };
   const queryOptions = reactive({
     ...options,
-    // getNextPageParam: (lastPage: PoolsQueryResponse) => lastPage.skip,
+    getNextPageParam: (lastPage: PoolsQueryResponse) => lastPage.currentPage,
     enabled
   });
 
