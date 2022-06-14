@@ -213,11 +213,13 @@ export default class LBPService {
     );
     return poolData;
   }
-  public async poolList(groupId = 1,currentPage = 1, pageSize = 10) {
+  public async poolList(groupId = 1, currentPage = 1, pageSize = 10) {
     const data = await request.get<
       null,
       { success: boolean; result: Array<any> }
-    >(`/api/pools?group_id=${groupId}&current_page=${currentPage}&page_size=${pageSize}`);
+    >(
+      `/api/pools?group_id=${groupId}&current_page=${currentPage}&page_size=${pageSize}`
+    );
     return data.success ? data.result || [] : [];
   }
   public async poolDetail(id: number | string) {

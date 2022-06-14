@@ -2,7 +2,7 @@ import i18n from '@/plugins/i18n';
 import { bnum } from '.';
 import numeral from 'numeral';
 import { isAddress } from '@ethersproject/address';
-import {isURL as _isURL} from 'validator';
+import { isURL as _isURL } from 'validator';
 
 export function isRequired(field = '') {
   const _field = field ? `${field} ` : 'Input ';
@@ -71,10 +71,9 @@ export function isHttpStart() {
   return v =>
     !v || isHttpStartCheck(v) || 'starts with "http://" or "https://"';
 }
-export const isURLCheck = url =>{
-  return _isURL(url)
-}
-export function isURL(){
-  return v=>
-  !v || isURLCheck(v) || 'must be right URL'
+export const isURLCheck = url => {
+  return _isURL(url);
+};
+export function isURL() {
+  return v => !v || isURLCheck(v) || 'must be right URL';
 }

@@ -43,7 +43,7 @@
                   class=" flex-auto w-full bg-transparent"
                   placeholder="Enter a URL"
                   size="sm"
-                  :rules="[isRequired(), isHttpStart(),isURL()]"
+                  :rules="[isRequired(), isHttpStart(), isURL()]"
                 />
               </div>
               <div class="mb-4 text-sm text-gray-400 font-normal">
