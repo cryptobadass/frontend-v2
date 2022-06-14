@@ -157,7 +157,9 @@ const loadingPoolsList = ref(false);
 function getGroup() {
   loadingGroupList.value = true;
   request
-    .get<any, { success: boolean; result: Array<any> }>('/api/lbps?page_size=9999')
+    .get<any, { success: boolean; result: Array<any> }>(
+      '/api/lbps?page_size=9999'
+    )
     .then(data => {
       groupData.value = data.result || [];
     })
