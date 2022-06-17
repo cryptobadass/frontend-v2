@@ -114,13 +114,11 @@ function swapChange(b) {
     props.pool.pool_address,
     !isActive.value,
     () => {
-     
       isActive.value = !beforeValue;
       isBtnDisabled.value = false;
       emit('refetch');
     },
     () => {
-     
       // isActive.value = !!isActive.value;
       isActive.value = !beforeValue;
       setTimeout(() => {
