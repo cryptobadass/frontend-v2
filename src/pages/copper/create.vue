@@ -185,11 +185,7 @@ const steps = computed(() => [
     state: getStepState(3),
     label: 4
   },
-  // {
-  //   tooltip: 'Terms of Use',
-  //   state: getStepState(4),
-  //   label: 5
-  // },
+
   {
     tooltip: 'Create LBP',
     state: getStepState(4),
@@ -239,26 +235,7 @@ function handleReset() {
   setActiveStep(0);
 }
 function setWrapperHeight(dimensions?: { width: number; height: number }) {
-  // need to transform the accordion as everything is absolutely
-  // positioned inside the AnimateHeight component
-  // if (dimensions?.height) prevWrapperHeight.value = dimensions.height;
-  // let mobileOffset = 20;
-  // anime({
-  //   targets: accordionWrapper.value,
-  //   translateY: `${prevWrapperHeight.value + mobileOffset}px`,
-  //   easing: 'spring(0.4, 500, 9, 0)',
-  //   complete: () => {
-  //     if (!hasCompletedMountAnimation.value) {
-  //       anime({
-  //         targets: accordionWrapper.value,
-  //         opacity: 1,
-  //         complete: () => {
-  //           hasCompletedMountAnimation.value = true;
-  //         }
-  //       });
-  //     }
-  //   }
-  // });
+  //
 }
 function handleNavigate(stepIndex: number) {
   if (hasRestoredFromSavedState.value) {
@@ -268,7 +245,6 @@ function handleNavigate(stepIndex: number) {
 }
 
 function injectUnknownPoolTokens() {
-  // console.log('aaaaaaaaaisLoadingTokens', !isLoadingTokens.value);
   if (!isLoadingTokens.value) {
     const uninjectedTokens = seedTokens.value
       .filter(seedToken => tokens.value[seedToken.tokenAddress] === undefined)
@@ -277,7 +253,6 @@ function injectUnknownPoolTokens() {
     const uninjectedTokensOptions = baseTokenOptions.value
       .filter(token => tokens.value[token] === undefined)
       .filter(token => token !== '');
-    // console.log('aaaaa---injectTokens:',[...uninjectedTokens, ...uninjectedTokensOptions])
     injectTokens([...uninjectedTokens, ...uninjectedTokensOptions]);
   }
 }

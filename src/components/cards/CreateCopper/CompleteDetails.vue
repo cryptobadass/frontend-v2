@@ -216,9 +216,7 @@ import {
   isHttpStartCheck,
   isURL
 } from '@/lib/utils/validations';
-// import BalSelectInput from '@/components/_global/BalSelectInput/BalSelectInput.vue';
 import { computed } from 'vue';
-// import 'element-plus/theme-chalk/dark/el-select-v2.css';
 import { isLessThanOrEqualTo } from '@/lib/utils/validations';
 
 /**
@@ -239,14 +237,7 @@ const { countries } = useCountries();
 /**
  * COMPUTED
  */
-// const countryList = computed(() => {
-//   return countries.value.map(item => {
-//     return {
-//       text: item.country,
-//       value: item.alpha2
-//     };
-//   });
-// });
+
 const isProceedDisabled = computed(() => {
   if (!description.value) return true;
   if (!learnMoreLink.value || !isHttpStartCheck(learnMoreLink.value))

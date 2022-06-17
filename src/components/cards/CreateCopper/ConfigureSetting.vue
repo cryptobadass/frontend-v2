@@ -17,16 +17,12 @@
           <div class="h-px bg-gunmetal dark:border-gray-600"></div>
         </BalStack>
         <BalCard shadow="none" noBorder noPad class="bg-dark-3">
-          <!-- <div
-            class="grid grid-cols-1 xl:grid-cols-3 gap-y-8 gap-x-0 xl:gap-x-8"
-          ></div> -->
           <div class=" mb-3">
             <div class="font-bold mb-2">Deposit Quantities</div>
             <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-6 mb-4">
               <div class="col-span-1">
                 <div class="flex justify-between mb-2">
                   <div>Main Token <span class="text-red-500">*</span></div>
-                  <!-- <div class="text-gray-400">Balance: 999999.99</div> -->
                 </div>
                 <div>
                   <TokenInput
@@ -44,7 +40,6 @@
                   <div>Base token <span class="text-red-500">*</span></div>
                 </div>
                 <div>
-                  <!-- fixedToken :options="baseTokenOptions"-->
                   <TokenInput
                     v-model:amount="seedTokens[1].amount"
                     v-model:address="seedTokens[1].tokenAddress"
@@ -179,7 +174,6 @@ import TokenInput from '@/components/inputs/TokenInput/TokenInput.vue';
 
 import { bnum } from '@/lib/utils';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
-// import BalSlider from '@/components/_global/BalSlider/BalSlider.vue';
 import { isGreaterThan } from '@/lib/utils/validations';
 import { oneDayInMs, oneMinInMs } from '@/composables/useTime';
 import useTokens from '@/composables/useTokens';
@@ -216,8 +210,6 @@ const hasZeroAmount = computed(() => {
   );
 });
 const isExceedingWalletBalance = computed(() => {
-  // need to perform rounding here as JS cuts off those
-  // really long numbers which makes it impossible to compare
   const isExceeding = seedTokens.value.some((t, i) =>
     bnum(seedTokens.value[i].amount).gt(balanceFor(t.tokenAddress))
   );
@@ -268,7 +260,6 @@ watch(
  * FUNCTIONS
  */
 function checkTime() {
-  console.log(time.value);
   if (!time.value) {
     timeError.value = 'Date is required';
     return false;
@@ -282,7 +273,6 @@ function checkTime() {
   return true;
 }
 function disabledTime(v) {
-  // v.getTime  00:00:00
   return v.getTime() + oneDayInMs < Date.now();
 }
 function continueClick() {

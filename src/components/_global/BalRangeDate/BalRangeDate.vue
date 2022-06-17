@@ -1,13 +1,6 @@
 <script lang="ts">
-import { fromUnixTime, format, setDate } from 'date-fns';
-import {
-  defineComponent,
-  computed,
-  ref,
-  onBeforeUnmount,
-  onMounted,
-  watch
-} from 'vue';
+import { format } from 'date-fns';
+import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'BalSlider',
@@ -27,25 +20,10 @@ export default defineComponent({
 
     if (props.modelValue) {
       console.log(props.modelValue);
-
-      // time.value = format(
-      //   fromUnixTime(new Date(props.modelValue).getTime() / 1000),
-      //   'HH:mm'
-      // );
     }
 
-    // const day = computed(() => {
-    //   return props.modelValue?'' :''
-    // });
-    // const time = computed(()=>{
-    //   return props.modelValue?'' :''
-    // })
-
-    // emit('update:modelValue', value);
     function dayChange(v) {
       if (v) {
-        // let d = format(fromUnixTime(v.getTime() / 1000), 'yyyy/MM/dd');
-        // console.log('change', d);
         if (!time.value) {
           time.value = '00:00';
         }
@@ -56,7 +34,6 @@ export default defineComponent({
     }
     function timeChange(v) {
       if (v) {
-        // let d = format(fromUnixTime(v.getTime() / 1000), 'HH:mm');
         console.log('change', v);
       } else {
         day.value = '';
@@ -66,7 +43,6 @@ export default defineComponent({
     function setDate() {
       console.log(day.value, time.value);
       if (day.value) {
-        // let _day = day.value;
         let str =
           format(day.value, 'yyyy/MM/dd') + ' ' + (time.value || '00:00');
         emit('update:modelValue', new Date(str));
@@ -74,10 +50,6 @@ export default defineComponent({
         emit('update:modelValue', null);
       }
     }
-
-    // watch(day, () => {
-    //   console.log('watch',day.value)
-    // });
 
     return {
       day,

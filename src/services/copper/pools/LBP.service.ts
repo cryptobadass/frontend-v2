@@ -45,18 +45,7 @@ export default class LBPService {
     provider: Web3Provider,
     poolConfig
   ): Promise<TransactionResponse> {
-    // if (!owner.length) return Promise.reject('No pool owner specified');
-
     const copperProxyV2Address = configService.network.addresses.copperProxyV2;
-
-    // const tokenAddresses: Address[] = tokens.map((token: PoolSeedToken) => {
-    //   return token.tokenAddress;
-    // });
-
-    // const seedTokens = this.calculateTokenWeights(tokens);
-    // const a = 1;
-    // const swapFeeScaled = scale(new BigNumber(a), 18);
-    // poolConfig.
 
     const params = [poolConfig];
     return sendTransaction(
@@ -89,7 +78,7 @@ export default class LBPService {
   ): Promise<TransactionResponse> {
     const copperProxyV2Address = configService.network.addresses.copperProxyV2;
     const params = [pool, 0, true];
-    // debugger;
+
     return sendTransaction(
       provider,
       copperProxyV2Address,
@@ -117,12 +106,11 @@ export default class LBPService {
         l => l.topics?.length > 0 && l.topics[0] === TOPICS.PoolCreated
       );
       poolAddress = logs[0].address;
-      // debugger
     }
 
     const pool = new Contract(poolAddress, WeightedPool__factory.abi, provider);
     const poolId = await pool.getPoolId();
-    // debugger;
+
     const poolDetails: CreatePoolReturn = {
       id: poolId,
       address: poolAddress
@@ -131,76 +119,6 @@ export default class LBPService {
     return poolDetails;
   }
 
-  // public async initJoin(
-  //   provider: Web3Provider,
-  //   poolId: string,
-  //   sender: Address,
-  //   receiver: Address,
-  //   tokenAddresses: Address[],
-  //   initialBalancesString: string[]
-  // ): Promise<TransactionResponse> {
-  //   const initUserData = defaultAbiCoder.encode(
-  //     ['uint256', 'uint256[]'],
-  //     [JOIN_KIND_INIT, initialBalancesString]
-  //   );
-
-  //   const value = this.value(initialBalancesString, tokenAddresses);
-
-  //   tokenAddresses = this.parseTokensIn(tokenAddresses);
-
-  //   const joinPoolRequest: JoinPoolRequest = {
-  //     assets: tokenAddresses,
-  //     maxAmountsIn: initialBalancesString,
-  //     userData: initUserData,
-  //     fromInternalBalance: false
-  //   };
-
-  //   const vaultAddress = configService.network.addresses.vault;
-  //   return sendTransaction(
-  //     provider,
-  //     vaultAddress,
-  //     Vault__factory.abi,
-  //     'joinPool',
-  //     [poolId, sender, receiver, joinPoolRequest],
-  //     { value }
-  //   );
-  // }
-
-  // public calculateTokenWeights(tokens: PoolSeedToken[]): string[] {
-  //   const weights: EPBigNumber[] = tokens.map((token: PoolSeedToken) => {
-  //     const normalizedWeight = new BigNumber(token.weight).multipliedBy(
-  //       new BigNumber(1e16)
-  //     );
-  //     return EPBigNumber.from(normalizedWeight.toString());
-  //   });
-  //   const normalizedWeights = toNormalizedWeights(weights);
-  //   const weightStrings = normalizedWeights.map((weight: EPBigNumber) => {
-  //     return weight.toString();
-  //   });
-
-  //   return weightStrings;
-  // }
-
-  // private value(amountsIn: string[], tokensIn: string[]): EPBigNumber {
-  //   let value = '0';
-  //   const nativeAsset = configService.network.nativeAsset;
-
-  //   amountsIn.forEach((amount, i) => {
-  //     if (tokensIn[i] === nativeAsset.address) {
-  //       value = amount;
-  //     }
-  //   });
-
-  //   return EPBigNumber.from(value);
-  // }
-
-  // private parseTokensIn(tokensIn: string[]): string[] {
-  //   const nativeAsset = configService.network.nativeAsset;
-
-  //   return tokensIn.map(address =>
-  //     address === nativeAsset.address ? AddressZero : address
-  //   );
-  // }
   public async getPoolData(provider: Web3Provider, id) {
     const copperProxyV2Address = configService.network.addresses.copperProxyV2;
 
@@ -227,22 +145,13 @@ export default class LBPService {
       any,
       { result: FullPoolCopper; success: boolean }
     >(`/api/pool/${id}`);
-    // debugger;
-    // console.log('response', response);
+
     return response.result;
   }
   public saveLBP(data) {
-    request
-      .post('/api/pool/create', data)
-      .then(res => {
-        // console.log('aaaaa', res);
-      })
-      .catch(e => {
-        // console.log('aaaa', e);
-      })
-      .finally(() => {
-        console.log('save create LBP finally');
-      });
+    request.post('/api/pool/create', data).finally(() => {
+      console.log('save create LBP finally');
+    });
   }
   public async getToken() {
     const response = await request({

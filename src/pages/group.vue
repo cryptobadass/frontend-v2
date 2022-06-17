@@ -314,11 +314,6 @@ function saveToYotei() {
  * CALLBACKS
  */
 onMounted(async () => {
-  // selectedPoolTokens are only persisted between the Home/Pool pages
-  // setSelectedTokens([]);
-  // const { token } = await copperService.pools.lbp.getToken();
-  // // console.log('token:', token);
-  // lsSet('token', token);
   getGroup();
 });
 </script>

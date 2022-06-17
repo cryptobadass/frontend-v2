@@ -24,7 +24,6 @@ const { lockablePoolId } = useVeBal();
 /**
  * QUERIES
  */
-// console.log('aaaaa-2', lockablePoolId.value)
 const lockablePoolQuery = usePoolQuery(lockablePoolId.value as string);
 const veBalLockInfoQuery = useVeBalLockInfoQuery();
 

@@ -106,24 +106,21 @@ onMounted(() => {
 /**
  * METHODS
  */
-// function loadMorePoolSwaps() {
-//   poolSwapsQuery.fetchNextPage.value();
-// }
+
 function swapChange(b) {
-  console.log(b);
   isBtnDisabled.value = true;
   let beforeValue = isActive.value;
   setSwapEnabled(
     props.pool.pool_address,
     !isActive.value,
     () => {
-      console.log('aaaaaa, 1');
+     
       isActive.value = !beforeValue;
       isBtnDisabled.value = false;
       emit('refetch');
     },
     () => {
-      console.log('aaaaaa, 2');
+     
       // isActive.value = !!isActive.value;
       isActive.value = !beforeValue;
       setTimeout(() => {

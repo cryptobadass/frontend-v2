@@ -24,7 +24,6 @@ export default function usePoolTransfers() {
   /**
    * QUERIES
    */
-  // console.log('aaaaaa-6',id.value)
   const poolQuery = usePoolQuery(id.value);
 
   /**

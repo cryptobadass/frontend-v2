@@ -29,8 +29,6 @@ export default function useCopperSwapsQuery(
 
   // METHODS
   const queryFn = async ({ pageParam = 0 }) => {
-    // console.log('aaaaa ', 1);
-    // debugger;
     const poolSwaps = await balancerSubgraphService.lbpSwap.get(
       {
         where: Object.assign(
@@ -63,7 +61,6 @@ export default function useCopperSwapsQuery(
         }
       }
     );
-    // console.log('aaaaaa', poolSwaps);
 
     return {
       poolSwaps,

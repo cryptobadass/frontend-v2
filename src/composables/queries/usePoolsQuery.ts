@@ -133,9 +133,7 @@ export default function usePoolsQuery(
     if (filterOptions?.poolAddresses?.value.length) {
       queryArgs.where.address_in = filterOptions.poolAddresses.value;
     }
-    // console.log('aaaaaa', queryArgs)
     const pools = await balancerSubgraphService.pools.get(queryArgs);
-    // console.log('aaaaaa_2',pools)
 
     for (let i = 0; i < pools.length; i++) {
       const isStablePhantomPool = isStablePhantom(pools[i].poolType);

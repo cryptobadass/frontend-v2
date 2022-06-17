@@ -3,9 +3,6 @@
     <BalCard shadow="none">
       <BalStack vertical spacing="base">
         <BalStack vertical spacing="xs">
-          <!-- <span class="text-xs text-gray-700 dark:text-bluey-grey">{{
-            networkName
-          }}</span> -->
           <h5 class="font-bold dark:text-white border-b border-gunmetal pb-2">
             Add Token Information
           </h5>
@@ -134,7 +131,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, toRefs } from 'vue';
+import { computed } from 'vue';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import useTokens from '@/composables/useTokens';
@@ -153,9 +150,7 @@ const { balanceFor } = useTokens();
  * COMPOSABLES
  */
 const { proceed, seedTokens, mainTokenInfo, image } = useCopperCreation();
-// const { upToLargeBreakpoint } = useBreakpoints();
 const { fNum2 } = useNumbers();
-// const { nativeAsset, tokens } = useTokens();
 const { t } = useI18n();
 const {
   isMismatchedNetwork,
@@ -174,9 +169,7 @@ const network = configService.network.network;
 /**
  * COMPUTED
  */
-// const tokenWeightItemHeight = computed(() =>
-//   upToLargeBreakpoint.value ? 56 : 64
-// );
+
 const tokenBalance = computed(() => {
   return balanceFor(seedTokens.value[0].tokenAddress);
 });
@@ -198,14 +191,6 @@ const walletLabel = computed(() => {
 /**
  * LIFECYCLE
  */
-// onMounted(async () => {
-//   // wait for vue to reflect the changes of above
-//   await nextTick();
-// });
-
-// onBeforeUpdate(() => {
-//   seedTokenElements.value = [];
-// });
 
 /**
  * FUNCTIONS

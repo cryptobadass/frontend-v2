@@ -1,38 +1,21 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { watch } from 'vue';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-
 import CoppersTable from '@/components/tables/CoppersTable/CoppersTable.vue';
-
-// import usePools from '@/composables/pools/usePools';
-import useWeb3 from '@/services/web3/useWeb3';
 import usePoolFilters from '@/composables/pools/usePoolFilters';
 import useAlerts, { AlertPriority, AlertType } from '@/composables/useAlerts';
 import useBreakpoints from '@/composables/useBreakpoints';
-import { isMigratablePool } from '@/composables/usePool';
-import { MIN_FIAT_VALUE_POOL_MIGRATION } from '@/constants/pools';
-import { bnum } from '@/lib/utils';
 import useCopperPools from '@/composables/copper/useCopperPools';
 
 // COMPOSABLES
 const router = useRouter();
-// const route = useRoute();
 const { t } = useI18n();
-const { isWalletReady, appNetworkConfig, isWalletConnecting } = useWeb3();
-const isElementSupported = appNetworkConfig.supportsElementPools;
-const {
-  selectedTokens,
-  addSelectedToken,
-  removeSelectedToken
-} = usePoolFilters();
-// console.log('aaaa', route.query);
+const { selectedTokens } = usePoolFilters();
 
 const {
   pools,
-  // userPools,
   isLoadingPools,
-  // isLoadingUserPools,
   loadMorePools,
   poolsHasNextPage,
   poolsIsFetchingNextPage,
@@ -41,28 +24,6 @@ const {
 const { addAlert, removeAlert } = useAlerts();
 const { upToMediumBreakpoint } = useBreakpoints();
 
-// COMPUTED
-// const filteredPools = computed(() =>
-//   selectedTokens.value.length > 0
-//     ? pools.value?.filter(pool => {
-//         return selectedTokens.value.every((selectedToken: string) =>
-//           pool.tokenAddresses.includes(selectedToken)
-//         );
-//       })
-//     : pools?.value
-// );
-
-// const showMigrationColumn = computed(() =>
-//   userPools.value?.some(pool => {
-//     return (
-//       isMigratablePool(pool) &&
-//       // TODO: this is a temporary solution to allow only big holders to migrate due to gas costs.
-//       bnum(pool.shares).gt(MIN_FIAT_VALUE_POOL_MIGRATION)
-//     );
-//   })
-// );
-
-// userPools.value[0].shares
 watch(poolsQuery.error, () => {
   if (poolsQuery.error.value) {
     addAlert({
@@ -78,12 +39,6 @@ watch(poolsQuery.error, () => {
     removeAlert('pools-fetch-error');
   }
 });
-
-// const migratableUserPools = computed(() => {
-//   return userPools.value.filter(pool => isMigratablePool(pool));
-// });
-
-// watch(showMigrationColumn, () => console.log(showMigrationColumn.value));
 
 /**
  * METHODS

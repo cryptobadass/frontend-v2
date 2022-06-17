@@ -43,15 +43,13 @@ export default defineComponent({
 
     const wrapperStyle = computed(() => ({
       left: `${props.modelValue * 100}%`
-      // marginLeft: '-50%'
-      // translate: 'translateX(-50%)'
     }));
     const currentPos = computed(() => {
       return `${(props.modelValue / props.max) * 100}%`;
     });
     function onDragStart(event: Event) {
       dragging.value = true;
-      // this.isClick = true;
+
       const { type } = event;
       let { clientX } = event as MouseEvent;
       if (type === 'touchstart') {
@@ -60,11 +58,8 @@ export default defineComponent({
       }
       startX.value = clientX;
       startPos.value = parseFloat(currentPos.value);
-      // console.log(startX.value);
-      // this.newPos = this.startPos;
     }
     function onButtonDown(event: MouseEvent) {
-      // console.log(event)
       event.preventDefault();
       onDragStart(event);
       window.addEventListener('mousemove', onDragging);
@@ -75,7 +70,7 @@ export default defineComponent({
     }
     function onDragging(e: Event) {
       const event = e;
-      // console.log(e)
+
       if (!dragging.value) {
         return;
       }
@@ -99,17 +94,16 @@ export default defineComponent({
       } else if (newPos < 0) {
         newPos = 0;
       }
-      // console.log(newPos)
+
       let value = Math.round(newPos) * 0.01;
       value = Number(parseFloat(`${value}`).toFixed(2));
-      // console.log(value);
+
       emit('update:modelValue', value);
     }
     function onDragEnd() {
       if (dragging.value) {
         setTimeout(() => {
           dragging.value = false;
-          // this.hideTooltipComponent();
         }, 0);
         window.removeEventListener('mousemove', onDragging);
         window.removeEventListener('touchmove', onDragging);

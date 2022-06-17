@@ -111,18 +111,14 @@ export default function useUserPoolsQuery(
   const queryKey = reactive(QUERY_KEYS.Pools.User(networkId, account));
 
   const queryFn = async () => {
-    // console.log('aaaaa',account.value)
     const poolShares = await balancerSubgraphService.poolShares.get({
       where: {
         userAddress: account.value.toLowerCase()
       }
     });
-    // console.log('aaaa', poolShares);
 
     const poolSharesIds = poolShares.map(poolShare => poolShare.poolId.id);
     const poolSharesMap = keyBy(poolShares, poolShare => poolShare.poolId.id);
-
-    // console.log('aaaa2', poolSharesIds, POOLS.ExcludedPoolTypes);
 
     const pools = await balancerSubgraphService.pools.get({
       where: {
@@ -130,7 +126,6 @@ export default function useUserPoolsQuery(
         poolType_not_in: POOLS.ExcludedPoolTypes
       }
     });
-    // console.log('aaaaa3', pools);
 
     for (let i = 0; i < pools.length; i++) {
       const isStablePhantomPool = isStablePhantom(pools[i].poolType);
@@ -239,10 +234,6 @@ export default function useUserPoolsQuery(
     }
 
     const poolsWithShares = decoratedPools.map(pool => {
-      // console.log('aaaa -poolsWithShares ',pool.totalLiquidity, pool.totalShares,poolSharesMap[pool.id].balance, bnum(pool.totalLiquidity)
-      // .div(pool.totalShares)
-      // .times(poolSharesMap[pool.id].balance)
-      // .toString())
       return {
         ...pool,
         shares: bnum(pool.totalLiquidity)

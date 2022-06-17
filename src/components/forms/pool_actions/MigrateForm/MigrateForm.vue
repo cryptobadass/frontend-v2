@@ -34,7 +34,6 @@ const { tokens } = useTokens();
 /**
  * QUERIES
  */
-// console.log('aaaaa-3', props.poolMigrationInfo.fromPoolId,props.poolMigrationInfo.toPoolId)
 const fromPoolQuery = usePoolQuery(props.poolMigrationInfo.fromPoolId);
 const toPoolQuery = usePoolQuery(props.poolMigrationInfo.toPoolId);
 const batchRelayerApproval = useRelayerApproval(Relayer.BATCH);

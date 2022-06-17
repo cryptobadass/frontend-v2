@@ -76,22 +76,9 @@ const actions = computed((): TransactionActionInfo[] => [
     action: createPool,
     stepTooltip: 'create LBP Pool'
   }
-  // {
-  //   label: t('fundPool'),
-  //   loadingLabel: t('investment.preview.loadingLabel.fund'),
-  //   confirmingLabel: t('confirming'),
-  //   action: joinPool,
-  //   stepTooltip: t('fundPoolTooltip')
-  // }
 ]);
 
 const requiredActions = computed(() => {
-  // if (
-  //   (hasRestoredFromSavedState.value && needsSeeding.value) ||
-  //   createState.isRestoredTxConfirmed
-  // ) {
-  //   return actions.value.filter(action => action.label === t('fundPool'));
-  // }
   return actions.value;
 });
 

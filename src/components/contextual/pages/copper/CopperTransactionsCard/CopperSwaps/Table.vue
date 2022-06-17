@@ -164,7 +164,7 @@ const swapRows = computed<SwapRow[]>(() =>
 );
 
 function getPrice(action) {
-  // console.log('aaa', props.tokens, action.tokenOut, action.tokenIn);
+  // console.log( props.tokens, action.tokenOut, action.tokenIn);
   // ['0x32F106297E28bBf71FFC41b74DA98D78b703B479', '0x286EA60Cb66ba7647C8143c5d467594B92A3734C']
   // 0x32f106297e28bbf71ffc41b74da98d78b703b479 0x286ea60cb66ba7647c8143c5d467594b92a3734c
   // why not use action

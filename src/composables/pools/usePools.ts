@@ -28,7 +28,6 @@ export default function usePools(poolsTokenList: Ref<string[]> = ref([])) {
   const totalInvestedAmount = computed(
     () => userPoolsQuery.data.value?.totalInvestedAmount
   );
-  // console.log('aaaaaaa-20',userPoolsQuery.data.value)
 
   const isLoadingPools = computed(
     () => poolsQuery.isLoading.value || poolsQuery.isIdle.value

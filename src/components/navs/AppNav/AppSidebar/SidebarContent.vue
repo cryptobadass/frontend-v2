@@ -100,7 +100,7 @@ watch(blockNumber, async () => {
       </div>
     </div>
 
-    <div class="grid grid-col-1 text-sm mt-6">
+    <!-- <div class="grid grid-col-1 text-sm mt-6">
       <span class="text-gray-500 px-4 font-medium">Ecosystem</span>
       <BalLink
         v-for="link in ecosystemLinks"
@@ -113,7 +113,7 @@ watch(blockNumber, async () => {
         {{ link.label }}
         <BalIcon name="arrow-up-right" size="sm" class="ml-1 text-gray-500" />
       </BalLink>
-    </div>
+    </div> -->
 
     <div class="mt-6 px-4">
       <!-- <div id="intercom-activator" class="side-bar-btn">

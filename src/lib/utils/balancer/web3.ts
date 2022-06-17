@@ -50,10 +50,8 @@ export async function sendTransaction(
     );
 
     const gasLimit = gasLimitNumber.toNumber();
-    // console.log('gasLimit: ', gasLimit);
-    // const gasLimit = 4739888;
+
     paramsOverrides.gasLimit = Math.floor(gasLimit * (1 + GAS_LIMIT_BUFFER));
-    // debugger
 
     if (
       USE_BLOCKNATIVE_GAS_PLATFORM &&

@@ -17,11 +17,10 @@ export default class LBPSwaps {
 
   public async get(args = {}, attrs = {}): Promise<PoolSwap[]> {
     const query = this.query(args, attrs);
-    // debugger;
+
     const { pools } = await this.service.client.get(query);
-    // console.log('aaaaaaaa', pools);
+
     return pools[0].swaps || [];
-    // return this.serialize(swaps);
   }
 
   serialize(swaps: PoolSwap[]) {

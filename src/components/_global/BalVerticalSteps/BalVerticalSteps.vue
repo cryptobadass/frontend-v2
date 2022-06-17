@@ -27,8 +27,6 @@ const visibleSteps = computed(() => {
   );
 });
 
-console.log('a aa', visibleSteps);
-
 const stepTextClasses = computed(() => {
   return visibleSteps.value.map(step => {
     return getActiveClassName(step.state, [

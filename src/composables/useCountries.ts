@@ -13,7 +13,6 @@ export default function useUrls() {
   const countries = ref<Array<Country>>([]);
   onMounted(async () => {
     const result = await copperService.pools.lbp.getCountries();
-    // console.log('aaaa', result);
     countries.value = result || [];
   });
 

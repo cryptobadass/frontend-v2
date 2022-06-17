@@ -189,11 +189,7 @@
 
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from 'vue';
-
 import CreateActions from '@/components/cards/CreateCopper/CreateActions.vue';
-
-import { configService } from '@/services/config/config.service';
-
 import useWeb3 from '@/services/web3/useWeb3';
 import { useI18n } from 'vue-i18n';
 import useCopperCreation from '@/composables/copper/useCopperCreation';
@@ -213,12 +209,8 @@ const copiedAddress = ref(false);
  */
 const {
   goBack,
-  // createLBP,
-  // approve,
   readAndAgree,
   getScaledAmounts,
-  // tokens
-  // tokenList,
   time,
   swapFeePercentage,
   mainTokenAmount,
@@ -238,8 +230,6 @@ const poolCreated = ref(false);
 
 const tokenAmounts = computed((): string[] => {
   return getScaledAmounts();
-  // debugger
-  // return tokenList.value.map(() => MaxUint256.toString()); // approve
 });
 const { tokenApprovalActions } = useTokenCopperApprovalActions(
   seedTokens.value.map(el => el.tokenAddress),

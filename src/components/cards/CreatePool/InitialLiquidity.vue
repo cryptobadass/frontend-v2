@@ -45,7 +45,6 @@ const {
   setAmountsToMaxBalances,
   saveState
 } = usePoolCreation();
-// console.log('aaaaaa', seedTokens, tokensList);
 const { t } = useI18n();
 
 const tokenAddresses = ref([] as string[]);
@@ -61,8 +60,6 @@ const areAmountsMaxed = computed(() => {
 });
 
 const isExceedingWalletBalance = computed(() => {
-  // need to perform rounding here as JS cuts off those
-  // really long numbers which makes it impossible to compare
   const isExceeding = tokenAddresses.value.some((t, i) =>
     bnum(seedTokens.value[i].amount).gt(balanceFor(t))
   );
@@ -318,7 +315,7 @@ function saveAndProceed() {
           </BalStack>
         </div>
         <AnimatePresence
-          :isVisible="arbitrageDelta.delta > 0.05"
+          :isVisible="arbitrageDelta.delta.gt(0.05)"
           @on-presence="onAlertMountChange"
           @on-exit="onAlertMountChange"
           unmountInstantly

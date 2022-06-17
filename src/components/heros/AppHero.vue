@@ -39,7 +39,6 @@ const classes = computed(() => ({
   ['h-72']: !isWalletReady.value && !isWalletConnecting.value,
   ['h-40']: isWalletReady.value || isWalletConnecting.value
 }));
-// console.log('totalInvestedLabel',totalInvestedLabel.value)
 const totalInvestedLabel = computed((): string => {
   const value = bnum(totalInvestedAmount.value || '0')
     .plus(lockFiatValue.value)
@@ -61,14 +60,6 @@ const isLoadingLockAndStaking = computed(
 const isLoadingTotalValue = computed(
   (): boolean => isLoadingUserPools.value //|| isLoadingLockAndStaking.value
 );
-// console.log('aaaaa-9', isLoadingUserPools.value, isLoadingLockAndStaking.value);
-// console.log(
-//   'aaaaa-10',
-//   isL2.value,
-//   isLoadingLock.value,
-//   isStakingQueryEnabled.value,
-//   isStakingLoading.value
-// );
 
 /**
  * METHODS
