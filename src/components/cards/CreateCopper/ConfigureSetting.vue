@@ -46,6 +46,8 @@
                     :name="`initial-token-${seedTokens[1].tokenAddress}`"
                     :rules="[isGreaterThan(0)]"
                     :excludedTokens="excludedTokens"
+                    :options="baseTokenOptions"
+                    fixedToken
                   />
                 </div>
               </div>
@@ -188,7 +190,8 @@ const {
   seedTokens,
   mainTokenInfo,
   baseTokenInfo,
-  image
+  image,
+  baseTokenOptions
 } = useCopperCreation();
 const { balanceFor } = useTokens();
 

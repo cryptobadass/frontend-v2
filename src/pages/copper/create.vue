@@ -156,7 +156,7 @@ onBeforeMount(async () => {
   //   await nextTick();
   //   setActiveStep(previouslySavedState.activeStep);
   // }
-  // injectUnknownPoolTokens();
+  injectUnknownPoolTokens();
   // isRestoring.value = false;
 });
 
@@ -245,7 +245,9 @@ function handleNavigate(stepIndex: number) {
 }
 
 function injectUnknownPoolTokens() {
+  console.log('aaaaaaaaaaaaaaaaaa,inject', isLoadingTokens.value);
   if (!isLoadingTokens.value) {
+    console.log('aaaaaaaaaaaaaaaaaa,run');
     const uninjectedTokens = seedTokens.value
       .filter(seedToken => tokens.value[seedToken.tokenAddress] === undefined)
       .map(seedToken => seedToken.tokenAddress)
@@ -253,12 +255,19 @@ function injectUnknownPoolTokens() {
     const uninjectedTokensOptions = baseTokenOptions.value
       .filter(token => tokens.value[token] === undefined)
       .filter(token => token !== '');
+    console.log('aaaaaaaaaaaaaaaaaa--aaa', [
+      ...uninjectedTokens,
+      ...uninjectedTokensOptions
+    ]);
     injectTokens([...uninjectedTokens, ...uninjectedTokensOptions]);
   }
 }
 /**
  * WATCHERS
  */
+watch(isLoadingTokens, () => {
+  injectUnknownPoolTokens();
+});
 </script>
 
 <style scoped>

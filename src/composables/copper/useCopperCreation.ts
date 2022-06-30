@@ -57,8 +57,7 @@ function getDefaultTime() {
   return [defaultStartTime, defaultEndTime];
 }
 
-const baseTokenOPtions = Object.keys(TOKENS.Prices.ChainMap[networkId.value]);
-
+const baseTokenOptions = Object.keys(TOKENS.Prices.ChainMap[networkId.value]);
 const emptyPoolCreationState = {
   seedTokens: [
     {
@@ -70,7 +69,7 @@ const emptyPoolCreationState = {
       amount: ''
     },
     {
-      tokenAddress: '', // 0x286EA60Cb66ba7647C8143c5d467594B92A3734C
+      tokenAddress: baseTokenOptions[0], // 0x286EA60Cb66ba7647C8143c5d467594B92A3734C
       startWeight: 1,
       endWeight: 99,
       id: '2',
@@ -81,11 +80,15 @@ const emptyPoolCreationState = {
 
   mainTokenAmount: '',
   baseTokenAmount: '',
-  baseTokenOptions: [
-    // '0xea6a8f1ae564070f7f3fa6180678ea6744a1e01a',
-    // '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
-    // '0xed7F146612C8d2e8E101b8b5B8C58b8E70E99149'
-  ],
+  baseTokenOptions,
+  // baseTokenOptions: [
+  //   '0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7',
+  //   '0x50b7545627a5162F82A992c33b87aDc75187B218',
+  //   '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
+  //   '0xd586E7F844cEa2F87f50152665BCbc2C279D8d70',
+  //   '0x8eBAf22B6F053dFFeaf46f4Dd9eFA95D89ba8580',
+  //   '0x5947BB275c521040051D82396192181b413227A3'
+  // ],
   isCorrectOrder: true, // bool
   swapFeePercentage: 2.5, // uint256
   time: getDefaultTime() as Array<Date | null>,

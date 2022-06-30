@@ -75,12 +75,12 @@ export const TOKEN_LIST_MAP: TokenListMapByNetwork = {
   '43114': {
     Balancer: {
       Default:
-        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json',
+        'https://raw.githubusercontent.com/pangolindex/tokenlists/main/pangolin.tokenlist.json', //'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json',
       Vetted:
-        'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
+        'https://raw.githubusercontent.com/pangolindex/tokenlists/main/pangolin.tokenlist.json' //'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
     },
     External: [
-      'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
+      'https://raw.githubusercontent.com/pangolindex/tokenlists/main/pangolin.tokenlist.json' //'https://raw.githubusercontent.com/cryptobadass/avalanche-config/main/frontend-v2/tokens.avalanche.json'
     ]
   }
 };
