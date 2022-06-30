@@ -29,7 +29,7 @@ export const TOKENS = {
       BAL: '0xE00Bf4d40670FCC1DcB3A757ebccBe579f372fbc'
     },
     '43114': {
-      WETH: '0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB',
+      WETH: '0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB'
     }
   },
   Prices: {
