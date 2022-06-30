@@ -82,9 +82,9 @@ const emptyPoolCreationState = {
   mainTokenAmount: '',
   baseTokenAmount: '',
   baseTokenOptions: [
-    '0xea6a8f1ae564070f7f3fa6180678ea6744a1e01a',
-    '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
-    '0xed7F146612C8d2e8E101b8b5B8C58b8E70E99149'
+    // '0xea6a8f1ae564070f7f3fa6180678ea6744a1e01a',
+    // '0x286EA60Cb66ba7647C8143c5d467594B92A3734C',
+    // '0xed7F146612C8d2e8E101b8b5B8C58b8E70E99149'
   ],
   isCorrectOrder: true, // bool
   swapFeePercentage: 2.5, // uint256
