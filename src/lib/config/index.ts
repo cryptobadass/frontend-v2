@@ -47,8 +47,7 @@ export interface Config {
     bFactory?: string;
     bActions?: string;
     dsProxyRegistry?: string;
-    exchangeProxy?: string;
-    merkleRedeem: string;
+    merkleRedeem?: string;
     merkleOrchard: string;
     multicall: string;
     authorizer?: string;
