@@ -27,7 +27,7 @@ import { TokenInfo } from '@/types/TokenList';
 import { balancer } from '@/lib/balancer.sdk';
 import {
   SwapType,
-  TransactionData,
+  TransactionData
   // BalancerError,
   // BalancerErrorCode
 } from '@balancer-labs/sdk';
@@ -501,18 +501,18 @@ export default function useWithdrawMath(
     const fetchPools = !batchSwap.value; // Only needs to be fetched on first call
 
     // try {
-      const result = await balancer.swaps.queryBatchSwapWithSor({
-        tokensIn: tokensIn,
-        tokensOut: tokensOut || batchSwapTokensOut.value,
-        swapType,
-        amounts,
-        fetchPools: {
-          fetchPools,
-          fetchOnChain: false
-        }
-      });
-      batchSwapLoading.value = false;
-      return result;
+    const result = await balancer.swaps.queryBatchSwapWithSor({
+      tokensIn: tokensIn,
+      tokensOut: tokensOut || batchSwapTokensOut.value,
+      swapType,
+      amounts,
+      fetchPools: {
+        fetchPools,
+        fetchOnChain: false
+      }
+    });
+    batchSwapLoading.value = false;
+    return result;
     // } catch (error) {
     //   if (
     //     error instanceof BalancerError &&
