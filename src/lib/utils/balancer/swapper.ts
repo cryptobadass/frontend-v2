@@ -6,8 +6,8 @@ import {
   SwapToken,
   SwapTokenType
 } from '@/services/swap/swap.service';
-// import { BatchSwapStep, SwapV2 } from '@balancer-labs/sdk';
-import { BatchSwapStep, SwapV2 } from 'yotei-sdk';
+import { BatchSwapStep, SwapV2 } from '@balancer-labs/sdk';
+// import { BatchSwapStep, SwapV2 } from 'yotei-sdk';
 import { SwapKind } from '@balancer-labs/balancer-js';
 
 export async function swapIn(

@@ -11,8 +11,8 @@ import {
   SwapKind
 } from '@balancer-labs/balancer-js';
 import Web3Service, { web3Service } from '../web3/web3.service';
-// import { BatchSwapStep, SwapV2 } from '@balancer-labs/sdk';
-import { BatchSwapStep, SwapV2 } from 'yotei-sdk';
+import { BatchSwapStep, SwapV2 } from '@balancer-labs/sdk';
+// import { BatchSwapStep, SwapV2 } from 'yotei-sdk';
 
 export type Address = string;
 

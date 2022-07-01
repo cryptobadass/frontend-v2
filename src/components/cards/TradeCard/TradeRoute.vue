@@ -126,16 +126,16 @@ import { PropType, defineComponent, ref, computed } from 'vue';
 import { getAddress } from '@ethersproject/address';
 import { AddressZero } from '@ethersproject/constants';
 import { Pool } from '@balancer-labs/sor/dist/types';
-// import { SwapV2, SubgraphPoolBase } from '@balancer-labs/sdk';
-import { SwapV2, SubgraphPoolBase } from 'yotei-sdk';
+import { SwapV2, SubgraphPoolBase } from '@balancer-labs/sdk';
+// import { SwapV2, SubgraphPoolBase } from 'yotei-sdk';
 
 import useNumbers, { FNumFormats } from '@/composables/useNumbers';
 import { SorReturn } from '@/lib/utils/balancer/helpers/sor/sorManager';
 import useWeb3 from '@/services/web3/useWeb3';
 import useTokens from '@/composables/useTokens';
 import { NATIVE_ASSET_ADDRESS } from '@/constants/tokens';
-// import { Network } from '@balancer-labs/sdk';
-import { Network } from 'yotei-sdk';
+import { Network } from '@balancer-labs/sdk';
+// import { Network } from 'yotei-sdk';
 
 interface Route {
   share: number;

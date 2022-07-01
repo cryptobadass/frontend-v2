@@ -26,17 +26,17 @@ import OldBigNumber from 'bignumber.js';
 import { TokenInfo } from '@/types/TokenList';
 import { balancer } from '@/lib/balancer.sdk';
 import {
-  // SwapType,
-  // TransactionData,
-  BalancerError,
-  BalancerErrorCode
-} from '@balancer-labs/sdk';
-import {
   SwapType,
-  TransactionData
+  TransactionData,
   // BalancerError,
   // BalancerErrorCode
-} from 'yotei-sdk';
+} from '@balancer-labs/sdk';
+// import {
+//   SwapType,
+//   TransactionData
+//   // BalancerError,
+//   // BalancerErrorCode
+// } from 'yotei-sdk';
 import { SwapKind } from '@balancer-labs/balancer-js';
 import usePromiseSequence from '@/composables/usePromiseSequence';
 import { setError, WithdrawalError } from './useWithdrawalState';
@@ -500,7 +500,7 @@ export default function useWithdrawMath(
     const tokensIn = amounts.map(() => pool.value.address);
     const fetchPools = !batchSwap.value; // Only needs to be fetched on first call
 
-    try {
+    // try {
       const result = await balancer.swaps.queryBatchSwapWithSor({
         tokensIn: tokensIn,
         tokensOut: tokensOut || batchSwapTokensOut.value,
@@ -513,24 +513,24 @@ export default function useWithdrawMath(
       });
       batchSwapLoading.value = false;
       return result;
-    } catch (error) {
-      if (
-        error instanceof BalancerError &&
-        (error as BalancerError)?.code ===
-          BalancerErrorCode.SWAP_ZERO_RETURN_AMOUNT
-      ) {
-        // The batch swap can fail if amounts are greater than supported by pool balances
-        // in this case we can return 0 amounts which will lead to an attempt via getBatchRelayerSwap()
-        batchSwapLoading.value = false;
-        return {
-          returnAmounts: Array(amounts.length).fill('0'),
-          swaps: [],
-          assets: []
-        };
-      } else {
-        throw error;
-      }
-    }
+    // } catch (error) {
+    //   if (
+    //     error instanceof BalancerError &&
+    //     (error as BalancerError)?.code ===
+    //       BalancerErrorCode.SWAP_ZERO_RETURN_AMOUNT
+    //   ) {
+    //     // The batch swap can fail if amounts are greater than supported by pool balances
+    //     // in this case we can return 0 amounts which will lead to an attempt via getBatchRelayerSwap()
+    //     batchSwapLoading.value = false;
+    //     return {
+    //       returnAmounts: Array(amounts.length).fill('0'),
+    //       swaps: [],
+    //       assets: []
+    //     };
+    //   } else {
+    //     throw error;
+    //   }
+    // }
   }
 
   /**

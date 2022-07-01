@@ -174,8 +174,8 @@ import {
 import { TradeInterface } from '@/store/modules/app';
 import useEthereumTxType from '@/composables/useEthereumTxType';
 import { ENABLE_LEGACY_TRADE_INTERFACE } from '@/composables/trade/constants';
-// import { Network } from '@balancer-labs/sdk';
-import { Network } from 'yotei-sdk';
+import { Network } from '@balancer-labs/sdk';
+// import { Network } from 'yotei-sdk';
 
 const locales = {
   'en-US': 'English',

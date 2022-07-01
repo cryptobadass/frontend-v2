@@ -4,8 +4,8 @@ import { configService } from '@/services/config/config.service';
 import { rpcProviderService } from '@/services/rpc-provider/rpc-provider.service';
 import { BigNumber } from '@ethersproject/bignumber';
 import { JsonRpcProvider } from '@ethersproject/providers';
-// import { Network } from '@balancer-labs/sdk';
-import { Network } from 'yotei-sdk';
+import { Network } from '@balancer-labs/sdk';
+// import { Network } from 'yotei-sdk';
 import { VotingGauge } from '@/constants/voting-gauges';
 import { oneWeekInMs, toUnixTimestamp } from '@/composables/useTime';
 

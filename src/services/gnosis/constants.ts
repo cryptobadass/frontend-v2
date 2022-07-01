@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { networkId } from '@/composables/useNetwork';
-// import { Network } from '@balancer-labs/sdk';
-import { Network } from 'yotei-sdk';
+import { Network } from '@balancer-labs/sdk';
+// import { Network } from 'yotei-sdk';
 import {
   GPv2Settlement,
   GPv2VaultRelayer

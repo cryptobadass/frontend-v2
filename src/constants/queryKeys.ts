@@ -1,5 +1,5 @@
-// import { Network } from '@balancer-labs/sdk';
-import { Network } from 'yotei-sdk';
+import { Network } from '@balancer-labs/sdk';
+// import { Network } from 'yotei-sdk';
 import { NativeAsset } from '@/types/TokenList';
 import { Ref } from 'vue';
 import { SubgraphGauge } from '@/services/balancer/gauges/types';

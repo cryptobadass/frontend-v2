@@ -1,6 +1,6 @@
 import { configService } from '@/services/config/config.service';
-// import { BalancerSDK, Network } from '@balancer-labs/sdk';
-import { YoteiSDK, Network } from 'yotei-sdk';
+import { BalancerSDK, Network } from '@balancer-labs/sdk';
+// import { YoteiSDK, Network } from 'yotei-sdk';
 
 const network = ((): Network => {
   switch (configService.network.key) {
@@ -21,7 +21,7 @@ const network = ((): Network => {
   }
 })();
 
-export const balancer = new YoteiSDK({
+export const balancer = new BalancerSDK({
   network,
   rpcUrl: configService.rpc
 });

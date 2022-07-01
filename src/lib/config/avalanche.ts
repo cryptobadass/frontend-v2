@@ -15,7 +15,7 @@ const config: Config = {
   explorer: 'https://snowtrace.io',
   explorerName: 'Snowtrace',
   subgraph:
-    'https://api.thegraph.com/subgraphs/name/leedewyze/balancer-avalanche-v2',
+    'https://node-us.yotei.finance/subgraphs/name/balancer-labs/balancer-avalanche-v2',
   // poolsUrlV1: '',
   poolsUrlV2: '',
   subgraphs: {

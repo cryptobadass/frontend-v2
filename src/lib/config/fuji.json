@@ -12,7 +12,7 @@
   "loggingRpc": "https://api.avax-test.network/ext/bc/C/rpc",
   "explorer": "https://testnet.snowtrace.io/",
   "explorerName": "snowtrace",
-  "subgraph": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-fuji-v2",
+  "subgraph": "https://node-us.yotei.finance/subgraphs/name/balancer-labs/balancer-avalanche-v2",
   "poolsUrlV2": "https://storageapi.fleek.co/johngrantuk-team-bucket/poolsV2.json",
   "subgraphs": {
     "aave": "https://api.thegraph.com/subgraphs/name/aave/protocol-v2",

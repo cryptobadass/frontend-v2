@@ -6,8 +6,8 @@ import { parseUnits, formatUnits } from '@ethersproject/units';
 import { bnum } from '@/lib/utils';
 import OldBigNumber from 'bignumber.js';
 
-// import { stableBPTForTokensZeroPriceImpact as _bptForTokensZeroPriceImpact } from '@balancer-labs/sdk';
-import { stableBPTForTokensZeroPriceImpact as _bptForTokensZeroPriceImpact } from 'yotei-sdk';
+import { stableBPTForTokensZeroPriceImpact as _bptForTokensZeroPriceImpact } from '@balancer-labs/sdk';
+// import { stableBPTForTokensZeroPriceImpact as _bptForTokensZeroPriceImpact } from 'yotei-sdk';
 import * as SDK from '@georgeroman/balancer-v2-pools';
 
 /**

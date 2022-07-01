@@ -10,8 +10,8 @@ import LBPDetail from './entities/lbpDetail';
 import LBPStatistics from './entities/lbpStatistics';
 import LBPSwap from './entities/lbpSwap';
 import { networkId } from '@/composables/useNetwork';
-// import { Network } from '@balancer-labs/sdk';
-import { Network } from 'yotei-sdk';
+import { Network } from '@balancer-labs/sdk';
+// import { Network } from 'yotei-sdk';
 
 export default class BalancerSubgraphService {
   pools: Pools;

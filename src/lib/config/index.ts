@@ -7,8 +7,8 @@ import docker from './docker.json';
 import test from './test.json';
 import fuji from './fuji';
 import avalanche from './avalanche';
-// import { Network } from '@balancer-labs/sdk';
-import { Network } from 'yotei-sdk';
+import { Network } from '@balancer-labs/sdk';
+// import { Network } from 'yotei-sdk';
 
 export interface Config {
   key: string;

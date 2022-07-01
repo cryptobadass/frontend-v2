@@ -11,8 +11,8 @@ import { BigNumber, parseFixed, formatFixed } from '@ethersproject/bignumber';
 import { Zero, WeiPerEther as ONE } from '@ethersproject/constants';
 import { BigNumber as OldBigNumber } from 'bignumber.js';
 import { Pool } from '@balancer-labs/sor/dist/types';
-// import { SubgraphPoolBase, SwapType, SwapTypes } from '@balancer-labs/sdk';
-import { SubgraphPoolBase, SwapType, SwapTypes } from 'yotei-sdk';
+import { SubgraphPoolBase, SwapType, SwapTypes } from '@balancer-labs/sdk';
+// import { SubgraphPoolBase, SwapType, SwapTypes } from 'yotei-sdk';
 import { useI18n } from 'vue-i18n';
 
 import { scale, bnum } from '@/lib/utils';

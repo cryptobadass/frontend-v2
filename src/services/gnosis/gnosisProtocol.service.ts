@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import { networkId } from '@/composables/useNetwork';
-// import { Network } from '@balancer-labs/sdk';
-import { Network } from 'yotei-sdk';
+import { Network } from '@balancer-labs/sdk';
+// import { Network } from 'yotei-sdk';
 
 import { IS_DEV } from '@/constants/env';
 
