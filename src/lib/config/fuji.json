@@ -12,7 +12,7 @@
   "loggingRpc": "",
   "explorer": "https://testnet.snowtrace.io",
   "explorerName": "Snowtrace",
-  "subgraph": "http://167.114.211.113:8000/subgraphs/name/balancer-labs/balancer-fuji-v2",
+  "subgraph": "https://api.thegraph.com/subgraphs/name/leedewyze/balancer-fuji-v2",
   "poolsUrlV1": "",
   "poolsUrlV2": "",
   "subgraphs": {
